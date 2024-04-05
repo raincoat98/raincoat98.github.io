@@ -8,7 +8,7 @@ export default defineConfig({
   cleanUrls: true,
   srcDir: "./src",
   sitemap: {
-    hostname: "https://raincoat.github.io",
+    hostname: "https://raincoat98.github.io",
     transformItems: (items) => {
       // 새 항목 추가 또는 기존 항목 수정/필터링
       items.push({
