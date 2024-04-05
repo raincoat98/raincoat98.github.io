@@ -7,6 +7,18 @@ export default defineConfig({
   description: "A VitePress Site",
   cleanUrls: true,
   srcDir: "./src",
+  sitemap: {
+    hostname: "https://raincoat.github.io",
+    transformItems: (items) => {
+      // 새 항목 추가 또는 기존 항목 수정/필터링
+      items.push({
+        url: "/extra-page",
+        changefreq: "monthly",
+        priority: 0.8,
+      });
+      return items;
+    },
+  },
   themeConfig: {
     // https://vitepress.dev/reference/default-theme-config
     nav: [
