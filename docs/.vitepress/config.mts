@@ -48,6 +48,10 @@ export default defineConfig({
                 text: "내가 VueJS를 사용하는 이유",
                 link: "/frontend/vue/my-vue",
               },
+              {
+                text: "vue Cookie : 오늘 하루동안 보지 않기 기능 구현",
+                link: "/frontend/vue/vue-cookie",
+              },
             ],
           },
         ],
