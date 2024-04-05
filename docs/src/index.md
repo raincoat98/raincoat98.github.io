@@ -16,7 +16,7 @@ hero:
 
 features:
   - icon:
-      src: "/public/images/vue.png"
+      src: "/images/vue.png"
     title: Vue로 현대적인 웹 만들기
     details: Vue.js를 사용하여 사용자 친화적이고 반응형이며, 컴포넌트 기반의 웹 애플리케이션 개발 방법을 배워보세요. 실무 예제와 함께하는 Vue 입문부터 고급 기법까지 다룹니다.
   - icon:

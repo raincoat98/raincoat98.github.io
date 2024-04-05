@@ -6,7 +6,7 @@ export default defineConfig({
   title: "SangWook Blog",
   description: "A VitePress Site",
   cleanUrls: true,
-  srcDir: "src",
+  srcDir: "./src",
   themeConfig: {
     // https://vitepress.dev/reference/default-theme-config
     nav: [
