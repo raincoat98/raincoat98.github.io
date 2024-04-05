@@ -13,10 +13,10 @@ export default defineConfig({
       { text: "Home", link: "/" },
       {
         text: "About",
-        link: "/about ",
-        activeMatch: "/about",
+        link: "/introduce/about ",
+        activeMatch: "/introduce/about",
       },
-      { text: "Examples", link: "/markdown-examples" },
+      { text: "Examples", link: "/examples/markdown-examples" },
     ],
 
     sidebar: [
@@ -24,17 +24,17 @@ export default defineConfig({
         text: "Introduction",
         collapsed: false,
         items: [
-          { text: "About me", link: "/about" },
+          { text: "About me", link: "/introduce/about" },
 
-          { text: "WHY 개발자?", link: "/my-develop" },
+          { text: "WHY 개발자?", link: "/introduce/my-develop" },
         ],
       },
       {
         text: "Examples",
         collapsed: true,
         items: [
-          { text: "Markdown Examples", link: "/markdown-examples" },
-          { text: "Runtime API Examples", link: "/api-examples" },
+          { text: "Markdown Examples", link: "/examples/markdown-examples" },
+          { text: "Runtime API Examples", link: "/examples/api-examples" },
         ],
       },
       {

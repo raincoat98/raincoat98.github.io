@@ -9,10 +9,10 @@ hero:
   actions:
     - theme: brand
       text: 글 보러가기 👀
-      link: /markdown-examples
+      link: /examples/markdown-examples
     - theme: alt
       text: About me 😎
-      link: /about
+      link: /introduce/about
 
 features:
   - icon:
