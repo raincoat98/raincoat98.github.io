@@ -20,10 +20,50 @@ export default defineConfig({
 
     sidebar: [
       {
+        text: "Introduction",
+        collapsed: false,
+        items: [
+          { text: "About me", link: "/about" },
+
+          { text: "WHY 개발자?", link: "/my-develop" },
+        ],
+      },
+      {
         text: "Examples",
+        collapsed: true,
         items: [
           { text: "Markdown Examples", link: "/markdown-examples" },
           { text: "Runtime API Examples", link: "/api-examples" },
+        ],
+      },
+      {
+        text: "Frontend",
+        items: [
+          {
+            text: "Vue",
+            collapsed: false,
+            items: [
+              {
+                text: "내가 VueJS를 사용하는 이유",
+                link: "/frontend/vue/my-vue",
+              },
+            ],
+          },
+        ],
+      },
+      {
+        text: "Backend",
+        items: [
+          {
+            text: "NestJS",
+            collapsed: true,
+            items: [
+              {
+                text: "내가 NestJS를 사용하는 이유",
+                link: "/backend/nestjs/my-nestjs",
+              },
+            ],
+          },
         ],
       },
     ],
