@@ -16,11 +16,11 @@ hero:
 
 features:
   - icon:
-      src: "/assets/vue.png"
+      src: "/public/images/vue.png"
     title: Vue로 현대적인 웹 만들기
     details: Vue.js를 사용하여 사용자 친화적이고 반응형이며, 컴포넌트 기반의 웹 애플리케이션 개발 방법을 배워보세요. 실무 예제와 함께하는 Vue 입문부터 고급 기법까지 다룹니다.
   - icon:
-      src: "/assets/nestjs.png"
+      src: "/images/nestjs.png"
     title: NestJS로 엔터프라이즈급 백엔드 구축
     details: TypeScript와 함께하는 NestJS를 통해 강력하고 유지보수가 용이한 서버 사이드 애플리케이션을 개발하는 방법을 소개합니다.
   - icon: ⚙️

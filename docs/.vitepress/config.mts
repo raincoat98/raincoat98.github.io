@@ -5,7 +5,6 @@ export default defineConfig({
   base: "/",
   title: "SangWook Blog",
   description: "A VitePress Site",
-  outDir: "../public",
   themeConfig: {
     // https://vitepress.dev/reference/default-theme-config
     nav: [
@@ -67,7 +66,6 @@ export default defineConfig({
         ],
       },
     ],
-
     socialLinks: [
       { icon: "github", link: "https://github.com/raincoat98/vitepress" },
     ],

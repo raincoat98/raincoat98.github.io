@@ -1,1 +1,0 @@
-import{_ as a,c as r,o as e,a2 as t}from"./chunks/framework.CWo5xHl-.js";const b=JSON.parse('{"title":"우상욱","description":"","frontmatter":{"layout":"doc"},"headers":[],"relativePath":"about.md","filePath":"about.md"}'),o={name:"about.md"},l=t("",79),i=[l];function n(s,h,p,c,u,d){return e(),r("div",null,i)}const m=a(o,[["render",n]]);export{b as __pageData,m as default};
