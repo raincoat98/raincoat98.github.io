@@ -54,6 +54,10 @@ export default defineConfig({
                 link: "/frontend/vue/my-vue",
               },
               {
+                text: " Vue 라이브러리 추천",
+                link: "/frontend/vue/my-vue-library",
+              },
+              {
                 text: "vue Cookie : 오늘 하루동안 보지 않기 기능 구현",
                 link: "/frontend/vue/vue-cookie",
               },
