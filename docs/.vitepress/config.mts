@@ -41,14 +41,7 @@ export default defineConfig({
           { text: "WHY 개발자?", link: "/introduce/my-develop" },
         ],
       },
-      {
-        text: "Examples",
-        collapsed: true,
-        items: [
-          { text: "Markdown Examples", link: "/examples/markdown-examples" },
-          { text: "Runtime API Examples", link: "/examples/api-examples" },
-        ],
-      },
+
       {
         text: "Frontend",
         items: [
@@ -81,6 +74,14 @@ export default defineConfig({
               },
             ],
           },
+        ],
+      },
+      {
+        text: "Examples",
+        collapsed: true,
+        items: [
+          { text: "Markdown Examples", link: "/examples/markdown-examples" },
+          { text: "Runtime API Examples", link: "/examples/api-examples" },
         ],
       },
     ],
