@@ -61,6 +61,10 @@ export default defineConfig({
                 text: "vue Cookie : 오늘 하루동안 보지 않기 기능 구현",
                 link: "/frontend/vue/vue-cookie",
               },
+              {
+                text: "Quasar Tailwind 설치",
+                link: "/frontend/vue/quasar-tailwind",
+              },
             ],
           },
         ],
