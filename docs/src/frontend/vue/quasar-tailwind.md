@@ -28,21 +28,20 @@ npx tailwindcss init -p
 
 프로젝트 루트에 `tailwind.config.js` 파일을 생성하고 다음 내용을 추가합니다.
 
-````javascript
 ```javascript
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  content: ['./index.html', './src/**/*.{js,ts,jsx,tsx,vue}'],
+  content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx,vue}"],
   theme: {
     extend: {},
   },
   plugins: [],
 };
-````
+```
 
 ### 5. PostCSS 구성 설정
 
-프로젝트 루트에 `postcss.config.js` 파일을 생성하고 다음 내용을 추가합니다.
+프로젝트 루트에 `postcss.config.cjs` 파일을 생성하고 다음 내용을 추가합니다.
 
 ```javascript
 module.exports = {
@@ -71,7 +70,7 @@ module.exports = {
 ```javascript
 module.exports = function (ctx) {
   return {
-    css: ["tailwind.css"],
+    css: ["app.scss", "tailwind.css"],
     // 다른 설정들...
   };
 };
@@ -88,4 +87,3 @@ module.exports = function (ctx) {
 ```
 
 이제 Vue Quasar 앱에서 Tailwind CSS를 더욱 즐겁게 스타일을 적용해보아요 :)
-`
