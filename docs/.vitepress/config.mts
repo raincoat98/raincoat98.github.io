@@ -89,6 +89,25 @@ export default defineConfig({
         ],
       },
       {
+        text: "Git",
+        items: [
+          // {
+          //   text: "Git",
+          //   collapsed: true,
+          //   items: [
+          //     {
+          //       text: "Git 명령어 정리",
+          //       link: "/git/git-command",
+          //     },
+          //   ],
+          // },
+          {
+            text: "GitHub Readme 예시",
+            link: "/git/github-readme",
+          },
+        ],
+      },
+      {
         text: "Examples",
         collapsed: true,
         items: [
