@@ -73,6 +73,10 @@ export default defineConfig({
                 text: "Vue Tailwind Brand Color 적용하기",
                 link: "/frontend/vue/tailwind-brand-color",
               },
+              {
+                text: "Vue 코드 컨벤션",
+                link: "/frontend/vue/vue-code-convention",
+              },
             ],
           },
         ],
