@@ -65,6 +65,10 @@ export default defineConfig({
                 text: "Quasar Tailwind 설치",
                 link: "/frontend/vue/quasar-tailwind",
               },
+              {
+                text: "Vite Quasar에서 AOS로 애니메이션 적용하기",
+                link: "/frontend/vue/vite-quasar-aos",
+              },
             ],
           },
         ],
