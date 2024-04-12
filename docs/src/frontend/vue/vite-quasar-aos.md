@@ -2,6 +2,8 @@
 
 이 문서는 Vite와 Quasar를 사용하여 웹 페이지에 스크롤 애니메이션을 추가하는 방법을 안내합니다. AOS (Animate On Scroll) 라이브러리를 사용하여 웹 페이지에 동적인 효과를 적용할 수 있습니다.
 
+[AOS GitHub](https://michalsnik.github.io/aos/).
+
 ## 1. 필요한 패키지 설치
 
 먼저, 프로젝트에 AOS 라이브러리와 필요한 타입 정의를 추가합니다. 타입스크립트를 사용하는 경우 `@types/aos` 패키지도 설치해야 합니다.
