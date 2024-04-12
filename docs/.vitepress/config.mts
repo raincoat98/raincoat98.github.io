@@ -69,6 +69,10 @@ export default defineConfig({
                 text: "Vite Quasar에서 AOS로 애니메이션 적용하기",
                 link: "/frontend/vue/vite-quasar-aos",
               },
+              {
+                text: "Vue Tailwind Brand Color 적용하기",
+                link: "/frontend/vue/tailwind-brand-color",
+              },
             ],
           },
         ],
@@ -122,7 +126,7 @@ export default defineConfig({
 
     footer: {
       message: "MIT 라이선스에 따라 릴리즈되었습니다.",
-      copyright: "저작권 © 2019-현재 Evan You",
+      copyright: "저작권 © 2024-현재 SangWook Woo",
     },
   },
 });
