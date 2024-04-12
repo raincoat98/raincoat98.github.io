@@ -16,11 +16,11 @@ Pinia는 Vue 3의 상태 관리 라이브러리로, Vuex와 유사하지만 더 
 
 VeeValidate는 Vue.js 애플리케이션에서 폼 유효성 검사를 간단하게 처리할 수 있는 라이브러리입니다. 사용자가 입력한 데이터를 유효성 검사하여 쉽게 제어할 수 있습니다.
 
-### [FloatingVue](https://www.floatingvue.com/)
+### [FloatingVue](https://floating-vue.starpad.dev/)
 
 FloatingVue는 Vue.js 애플리케이션에서 사용할 수 있는 플로팅 버튼 및 컴포넌트 라이브러리입니다. 사용자 경험을 향상시키는 데 유용한 다양한 UI 요소를 제공합니다.
 
-### [VueCal](https://github.com/ndelvalle/v-calendar)
+### [VueCal](https://antoniandre.github.io/vue-cal/)
 
 VueCal은 Vue.js 애플리케이션에서 사용할 수 있는 달력 컴포넌트 라이브러리입니다. 다양한 달력 형식을 지원하여 일정 관리나 시간 선택 등에 활용할 수 있습니다.
 
@@ -32,7 +32,7 @@ VueForm은 Vue.js 애플리케이션에서 사용할 수 있는 폼 라이브러
 
 VueUse는 Vue.js 애플리케이션에서 자주 사용되는 유틸리티 함수들을 모아놓은 라이브러리입니다. 다양한 유틸리티 함수들을 효율적으로 활용할 수 있습니다.
 
-### [PrimeVue](https://primefaces.org/primevue/)
+### [PrimeVue](https://primevue.org/)
 
 PrimeVue는 Vue.js 애플리케이션에서 사용할 수 있는 UI 컴포넌트 라이브러리입니다. 다양한 UI 컴포넌트를 제공하여 보다 풍부한 사용자 인터페이스를 구현할 수 있습니다.
 
