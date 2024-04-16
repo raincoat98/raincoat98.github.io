@@ -46,6 +46,17 @@ export default defineConfig({
         text: "Frontend",
         items: [
           {
+            text: "Javascript",
+            collapsed: true,
+
+            items: [
+              {
+                text: "객체 복사 이제는 Structured Clone !",
+                link: "/frontend/javascript/structured-clone",
+              },
+            ],
+          },
+          {
             text: "Vue",
             collapsed: false,
             items: [
@@ -96,6 +107,7 @@ export default defineConfig({
           },
         ],
       },
+
       {
         text: "Git",
         items: [
