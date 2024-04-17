@@ -1,10 +1,14 @@
 <script setup>
-import DefaultTheme from "vitepress/theme";
 import Comment from "../components/Comment.vue";
+import DefaultTheme from "vitepress/theme";
 
 const { Layout } = DefaultTheme;
 </script>
 
 <template>
-  <Layout> </Layout>
+  <Layout>
+    <template #doc-footer-before>
+      <Comment />
+    </template>
+  </Layout>
 </template>

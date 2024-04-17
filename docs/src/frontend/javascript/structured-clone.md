@@ -101,5 +101,3 @@ console.log(cloned);
 ## 결론
 
 다른 복사 방법들도 있지만, 가볍고 깊은 복사가 가능한 `structuredClone`을 사용하여 보다 쉽게 데이터를 복사하고 사용해 보세요.
-
-<Comment />
