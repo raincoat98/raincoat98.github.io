@@ -46,6 +46,16 @@ export default defineConfig({
         text: "Frontend",
         items: [
           {
+            text: "vitepress",
+            collapsed: true,
+            items: [
+              {
+                text: "vitepress 댓글 기능 구현",
+                link: "/frontend/vitepress/vitepress-comment",
+              },
+            ],
+          },
+          {
             text: "Javascript",
             collapsed: true,
 
