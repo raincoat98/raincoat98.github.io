@@ -1,9 +1,4 @@
 import { defineConfig } from "vitepress";
-import { SitemapStream } from "sitemap";
-import { createWriteStream } from "fs";
-import { resolve } from "path";
-
-const links: { url: string; lastmod: number | undefined }[] = [];
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
@@ -12,24 +7,17 @@ export default defineConfig({
   description: "A VitePress Site",
   cleanUrls: true,
   srcDir: "./src",
-  transformHtml: (_, id, { pageData }) => {
-    if (!/[\\/]404\.html$/.test(id))
-      links.push({
-        // you might need to change this if not using clean urls mode
-        url: pageData.relativePath.replace(/((^|\/)index)?\.md$/, "$2"),
-        lastmod: pageData.lastUpdated,
+  sitemap: {
+    hostname: "https://example.com",
+    transformItems: (items) => {
+      // add new items or modify/filter existing items
+      items.push({
+        url: "/extra-page",
+        changefreq: "monthly",
+        priority: 0.8,
       });
-  },
-
-  buildEnd: ({ outDir }) => {
-    // you need to change hostname to your domain
-    const sitemap = new SitemapStream({
-      hostname: "https://raincoat98.github.io",
-    });
-    const writeStream = createWriteStream(resolve(outDir, "sitemap.xml"));
-    sitemap.pipe(writeStream);
-    links.forEach((link) => sitemap.write(link));
-    sitemap.end();
+      return items;
+    },
   },
   themeConfig: {
     // https://vitepress.dev/reference/default-theme-config
