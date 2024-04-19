@@ -1,4 +1,9 @@
 import { defineConfig } from "vitepress";
+import { SitemapStream } from "sitemap";
+import { createWriteStream } from "fs";
+import { resolve } from "path";
+
+const links: { url: string; lastmod: number | undefined }[] = [];
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
@@ -7,17 +12,24 @@ export default defineConfig({
   description: "A VitePress Site",
   cleanUrls: true,
   srcDir: "./src",
-  sitemap: {
-    hostname: "https://raincoat98.github.io",
-    transformItems: (items) => {
-      // 새 항목 추가 또는 기존 항목 수정/필터링
-      items.push({
-        url: "/extra-page",
-        changefreq: "monthly",
-        priority: 0.8,
+  transformHtml: (_, id, { pageData }) => {
+    if (!/[\\/]404\.html$/.test(id))
+      links.push({
+        // you might need to change this if not using clean urls mode
+        url: pageData.relativePath.replace(/((^|\/)index)?\.md$/, "$2"),
+        lastmod: pageData.lastUpdated,
       });
-      return items;
-    },
+  },
+
+  buildEnd: ({ outDir }) => {
+    // you need to change hostname to your domain
+    const sitemap = new SitemapStream({
+      hostname: "https://raincoat98.github.io",
+    });
+    const writeStream = createWriteStream(resolve(outDir, "sitemap.xml"));
+    sitemap.pipe(writeStream);
+    links.forEach((link) => sitemap.write(link));
+    sitemap.end();
   },
   themeConfig: {
     // https://vitepress.dev/reference/default-theme-config
