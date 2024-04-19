@@ -5,6 +5,7 @@
     "docs:preview": "vitepress preview docs"
   },
   "devDependencies": {
+    "sitemap": "^7.1.1",
     "vitepress": "latest"
   }
 }
