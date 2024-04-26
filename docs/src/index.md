@@ -12,7 +12,7 @@ hero:
       link: /examples/markdown-examples
     - theme: alt
       text: About me 😎
-      link: /introduce/about
+      link: /introduce/about-me
 
 features:
   - icon:

@@ -25,7 +25,7 @@ export default defineConfig({
       { text: "Home", link: "/" },
       {
         text: "About",
-        link: "/introduce/about ",
+        link: "/introduce/about-me",
         activeMatch: "/introduce/about",
       },
       { text: "Examples", link: "/examples/markdown-examples" },
@@ -36,8 +36,11 @@ export default defineConfig({
         text: "Introduction",
         collapsed: false,
         items: [
-          { text: "About me", link: "/introduce/about" },
-
+          { text: "About me", link: "/introduce/about-me" },
+          {
+            text: "careers",
+            link: "/introduce/careers",
+          },
           { text: "WHY 개발자?", link: "/introduce/my-develop" },
         ],
       },
