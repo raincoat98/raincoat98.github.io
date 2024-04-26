@@ -8,7 +8,7 @@ export default defineConfig({
   cleanUrls: true,
   srcDir: "./src",
   sitemap: {
-    hostname: "https://example.com",
+    hostname: "https://raincoat98.github.io",
     transformItems: (items) => {
       // add new items or modify/filter existing items
       items.push({
