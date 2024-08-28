@@ -77,6 +77,10 @@ export default defineConfig({
             collapsed: false,
             items: [
               {
+                text: "폼 검증하기 VeeValidate",
+                link: "/frontend/vue/vee-validate",
+              },
+              {
                 text: "내가 VueJS를 사용하는 이유",
                 link: "/frontend/vue/my-vue",
               },
