@@ -127,7 +127,15 @@ export default defineConfig({
           },
         ],
       },
-
+      {
+        text: "Database",
+        items: [
+          {
+            text: "조회한 데이터 업데이트 하기",
+            link: "/database/update-in",
+          },
+        ],
+      },
       {
         text: "Git",
         items: [
