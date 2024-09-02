@@ -7,6 +7,7 @@ export default defineConfig({
   description: "A VitePress Site",
   cleanUrls: true,
   srcDir: "./src",
+
   sitemap: {
     hostname: "https://raincoat98.github.io",
     transformItems: (items) => {
@@ -20,6 +21,11 @@ export default defineConfig({
     },
   },
   themeConfig: {
+    aside: true,
+    outline: {
+      level: [2, 3], // h2와 h3 헤딩을 TOC에 포함
+      label: "On this page", // 표시할 제목을 설정할 수 있음
+    },
     search: {
       provider: "local",
     },
@@ -66,6 +72,10 @@ export default defineConfig({
             collapsed: true,
 
             items: [
+              {
+                text: "es-toolkit",
+                link: "/frontend/javascript/es-toolkit",
+              },
               {
                 text: "객체 복사 이제는 Structured Clone !",
                 link: "/frontend/javascript/structured-clone",
