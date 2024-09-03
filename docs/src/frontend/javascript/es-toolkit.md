@@ -34,10 +34,44 @@ yarn add es-toolkit
 
 ## 자주 사용하는 기능 및 메서드
 
-### 1. sortBy
+### 1. orderBy
 
-sortBy는 주어진 조건에 따라 객체로 이루어진 배열을 정렬하는 함수입니다.
-기본적으로 배열은 오름차순으로 정렬되며,
+orderBy는 여러 속성과 해당 순서 방향에 따라 객체 배열을 정렬하는 함수입니다.<br>
+주어진 조건(criteria)과 지정한 순서 방향(orders)에 따라 배열을 정렬합니다.<br>
+
+조건이 프로퍼티 이름이면, 해당하는 프로퍼티 값에 따라 정렬합니다.<br>
+조건이 함수이면, 함수가 반환하는 값에 따라 정렬합니다.<br>
+배열은 지정된 순서에 따라 오름차순(asc) 또는 내림차순(desc)으로 정렬됩니다.<br>
+조건에 따라 두 요소의 값이 같으면, 다음 조건으로 정렬됩니다.
+
+사용법:
+
+```typescript
+import { orderBy } from "es-toolkit/array";
+
+const users = [
+  { user: "fred", age: 48 },
+  { user: "barney", age: 34 },
+  { user: "fred", age: 40 },
+  { user: "barney", age: 36 },
+];
+
+// 'user'를 오름차순으로, 'age'를 내림차순으로 정렬
+const result = orderBy(users, [(obj) => obj.user, "age"], ["asc", "desc"]);
+console.log(result);
+// 출력:
+// [
+// { user: 'barney', age: 36 },
+// { user: 'barney', age: 34 },
+// { user: 'fred', age: 48 },
+// { user: 'fred', age: 40 }
+// ]
+```
+
+### 2. sortBy
+
+sortBy는 주어진 조건에 따라 객체로 이루어진 배열을 정렬하는 함수입니다.<br>
+기본적으로 배열은 오름차순으로 정렬되며,<br>
 조건에 따라 두 요소의 값이 같으면 다음 조건을 적용해 정렬합니다.
 
 - 사용법
@@ -58,10 +92,11 @@ console.log(sortedUsers);
 // 출력: [ { user: 'bar', age: 7 }, { user: 'bar', age: 29 }, { user: 'foo', age: 8 }, { user: 'foo', age: 24 } ]
 ```
 
-### 2. isNil
+### 3. isNil
 
-isNil은 주어진 값이 null이나 undefined인지 확인하는 함수입니다. 이 함수는 TypeScript의 타입 가드로 사용할 수 있어, 주어진 값을
-null이나 undefined 타입으로 좁히는 데 유용합니다.
+isNil은 주어진 값이 null이나 undefined인지 확인하는 함수입니다.<br>
+이 함수는 TypeScript의 타입 가드로 사용할 수 있어,<br>
+주어진 값을 null이나 undefined 타입으로 좁히는 데 유용합니다.
 
 - 사용법
 
@@ -77,9 +112,11 @@ console.log(isNil(value2)); // true
 console.log(isNil(value3)); // false
 ```
 
-### 3. cloneDeep
+### 4. cloneDeep
 
-cloneDeep은 주어진 객체를 깊은 복사하는 함수입니다. 이 함수는 객체 내 중첩된 객체나 배열까지도 재귀적으로 복사하여 새로운 메모리 주소에 할당합니다. lodash의 cloneDeep과 동일한 기능을 제공합니다.
+cloneDeep은 주어진 객체를 깊은 복사하는 함수입니다.<br>
+이 함수는 객체 내 중첩된 객체나 배열까지도 재귀적으로 복사하여 새로운 메모리 주소에 할당합니다.<br>
+lodash의 cloneDeep과 동일한 기능을 제공합니다.
 
 - 사용법
 
@@ -91,6 +128,44 @@ const cloned = cloneDeep(original);
 
 console.log(cloned); // { a: { b: { c: 'deep' } }, d: [1, 2, { e: 'nested' }] }
 console.log(original !== cloned); // true
+```
+
+### 5. debounce
+
+debounce는 제공된 함수 호출을 지연시키는 debounce된 함수를 생성하는 함수입니다.<br>
+debounce된 함수는 마지막 호출 후 지정된 시간(debounceMs)이 경과해야 호출됩니다.<br>
+또한, 대기 중인 실행을 취소할 수 있는 cancel 메서드를 포함합니다.
+
+사용법:
+
+```typescript
+import { debounce } from 'es-toolkit/function';
+
+const debouncedFunction = debounce(() => {
+console.log('실행됨');
+}, 1000);
+
+// 1초 안에 다시 호출되지 않으면, '실행됨'이 로깅됩니다.
+debouncedFunction();
+
+// 이전 호출이 취소되었으므로, 아무것도 로깅되지 않습니다.
+debouncedFunction.cancel();
+AbortSignal 사용 예시:
+
+typescript
+코드 복사
+const controller = new AbortController();
+const signal = controller.signal;
+
+const debouncedWithSignalFunction = debounce(() => {
+console.log('실행됨');
+}, 1000, { signal });
+
+// 1초 안에 다시 호출되지 않으면, '실행됨'이 로깅됩니다.
+debouncedWithSignalFunction();
+
+// debounce 함수 호출을 취소합니다.
+controller.abort();
 ```
 
 ## 주요특징
