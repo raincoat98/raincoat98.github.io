@@ -144,10 +144,10 @@ debounce된 함수는 마지막 호출 후 지정된 시간(debounceMs)이 경�
 사용법:
 
 ```typescript
-import { debounce } from 'es-toolkit/function';
+import { debounce } from "es-toolkit/function";
 
 const debouncedFunction = debounce(() => {
-console.log('실행됨');
+  console.log("실행됨");
 }, 1000);
 
 // 1초 안에 다시 호출되지 않으면, '실행됨'이 로깅됩니다.
@@ -155,16 +155,21 @@ debouncedFunction();
 
 // 이전 호출이 취소되었으므로, 아무것도 로깅되지 않습니다.
 debouncedFunction.cancel();
+```
+
 AbortSignal 사용 예시:
 
-typescript
-코드 복사
+```typescript
 const controller = new AbortController();
 const signal = controller.signal;
 
-const debouncedWithSignalFunction = debounce(() => {
-console.log('실행됨');
-}, 1000, { signal });
+const debouncedWithSignalFunction = debounce(
+  () => {
+    console.log("실행됨");
+  },
+  1000,
+  { signal }
+);
 
 // 1초 안에 다시 호출되지 않으면, '실행됨'이 로깅됩니다.
 debouncedWithSignalFunction();
