@@ -89,7 +89,12 @@ const users = [
 // 프로퍼티 이름으로 정렬
 const sortedUsers = sortBy(users, ["user", "age"]);
 console.log(sortedUsers);
-// 출력: [ { user: 'bar', age: 7 }, { user: 'bar', age: 29 }, { user: 'foo', age: 8 }, { user: 'foo', age: 24 } ]
+// 출력: [
+// { user: 'bar', age: 7 },
+//  { user: 'bar', age: 29 },
+//  { user: 'foo', age: 8 },
+//  { user: 'foo', age: 24 }
+// ]
 ```
 
 ### 3. isNil
