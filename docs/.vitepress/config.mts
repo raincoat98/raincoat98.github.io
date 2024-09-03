@@ -144,6 +144,10 @@ export default defineConfig({
             text: "조회한 데이터 업데이트 하기",
             link: "/database/update-in",
           },
+          {
+            text: "한글 정렬 하기",
+            link: "/database/korean-sort",
+          },
         ],
       },
       {
