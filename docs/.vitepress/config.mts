@@ -87,20 +87,24 @@ export default defineConfig({
             collapsed: false,
             items: [
               {
-                text: "Vue 이벤트 및 이벤트 수정자",
-                link: "/frontend/vue/vue-event",
-              },
-              {
-                text: "폼 검증하기 VeeValidate",
-                link: "/frontend/vue/vee-validate",
-              },
-              {
                 text: "내가 VueJS를 사용하는 이유",
                 link: "/frontend/vue/my-vue",
               },
               {
                 text: " Vue 라이브러리 추천",
                 link: "/frontend/vue/my-vue-library",
+              },
+              {
+                text: "Vue 코드 컨벤션",
+                link: "/frontend/vue/vue-code-convention",
+              },
+              {
+                text: "Vue 이벤트 및 이벤트 수정자",
+                link: "/frontend/vue/vue-event",
+              },
+              {
+                text: "폼 검증하기 VeeValidate",
+                link: "/frontend/vue/vee-validate",
               },
               {
                 text: "vue Cookie : 오늘 하루동안 보지 않기 기능 구현",
@@ -117,10 +121,6 @@ export default defineConfig({
               {
                 text: "Vue Tailwind Brand Color 적용하기",
                 link: "/frontend/vue/tailwind-brand-color",
-              },
-              {
-                text: "Vue 코드 컨벤션",
-                link: "/frontend/vue/vue-code-convention",
               },
             ],
           },
