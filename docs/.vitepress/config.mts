@@ -87,6 +87,10 @@ export default defineConfig({
             collapsed: false,
             items: [
               {
+                text: "Vue 이벤트 및 이벤트 수정자",
+                link: "/frontend/vue/vue-event",
+              },
+              {
                 text: "폼 검증하기 VeeValidate",
                 link: "/frontend/vue/vee-validate",
               },
