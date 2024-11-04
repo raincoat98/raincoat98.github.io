@@ -77,6 +77,10 @@ export default defineConfig({
                 link: "/frontend/javascript/es-toolkit",
               },
               {
+                text: "JavaScript 배열 메서드",
+                link: "/frontend/javascript/array-methods",
+              },
+              {
                 text: "객체 복사 이제는 Structured Clone !",
                 link: "/frontend/javascript/structured-clone",
               },
