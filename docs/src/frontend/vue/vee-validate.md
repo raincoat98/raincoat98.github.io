@@ -94,7 +94,7 @@ const onReset = () => {
 ```
 
 <iframe
-  src="https://stackblitz.com/edit/vee-validate-v4-prime-vue-jduamz"
+  src="https://stackblitz.com/edit/vee-validate-v4-prime-vue-jduamz?file=src%2FApp.vue"
   style="width: 100%; height: 500px; border: 0; overflow: hidden;"
   title="Form Validation Example"
 ></iframe>
