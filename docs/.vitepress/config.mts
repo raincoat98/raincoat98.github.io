@@ -73,6 +73,10 @@ export default defineConfig({
 
             items: [
               {
+                text: "정규식",
+                link: "/frontend/javascript/regular-expression",
+              },
+              {
                 text: "es-toolkit",
                 link: "/frontend/javascript/es-toolkit",
               },
