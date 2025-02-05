@@ -141,6 +141,10 @@ export default defineConfig({
                 link: "/frontend/vite/vite-alias",
               },
               {
+                text: "Vite 포트 설정",
+                link: "/frontend/vite/vite-port",
+              },
+              {
                 text: "Vite Proxy 설정",
                 link: "/frontend/vite/proxy",
               },
