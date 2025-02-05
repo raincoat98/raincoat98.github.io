@@ -137,6 +137,10 @@ export default defineConfig({
             collapsed: true,
             items: [
               {
+                text: "Vite 경로 별칭 설정",
+                link: "/frontend/vite/vite-alias",
+              },
+              {
                 text: "Vite Proxy 설정",
                 link: "/frontend/vite/proxy",
               },
