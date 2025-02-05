@@ -132,6 +132,16 @@ export default defineConfig({
               },
             ],
           },
+          {
+            text: "Vite",
+            collapsed: true,
+            items: [
+              {
+                text: "Vite Proxy 설정",
+                link: "/frontend/vite/proxy",
+              },
+            ],
+          },
         ],
       },
       {
