@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+
+# Block specific directories if needed
+# Disallow: /private/
+
+# Sitemap location
+Sitemap: https://raincoat98.github.io/sitemap.xml 
