@@ -1,6 +1,6 @@
 # Raincoat
 
-![profile.jpg](/images/profile.jpg)
+![profile.jpeg](/images/profile.jpeg)
 
 "사진을 통해 순간을 사랑하고, 기억으로 그 순간을 영원히 소중히 여깁니다."
 
