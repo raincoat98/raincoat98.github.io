@@ -130,6 +130,10 @@ export default defineConfig({
                 text: "Vue Tailwind Brand Color 적용하기",
                 link: "/frontend/vue/tailwind-brand-color",
               },
+              {
+                text: "Vue에서 dayjs로 한국 시간(KST) 처리하는 법 정리",
+                link: "/frontend/vue/dayjs-korea",
+              },
             ],
           },
           {
