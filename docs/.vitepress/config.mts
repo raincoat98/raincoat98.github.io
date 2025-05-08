@@ -7,6 +7,10 @@ export default defineConfig({
   description: "A VitePress Site",
   cleanUrls: true,
   srcDir: "./src",
+  head: [
+    ["link", { rel: "icon", href: "/favicon.svg", type: "image/svg+xml" }],
+    ["link", { rel: "alternate icon", href: "/favicon.svg" }],
+  ],
 
   sitemap: {
     hostname: "https://raincoat98.github.io",
