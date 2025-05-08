@@ -4,12 +4,68 @@ import { defineConfig } from "vitepress";
 export default defineConfig({
   base: "/",
   title: "SangWook Blog",
-  description: "A VitePress Site",
+  description:
+    "웹 개발, JavaScript, Vue.js, NestJS 및 데이터베이스에 관한 기술 블로그입니다.",
   cleanUrls: true,
   srcDir: "./src",
   head: [
     ["link", { rel: "icon", href: "/favicon.svg", type: "image/svg+xml" }],
     ["link", { rel: "alternate icon", href: "/favicon.svg" }],
+    ["meta", { name: "author", content: "SangWook Woo" }],
+    [
+      "meta",
+      {
+        name: "keywords",
+        content:
+          "Vue.js, JavaScript, NestJS, 웹개발, 프론트엔드, 백엔드, 데이터베이스",
+      },
+    ],
+    [
+      "meta",
+      {
+        name: "google-site-verification",
+        content: "여기에_구글이_제공한_인증_코드를_넣으세요",
+      },
+    ],
+
+    // Open Graph / Facebook
+    ["meta", { property: "og:type", content: "website" }],
+    ["meta", { property: "og:title", content: "SangWook Blog" }],
+    [
+      "meta",
+      {
+        property: "og:description",
+        content:
+          "웹 개발, JavaScript, Vue.js, NestJS 및 데이터베이스에 관한 기술 블로그입니다.",
+      },
+    ],
+    [
+      "meta",
+      {
+        property: "og:image",
+        content: "https://raincoat98.github.io/og-image.jpg",
+      },
+    ],
+    ["meta", { property: "og:url", content: "https://raincoat98.github.io" }],
+
+    // Twitter
+    ["meta", { name: "twitter:card", content: "summary_large_image" }],
+    ["meta", { name: "twitter:title", content: "SangWook Blog" }],
+    [
+      "meta",
+      {
+        name: "twitter:description",
+        content:
+          "웹 개발, JavaScript, Vue.js, NestJS 및 데이터베이스에 관한 기술 블로그입니다.",
+      },
+    ],
+    [
+      "meta",
+      {
+        name: "twitter:image",
+        content: "https://raincoat98.github.io/og-image.jpg",
+      },
+    ],
   ],
 
   sitemap: {
