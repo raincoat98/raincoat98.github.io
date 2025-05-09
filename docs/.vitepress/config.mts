@@ -5,9 +5,21 @@ export default defineConfig({
   base: "/",
   title: "SangWook Blog",
   description:
-    "웹 개발, JavaScript, Vue.js, NestJS 및 데이터베이스에 관한 기술 블로그입니다.",
+    "프론트엔드 Vue.js와 백엔드 NestJS를 전문으로 하는 개발자 블로그. 웹 개발 경험, 코드 최적화, 모범 사례를 공유합니다.",
   cleanUrls: true,
   srcDir: "./src",
+
+  // 커스텀 CSS 파일 추가
+  vite: {
+    css: {
+      preprocessorOptions: {
+        scss: {
+          additionalData: '@import "docs/.vitepress/styles/custom.css";',
+        },
+      },
+    },
+  },
+
   head: [
     ["link", { rel: "icon", href: "/favicon.svg", type: "image/svg+xml" }],
     ["link", { rel: "alternate icon", href: "/favicon.svg" }],
@@ -17,7 +29,7 @@ export default defineConfig({
       {
         name: "keywords",
         content:
-          "Vue.js, JavaScript, NestJS, 웹개발, 프론트엔드, 백엔드, 데이터베이스",
+          "Vue.js, Vue3, JavaScript, TypeScript, NestJS, Node.js, 프론트엔드 개발, 백엔드 개발, 웹개발, 프론트엔드, UI/UX, 컴포넌트 설계, API 개발, 데이터베이스, Vuex, Pinia, Composition API, TypeORM, REST API, GraphQL",
       },
     ],
     [
@@ -30,13 +42,19 @@ export default defineConfig({
 
     // Open Graph / Facebook
     ["meta", { property: "og:type", content: "website" }],
-    ["meta", { property: "og:title", content: "SangWook Blog" }],
+    [
+      "meta",
+      {
+        property: "og:title",
+        content: "SangWook Blog",
+      },
+    ],
     [
       "meta",
       {
         property: "og:description",
         content:
-          "웹 개발, JavaScript, Vue.js, NestJS 및 데이터베이스에 관한 기술 블로그입니다.",
+          "프론트엔드 Vue.js와 백엔드 NestJS를 전문으로 하는 개발자 블로그. 웹 개발 경험, 코드 최적화, 모범 사례를 공유합니다.",
       },
     ],
     [
@@ -50,13 +68,19 @@ export default defineConfig({
 
     // Twitter
     ["meta", { name: "twitter:card", content: "summary_large_image" }],
-    ["meta", { name: "twitter:title", content: "SangWook Blog" }],
+    [
+      "meta",
+      {
+        name: "twitter:title",
+        content: "SangWook Blog",
+      },
+    ],
     [
       "meta",
       {
         name: "twitter:description",
         content:
-          "웹 개발, JavaScript, Vue.js, NestJS 및 데이터베이스에 관한 기술 블로그입니다.",
+          "프론트엔드 Vue.js와 백엔드 NestJS를 전문으로 하는 개발자 블로그. 웹 개발 경험, 코드 최적화, 모범 사례를 공유합니다.",
       },
     ],
     [
@@ -66,6 +90,11 @@ export default defineConfig({
         content: "https://raincoat98.github.io/og-image.jpg",
       },
     ],
+    // 추가 SEO 메타태그
+    ["meta", { name: "robots", content: "index, follow" }],
+    ["meta", { name: "language", content: "Korean" }],
+    ["meta", { name: "revisit-after", content: "7 days" }],
+    ["meta", { name: "generator", content: "VitePress" }],
   ],
 
   sitemap: {
@@ -80,6 +109,7 @@ export default defineConfig({
       return items;
     },
   },
+
   themeConfig: {
     aside: true,
     outline: {
