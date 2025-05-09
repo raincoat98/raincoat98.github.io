@@ -1,6 +1,12 @@
 ---
 # https://vitepress.dev/reference/default-theme-home-page
 layout: home
+title: "SangWook Blog - 프론트엔드 Vue.js 및 백엔드 NestJS 개발자"
+description: "Vue.js와 NestJS 전문 개발자 블로그. 웹 개발 경험, 코드 최적화, 프로젝트 사례 및 기술 팁을 공유합니다."
+head:
+  - - meta
+    - name: keywords
+      content: "Vue.js, NestJS, 웹개발, 프론트엔드 개발, 백엔드 개발, JavaScript, TypeScript, 개발자 블로그"
 
 hero:
   name: "SangWook Blog"
@@ -40,15 +46,15 @@ features:
   <h1>Vue.js와 NestJS 개발의 모든 것</h1>
   <p>
     안녕하세요! 저는 프론트엔드와 백엔드 개발을 모두 경험한 풀스택 개발자입니다.
-    이 블로그에서는 Vue.js를 활용한 프론트엔드 개발과 NestJS를 활용한 백엔드 개발에 대한
+    이 블로그에서는 <strong>Vue.js</strong>를 활용한 프론트엔드 개발과 <strong>NestJS</strong>를 활용한 백엔드 개발에 대한
     제 경험과 지식을 공유합니다.
   </p>
   <p>
-    개발 중 마주치는 다양한 문제 해결 방법, 최적화 테크닉, 효율적인 코드 작성법 등
+    개발 중 마주치는 다양한 문제 해결 방법, <em>최적화 테크닉</em>, <em>효율적인 코드 작성법</em> 등
     실제 프로젝트에서 유용하게 활용할 수 있는 내용들을 다룹니다.
   </p>
   <p>
-    Vue.js 3, TypeScript, Composition API, Pinia부터 NestJS, TypeORM, REST API, 
-    최신 웹 개발 기술을 함께 알아봅시다.
+    <strong>Vue.js 3</strong>, <strong>TypeScript</strong>, <strong>Composition API</strong>, <strong>Pinia</strong>부터 
+    <strong>NestJS</strong>, <strong>TypeORM</strong>, <strong>REST API</strong>까지 최신 웹 개발 기술을 함께 알아봅시다.
   </p>
 </div>
