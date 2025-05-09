@@ -1,37 +1,111 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" 
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+        xmlns:xhtml="http://www.w3.org/1999/xhtml"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1"
+        xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 
+        http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
+  <!-- 메인 페이지 -->
   <url>
     <loc>https://raincoat98.github.io/</loc>
     <lastmod>2024-07-10</lastmod>
-    <changefreq>weekly</changefreq>
+    <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
+  
+  <!-- 소개 페이지 -->
   <url>
     <loc>https://raincoat98.github.io/introduce/about-me</loc>
     <lastmod>2024-07-10</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.9</priority>
   </url>
   <url>
     <loc>https://raincoat98.github.io/introduce/careers</loc>
     <lastmod>2024-07-10</lastmod>
     <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://raincoat98.github.io/introduce/my-develop</loc>
+    <lastmod>2024-07-10</lastmod>
+    <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
+  
+  <!-- Vue.js 관련 페이지 -->
   <url>
     <loc>https://raincoat98.github.io/frontend/vue/my-vue</loc>
     <lastmod>2024-07-10</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://raincoat98.github.io/images/vue.png</image:loc>
+      <image:caption>Vue.js 로고</image:caption>
+    </image:image>
   </url>
   <url>
-    <loc>https://raincoat98.github.io/backend/nestjs/my-nestjs</loc>
+    <loc>https://raincoat98.github.io/frontend/vue/my-vue-library</loc>
+    <lastmod>2024-07-10</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://raincoat98.github.io/frontend/vue/vue-code-convention</loc>
     <lastmod>2024-07-10</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
-  <!-- 
-    VitePress는 빌드 시 자동으로 사이트맵을 생성하므로 이 파일은 예시용입니다.
-    실제로는 sitemap 옵션을 config.mts에 설정하는 것이 좋습니다.
-  -->
+  
+  <!-- NestJS 관련 페이지 -->
+  <url>
+    <loc>https://raincoat98.github.io/backend/nestjs/my-nestjs</loc>
+    <lastmod>2024-07-10</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://raincoat98.github.io/images/nestjs.png</image:loc>
+      <image:caption>NestJS 로고</image:caption>
+    </image:image>
+  </url>
+  
+  <!-- JavaScript 관련 페이지 -->
+  <url>
+    <loc>https://raincoat98.github.io/frontend/javascript/regular-expression</loc>
+    <lastmod>2024-07-10</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://raincoat98.github.io/frontend/javascript/es-toolkit</loc>
+    <lastmod>2024-07-10</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://raincoat98.github.io/frontend/javascript/array-methods</loc>
+    <lastmod>2024-07-10</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://raincoat98.github.io/frontend/javascript/structured-clone</loc>
+    <lastmod>2024-07-10</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  
+  <!-- 데이터베이스 관련 페이지 -->
+  <url>
+    <loc>https://raincoat98.github.io/database/update-in</loc>
+    <lastmod>2024-07-10</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://raincoat98.github.io/database/korean-sort</loc>
+    <lastmod>2024-07-10</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
 </urlset>

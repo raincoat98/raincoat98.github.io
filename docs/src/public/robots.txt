@@ -1,18 +1,41 @@
+# SangWook Blog robots.txt
 User-agent: *
 Allow: /
 
+# 우선 크롤링할 중요 페이지
+Allow: /$
+Allow: /introduce/about-me$
+Allow: /introduce/careers$
+Allow: /frontend/vue/
+Allow: /backend/nestjs/
+
 # Block specific directories if needed
 # Disallow: /private/
+# Disallow: /drafts/
 
-# Allow all web crawlers to access all content
+# 가장 인기있는 검색엔진 봇에 대한 설정
 User-agent: Googlebot
 Allow: /
+Crawl-delay: 1
+
 User-agent: Bingbot
 Allow: /
+Crawl-delay: 1
+
 User-agent: Yeti
 Allow: /
+Crawl-delay: 1
+
 User-agent: Naverbot
 Allow: /
+Crawl-delay: 1
+
+# 이미지 검색 봇
+User-agent: Googlebot-Image
+Allow: /images/
+Allow: /*.jpg$
+Allow: /*.png$
+Allow: /*.svg$
 
 # Sitemap location
 Sitemap: https://raincoat98.github.io/sitemap.xml 
