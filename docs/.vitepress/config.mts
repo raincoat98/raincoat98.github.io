@@ -15,7 +15,7 @@ export default defineConfig({
   // 성능 최적화 및 CSS 설정
   vite: {
     ssr: {
-      noExternal: [""],
+      noExternal: [],
     },
     optimizeDeps: {
       exclude: [],
