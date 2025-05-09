@@ -9,8 +9,23 @@ export default defineConfig({
   cleanUrls: true,
   srcDir: "./src",
 
-  // 커스텀 CSS 파일 추가
+  // SEO 최적화 설정
+  lastUpdated: true,
+
+  // 성능 최적화 및 CSS 설정
   vite: {
+    ssr: {
+      noExternal: [""],
+    },
+    optimizeDeps: {
+      exclude: [],
+    },
+    build: {
+      minify: "terser",
+      cssMinify: true,
+      reportCompressedSize: false,
+      chunkSizeWarningLimit: 1024,
+    },
     css: {
       preprocessorOptions: {
         scss: {
@@ -24,6 +39,19 @@ export default defineConfig({
     ["link", { rel: "icon", href: "/favicon.svg", type: "image/svg+xml" }],
     ["link", { rel: "alternate icon", href: "/favicon.svg" }],
     ["meta", { name: "author", content: "SangWook Woo" }],
+
+    // Canonical URL
+    ["link", { rel: "canonical", href: "https://raincoat98.github.io" }],
+
+    // 모바일 최적화
+    [
+      "meta",
+      {
+        name: "viewport",
+        content: "width=device-width, initial-scale=1.0, maximum-scale=5.0",
+      },
+    ],
+
     [
       "meta",
       {
@@ -39,6 +67,19 @@ export default defineConfig({
         content: "여기에_구글이_제공한_인증_코드를_넣으세요",
       },
     ],
+
+    // 추가 SEO 메타 태그
+    [
+      "meta",
+      {
+        name: "robots",
+        content:
+          "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
+      },
+    ],
+    ["meta", { name: "language", content: "Korean" }],
+    ["meta", { name: "revisit-after", content: "7 days" }],
+    ["meta", { name: "generator", content: "VitePress" }],
 
     // Open Graph / Facebook
     ["meta", { property: "og:type", content: "website" }],
@@ -65,6 +106,8 @@ export default defineConfig({
       },
     ],
     ["meta", { property: "og:url", content: "https://raincoat98.github.io" }],
+    ["meta", { property: "og:site_name", content: "SangWook Blog" }],
+    ["meta", { property: "og:locale", content: "ko_KR" }],
 
     // Twitter
     ["meta", { name: "twitter:card", content: "summary_large_image" }],
@@ -90,11 +133,39 @@ export default defineConfig({
         content: "https://raincoat98.github.io/og-image.jpg",
       },
     ],
-    // 추가 SEO 메타태그
-    ["meta", { name: "robots", content: "index, follow" }],
-    ["meta", { name: "language", content: "Korean" }],
-    ["meta", { name: "revisit-after", content: "7 days" }],
-    ["meta", { name: "generator", content: "VitePress" }],
+
+    // Schema.org 구조화 데이터 추가 (JSON-LD)
+    [
+      "script",
+      { type: "application/ld+json" },
+      `
+      {
+        "@context": "https://schema.org",
+        "@type": "BlogPosting",
+        "headline": "SangWook Blog",
+        "description": "프론트엔드 Vue.js와 백엔드 NestJS를 전문으로 하는 개발자 블로그",
+        "author": {
+          "@type": "Person",
+          "name": "SangWook Woo"
+        },
+        "publisher": {
+          "@type": "Organization",
+          "name": "SangWook Blog",
+          "logo": {
+            "@type": "ImageObject",
+            "url": "https://raincoat98.github.io/favicon.svg"
+          }
+        },
+        "image": "https://raincoat98.github.io/og-image.jpg",
+        "url": "https://raincoat98.github.io",
+        "mainEntityOfPage": {
+          "@type": "WebPage",
+          "@id": "https://raincoat98.github.io"
+        },
+        "inLanguage": "ko-KR"
+      }
+    `,
+    ],
   ],
 
   sitemap: {
