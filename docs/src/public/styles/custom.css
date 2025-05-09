@@ -1,0 +1,39 @@
+/* 홈페이지 custom-layout 스타일 */
+.custom-layout {
+  max-width: 1200px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background-color: var(--vp-c-bg-soft);
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.custom-layout h1 {
+  margin-top: 0;
+  margin-bottom: 1.5rem;
+  color: var(--vp-c-brand);
+  font-size: 2rem;
+}
+
+.custom-layout p {
+  margin-bottom: 1.2rem;
+  line-height: 1.7;
+}
+
+/* 다크 모드 스타일 조정 */
+.dark .custom-layout {
+  background-color: var(--vp-c-bg-alt);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* 모바일 반응형 스타일 */
+@media (max-width: 768px) {
+  .custom-layout {
+    margin: 1rem;
+    padding: 1.5rem;
+  }
+
+  .custom-layout h1 {
+    font-size: 1.8rem;
+  }
+}

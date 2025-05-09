@@ -4,5 +4,15 @@ Allow: /
 # Block specific directories if needed
 # Disallow: /private/
 
+# Allow all web crawlers to access all content
+User-agent: Googlebot
+Allow: /
+User-agent: Bingbot
+Allow: /
+User-agent: Yeti
+Allow: /
+User-agent: Naverbot
+Allow: /
+
 # Sitemap location
 Sitemap: https://raincoat98.github.io/sitemap.xml 
