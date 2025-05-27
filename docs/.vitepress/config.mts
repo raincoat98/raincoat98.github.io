@@ -328,6 +328,10 @@ export default defineConfig({
                 text: "내가 NestJS를 사용하는 이유",
                 link: "/backend/nestjs/my-nestjs",
               },
+              {
+                text: "NestJS Dev 명령어 루프 문제 해결",
+                link: "/backend/nestjs/nestjs-windows-startdev-loop-fix",
+              },
             ],
           },
         ],
