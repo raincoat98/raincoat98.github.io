@@ -45,7 +45,7 @@ features:
 <div class="custom-layout">
   <h1>Vue.js와 NestJS 개발의 모든 것</h1>
   <p>
-    안녕하세요! 저는 프론트엔드와 백엔드 개발을 모두 경험한 풀스택 개발자입니다.
+    안녕하세요! 저는 프론트엔드와 백엔드 개발을 모두 경험한 풀스택 개발자입니다.<br>
     이 블로그에서는 <strong>Vue.js</strong>를 활용한 프론트엔드 개발과 <strong>NestJS</strong>를 활용한 백엔드 개발에 대한
     제 경험과 지식을 공유합니다.
   </p>
