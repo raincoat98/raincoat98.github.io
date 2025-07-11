@@ -1,0 +1,297 @@
+{
+  "generatedAt": "2025-07-11T01:26:35.035Z",
+  "documents": [
+    {
+      "path": "/database/korean-sort",
+      "title": "Korean Sort",
+      "createdAt": "2024-09-03",
+      "lastModified": "2024-09-03",
+      "modificationCount": 1,
+      "author": "WooSangWook",
+      "firstCommit": "9ece245fc77fecb403c49befa4bce18861d68306",
+      "lastCommit": "9ece245fc77fecb403c49befa4bce18861d68306"
+    },
+    {
+      "path": "/database/update-in",
+      "title": "Update In",
+      "createdAt": "2024-08-28",
+      "lastModified": "2024-09-03",
+      "modificationCount": 2,
+      "author": "WooSangWook",
+      "firstCommit": "d43b9d15aea5e674c8647fe62d68037f550c344a",
+      "lastCommit": "9ece245fc77fecb403c49befa4bce18861d68306"
+    },
+    {
+      "path": "/frontend/vitepress/vitepress-comment",
+      "title": "Vitepress Comment",
+      "createdAt": "2024-04-17",
+      "lastModified": "2024-04-17",
+      "modificationCount": 1,
+      "author": "WooSangWook",
+      "firstCommit": "3b2ce5599930119beb08b72c6d62036a14293652",
+      "lastCommit": "3b2ce5599930119beb08b72c6d62036a14293652"
+    },
+    {
+      "path": "/frontend/vue/vue-code-convention",
+      "title": "Vue Code Convention",
+      "createdAt": "2024-04-12",
+      "lastModified": "2024-10-28",
+      "modificationCount": 2,
+      "author": "WooSangWook",
+      "firstCommit": "b0bbb851bc03f48ccbac518f93f102a389c9ab7a",
+      "lastCommit": "222849ccec24d3e17b0c662b5782ce277dd079fb"
+    },
+    {
+      "path": "/frontend/vue/dayjs-korea",
+      "title": "Dayjs Korea",
+      "createdAt": "2025-05-08",
+      "lastModified": "2025-05-08",
+      "modificationCount": 1,
+      "author": "WooSangWook",
+      "firstCommit": "12bf93f01a3b85d6c5dc2fda7b8351cbc773b5ea",
+      "lastCommit": "12bf93f01a3b85d6c5dc2fda7b8351cbc773b5ea"
+    },
+    {
+      "path": "/frontend/vue/vite-quasar-aos",
+      "title": "Vite Quasar Aos",
+      "createdAt": "2024-04-12",
+      "lastModified": "2024-04-12",
+      "modificationCount": 2,
+      "author": "WooSangWook",
+      "firstCommit": "43f2fab02eb0aaf62aca3cda2efe27af2e3c400e",
+      "lastCommit": "0ed996a9887880fc97f1587fc423b8b5fa08965b"
+    },
+    {
+      "path": "/frontend/vue/vue-event",
+      "title": "Vue Event",
+      "createdAt": "2024-10-28",
+      "lastModified": "2024-10-28",
+      "modificationCount": 1,
+      "author": "WooSangWook",
+      "firstCommit": "68b8a01995fa1bb7f639bdacaa98c7a66cb53259",
+      "lastCommit": "68b8a01995fa1bb7f639bdacaa98c7a66cb53259"
+    },
+    {
+      "path": "/frontend/vue/vue-cookie",
+      "title": "Vue Cookie",
+      "createdAt": "2024-04-05",
+      "lastModified": "2024-04-05",
+      "modificationCount": 1,
+      "author": "WooSangWook",
+      "firstCommit": "0460d6348853aae8bc9f3f0176385ad67cc78f14",
+      "lastCommit": "0460d6348853aae8bc9f3f0176385ad67cc78f14"
+    },
+    {
+      "path": "/frontend/vue/my-vue-library",
+      "title": "My Vue Library",
+      "createdAt": "2024-04-08",
+      "lastModified": "2024-04-12",
+      "modificationCount": 2,
+      "author": "WooSangWook",
+      "firstCommit": "fa7b53f3094acf88a46eefe15863ec3ef710541f",
+      "lastCommit": "bca15ee0531332b710f6cda7f62d01843101e74d"
+    },
+    {
+      "path": "/frontend/vue/vee-validate",
+      "title": "Vee Validate",
+      "createdAt": "2024-08-28",
+      "lastModified": "2024-12-20",
+      "modificationCount": 4,
+      "author": "WooSangWook",
+      "firstCommit": "93e70a117eb8a79b91efb0094c3985baa08e7153",
+      "lastCommit": "a5b79d6ce7fc9fc9490fc6ff8c1963881d23b362"
+    },
+    {
+      "path": "/frontend/vue/quasar-tailwind",
+      "title": "Quasar Tailwind",
+      "createdAt": "2024-04-10",
+      "lastModified": "2024-04-19",
+      "modificationCount": 4,
+      "author": "WooSangWook",
+      "firstCommit": "c60fc6c1784bd69502e674c8c66fcfb3bba02938",
+      "lastCommit": "dc279df22bf7f7859ce1e9c05889141d36a5c18f"
+    },
+    {
+      "path": "/frontend/vue/tailwind-brand-color",
+      "title": "Tailwind Brand Color",
+      "createdAt": "2024-04-12",
+      "lastModified": "2024-04-12",
+      "modificationCount": 1,
+      "author": "WooSangWook",
+      "firstCommit": "8ee339bdf9e52463684a20f9fdc1cedb1b8c0ac0",
+      "lastCommit": "8ee339bdf9e52463684a20f9fdc1cedb1b8c0ac0"
+    },
+    {
+      "path": "/frontend/vue/my-vue",
+      "title": "My Vue",
+      "createdAt": "2024-04-05",
+      "lastModified": "2024-10-28",
+      "modificationCount": 4,
+      "author": "WooSangWook",
+      "firstCommit": "571a60701dbdc431f0d805d10a7e264b6af2d61e",
+      "lastCommit": "2048acc71e11db17333fb17f190c8ab68e48a2f5"
+    },
+    {
+      "path": "/frontend/vite/vite-port",
+      "title": "Vite Port",
+      "createdAt": "2025-02-05",
+      "lastModified": "2025-02-05",
+      "modificationCount": 1,
+      "author": "WooSangWook",
+      "firstCommit": "d9ac854c3a1c2fbf1dcea687aa18f3d43c1c77b4",
+      "lastCommit": "d9ac854c3a1c2fbf1dcea687aa18f3d43c1c77b4"
+    },
+    {
+      "path": "/frontend/vite/vite-alias",
+      "title": "Vite Alias",
+      "createdAt": "2025-02-05",
+      "lastModified": "2025-02-05",
+      "modificationCount": 1,
+      "author": "WooSangWook",
+      "firstCommit": "a39aa187b21db5732022ec39a6bd836aac47a108",
+      "lastCommit": "a39aa187b21db5732022ec39a6bd836aac47a108"
+    },
+    {
+      "path": "/frontend/vite/proxy",
+      "title": "Proxy",
+      "createdAt": "2025-02-05",
+      "lastModified": "2025-02-05",
+      "modificationCount": 1,
+      "author": "WooSangWook",
+      "firstCommit": "ff92d29d7dc14b4c8cb8dbc76218a1bc18ed91f0",
+      "lastCommit": "ff92d29d7dc14b4c8cb8dbc76218a1bc18ed91f0"
+    },
+    {
+      "path": "/frontend/javascript/array-methods",
+      "title": "Array Methods",
+      "createdAt": "2024-11-04",
+      "lastModified": "2024-11-04",
+      "modificationCount": 1,
+      "author": "WooSangWook",
+      "firstCommit": "0970ff26bb4bd28ff2871884853f47fc3b7fe0cb",
+      "lastCommit": "0970ff26bb4bd28ff2871884853f47fc3b7fe0cb"
+    },
+    {
+      "path": "/frontend/javascript/regular-expression",
+      "title": "Regular Expression",
+      "createdAt": "2024-12-20",
+      "lastModified": "2024-12-20",
+      "modificationCount": 2,
+      "author": "WooSangWook",
+      "firstCommit": "6eb160d1d542818ae9eb7ca976645dbd9bb217f0",
+      "lastCommit": "2ddd137857c6f8d1b8b9164a783b943722b1e94b"
+    },
+    {
+      "path": "/frontend/javascript/structured-clone",
+      "title": "Structured Clone",
+      "createdAt": "2024-04-16",
+      "lastModified": "2024-04-17",
+      "modificationCount": 3,
+      "author": "WooSangWook",
+      "firstCommit": "cb805491bf39d92b4dbb937b99c230cf2fa02eb0",
+      "lastCommit": "ca1f9fcaff1a35f6ec1d7d9383d5cff3aeeb059f"
+    },
+    {
+      "path": "/frontend/javascript/es-toolkit",
+      "title": "Es Toolkit",
+      "createdAt": "2024-09-02",
+      "lastModified": "2024-09-03",
+      "modificationCount": 4,
+      "author": "WooSangWook",
+      "firstCommit": "b7089375cf28b7895251f9229b249be8f85eab57",
+      "lastCommit": "d078d0c27ea0ebbd9a21087c7befb8a0cc5aceec"
+    },
+    {
+      "path": "/introduce/careers",
+      "title": "Careers",
+      "createdAt": "2024-04-26",
+      "lastModified": "2025-07-04",
+      "modificationCount": 11,
+      "author": "WooSangWook",
+      "firstCommit": "66267aa39c7a15bcc465a225678e8294b31f62ea",
+      "lastCommit": "9b89166aabce3b7b83427462097b1ea02d64a20c"
+    },
+    {
+      "path": "/introduce/about-me",
+      "title": "About Me",
+      "createdAt": "2024-04-26",
+      "lastModified": "2025-05-09",
+      "modificationCount": 7,
+      "author": "WooSangWook",
+      "firstCommit": "66267aa39c7a15bcc465a225678e8294b31f62ea",
+      "lastCommit": "736d0652c49983891d5d1acae6c41afd64772c10"
+    },
+    {
+      "path": "/introduce/my-develop",
+      "title": "My Develop",
+      "createdAt": "2024-04-05",
+      "lastModified": "2025-05-14",
+      "modificationCount": 6,
+      "author": "WooSangWook",
+      "firstCommit": "34f604488b02142adb238a85485a54ff9ca3942f",
+      "lastCommit": "e4c752ff8088391f62e88a339d0e8f973bcebf0c"
+    },
+    {
+      "path": "/backend/nestjs/my-nestjs",
+      "title": "My Nestjs",
+      "createdAt": "2024-04-05",
+      "lastModified": "2024-10-28",
+      "modificationCount": 4,
+      "author": "WooSangWook",
+      "firstCommit": "571a60701dbdc431f0d805d10a7e264b6af2d61e",
+      "lastCommit": "e9569a3f1d483655e93e8579c883deffb2932d88"
+    },
+    {
+      "path": "/backend/nestjs/nestjs-windows-startdev-loop-fix",
+      "title": "Nestjs Windows Startdev Loop Fix",
+      "createdAt": "2025-05-27",
+      "lastModified": "2025-05-27",
+      "modificationCount": 1,
+      "author": "WooSangWook",
+      "firstCommit": "ddf945c369d867900bedfe055ea57e458dadca65",
+      "lastCommit": "ddf945c369d867900bedfe055ea57e458dadca65"
+    },
+    {
+      "path": "/index",
+      "title": "Index",
+      "createdAt": "2024-04-05",
+      "lastModified": "2025-07-04",
+      "modificationCount": 11,
+      "author": "WooSangWook",
+      "firstCommit": "571a60701dbdc431f0d805d10a7e264b6af2d61e",
+      "lastCommit": "a9b4dd519b01d2cdb84c3c9ed9d0ebc24760d40b"
+    },
+    {
+      "path": "/examples/api-examples",
+      "title": "Api Examples",
+      "createdAt": "2024-04-05",
+      "lastModified": "2024-04-05",
+      "modificationCount": 3,
+      "author": "WooSangWook",
+      "firstCommit": "34f604488b02142adb238a85485a54ff9ca3942f",
+      "lastCommit": "34f604488b02142adb238a85485a54ff9ca3942f"
+    },
+    {
+      "path": "/examples/markdown-examples",
+      "title": "Markdown Examples",
+      "createdAt": "2024-04-05",
+      "lastModified": "2024-12-20",
+      "modificationCount": 4,
+      "author": "WooSangWook",
+      "firstCommit": "34f604488b02142adb238a85485a54ff9ca3942f",
+      "lastCommit": "2ddd137857c6f8d1b8b9164a783b943722b1e94b"
+    },
+    {
+      "path": "/git/github-readme",
+      "title": "Github Readme",
+      "createdAt": "2024-04-12",
+      "lastModified": "2024-04-12",
+      "modificationCount": 1,
+      "author": "WooSangWook",
+      "firstCommit": "b08b0148611ce01a4912d2657a00f8b010965fd6",
+      "lastCommit": "b08b0148611ce01a4912d2657a00f8b010965fd6"
+    }
+  ],
+  "totalDocuments": 29,
+  "totalModifications": 87
+}
