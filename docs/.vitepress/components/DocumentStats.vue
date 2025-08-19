@@ -1,17 +1,28 @@
 <template>
   <div class="document-stats">
-    <div class="stats-tabs">
+    <div class="stats-header">
+      <div class="stats-tabs">
+        <button
+          :class="['tab-button', { active: activeTab === 'creation' }]"
+          @click="activeTab = 'creation'"
+        >
+          📝 생성 통계
+        </button>
+        <button
+          :class="['tab-button', { active: activeTab === 'modification' }]"
+          @click="activeTab = 'modification'"
+        >
+          🔄 수정 통계
+        </button>
+      </div>
       <button
-        :class="['tab-button', { active: activeTab === 'creation' }]"
-        @click="activeTab = 'creation'"
+        class="refresh-button"
+        @click="refreshStats"
+        :disabled="loading"
+        title="통계 새로고침"
       >
-        📝 생성 통계
-      </button>
-      <button
-        :class="['tab-button', { active: activeTab === 'modification' }]"
-        @click="activeTab = 'modification'"
-      >
-        🔄 수정 통계
+        <span class="refresh-icon" :class="{ spinning: loading }">🔄</span>
+        새로고침
       </button>
     </div>
 
@@ -42,8 +53,17 @@
           <h4>최근 생성된 문서</h4>
           <ul>
             <li v-for="doc in recentCreated" :key="doc.path">
-              <span class="doc-title">{{ doc.title }}</span>
-              <span class="doc-date">{{ formatDate(doc.createdAt) }}</span>
+              <div class="doc-info">
+                <span class="doc-title">{{ doc.title }}</span>
+                <div class="doc-dates">
+                  <span class="doc-date"
+                    >생성: {{ formatDate(doc.createdAt) }}</span
+                  >
+                  <span class="doc-date"
+                    >수정: {{ formatDate(doc.lastModified) }}</span
+                  >
+                </div>
+              </div>
             </li>
           </ul>
         </div>
@@ -95,17 +115,30 @@ const loadDocumentStats = async () => {
 
     // 생성된 통계 JSON 파일에서 데이터 로드 시도
     try {
-      const response = await fetch("/stats.json");
+      const timestamp = new Date().getTime();
+      const response = await fetch(`/stats.json?t=${timestamp}`, {
+        cache: "no-cache",
+        headers: {
+          "Cache-Control": "no-cache, no-store, must-revalidate",
+          Pragma: "no-cache",
+          Expires: "0",
+        },
+      });
       if (response.ok) {
         const statsData = await response.json();
         if (statsData.documents && statsData.documents.length > 0) {
           documents.value = statsData.documents;
           console.log("📊 실제 Git 통계 데이터를 로드했습니다.");
+          console.log(`🕐 생성시간: ${statsData.generatedAt}`);
+          console.log(`📝 총 ${statsData.documents.length}개 문서`);
           return;
         }
       }
     } catch (fetchError) {
-      console.log("📊 통계 파일을 찾을 수 없어 샘플 데이터를 사용합니다.");
+      console.log(
+        "📊 통계 파일을 찾을 수 없어 샘플 데이터를 사용합니다.",
+        fetchError
+      );
     }
 
     // 통계 파일이 없으면 샘플 데이터 사용
@@ -188,6 +221,10 @@ const formatDate = (dateString) => {
   });
 };
 
+const refreshStats = async () => {
+  await loadDocumentStats();
+};
+
 onMounted(() => {
   loadDocumentStats();
 });
@@ -201,10 +238,52 @@ onMounted(() => {
   overflow: hidden;
 }
 
-.stats-tabs {
+.stats-header {
   display: flex;
+  justify-content: space-between;
+  align-items: center;
   background: var(--vp-c-bg-soft);
   border-bottom: 1px solid var(--vp-c-divider);
+  padding-right: 1rem;
+}
+
+.stats-tabs {
+  display: flex;
+  flex: 1;
+}
+
+.refresh-button {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  background: var(--vp-c-brand);
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.8rem;
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+.refresh-button:hover:not(:disabled) {
+  background: var(--vp-c-brand-dark);
+  transform: translateY(-1px);
+}
+
+.refresh-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.refresh-icon {
+  transition: transform 0.5s ease;
+}
+
+.refresh-icon.spinning {
+  animation: spin 1s linear infinite;
 }
 
 .tab-button {
@@ -287,6 +366,19 @@ onMounted(() => {
   border-bottom: 1px solid var(--vp-c-divider);
 }
 
+.doc-info {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  gap: 0.25rem;
+}
+
+.doc-dates {
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+}
+
 .recent-documents li:last-child,
 .most-modified li:last-child {
   border-bottom: none;
@@ -295,12 +387,17 @@ onMounted(() => {
 .doc-title {
   color: var(--vp-c-text-1);
   font-size: 0.9rem;
+  font-weight: 500;
 }
 
 .doc-date,
 .doc-count {
   color: var(--vp-c-text-2);
-  font-size: 0.8rem;
+  font-size: 0.75rem;
+}
+
+.doc-dates .doc-date {
+  font-size: 0.7rem;
 }
 
 .loading {
@@ -333,9 +430,24 @@ onMounted(() => {
     grid-template-columns: 1fr;
   }
 
+  .stats-header {
+    flex-direction: column;
+    gap: 0.5rem;
+    padding: 0.5rem;
+  }
+
+  .stats-tabs {
+    width: 100%;
+  }
+
   .tab-button {
     font-size: 0.8rem;
     padding: 0.75rem;
+  }
+
+  .refresh-button {
+    width: 100%;
+    justify-content: center;
   }
 
   .stats-content {
