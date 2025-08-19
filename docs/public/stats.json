@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2025-07-11T01:26:35.035Z",
+  "generatedAt": "2025-08-19T04:44:02.990Z",
   "documents": [
     {
       "path": "/database/korean-sort",
@@ -232,6 +232,16 @@
       "lastCommit": "e4c752ff8088391f62e88a339d0e8f973bcebf0c"
     },
     {
+      "path": "/backend/firebase/install-firebase",
+      "title": "Install Firebase",
+      "createdAt": "2025-08-19",
+      "lastModified": "2025-08-19",
+      "modificationCount": 1,
+      "author": "WooSangWook",
+      "firstCommit": "19eab11ec893c1f267cb6a43fa94ca9dc85e8062",
+      "lastCommit": "19eab11ec893c1f267cb6a43fa94ca9dc85e8062"
+    },
+    {
       "path": "/backend/nestjs/my-nestjs",
       "title": "My Nestjs",
       "createdAt": "2024-04-05",
@@ -292,6 +302,6 @@
       "lastCommit": "b08b0148611ce01a4912d2657a00f8b010965fd6"
     }
   ],
-  "totalDocuments": 29,
-  "totalModifications": 87
+  "totalDocuments": 30,
+  "totalModifications": 88
 }
