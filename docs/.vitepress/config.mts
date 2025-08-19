@@ -321,6 +321,16 @@ export default defineConfig({
         text: "Backend",
         items: [
           {
+            text: "Firebase",
+            collapsed: true,
+            items: [
+              {
+                text: "Firebase 설치",
+                link: "/backend/firebase/install-firebase",
+              },
+            ],
+          },
+          {
             text: "NestJS",
             collapsed: true,
             items: [
