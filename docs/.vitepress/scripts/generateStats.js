@@ -74,14 +74,27 @@ function getDocumentStats() {
 }
 
 function getTitleFromPath(filePath) {
-  // 파일명에서 확장자 제거
-  const fileName = filePath.replace(/\.md$/, "");
+  try {
+    // 마크다운 파일을 읽어서 실제 제목 추출
+    const fileContent = fs.readFileSync(filePath, "utf8");
+    const lines = fileContent.split("\n");
 
-  // 경로의 마지막 부분 (파일명) 추출
+    // 첫 번째 # 헤딩을 찾기
+    for (const line of lines) {
+      const trimmed = line.trim();
+      if (trimmed.startsWith("# ")) {
+        return trimmed.substring(2).trim();
+      }
+    }
+  } catch (error) {
+    console.warn(`파일 ${filePath}에서 제목을 읽는 중 오류:`, error.message);
+  }
+
+  // 제목을 찾지 못한 경우 파일명으로 폴백
+  const fileName = filePath.replace(/\.md$/, "");
   const pathParts = fileName.split("/");
   const fileNameOnly = pathParts[pathParts.length - 1];
 
-  // 파일명을 제목으로 변환
   const title = fileNameOnly
     .split("-")
     .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
@@ -111,7 +124,7 @@ function generateStatsFile() {
     ),
   };
 
-  const outputPath = path.join(__dirname, "../public/stats.json");
+  const outputPath = path.join(__dirname, "../../src/public/stats.json");
 
   // 디렉토리가 없으면 생성
   const outputDir = path.dirname(outputPath);
