@@ -331,7 +331,7 @@ export default defineConfig({
             items: [
               {
                 text: "suppressHydrationWarning 에러 해결법",
-                link: "/backend/nextjs/suppress-hydration-warning",
+                link: "/frontend/nextjs/suppress-hydration-warning",
               },
             ],
           },
