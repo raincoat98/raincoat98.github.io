@@ -298,6 +298,16 @@ export default defineConfig({
             ],
           },
           {
+            text: "React",
+            collapsed: true,
+            items: [
+              {
+                text: "성능 최적화 - useMemo, useCallback, React.memo",
+                link: "/frontend/react/performance-optimization",
+              },
+            ],
+          },
+          {
             text: "Vite",
             collapsed: true,
             items: [
