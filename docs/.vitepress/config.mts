@@ -325,6 +325,16 @@ export default defineConfig({
               },
             ],
           },
+          {
+            text: "Next.js",
+            collapsed: true,
+            items: [
+              {
+                text: "suppressHydrationWarning 에러 해결법",
+                link: "/backend/nextjs/suppress-hydration-warning",
+              },
+            ],
+          },
         ],
       },
       {
@@ -351,16 +361,6 @@ export default defineConfig({
               {
                 text: "NestJS Dev 명령어 루프 문제 해결",
                 link: "/backend/nestjs/nestjs-windows-startdev-loop-fix",
-              },
-            ],
-          },
-          {
-            text: "Next.js",
-            collapsed: true,
-            items: [
-              {
-                text: "suppressHydrationWarning 에러 해결법",
-                link: "/backend/nextjs/suppress-hydration-warning",
               },
             ],
           },
