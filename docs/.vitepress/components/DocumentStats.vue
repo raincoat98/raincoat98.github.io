@@ -15,15 +15,6 @@
           🔄 수정 통계
         </button>
       </div>
-      <button
-        class="refresh-button"
-        @click="refreshStats"
-        :disabled="loading"
-        title="통계 새로고침"
-      >
-        <span class="refresh-icon" :class="{ spinning: loading }">🔄</span>
-        새로고침
-      </button>
     </div>
 
     <div class="stats-content">
@@ -221,10 +212,6 @@ const formatDate = (dateString) => {
   });
 };
 
-const refreshStats = async () => {
-  await loadDocumentStats();
-};
-
 onMounted(() => {
   loadDocumentStats();
 });
@@ -240,50 +227,13 @@ onMounted(() => {
 
 .stats-header {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
   background: var(--vp-c-bg-soft);
   border-bottom: 1px solid var(--vp-c-divider);
-  padding-right: 1rem;
 }
 
 .stats-tabs {
   display: flex;
   flex: 1;
-}
-
-.refresh-button {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  padding: 0.5rem 1rem;
-  background: var(--vp-c-brand);
-  color: white;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: 0.8rem;
-  font-weight: 500;
-  transition: all 0.2s ease;
-}
-
-.refresh-button:hover:not(:disabled) {
-  background: var(--vp-c-brand-dark);
-  transform: translateY(-1px);
-}
-
-.refresh-button:disabled {
-  opacity: 0.6;
-  cursor: not-allowed;
-  transform: none;
-}
-
-.refresh-icon {
-  transition: transform 0.5s ease;
-}
-
-.refresh-icon.spinning {
-  animation: spin 1s linear infinite;
 }
 
 .tab-button {
@@ -431,8 +381,6 @@ onMounted(() => {
   }
 
   .stats-header {
-    flex-direction: column;
-    gap: 0.5rem;
     padding: 0.5rem;
   }
 
@@ -443,11 +391,6 @@ onMounted(() => {
   .tab-button {
     font-size: 0.8rem;
     padding: 0.75rem;
-  }
-
-  .refresh-button {
-    width: 100%;
-    justify-content: center;
   }
 
   .stats-content {
