@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2025-08-19T05:04:23.083Z",
+  "generatedAt": "2025-09-10T01:51:13.641Z",
   "documents": [
     {
       "path": "/database/korean-sort",
@@ -162,6 +162,16 @@
       "lastCommit": "ff92d29d7dc14b4c8cb8dbc76218a1bc18ed91f0"
     },
     {
+      "path": "/frontend/nextjs/suppress-hydration-warning",
+      "title": "Next.js suppressHydrationWarning 에러 해결법",
+      "createdAt": "2025-09-04",
+      "lastModified": "2025-09-04",
+      "modificationCount": 2,
+      "author": "WooSangWook",
+      "firstCommit": "e1ae2c07b8898dbc07b6a041afd0feeec5820958",
+      "lastCommit": "e1ae2c07b8898dbc07b6a041afd0feeec5820958"
+    },
+    {
       "path": "/frontend/javascript/array-methods",
       "title": "JavaScript 배열 메서드와 `for...of` 비동기 처리",
       "createdAt": "2024-11-04",
@@ -202,14 +212,24 @@
       "lastCommit": "d078d0c27ea0ebbd9a21087c7befb8a0cc5aceec"
     },
     {
+      "path": "/frontend/react/performance-optimization",
+      "title": "React 성능 최적화 - useMemo, useCallback, React.memo",
+      "createdAt": "2025-09-04",
+      "lastModified": "2025-09-04",
+      "modificationCount": 1,
+      "author": "WooSangWook",
+      "firstCommit": "7cb6dc775d15f11209e0d921fb8f514cae3a5e86",
+      "lastCommit": "7cb6dc775d15f11209e0d921fb8f514cae3a5e86"
+    },
+    {
       "path": "/introduce/careers",
-      "title": "우상욱",
+      "title": "**우상욱 - Frontend Engineer**",
       "createdAt": "2024-04-26",
-      "lastModified": "2025-07-04",
-      "modificationCount": 11,
+      "lastModified": "2025-09-05",
+      "modificationCount": 13,
       "author": "WooSangWook",
       "firstCommit": "66267aa39c7a15bcc465a225678e8294b31f62ea",
-      "lastCommit": "9b89166aabce3b7b83427462097b1ea02d64a20c"
+      "lastCommit": "0045c62194f7eace54488509160d78a5da47b7b9"
     },
     {
       "path": "/introduce/about-me",
@@ -302,6 +322,6 @@
       "lastCommit": "b08b0148611ce01a4912d2657a00f8b010965fd6"
     }
   ],
-  "totalDocuments": 30,
-  "totalModifications": 88
+  "totalDocuments": 32,
+  "totalModifications": 93
 }

@@ -39,6 +39,7 @@ export default defineConfig({
     ["link", { rel: "icon", href: "/favicon.svg", type: "image/svg+xml" }],
     ["link", { rel: "alternate icon", href: "/favicon.svg" }],
     ["meta", { name: "author", content: "SangWook Woo" }],
+    ["script", { src: "/scroll-to-top.js" }],
 
     // Canonical URL
     ["link", { rel: "canonical", href: "https://raincoat98.github.io" }],
