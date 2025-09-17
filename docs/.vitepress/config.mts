@@ -250,6 +250,10 @@ export default defineConfig({
                 text: "객체 복사 이제는 Structured Clone !",
                 link: "/frontend/javascript/structured-clone",
               },
+              {
+                text: "IndexedDB vs LocalStorage 차이 정리",
+                link: "/frontend/javascript/indexeddb-vs-localstorage",
+              },
             ],
           },
           {
