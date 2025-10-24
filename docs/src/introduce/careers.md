@@ -101,7 +101,7 @@ React와 Vue.js 기반으로 다양한 웹 서비스를 개발하며, UI/UX 개�
   - NAS + Docker 기반 서버 환경 구성 및 개인 도메인 연결
   - Cursor·GPT 활용 → CRUD 로직 자동화, 코드 리팩토링, 문서화 지원
 - **성과**: 기획부터 개발·배포까지 100% 단독 진행,<br>
-  Manifest V3 인증 작업 후 크롬 웹스토어 등록 예정,<br>
+  Manifest V3 인증 작업 완료 후 크롬 웹스토어 '북마클' 등록 완료,<br>
   운영 환경 자동화 및 개발 효율 20% 이상 향상
 - **링크**: [https://bookmarkhub-5ea6c-dashboard.web.app/](https://bookmarkhub-5ea6c-dashboard.web.app/)
 
