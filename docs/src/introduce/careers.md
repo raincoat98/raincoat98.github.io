@@ -103,7 +103,7 @@ React와 Vue.js 기반으로 다양한 웹 서비스를 개발하며, UI/UX 개�
 - **성과**: 기획부터 개발·배포까지 100% 단독 진행,<br>
   Manifest V3 인증 작업 완료 후 크롬 웹스토어 '북마클' 등록 완료,<br>
   운영 환경 자동화 및 개발 효율 20% 이상 향상
-- **링크**: [https://bookmarkhub-5ea6c-dashboard.web.app/](https://bookmarkhub-5ea6c-dashboard.web.app/)
+- **링크**: [https://bookmarkhub-5ea6c.web.app/dashboard](https://bookmarkhub-5ea6c.web.app/dashboard)
 
 #### **📸 인생네컷 스타일 온라인 포토부스**
 
