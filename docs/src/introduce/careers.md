@@ -91,7 +91,7 @@ React와 Vue.js 기반으로 다양한 웹 서비스를 개발하며, UI/UX 개�
 
 ## **Side Projects.**
 
-#### **🔖 BookmarkHub (Chrome 확장 프로그램)**
+#### **🔖 북마클 (Chrome 확장 프로그램)**
 
 - **문제**: 브라우저 기본 북마크 관리 불편
 - **구현**:
