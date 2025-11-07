@@ -66,17 +66,30 @@ const loadDocumentStats = async () => {
   try {
     loading.value = true;
     const timestamp = new Date().getTime();
-    const response = await fetch(`/stats.json?t=${timestamp}`, {
-      cache: "no-cache",
-      headers: {
-        "Cache-Control": "no-cache, no-store, must-revalidate",
-        Pragma: "no-cache",
-        Expires: "0",
-      },
-    });
+    
+    // 타임아웃 설정 (10초)
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 10000);
+    
+    try {
+      const response = await fetch(`/stats.json?t=${timestamp}`, {
+        cache: "no-cache",
+        signal: controller.signal,
+        headers: {
+          "Cache-Control": "no-cache, no-store, must-revalidate",
+          Pragma: "no-cache",
+          Expires: "0",
+        },
+      });
 
-    if (response.ok) {
+      clearTimeout(timeoutId);
+
+      if (!response.ok) {
+        throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+      }
+
       const statsData = await response.json();
+      
       if (statsData.documents && statsData.documents.length > 0) {
         // introduce, examples, index 페이지 제외
         documents.value = statsData.documents.filter(
@@ -85,6 +98,9 @@ const loadDocumentStats = async () => {
             !doc.path.includes("/examples/") &&
             doc.path !== "/index"
         );
+      } else {
+        console.warn("⚠️  문서 데이터가 비어있습니다.");
+        documents.value = [];
       }
 
       // Search Console 데이터가 있으면 사용
@@ -97,9 +113,21 @@ const loadDocumentStats = async () => {
           updateGraphDataFromSearchConsole(statsData.searchConsole.dailyData);
         }
       }
+    } catch (fetchError: any) {
+      clearTimeout(timeoutId);
+      
+      if (fetchError.name === "AbortError") {
+        console.error("❌ stats.json 로드 타임아웃 (10초 초과)");
+      } else {
+        throw fetchError;
+      }
     }
-  } catch (error) {
-    console.error("문서 통계를 로드하는 중 오류 발생:", error);
+  } catch (error: any) {
+    console.error("❌ 문서 통계를 로드하는 중 오류 발생:", error);
+    console.error("   → stats.json 파일이 존재하는지 확인하세요.");
+    console.error("   → 네트워크 연결을 확인하세요.");
+    // 에러 발생 시에도 빈 배열로 설정하여 로딩 상태 해제
+    documents.value = [];
   } finally {
     loading.value = false;
   }

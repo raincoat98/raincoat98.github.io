@@ -1,7 +1,7 @@
 {
   "scripts": {
     "docs:dev": "vitepress dev docs",
-    "docs:build": "node docs/.vitepress/scripts/generateStats.js && vitepress build docs",
+    "docs:build": "node docs/.vitepress/scripts/generateStats.js && vitepress build docs && node docs/.vitepress/scripts/copyStatsAfterBuild.js",
     "docs:preview": "vitepress preview docs",
     "docs:stats": "node docs/.vitepress/scripts/generateStats.js"
   },
