@@ -66,13 +66,16 @@ const loadDocumentStats = async () => {
   try {
     loading.value = true;
     const timestamp = new Date().getTime();
-    
+    const statsUrl = `/stats.json?t=${timestamp}`;
+
+    console.log(`📥 stats.json 로드 시도: ${statsUrl}`);
+
     // 타임아웃 설정 (10초)
     const controller = new AbortController();
     const timeoutId = setTimeout(() => controller.abort(), 10000);
-    
+
     try {
-      const response = await fetch(`/stats.json?t=${timestamp}`, {
+      const response = await fetch(statsUrl, {
         cache: "no-cache",
         signal: controller.signal,
         headers: {
@@ -84,12 +87,25 @@ const loadDocumentStats = async () => {
 
       clearTimeout(timeoutId);
 
+      console.log(`📊 응답 상태: ${response.status} ${response.statusText}`);
+      console.log(`📊 응답 URL: ${response.url}`);
+      console.log(`📊 Content-Type: ${response.headers.get("content-type")}`);
+
       if (!response.ok) {
+        const errorText = await response
+          .text()
+          .catch(() => "응답 본문을 읽을 수 없습니다");
+        console.error(`❌ HTTP 오류 응답 본문:`, errorText);
         throw new Error(`HTTP ${response.status}: ${response.statusText}`);
       }
 
       const statsData = await response.json();
-      
+      console.log(`✅ stats.json 로드 성공:`, {
+        documentsCount: statsData.documents?.length || 0,
+        hasSearchConsole: !!statsData.searchConsole,
+        generatedAt: statsData.generatedAt,
+      });
+
       if (statsData.documents && statsData.documents.length > 0) {
         // introduce, examples, index 페이지 제외
         documents.value = statsData.documents.filter(
@@ -98,6 +114,7 @@ const loadDocumentStats = async () => {
             !doc.path.includes("/examples/") &&
             doc.path !== "/index"
         );
+        console.log(`📝 필터링된 문서 수: ${documents.value.length}`);
       } else {
         console.warn("⚠️  문서 데이터가 비어있습니다.");
         documents.value = [];
@@ -115,10 +132,14 @@ const loadDocumentStats = async () => {
       }
     } catch (fetchError: any) {
       clearTimeout(timeoutId);
-      
+
       if (fetchError.name === "AbortError") {
         console.error("❌ stats.json 로드 타임아웃 (10초 초과)");
+        console.error(`   → 요청 URL: ${statsUrl}`);
       } else {
+        console.error("❌ fetch 오류:", fetchError);
+        console.error(`   → 요청 URL: ${statsUrl}`);
+        console.error(`   → 오류 메시지: ${fetchError.message}`);
         throw fetchError;
       }
     }
@@ -126,6 +147,9 @@ const loadDocumentStats = async () => {
     console.error("❌ 문서 통계를 로드하는 중 오류 발생:", error);
     console.error("   → stats.json 파일이 존재하는지 확인하세요.");
     console.error("   → 네트워크 연결을 확인하세요.");
+    console.error(
+      "   → 브라우저 개발자 도구의 Network 탭에서 /stats.json 요청을 확인하세요."
+    );
     // 에러 발생 시에도 빈 배열로 설정하여 로딩 상태 해제
     documents.value = [];
   } finally {
