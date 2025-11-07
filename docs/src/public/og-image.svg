@@ -14,7 +14,7 @@
   <path d="M380 189L395 215L410 189H380Z" fill="#E0234E"/>
   
   <!-- Title -->
-  <text x="250" y="270" font-family="Arial, sans-serif" font-weight="bold" font-size="60" fill="white">SangWook Blog</text>
+  <text x="250" y="270" font-family="Arial, sans-serif" font-weight="bold" font-size="60" fill="white">raincoat DEV</text>
   
   <!-- Description -->
   <text x="250" y="330" font-family="Arial, sans-serif" font-size="30" fill="white" opacity="0.9">Vue.js &amp; NestJS 개발자</text>

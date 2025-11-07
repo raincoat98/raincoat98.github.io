@@ -2,3 +2,14 @@ docs/.vitepress/cache
 docs/.vitepress/dist
 docs/.vitepress/.temp
 node_modules
+
+# Google API 키 파일 (보안)
+**/raincoat-401705-*.json
+*.json
+!package.json
+!package-lock.json
+!tsconfig.json
+!tsconfig.*.json
+
+# Environment
+.env

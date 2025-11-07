@@ -1,4 +1,4 @@
-# SangWook Blog robots.txt
+# raincoat DEV robots.txt
 User-agent: *
 Allow: /
 

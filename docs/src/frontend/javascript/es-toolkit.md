@@ -1,4 +1,4 @@
-# [es-tookit](https://es-toolkit.slash.page/ko/intro.html)
+# es-toolkit
 
 [[toc]]
 

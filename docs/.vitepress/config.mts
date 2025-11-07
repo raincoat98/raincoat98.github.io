@@ -3,7 +3,7 @@ import { defineConfig } from "vitepress";
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
   base: "/",
-  title: "SangWook Blog",
+  title: "Raincoat Dev",
   description:
     "프론트엔드 Vue.js와 백엔드 NestJS를 전문으로 하는 개발자 블로그. 웹 개발 경험, 코드 최적화, 모범 사례를 공유합니다.",
   cleanUrls: true,
@@ -88,7 +88,7 @@ export default defineConfig({
       "meta",
       {
         property: "og:title",
-        content: "SangWook Blog",
+        content: "Raincoat Dev",
       },
     ],
     [
@@ -107,7 +107,7 @@ export default defineConfig({
       },
     ],
     ["meta", { property: "og:url", content: "https://raincoat98.github.io" }],
-    ["meta", { property: "og:site_name", content: "SangWook Blog" }],
+    ["meta", { property: "og:site_name", content: "Raincoat Dev" }],
     ["meta", { property: "og:locale", content: "ko_KR" }],
 
     // Twitter
@@ -184,6 +184,12 @@ export default defineConfig({
 
   themeConfig: {
     aside: true,
+    logo: {
+      src: "/favicon.svg",
+      alt: "Raincoat Dev",
+      // 로고 클릭 시 홈(/)으로 이동
+      link: "/",
+    },
     outline: {
       level: [2, 3], // h2와 h3 헤딩을 TOC에 포함
       label: "On this page", // 표시할 제목을 설정할 수 있음
@@ -193,225 +199,230 @@ export default defineConfig({
     },
     // https://vitepress.dev/reference/default-theme-config
     nav: [
-      { text: "Home", link: "/" },
       {
-        text: "About",
-        link: "/introduce/about-me",
+        text: "홈",
+        link: "/introduce/about",
         activeMatch: "/introduce/about",
       },
-      { text: "Examples", link: "/examples/markdown-examples" },
-    ],
-
-    sidebar: [
       {
-        text: "Introduction",
-        collapsed: false,
-        items: [
-          { text: "About me", link: "/introduce/about-me" },
-          {
-            text: "careers",
-            link: "/introduce/careers",
-          },
-          { text: "WHY 개발자?", link: "/introduce/my-develop" },
-        ],
-      },
-
-      {
-        text: "Frontend",
-        items: [
-          {
-            text: "vitepress",
-            collapsed: true,
-            items: [
-              {
-                text: "vitepress 댓글 기능 구현",
-                link: "/frontend/vitepress/vitepress-comment",
-              },
-            ],
-          },
-          {
-            text: "Javascript",
-            collapsed: true,
-
-            items: [
-              {
-                text: "정규식",
-                link: "/frontend/javascript/regular-expression",
-              },
-              {
-                text: "es-toolkit",
-                link: "/frontend/javascript/es-toolkit",
-              },
-              {
-                text: "JavaScript 배열 메서드",
-                link: "/frontend/javascript/array-methods",
-              },
-              {
-                text: "객체 복사 이제는 Structured Clone !",
-                link: "/frontend/javascript/structured-clone",
-              },
-              {
-                text: "IndexedDB vs LocalStorage 차이 정리",
-                link: "/frontend/javascript/indexeddb-vs-localstorage",
-              },
-            ],
-          },
-          {
-            text: "Vue",
-            collapsed: false,
-            items: [
-              {
-                text: "내가 VueJS를 사용하는 이유",
-                link: "/frontend/vue/my-vue",
-              },
-              {
-                text: " Vue 라이브러리 추천",
-                link: "/frontend/vue/my-vue-library",
-              },
-              {
-                text: "Vue 코드 컨벤션",
-                link: "/frontend/vue/vue-code-convention",
-              },
-              {
-                text: "Vue 이벤트 및 이벤트 수정자",
-                link: "/frontend/vue/vue-event",
-              },
-              {
-                text: "폼 검증하기 VeeValidate",
-                link: "/frontend/vue/vee-validate",
-              },
-              {
-                text: "vue Cookie : 오늘 하루동안 보지 않기 기능 구현",
-                link: "/frontend/vue/vue-cookie",
-              },
-              {
-                text: "Quasar Tailwind 설치",
-                link: "/frontend/vue/quasar-tailwind",
-              },
-              {
-                text: "Vite Quasar에서 AOS로 애니메이션 적용하기",
-                link: "/frontend/vue/vite-quasar-aos",
-              },
-              {
-                text: "Vue Tailwind Brand Color 적용하기",
-                link: "/frontend/vue/tailwind-brand-color",
-              },
-              {
-                text: "Vue에서 dayjs로 한국 시간(KST) 처리하는 법 정리",
-                link: "/frontend/vue/dayjs-korea",
-              },
-            ],
-          },
-          {
-            text: "React",
-            collapsed: true,
-            items: [
-              {
-                text: "성능 최적화 - useMemo, useCallback, React.memo",
-                link: "/frontend/react/performance-optimization",
-              },
-            ],
-          },
-          {
-            text: "Vite",
-            collapsed: true,
-            items: [
-              {
-                text: "Vite 경로 별칭 설정",
-                link: "/frontend/vite/vite-alias",
-              },
-              {
-                text: "Vite 포트 설정",
-                link: "/frontend/vite/vite-port",
-              },
-              {
-                text: "Vite Proxy 설정",
-                link: "/frontend/vite/proxy",
-              },
-            ],
-          },
-          {
-            text: "Next.js",
-            collapsed: true,
-            items: [
-              {
-                text: "suppressHydrationWarning 에러 해결법",
-                link: "/frontend/nextjs/suppress-hydration-warning",
-              },
-            ],
-          },
-        ],
+        text: "전체 보기",
+        link: "/frontend/vue/my-vue",
+        activeMatch: "/frontend/|/backend/|/database/|/git/",
       },
       {
-        text: "Backend",
-        items: [
-          {
-            text: "Firebase",
-            collapsed: true,
-            items: [
-              {
-                text: "Firebase 설치",
-                link: "/backend/firebase/install-firebase",
-              },
-            ],
-          },
-          {
-            text: "NestJS",
-            collapsed: true,
-            items: [
-              {
-                text: "내가 NestJS를 사용하는 이유",
-                link: "/backend/nestjs/my-nestjs",
-              },
-              {
-                text: "NestJS Dev 명령어 루프 문제 해결",
-                link: "/backend/nestjs/nestjs-windows-startdev-loop-fix",
-              },
-            ],
-          },
-        ],
-      },
-      {
-        text: "Database",
-        items: [
-          {
-            text: "조회한 데이터 업데이트 하기",
-            link: "/database/update-in",
-          },
-          {
-            text: "한글 정렬 하기",
-            link: "/database/korean-sort",
-          },
-        ],
-      },
-      {
-        text: "Git",
-        items: [
-          // {
-          //   text: "Git",
-          //   collapsed: true,
-          //   items: [
-          //     {
-          //       text: "Git 명령어 정리",
-          //       link: "/git/git-command",
-          //     },
-          //   ],
-          // },
-          {
-            text: "GitHub Readme 예시",
-            link: "/git/github-readme",
-          },
-        ],
-      },
-      {
-        text: "Examples",
-        collapsed: true,
-        items: [
-          { text: "Markdown Examples", link: "/examples/markdown-examples" },
-          { text: "Runtime API Examples", link: "/examples/api-examples" },
-        ],
+        text: "개발자 소개",
+        link: "/introduce/careers",
+        activeMatch: "/introduce/my-develop",
       },
     ],
+
+    sidebar: {
+      // 대시보드 페이지와 홈(/)에서는 사이드바 숨기기
+      "/dashboard": [],
+      // 다른 모든 페이지에 대한 기본 사이드바
+      "/": [
+        {
+          text: "Introduction",
+          collapsed: false,
+          items: [
+            { text: "About me", link: "/introduce/about-me" },
+            {
+              text: "careers",
+              link: "/introduce/careers",
+            },
+            { text: "WHY 개발자?", link: "/introduce/my-develop" },
+          ],
+        },
+
+        {
+          text: "Frontend",
+          items: [
+            {
+              text: "vitepress",
+              collapsed: true,
+              items: [
+                {
+                  text: "vitepress 댓글 기능 구현",
+                  link: "/frontend/vitepress/vitepress-comment",
+                },
+              ],
+            },
+            {
+              text: "Javascript",
+              collapsed: true,
+
+              items: [
+                {
+                  text: "정규식",
+                  link: "/frontend/javascript/regular-expression",
+                },
+                {
+                  text: "es-toolkit",
+                  link: "/frontend/javascript/es-toolkit",
+                },
+                {
+                  text: "JavaScript 배열 메서드",
+                  link: "/frontend/javascript/array-methods",
+                },
+                {
+                  text: "객체 복사 이제는 Structured Clone !",
+                  link: "/frontend/javascript/structured-clone",
+                },
+                {
+                  text: "IndexedDB vs LocalStorage 차이 정리",
+                  link: "/frontend/javascript/indexeddb-vs-localstorage",
+                },
+              ],
+            },
+            {
+              text: "Vue",
+              collapsed: false,
+              items: [
+                {
+                  text: "내가 VueJS를 사용하는 이유",
+                  link: "/frontend/vue/my-vue",
+                },
+                {
+                  text: " Vue 라이브러리 추천",
+                  link: "/frontend/vue/my-vue-library",
+                },
+                {
+                  text: "Vue 코드 컨벤션",
+                  link: "/frontend/vue/vue-code-convention",
+                },
+                {
+                  text: "Vue 이벤트 및 이벤트 수정자",
+                  link: "/frontend/vue/vue-event",
+                },
+                {
+                  text: "폼 검증하기 VeeValidate",
+                  link: "/frontend/vue/vee-validate",
+                },
+                {
+                  text: "vue Cookie : 오늘 하루동안 보지 않기 기능 구현",
+                  link: "/frontend/vue/vue-cookie",
+                },
+                {
+                  text: "Quasar Tailwind 설치",
+                  link: "/frontend/vue/quasar-tailwind",
+                },
+                {
+                  text: "Vite Quasar에서 AOS로 애니메이션 적용하기",
+                  link: "/frontend/vue/vite-quasar-aos",
+                },
+                {
+                  text: "Vue Tailwind Brand Color 적용하기",
+                  link: "/frontend/vue/tailwind-brand-color",
+                },
+                {
+                  text: "Vue에서 dayjs로 한국 시간(KST) 처리하는 법 정리",
+                  link: "/frontend/vue/dayjs-korea",
+                },
+              ],
+            },
+            {
+              text: "React",
+              collapsed: true,
+              items: [
+                {
+                  text: "성능 최적화 - useMemo, useCallback, React.memo",
+                  link: "/frontend/react/performance-optimization",
+                },
+              ],
+            },
+            {
+              text: "Vite",
+              collapsed: true,
+              items: [
+                {
+                  text: "Vite 경로 별칭 설정",
+                  link: "/frontend/vite/vite-alias",
+                },
+                {
+                  text: "Vite 포트 설정",
+                  link: "/frontend/vite/vite-port",
+                },
+                {
+                  text: "Vite Proxy 설정",
+                  link: "/frontend/vite/proxy",
+                },
+              ],
+            },
+            {
+              text: "Next.js",
+              collapsed: true,
+              items: [
+                {
+                  text: "suppressHydrationWarning 에러 해결법",
+                  link: "/frontend/nextjs/suppress-hydration-warning",
+                },
+              ],
+            },
+          ],
+        },
+        {
+          text: "Backend",
+          items: [
+            {
+              text: "Firebase",
+              collapsed: true,
+              items: [
+                {
+                  text: "Firebase 설치",
+                  link: "/backend/firebase/install-firebase",
+                },
+              ],
+            },
+            {
+              text: "NestJS",
+              collapsed: true,
+              items: [
+                {
+                  text: "내가 NestJS를 사용하는 이유",
+                  link: "/backend/nestjs/my-nestjs",
+                },
+                {
+                  text: "NestJS Dev 명령어 루프 문제 해결",
+                  link: "/backend/nestjs/nestjs-windows-startdev-loop-fix",
+                },
+              ],
+            },
+          ],
+        },
+        {
+          text: "Database",
+          items: [
+            {
+              text: "조회한 데이터 업데이트 하기",
+              link: "/database/update-in",
+            },
+            {
+              text: "한글 정렬 하기",
+              link: "/database/korean-sort",
+            },
+          ],
+        },
+        {
+          text: "Git",
+          items: [
+            // {
+            //   text: "Git",
+            //   collapsed: true,
+            //   items: [
+            //     {
+            //       text: "Git 명령어 정리",
+            //       link: "/git/git-command",
+            //     },
+            //   ],
+            // },
+            {
+              text: "GitHub Readme 예시",
+              link: "/git/github-readme",
+            },
+          ],
+        },
+      ],
+    },
     socialLinks: [
       { icon: "github", link: "https://github.com/raincoat98/vitepress" },
     ],

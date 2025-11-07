@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2025-09-10T01:51:13.641Z",
+  "generatedAt": "2025-11-07T01:33:54.798Z",
   "documents": [
     {
       "path": "/database/korean-sort",
@@ -203,13 +203,23 @@
     },
     {
       "path": "/frontend/javascript/es-toolkit",
-      "title": "[es-tookit](https://es-toolkit.slash.page/ko/intro.html)",
+      "title": "es-toolkit",
       "createdAt": "2024-09-02",
       "lastModified": "2024-09-03",
       "modificationCount": 4,
       "author": "WooSangWook",
       "firstCommit": "b7089375cf28b7895251f9229b249be8f85eab57",
       "lastCommit": "d078d0c27ea0ebbd9a21087c7befb8a0cc5aceec"
+    },
+    {
+      "path": "/frontend/javascript/indexeddb-vs-localstorage",
+      "title": "IndexedDB vs LocalStorage 차이 정리",
+      "createdAt": "2025-09-17",
+      "lastModified": "2025-09-17",
+      "modificationCount": 1,
+      "author": "WooSangWook",
+      "firstCommit": "b266a770a7b749e0787b12e64425af355a23293d",
+      "lastCommit": "b266a770a7b749e0787b12e64425af355a23293d"
     },
     {
       "path": "/frontend/react/performance-optimization",
@@ -225,11 +235,11 @@
       "path": "/introduce/careers",
       "title": "**우상욱 - Frontend Engineer**",
       "createdAt": "2024-04-26",
-      "lastModified": "2025-09-05",
-      "modificationCount": 13,
+      "lastModified": "2025-10-24",
+      "modificationCount": 16,
       "author": "WooSangWook",
       "firstCommit": "66267aa39c7a15bcc465a225678e8294b31f62ea",
-      "lastCommit": "0045c62194f7eace54488509160d78a5da47b7b9"
+      "lastCommit": "17ae8728eeb69b4523c5191c6e1af6e5b1afe158"
     },
     {
       "path": "/introduce/about-me",
@@ -250,6 +260,16 @@
       "author": "WooSangWook",
       "firstCommit": "34f604488b02142adb238a85485a54ff9ca3942f",
       "lastCommit": "e4c752ff8088391f62e88a339d0e8f973bcebf0c"
+    },
+    {
+      "path": "/introduce/about",
+      "title": "https://vitepress.dev/reference/default-theme-home-page",
+      "createdAt": "2024-04-05",
+      "lastModified": "2024-04-26",
+      "modificationCount": 5,
+      "author": "WooSangWook",
+      "firstCommit": "34f604488b02142adb238a85485a54ff9ca3942f",
+      "lastCommit": "66267aa39c7a15bcc465a225678e8294b31f62ea"
     },
     {
       "path": "/backend/firebase/install-firebase",
@@ -283,7 +303,7 @@
     },
     {
       "path": "/index",
-      "title": "https://vitepress.dev/reference/default-theme-home-page",
+      "title": "Index",
       "createdAt": "2024-04-05",
       "lastModified": "2025-07-04",
       "modificationCount": 11,
@@ -322,6 +342,332 @@
       "lastCommit": "b08b0148611ce01a4912d2657a00f8b010965fd6"
     }
   ],
-  "totalDocuments": 32,
-  "totalModifications": 93
+  "totalDocuments": 34,
+  "totalModifications": 102,
+  "searchConsole": {
+    "totalClicks": 21,
+    "totalImpressions": 560,
+    "ctr": 0.0375,
+    "position": 7.573214285714286,
+    "clicksChange": -38.2,
+    "dailyData": [
+      {
+        "date": "2025-10-08",
+        "clicks": 0,
+        "impressions": 9,
+        "ctr": 0,
+        "position": 7.111111111111111
+      },
+      {
+        "date": "2025-10-09",
+        "clicks": 1,
+        "impressions": 18,
+        "ctr": 0.05555555555555555,
+        "position": 7.111111111111111
+      },
+      {
+        "date": "2025-10-10",
+        "clicks": 0,
+        "impressions": 18,
+        "ctr": 0,
+        "position": 5.722222222222222
+      },
+      {
+        "date": "2025-10-11",
+        "clicks": 0,
+        "impressions": 9,
+        "ctr": 0,
+        "position": 7.888888888888889
+      },
+      {
+        "date": "2025-10-12",
+        "clicks": 1,
+        "impressions": 23,
+        "ctr": 0.043478260869565216,
+        "position": 6.869565217391305
+      },
+      {
+        "date": "2025-10-13",
+        "clicks": 2,
+        "impressions": 26,
+        "ctr": 0.07692307692307693,
+        "position": 6.615384615384615
+      },
+      {
+        "date": "2025-10-14",
+        "clicks": 0,
+        "impressions": 23,
+        "ctr": 0,
+        "position": 6.434782608695652
+      },
+      {
+        "date": "2025-10-15",
+        "clicks": 0,
+        "impressions": 23,
+        "ctr": 0,
+        "position": 6.739130434782608
+      },
+      {
+        "date": "2025-10-16",
+        "clicks": 0,
+        "impressions": 23,
+        "ctr": 0,
+        "position": 6.173913043478261
+      },
+      {
+        "date": "2025-10-17",
+        "clicks": 0,
+        "impressions": 15,
+        "ctr": 0,
+        "position": 6.066666666666666
+      },
+      {
+        "date": "2025-10-18",
+        "clicks": 0,
+        "impressions": 10,
+        "ctr": 0,
+        "position": 7.2
+      },
+      {
+        "date": "2025-10-19",
+        "clicks": 2,
+        "impressions": 26,
+        "ctr": 0.07692307692307693,
+        "position": 6.269230769230769
+      },
+      {
+        "date": "2025-10-20",
+        "clicks": 1,
+        "impressions": 23,
+        "ctr": 0.043478260869565216,
+        "position": 16.043478260869563
+      },
+      {
+        "date": "2025-10-21",
+        "clicks": 1,
+        "impressions": 17,
+        "ctr": 0.058823529411764705,
+        "position": 6.647058823529412
+      },
+      {
+        "date": "2025-10-22",
+        "clicks": 2,
+        "impressions": 35,
+        "ctr": 0.05714285714285714,
+        "position": 6.6571428571428575
+      },
+      {
+        "date": "2025-10-23",
+        "clicks": 3,
+        "impressions": 31,
+        "ctr": 0.0967741935483871,
+        "position": 6.645161290322581
+      },
+      {
+        "date": "2025-10-24",
+        "clicks": 0,
+        "impressions": 12,
+        "ctr": 0,
+        "position": 8.916666666666668
+      },
+      {
+        "date": "2025-10-25",
+        "clicks": 0,
+        "impressions": 8,
+        "ctr": 0,
+        "position": 9.75
+      },
+      {
+        "date": "2025-10-26",
+        "clicks": 0,
+        "impressions": 23,
+        "ctr": 0,
+        "position": 6.173913043478261
+      },
+      {
+        "date": "2025-10-27",
+        "clicks": 2,
+        "impressions": 28,
+        "ctr": 0.07142857142857142,
+        "position": 6.428571428571429
+      },
+      {
+        "date": "2025-10-28",
+        "clicks": 3,
+        "impressions": 35,
+        "ctr": 0.08571428571428572,
+        "position": 9.142857142857142
+      },
+      {
+        "date": "2025-10-29",
+        "clicks": 1,
+        "impressions": 21,
+        "ctr": 0.047619047619047616,
+        "position": 6.571428571428571
+      },
+      {
+        "date": "2025-10-30",
+        "clicks": 0,
+        "impressions": 20,
+        "ctr": 0,
+        "position": 8.9
+      },
+      {
+        "date": "2025-10-31",
+        "clicks": 2,
+        "impressions": 19,
+        "ctr": 0.10526315789473684,
+        "position": 4.947368421052632
+      },
+      {
+        "date": "2025-11-01",
+        "clicks": 0,
+        "impressions": 16,
+        "ctr": 0,
+        "position": 18.5
+      },
+      {
+        "date": "2025-11-02",
+        "clicks": 0,
+        "impressions": 20,
+        "ctr": 0,
+        "position": 8.3
+      },
+      {
+        "date": "2025-11-03",
+        "clicks": 0,
+        "impressions": 16,
+        "ctr": 0,
+        "position": 5.25
+      },
+      {
+        "date": "2025-11-04",
+        "clicks": 0,
+        "impressions": 13,
+        "ctr": 0,
+        "position": 5.384615384615385
+      }
+    ],
+    "pageData": {
+      "https://raincoat98.github.io/frontend/vitepress/vitepress-comment": {
+        "clicks": 8,
+        "impressions": 53,
+        "ctr": 0.1509433962264151,
+        "position": 7.981132075471698
+      },
+      "https://raincoat98.github.io/frontend/vue/vue-cookie": {
+        "clicks": 5,
+        "impressions": 371,
+        "ctr": 0.013477088948787063,
+        "position": 6.377358490566038
+      },
+      "https://raincoat98.github.io/frontend/vue/quasar-tailwind": {
+        "clicks": 4,
+        "impressions": 22,
+        "ctr": 0.18181818181818182,
+        "position": 16.090909090909093
+      },
+      "https://raincoat98.github.io/frontend/vue/vue-code-convention": {
+        "clicks": 4,
+        "impressions": 23,
+        "ctr": 0.17391304347826086,
+        "position": 6.304347826086956
+      },
+      "https://raincoat98.github.io/": {
+        "clicks": 0,
+        "impressions": 1,
+        "ctr": 0,
+        "position": 8
+      },
+      "https://raincoat98.github.io/backend/nestjs/my-nestjs": {
+        "clicks": 0,
+        "impressions": 9,
+        "ctr": 0,
+        "position": 21
+      },
+      "https://raincoat98.github.io/frontend/javascript/structured-clone": {
+        "clicks": 0,
+        "impressions": 65,
+        "ctr": 0,
+        "position": 10
+      },
+      "https://raincoat98.github.io/frontend/javascript/structured-clone#%E1%84%83%E1%85%A1%E1%84%85%E1%85%B3%E1%86%AB-%E1%84%87%E1%85%A9%E1%86%A8%E1%84%89%E1%85%A1-%E1%84%87%E1%85%A1%E1%86%BC%E1%84%87%E1%85%A5%E1%86%B8": {
+        "clicks": 0,
+        "impressions": 1,
+        "ctr": 0,
+        "position": 4
+      },
+      "https://raincoat98.github.io/frontend/javascript/structured-clone#lodash": {
+        "clicks": 0,
+        "impressions": 1,
+        "ctr": 0,
+        "position": 4
+      },
+      "https://raincoat98.github.io/frontend/javascript/structured-clone#structuredclone": {
+        "clicks": 0,
+        "impressions": 1,
+        "ctr": 0,
+        "position": 4
+      },
+      "https://raincoat98.github.io/frontend/javascript/structured-clone#structuredclone-%E1%84%89%E1%85%A1%E1%84%8B%E1%85%AD%E1%86%BC-%E1%84%8B%E1%85%A8%E1%84%8C%E1%85%A6": {
+        "clicks": 0,
+        "impressions": 1,
+        "ctr": 0,
+        "position": 4
+      },
+      "https://raincoat98.github.io/frontend/vitepress/vitepress-comment#_2-%E1%84%83%E1%85%A2%E1%86%BA%E1%84%80%E1%85%B3%E1%86%AF-%E1%84%8F%E1%85%A5%E1%86%B7%E1%84%91%E1%85%A9%E1%84%82%E1%85%A5%E1%86%AB%E1%84%90%E1%85%B3-%E1%84%89%E1%85%A2%E1%86%BC%E1%84%89%E1%85%A5%E1%86%BC": {
+        "clicks": 0,
+        "impressions": 2,
+        "ctr": 0,
+        "position": 5.5
+      },
+      "https://raincoat98.github.io/frontend/vitepress/vitepress-comment#_3-%E1%84%83%E1%85%A2%E1%86%BA%E1%84%80%E1%85%B3%E1%86%AF-%E1%84%8F%E1%85%A5%E1%86%B7%E1%84%91%E1%85%A9%E1%84%82%E1%85%A5%E1%86%AB%E1%84%90%E1%85%B3%E1%84%85%E1%85%B3%E1%86%AF-%E1%84%8C%E1%85%A5%E1%86%AB%E1%84%8B%E1%85%A7%E1%86%A8%E1%84%8B%E1%85%A6-%E1%84%83%E1%85%B3%E1%86%BC%E1%84%85%E1%85%A9%E1%86%A8": {
+        "clicks": 0,
+        "impressions": 2,
+        "ctr": 0,
+        "position": 5.5
+      },
+      "https://raincoat98.github.io/frontend/vitepress/vitepress-comment#_4-%E1%84%83%E1%85%A2%E1%86%BA%E1%84%80%E1%85%B3%E1%86%AF-%E1%84%8F%E1%85%A5%E1%86%B7%E1%84%91%E1%85%A9%E1%84%82%E1%85%A5%E1%86%AB%E1%84%90%E1%85%B3%E1%84%85%E1%85%B3%E1%86%AF-%E1%84%86%E1%85%AE%E1%86%AB%E1%84%89%E1%85%A5-%E1%84%92%E1%85%A1%E1%84%83%E1%85%A1%E1%86%AB%E1%84%8B%E1%85%A6-%E1%84%87%E1%85%A2%E1%84%8E%E1%85%B5": {
+        "clicks": 0,
+        "impressions": 2,
+        "ctr": 0,
+        "position": 5.5
+      },
+      "https://raincoat98.github.io/frontend/vue/vite-quasar-aos": {
+        "clicks": 0,
+        "impressions": 16,
+        "ctr": 0,
+        "position": 6.625
+      },
+      "https://raincoat98.github.io/frontend/vue/vue-code-convention#%E1%84%8F%E1%85%A5%E1%86%AB%E1%84%87%E1%85%A6%E1%86%AB%E1%84%89%E1%85%A7%E1%86%AB-%E1%84%89%E1%85%A6%E1%84%87%E1%85%AE%E1%84%89%E1%85%A1%E1%84%92%E1%85%A1%E1%86%BC": {
+        "clicks": 0,
+        "impressions": 1,
+        "ctr": 0,
+        "position": 6
+      },
+      "https://raincoat98.github.io/frontend/vue/vue-code-convention#%E1%84%8F%E1%85%A9%E1%84%83%E1%85%B3-%E1%84%8B%E1%85%A8%E1%84%8C%E1%85%A6": {
+        "clicks": 0,
+        "impressions": 1,
+        "ctr": 0,
+        "position": 6
+      },
+      "https://raincoat98.github.io/frontend/vue/vue-cookie#%E1%84%8F%E1%85%A9%E1%84%83%E1%85%B3": {
+        "clicks": 0,
+        "impressions": 21,
+        "ctr": 0,
+        "position": 7.380952380952381
+      },
+      "https://raincoat98.github.io/frontend/vue/vue-cookie#%E1%84%8F%E1%85%A9%E1%84%83%E1%85%B3-%E1%84%89%E1%85%A5%E1%86%AF%E1%84%86%E1%85%A7%E1%86%BC": {
+        "clicks": 0,
+        "impressions": 21,
+        "ctr": 0,
+        "position": 7.380952380952381
+      }
+    },
+    "period": {
+      "startDate": "2025-10-08",
+      "endDate": "2025-11-06"
+    },
+    "fetchedAt": "2025-11-07T01:33:54.776Z"
+  }
 }

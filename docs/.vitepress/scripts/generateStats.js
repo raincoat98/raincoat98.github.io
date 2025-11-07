@@ -3,9 +3,11 @@
 const { execSync } = require("child_process");
 const fs = require("fs");
 const path = require("path");
+const { fetchSearchConsoleData } = require("./fetchSearchConsoleData");
 
 /**
  * Git 히스토리를 분석하여 문서 통계를 생성하는 스크립트
+ * Google Search Console 데이터도 통합
  */
 
 function getDocumentStats() {
@@ -103,7 +105,7 @@ function getTitleFromPath(filePath) {
   return title;
 }
 
-function generateStatsFile() {
+async function generateStatsFile() {
   console.log("📊 문서 통계 생성 중...");
 
   const documents = getDocumentStats();
@@ -111,6 +113,17 @@ function generateStatsFile() {
   if (documents.length === 0) {
     console.log("⚠️  Git 히스토리에서 문서를 찾을 수 없습니다.");
     return;
+  }
+
+  // Search Console 데이터 가져오기
+  let searchConsoleData = null;
+  try {
+    searchConsoleData = await fetchSearchConsoleData();
+  } catch (error) {
+    console.warn(
+      "⚠️  Search Console 데이터를 가져오지 못했습니다:",
+      error.message
+    );
   }
 
   // 통계 데이터를 JSON 파일로 저장
@@ -122,6 +135,7 @@ function generateStatsFile() {
       (sum, doc) => sum + doc.modificationCount,
       0
     ),
+    searchConsole: searchConsoleData,
   };
 
   const outputPath = path.join(__dirname, "../../src/public/stats.json");
@@ -159,7 +173,7 @@ function generateStatsFile() {
 
 // 스크립트 실행
 if (require.main === module) {
-  generateStatsFile();
+  generateStatsFile().catch(console.error);
 }
 
 module.exports = { generateStatsFile, getDocumentStats };

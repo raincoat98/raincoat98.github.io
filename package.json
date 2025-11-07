@@ -6,7 +6,10 @@
     "docs:stats": "node docs/.vitepress/scripts/generateStats.js"
   },
   "devDependencies": {
+    "dayjs": "^1.11.19",
+    "googleapis": "^164.1.0",
     "terser": "^5.39.0",
-    "vitepress": "latest"
+    "vitepress": "latest",
+    "dotenv": "^16.4.5"
   }
 }

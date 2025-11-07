@@ -2,6 +2,7 @@
 import DefaultTheme from "vitepress/theme";
 import Layout from "./Layout.vue";
 import Comment from "../components/Comment.vue";
+import Dashboard from "../components/Dashboard.vue";
 import "../../src/public/styles/custom.css";
 
 export default {
@@ -9,5 +10,6 @@ export default {
   Layout: Layout,
   enhanceApp({ app }) {
     app.component("Comment", Comment);
+    app.component("Dashboard", Dashboard);
   },
 };
