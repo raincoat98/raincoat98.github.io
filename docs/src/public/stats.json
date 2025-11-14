@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2025-09-10T01:51:13.641Z",
+  "generatedAt": "2025-11-14T07:45:09.083Z",
   "documents": [
     {
       "path": "/database/korean-sort",
@@ -212,6 +212,16 @@
       "lastCommit": "d078d0c27ea0ebbd9a21087c7befb8a0cc5aceec"
     },
     {
+      "path": "/frontend/javascript/indexeddb-vs-localstorage",
+      "title": "IndexedDB vs LocalStorage 차이 정리",
+      "createdAt": "2025-09-17",
+      "lastModified": "2025-09-17",
+      "modificationCount": 1,
+      "author": "WooSangWook",
+      "firstCommit": "b266a770a7b749e0787b12e64425af355a23293d",
+      "lastCommit": "b266a770a7b749e0787b12e64425af355a23293d"
+    },
+    {
       "path": "/frontend/react/performance-optimization",
       "title": "React 성능 최적화 - useMemo, useCallback, React.memo",
       "createdAt": "2025-09-04",
@@ -225,11 +235,11 @@
       "path": "/introduce/careers",
       "title": "**우상욱 - Frontend Engineer**",
       "createdAt": "2024-04-26",
-      "lastModified": "2025-09-05",
-      "modificationCount": 13,
+      "lastModified": "2025-10-24",
+      "modificationCount": 16,
       "author": "WooSangWook",
       "firstCommit": "66267aa39c7a15bcc465a225678e8294b31f62ea",
-      "lastCommit": "0045c62194f7eace54488509160d78a5da47b7b9"
+      "lastCommit": "17ae8728eeb69b4523c5191c6e1af6e5b1afe158"
     },
     {
       "path": "/introduce/about-me",
@@ -243,7 +253,7 @@
     },
     {
       "path": "/introduce/my-develop",
-      "title": "왜 프론트엔드 개발을 하고 있냐고요? 👨‍💻",
+      "title": "안녕하세요, 프론트엔드 개발자 우상욱입니다 👋",
       "createdAt": "2024-04-05",
       "lastModified": "2025-05-14",
       "modificationCount": 6,
@@ -283,7 +293,7 @@
     },
     {
       "path": "/index",
-      "title": "https://vitepress.dev/reference/default-theme-home-page",
+      "title": "Raincoat",
       "createdAt": "2024-04-05",
       "lastModified": "2025-07-04",
       "modificationCount": 11,
@@ -322,6 +332,6 @@
       "lastCommit": "b08b0148611ce01a4912d2657a00f8b010965fd6"
     }
   ],
-  "totalDocuments": 32,
-  "totalModifications": 93
+  "totalDocuments": 33,
+  "totalModifications": 97
 }

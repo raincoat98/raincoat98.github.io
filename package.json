@@ -1,8 +1,9 @@
 {
   "scripts": {
     "docs:dev": "vitepress dev docs",
-    "docs:build": "vitepress build docs",
-    "docs:preview": "vitepress preview docs"
+    "docs:build": "node docs/.vitepress/scripts/generateStats.js && vitepress build docs",
+    "docs:preview": "vitepress preview docs",
+    "docs:stats": "node docs/.vitepress/scripts/generateStats.js"
   },
   "devDependencies": {
     "terser": "^5.39.0",

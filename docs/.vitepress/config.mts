@@ -3,9 +3,8 @@ import { defineConfig } from "vitepress";
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
   base: "/",
-  title: "SangWook Blog",
-  description:
-    "프론트엔드 Vue.js와 백엔드 NestJS를 전문으로 하는 개발자 블로그. 웹 개발 경험, 코드 최적화, 모범 사례를 공유합니다.",
+  title: "Raincoat",
+  description: "프론트엔드 개발자 블로그. 웹 개발 경험과 지식을 공유합니다.",
   cleanUrls: true,
   srcDir: "./src",
 
@@ -58,7 +57,7 @@ export default defineConfig({
       {
         name: "keywords",
         content:
-          "Vue.js, Vue3, JavaScript, TypeScript, NestJS, Node.js, 프론트엔드 개발, 백엔드 개발, 웹개발, 프론트엔드, UI/UX, 컴포넌트 설계, API 개발, 데이터베이스, Vuex, Pinia, Composition API, TypeORM, REST API, GraphQL",
+          "React, Next.js, JavaScript, TypeScript, 프론트엔드 개발, 웹개발, 프론트엔드, UI/UX, 컴포넌트 설계, React Hooks, React Query, Redux, Zustand, Tailwind CSS",
       },
     ],
     [
@@ -88,15 +87,14 @@ export default defineConfig({
       "meta",
       {
         property: "og:title",
-        content: "SangWook Blog",
+        content: "Raincoat",
       },
     ],
     [
       "meta",
       {
         property: "og:description",
-        content:
-          "프론트엔드 Vue.js와 백엔드 NestJS를 전문으로 하는 개발자 블로그. 웹 개발 경험, 코드 최적화, 모범 사례를 공유합니다.",
+        content: "프론트엔드 개발자 블로그. 웹 개발 경험과 지식을 공유합니다.",
       },
     ],
     [
@@ -107,7 +105,7 @@ export default defineConfig({
       },
     ],
     ["meta", { property: "og:url", content: "https://raincoat98.github.io" }],
-    ["meta", { property: "og:site_name", content: "SangWook Blog" }],
+    ["meta", { property: "og:site_name", content: "Raincoat" }],
     ["meta", { property: "og:locale", content: "ko_KR" }],
 
     // Twitter
@@ -116,15 +114,14 @@ export default defineConfig({
       "meta",
       {
         name: "twitter:title",
-        content: "SangWook Blog",
+        content: "Raincoat",
       },
     ],
     [
       "meta",
       {
         name: "twitter:description",
-        content:
-          "프론트엔드 Vue.js와 백엔드 NestJS를 전문으로 하는 개발자 블로그. 웹 개발 경험, 코드 최적화, 모범 사례를 공유합니다.",
+        content: "프론트엔드 개발자 블로그. 웹 개발 경험과 지식을 공유합니다.",
       },
     ],
     [
@@ -143,15 +140,15 @@ export default defineConfig({
       {
         "@context": "https://schema.org",
         "@type": "BlogPosting",
-        "headline": "SangWook Blog",
-        "description": "프론트엔드 Vue.js와 백엔드 NestJS를 전문으로 하는 개발자 블로그",
+        "headline": "Raincoat",
+        "description": "프론트엔드 개발자 블로그",
         "author": {
           "@type": "Person",
           "name": "SangWook Woo"
         },
         "publisher": {
           "@type": "Organization",
-          "name": "SangWook Blog",
+          "name": "Raincoat",
           "logo": {
             "@type": "ImageObject",
             "url": "https://raincoat98.github.io/favicon.svg"
@@ -196,8 +193,8 @@ export default defineConfig({
       { text: "Home", link: "/" },
       {
         text: "About",
-        link: "/introduce/about-me",
-        activeMatch: "/introduce/about",
+        link: "/introduce/my-develop",
+        activeMatch: "/introduce/my-develop",
       },
       { text: "Examples", link: "/examples/markdown-examples" },
     ],
@@ -207,12 +204,11 @@ export default defineConfig({
         text: "Introduction",
         collapsed: false,
         items: [
-          { text: "About me", link: "/introduce/about-me" },
+          { text: "WHY 개발자?", link: "/introduce/my-develop" },
           {
             text: "careers",
             link: "/introduce/careers",
           },
-          { text: "WHY 개발자?", link: "/introduce/my-develop" },
         ],
       },
 
