@@ -1,3 +1,11 @@
+/* 전역 폰트 설정 */
+:root {
+  --vp-font-family-base: ui-sans-serif, system-ui, sans-serif,
+    "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  --default-font-family: ui-sans-serif, system-ui, sans-serif,
+    "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+}
+
 /* 홈페이지 custom-layout 스타일 */
 .custom-layout {
   max-width: 1200px;
