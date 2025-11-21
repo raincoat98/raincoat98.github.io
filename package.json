@@ -6,7 +6,9 @@
     "docs:stats": "node docs/.vitepress/scripts/generateStats.js"
   },
   "devDependencies": {
+    "mermaid": "^11.12.1",
     "terser": "^5.39.0",
-    "vitepress": "latest"
+    "vitepress": "latest",
+    "vitepress-plugin-mermaid": "^2.0.17"
   }
 }
