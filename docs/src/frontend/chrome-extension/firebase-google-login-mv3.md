@@ -1,6 +1,6 @@
 # Chrome Extension MV3에서 Google 로그인 구현기
 
-— "스크립트가 추가가 안 돼서 당황했다"에서 시작된 Offscreen + Firebase OAuth 구조 설계
+— 스크립트 추가 실패에서 시작한 새 탭 기반 Firebase OAuth 구현
 
 Chrome Extension을 처음 개발하면서 웹 개발하던 감각 그대로 Firebase Google 로그인을 붙이려 했다.
 
@@ -90,9 +90,9 @@ Extension은 결과만 메시지로 받아오는 구조로 설계하자
 
 그때 등장한 핵심 기술이:
 
-- Offscreen Document
-- iframe
-- postMessage
+- 새 탭 열기 (`chrome.tabs.create`)
+- Content Script를 통한 웹 페이지와의 통신
+- `window.postMessage`를 통한 이벤트 기반 데이터 전달
 - chrome.runtime.sendMessage
 - Firebase Hosting에 올린 로그인 페이지
 
@@ -107,24 +107,28 @@ Extension은 결과만 메시지로 받아오는 구조로 설계하자
     ↓ sendMessage("LOGIN_GOOGLE")
 
 [Background SW]
-    ↓ setupOffscreen() → chrome.offscreen.createDocument()
-
-[Offscreen Document]
-    ↓ iframe 생성 → signin-popup 페이지 로드 (Firebase Hosting)
-    ↓ postMessage({ initAuth: true })
+    ↓ chrome.tabs.create() → 새 탭 열기
+    ↓ https://your-domain.com/signin-popup?extension=true
 
 [Signin-popup (외부 웹 페이지)]
+    ↓ URL 파라미터 확인 (?extension=true)
+    ↓ 자동으로 Google 로그인 시작
     ↓ Firebase SDK signInWithPopup() 실행 → Google OAuth 팝업
-    ↓ postMessage({ user, idToken })
+    ↓ 로그인 성공 시 window.postMessage로 인증 결과 전송
 
-[Offscreen Document]
-    ↓ chrome.runtime.sendMessage({ user, idToken })
+[Content Script]
+    ↓ window.postMessage 감지
+    ↓ chrome.runtime.sendMessage로 Background에 전달
 
 [Background SW]
-    ↓ sendResponse()
+    ↓ 인증 결과 수신
+    ↓ chrome.storage.local에 저장
+    ↓ Popup에 AUTH_SUCCESS 메시지 전송
+    ↓ 로그인 완료 후 signin-popup 탭 자동 닫기
 
 [Popup]
     ↓ 로그인 결과 수신 & 저장
+    ↓ 로그인 상태 업데이트
 ```
 
 ## 5. Mermaid 시퀀스 다이어그램
@@ -133,36 +137,118 @@ Extension은 결과만 메시지로 받아오는 구조로 설계하자
 sequenceDiagram
     participant P as Popup
     participant B as Background SW
-    participant O as Offscreen Document
-    participant S as Signin-popup (Firebase Hosting)
+    participant T as 새 탭 (Signin-popup)
+    participant C as Content Script
     participant G as Google OAuth
 
     P->>B: chrome.runtime.sendMessage("LOGIN_GOOGLE")
-    B->>B: setupOffscreen()\nchrome.offscreen.createDocument()
-    B-->>O: Offscreen Document 로드
+    B->>T: chrome.tabs.create()\nhttps://domain.com/signin-popup?extension=true
 
-    O->>S: iframe src = signin-popup.html
-    O->>S: postMessage({ initAuth: true })
+    T->>T: URL 파라미터 확인 (?extension=true)
+    T->>G: Firebase signInWithPopup()
+    G-->>T: OAuth result (user, idToken)
+    T->>C: window.postMessage({ user, idToken })
 
-    S->>G: Firebase signInWithPopup()
-    G-->>S: OAuth result (user, idToken)
+    C->>B: chrome.runtime.sendMessage({ user, idToken })
+    B->>B: chrome.storage.local에 저장
+    B->>P: chrome.runtime.sendMessage("AUTH_SUCCESS")
+    B->>T: chrome.tabs.remove() (탭 닫기)
 
-    S-->>O: postMessage({ user, idToken })
-
-    O->>B: chrome.runtime.sendMessage({ user, idToken })
-    B-->>P: sendResponse({ user, idToken })
-
-    P->>P: 로그인 성공 처리
+    P->>P: 로그인 상태 업데이트
 ```
 
 ## 6. 구현 핵심 요약
 
 - MV3에서는 Firebase SDK를 확장 프로그램 내부에서 직접 사용할 수 없다
 - `signInWithPopup()`은 외부 웹 환경에서만 정상 작동한다
-- Offscreen은 DOM이 필요한 작업의 "중간 브릿지" 역할
-- 최종적으로 메시징 구조로 데이터를 이동시킨다
+- 새 탭을 열어서 외부 웹 페이지에서 로그인을 처리한다
+- `window.postMessage`를 통한 이벤트 기반 통신으로 폴링 없이 즉시 처리한다
+- Content Script가 웹 페이지와 Extension 사이의 브릿지 역할을 한다
+- 최종적으로 메시징 구조로 데이터를 Extension에 전달한다
 
-## 7. 마무리: MV3는 코드 문제가 아니라 "아키텍처 문제"다
+## 7. 구현 세부사항
+
+### Background Service Worker 구현
+
+```javascript
+// 로그인 요청 처리
+chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
+  if (message === "LOGIN_GOOGLE") {
+    // 새 탭 열기
+    chrome.tabs.create({
+      url: `${SIGNIN_POPUP_URL}?extension=true`,
+    });
+  }
+
+  // Content Script로부터 인증 결과 수신
+  if (message.type === "AUTH_RESULT") {
+    chrome.storage.local.set({ auth: message.data });
+    chrome.runtime.sendMessage({ type: "AUTH_SUCCESS" });
+
+    // 로그인 완료 후 탭 닫기
+    if (sender.tab) {
+      chrome.tabs.remove(sender.tab.id);
+    }
+  }
+});
+```
+
+### Content Script 구현
+
+```javascript
+// window.postMessage 감지
+window.addEventListener("message", (event) => {
+  // 보안을 위해 origin 확인
+  if (event.origin !== window.location.origin) return;
+
+  // 인증 결과 메시지인지 확인
+  if (event.data.type === "FIREBASE_AUTH_SUCCESS") {
+    // Background에 전달
+    chrome.runtime.sendMessage({
+      type: "AUTH_RESULT",
+      data: event.data.payload,
+    });
+  }
+});
+```
+
+### SignInPopup 페이지 구현
+
+```javascript
+// URL 파라미터 확인
+const urlParams = new URLSearchParams(window.location.search);
+if (urlParams.get("extension") === "true") {
+  // 자동으로 로그인 시작
+  signInWithPopup(auth, googleProvider)
+    .then(async (result) => {
+      const idToken = await result.user.getIdToken();
+
+      // window.postMessage로 인증 결과 전송
+      window.postMessage(
+        {
+          type: "FIREBASE_AUTH_SUCCESS",
+          payload: {
+            user: result.user,
+            idToken: idToken,
+          },
+        },
+        window.location.origin
+      );
+    })
+    .catch((error) => {
+      console.error("로그인 실패:", error);
+    });
+}
+```
+
+### 주의사항
+
+- Content Script는 `manifest.json`에서 해당 웹 페이지 URL에 대해 주입되도록 설정해야 합니다
+- `window.postMessage`를 사용할 때는 보안을 위해 `origin`을 확인해야 합니다
+- 이벤트 기반 통신을 사용하므로 폴링 없이 즉시 처리됩니다
+- 로그인 완료 후 탭을 자동으로 닫아 사용자 경험을 개선합니다
+
+## 8. 마무리: MV3는 코드 문제가 아니라 "아키텍처 문제"다
 
 Chrome Extension MV3는 보안·CSP·실행환경 정책이 매우 강하게 적용되는 구조다.
 
@@ -170,4 +256,12 @@ Chrome Extension MV3는 보안·CSP·실행환경 정책이 매우 강하게 적
 
 나는 이걸 직접 삽질하면서 배웠고, 결국 구조를 완전히 바꾸는 방식으로 해결하게 되었다.
 
+Offscreen Document를 사용하는 방법도 있지만, 새 탭을 여는 방식이 더 단순하고 직관적이며 구현이 쉽다는 것을 경험했다.
+
 이 글이 MV3에서 OAuth를 구현하려는 다른 개발자들에게 조금이나마 도움이 되면 좋겠다.
+
+## 9. 샘플 코드
+
+실제 구현된 전체 코드는 다음 저장소에서 확인할 수 있습니다:
+
+- [v3-extension-sample](https://github.com/raincoat98/v3-extension-sample) - Chrome Extension v3와 Firebase Authentication을 활용한 Google 로그인 및 Extension-웹앱 간 이벤트 기반 통신 구현
