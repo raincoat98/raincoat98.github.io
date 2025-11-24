@@ -522,9 +522,9 @@ onUnmounted(() => {
 @media (max-width: 1024px) {
   .hero-3d-container {
     width: 100%;
-    height: 50%;
-    top: auto;
-    bottom: 0;
+    height: 100%;
+    top: 0;
+    bottom: auto;
     opacity: 0.5;
   }
 
@@ -546,26 +546,198 @@ onUnmounted(() => {
   .orb {
     filter: blur(40px);
   }
+
+  .orb-1 {
+    right: 5% !important;
+    width: 200px;
+    height: 200px;
+  }
+
+  .orb-2 {
+    right: 10% !important;
+    width: 180px;
+    height: 180px;
+  }
+
+  .orb-3 {
+    right: 5% !important;
+    width: 150px;
+    height: 150px;
+  }
+
+  .code-block-1 {
+    right: 5% !important;
+  }
+
+  .code-block-2 {
+    right: 10% !important;
+  }
+
+  .code-block-3 {
+    right: 5% !important;
+  }
+
+  .icon-1 {
+    right: 10% !important;
+  }
+
+  .icon-2 {
+    right: 5% !important;
+  }
+
+  .icon-3 {
+    right: 15% !important;
+  }
+
+  .icon-4 {
+    right: 8% !important;
+  }
 }
 
 @media (max-width: 768px) {
   .hero-3d-container {
-    height: 40%;
-    opacity: 0.3;
+    height: 100%;
+    top: 0;
+    bottom: auto;
+    opacity: 0.5;
+    overflow: hidden;
+  }
+
+  .right-shapes {
+    width: 100%;
+  }
+
+  .gradient-orbs {
+    width: 100%;
+  }
+
+  .code-blocks {
+    width: 100%;
+  }
+
+  .tech-icons {
+    width: 100%;
   }
 
   .shape {
+    width: 50px;
+    height: 50px;
+  }
+
+  .shape-1 .shape-inner {
+    width: 45px;
+    height: 45px;
+  }
+
+  .shape-3 .shape-inner {
     width: 40px;
     height: 40px;
   }
 
+  .shape-4 .shape-inner {
+    width: 50px;
+    height: 50px;
+  }
+
+  /* 모바일에서 shape 위치 조정 - 전체 영역에 분산 */
+  .shape-0 {
+    top: 10% !important;
+    left: 60% !important;
+  }
+
+  .shape-1 {
+    top: 25% !important;
+    left: 70% !important;
+  }
+
+  .shape-2 {
+    top: 50% !important;
+    left: 65% !important;
+  }
+
+  .shape-3 {
+    top: 15% !important;
+    left: 80% !important;
+  }
+
+  .shape-4 {
+    top: 40% !important;
+    left: 75% !important;
+  }
+
   .tech-icon {
-    display: none;
+    display: flex;
+    width: 45px;
+    height: 45px;
+    font-size: 1.5rem;
+  }
+
+  .icon-1 {
+    top: 8% !important;
+    right: 8% !important;
+  }
+
+  .icon-2 {
+    top: 30% !important;
+    right: 5% !important;
+  }
+
+  .icon-3 {
+    bottom: 30% !important;
+    right: 10% !important;
+  }
+
+  .icon-4 {
+    bottom: 15% !important;
+    right: 8% !important;
   }
 
   .code-block {
     width: 60px !important;
     padding: 0.5rem;
+  }
+
+  .orb {
+    filter: blur(35px);
+  }
+
+  .orb-1 {
+    top: 5% !important;
+    right: 0% !important;
+    width: 180px;
+    height: 180px;
+  }
+
+  .orb-2 {
+    top: 35% !important;
+    right: 5% !important;
+    width: 150px;
+    height: 150px;
+  }
+
+  .orb-3 {
+    bottom: 25% !important;
+    right: 0% !important;
+    width: 130px;
+    height: 130px;
+  }
+
+  .code-block-1 {
+    top: 12% !important;
+    right: 8% !important;
+    width: 60px !important;
+  }
+
+  .code-block-2 {
+    top: 45% !important;
+    right: 12% !important;
+    width: 55px !important;
+  }
+
+  .code-block-3 {
+    bottom: 20% !important;
+    right: 8% !important;
+    width: 60px !important;
   }
 }
 </style>
