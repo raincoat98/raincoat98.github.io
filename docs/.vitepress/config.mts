@@ -261,16 +261,8 @@ export default withMermaid(
               collapsed: false,
               items: [
                 {
-                  text: "내가 VueJS를 사용하는 이유",
-                  link: "/frontend/vue/my-vue",
-                },
-                {
-                  text: " Vue 라이브러리 추천",
-                  link: "/frontend/vue/my-vue-library",
-                },
-                {
-                  text: "Vue 코드 컨벤션",
-                  link: "/frontend/vue/vue-code-convention",
+                  text: "Vue Query WebSocket 전환",
+                  link: "/frontend/vue/vue-query-websocket-sync",
                 },
                 {
                   text: "Vue 이벤트 및 이벤트 수정자",
@@ -299,6 +291,18 @@ export default withMermaid(
                 {
                   text: "Vue에서 dayjs로 한국 시간(KST) 처리하는 법 정리",
                   link: "/frontend/vue/dayjs-korea",
+                },
+                {
+                  text: "Vue 코드 컨벤션",
+                  link: "/frontend/vue/vue-code-convention",
+                },
+                {
+                  text: " Vue 라이브러리 추천",
+                  link: "/frontend/vue/my-vue-library",
+                },
+                {
+                  text: "내가 VueJS를 사용하는 이유",
+                  link: "/frontend/vue/my-vue",
                 },
               ],
             },
