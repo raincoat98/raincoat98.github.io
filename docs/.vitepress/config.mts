@@ -426,7 +426,11 @@ export default withMermaid(
               collapsed: true,
               items: [
                 {
-                  text: "React 성능 최적화: useMemo, useCallback, React.memo",
+                  text: "React IndexedDB 업로드 큐",
+                  link: "/frontend/react/indexeddb-upload-queue",
+                },
+                {
+                  text: "React 렌더링 최적화 완전 정복",
                   link: "/frontend/react/performance-optimization",
                 },
               ],
