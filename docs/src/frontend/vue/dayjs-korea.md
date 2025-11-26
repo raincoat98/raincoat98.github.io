@@ -1,3 +1,10 @@
+---
+title: Vue에서 dayjs로 한국 시간(KST) 처리하기
+description: Vue 프로젝트에서 dayjs를 사용하여 한국 시간(KST)을 처리하는 방법을 정리합니다. 타임존 설정, 플러그인 사용법, 실제 예제를 포함합니다.
+keywords: Vue, dayjs, KST, 한국 시간, 타임존, 날짜 처리, 프론트엔드 개발
+date: 2024-01-01
+---
+
 # Vue에서 dayjs로 한국 시간(KST) 처리하기
 
 ## 배경

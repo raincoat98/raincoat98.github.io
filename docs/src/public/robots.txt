@@ -1,41 +1,58 @@
-# SangWook Blog robots.txt
+# Raincoat 개발자 블로그 robots.txt
+# https://raincoat98.github.io
+
+# 모든 검색 엔진 봇 허용
 User-agent: *
 Allow: /
 
-# 우선 크롤링할 중요 페이지
+# 중요 페이지 우선 크롤링
 Allow: /$
-Allow: /introduce/about-me$
-Allow: /introduce/careers$
-Allow: /frontend/vue/
-Allow: /backend/nestjs/
+Allow: /introduce/
+Allow: /frontend/
+Allow: /backend/
+Allow: /database/
+Allow: /git/
 
-# Block specific directories if needed
+# 차단할 디렉토리 (필요시 주석 해제)
 # Disallow: /private/
 # Disallow: /drafts/
+# Disallow: /admin/
 
-# 가장 인기있는 검색엔진 봇에 대한 설정
+# 주요 검색 엔진 봇 최적화 설정
 User-agent: Googlebot
 Allow: /
-Crawl-delay: 1
+Crawl-delay: 0
 
-User-agent: Bingbot
-Allow: /
-Crawl-delay: 1
-
-User-agent: Yeti
-Allow: /
-Crawl-delay: 1
-
-User-agent: Naverbot
-Allow: /
-Crawl-delay: 1
-
-# 이미지 검색 봇
 User-agent: Googlebot-Image
 Allow: /images/
 Allow: /*.jpg$
+Allow: /*.jpeg$
 Allow: /*.png$
+Allow: /*.gif$
 Allow: /*.svg$
+Allow: /*.webp$
 
-# Sitemap location
+User-agent: Bingbot
+Allow: /
+Crawl-delay: 0
+
+User-agent: Slurp
+Allow: /
+Crawl-delay: 0
+
+# 네이버 검색 봇
+User-agent: Yeti
+Allow: /
+Crawl-delay: 0
+
+User-agent: Naverbot
+Allow: /
+Crawl-delay: 0
+
+# 다음 검색 봇
+User-agent: Daumoa
+Allow: /
+Crawl-delay: 0
+
+# 사이트맵 위치
 Sitemap: https://raincoat98.github.io/sitemap.xml 

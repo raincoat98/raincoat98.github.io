@@ -1,3 +1,10 @@
+---
+title: 정규식(Regular Expression) 총정리
+description: 자주 사용하는 정규식 패턴과 기본 개념을 정리했습니다. 이메일, 전화번호, URL 등 실무에서 자주 쓰이는 정규식 예제를 포함합니다.
+keywords: 정규식, Regular Expression, RegExp, JavaScript, 패턴 매칭, 문자열 검증
+date: 2024-01-01
+---
+
 # 정규식(Regular Expression)
 
 안녕하세요!😄 개발자라면 누구나 한 번쯤은 정규식 때문에 머리를 쥐어뜯어 본 경험이 있으시죠? <br>

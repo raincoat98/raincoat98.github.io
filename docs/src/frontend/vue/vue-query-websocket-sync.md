@@ -1,3 +1,10 @@
+---
+title: Vue Query에서 WebSocket으로 실시간 동기화 문제 해결기
+description: Vue Query를 WebSocket으로 전환하여 실시간 데이터 동기화 문제를 해결한 경험을 공유합니다. WebSocket 설정, Vue Query와의 통합 방법을 포함합니다.
+keywords: Vue Query, WebSocket, 실시간 동기화, Vue.js, 실시간 데이터, 프론트엔드 개발
+date: 2024-01-01
+---
+
 # Vue Query에서 WebSocket으로: 실시간 동기화 문제 해결기
 
 ## 문제의 발생
