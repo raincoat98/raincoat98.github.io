@@ -38,8 +38,8 @@ date: 2024-01-01
 ## 연락처
 
 - **Email**: raincoat@kakao.com
-- **GitHub**: github.com/raincoat98
-- **Blog**: https://raincoat98.github.io
+- **GitHub**: [https://github.com/raincoat98](https://github.com/raincoat98)
+- **Blog**: [https://raincoat98.github.io](https://raincoat98.github.io)
 
 ---
 
