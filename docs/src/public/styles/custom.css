@@ -55,10 +55,6 @@
   --vp-sidebar-bg-color: #1e1e20;
 }
 
-.VPSidebar {
-  /* background-color: var(--vp-sidebar-bg-color) !important; */
-}
-
 /* 사이드바 스크롤바 스타일 커스터마이징 */
 .VPSidebar::-webkit-scrollbar {
   width: 6px;
@@ -94,4 +90,19 @@
 
 .dark .VPSidebar {
   scrollbar-color: rgba(255, 255, 255, 0.15) transparent;
+}
+
+/* .vp-doc 내 태그 스타일 커스터마이징 */
+.vp-doc :not(pre, h1, h2, h3, h4, h5, h6) > code {
+  background-color: var(--vp-c-bg-soft);
+  color: #e06c75;
+  padding: 0.2rem 0.4rem;
+  border-radius: 4px;
+  font-size: 0.9em;
+  font-weight: bold;
+}
+
+.dark .vp-doc :not(pre, h1, h2, h3, h4, h5, h6) > code {
+  background-color: rgba(255, 255, 255, 0.1);
+  color: #ff6b9d;
 }
