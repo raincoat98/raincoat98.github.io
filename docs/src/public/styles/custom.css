@@ -45,3 +45,53 @@
     font-size: 1.8rem;
   }
 }
+
+/* 사이드바 배경색 흰색으로 변경 */
+:root {
+  --vp-sidebar-bg-color: #ffffff;
+}
+
+.dark {
+  --vp-sidebar-bg-color: #1e1e20;
+}
+
+.VPSidebar {
+  /* background-color: var(--vp-sidebar-bg-color) !important; */
+}
+
+/* 사이드바 스크롤바 스타일 커스터마이징 */
+.VPSidebar::-webkit-scrollbar {
+  width: 6px;
+}
+
+.VPSidebar::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.VPSidebar::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, 0.1);
+  border-radius: 3px;
+  border: none;
+}
+
+.VPSidebar::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(0, 0, 0, 0.15);
+}
+
+.dark .VPSidebar::-webkit-scrollbar-thumb {
+  background-color: rgba(255, 255, 255, 0.15);
+}
+
+.dark .VPSidebar::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(255, 255, 255, 0.25);
+}
+
+/* Firefox 스크롤바 스타일 */
+.VPSidebar {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(0, 0, 0, 0.1) transparent;
+}
+
+.dark .VPSidebar {
+  scrollbar-color: rgba(255, 255, 255, 0.15) transparent;
+}
