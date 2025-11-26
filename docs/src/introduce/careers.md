@@ -2,8 +2,8 @@
 
 **Phone**: 010-2331-8579  
 **Email**: raincoat@kakao.com  
-**GitHub**: https://github.com/raincoat98  
-**Blog**: https://raincoat98.github.io/
+**GitHub**: [https://github.com/raincoat98](https://github.com/raincoat98)  
+**Blog**: [https://raincoat98.github.io/](https://raincoat98.github.io/)
 
 - **메타에스앤씨 - Frontend Engineer** (2023.01 ~ 현재)
 
