@@ -13,11 +13,13 @@
     Pinia 상태 관리, NICE 결제 단말기 연동, 2년간 지속적인 기능 고도화 및 운영
 
 - **(주)샘터 - Frontend Engineer** (2017.01 ~ 2022.04)
-  - **SIMS** – 재고 관리 시스템: React.js 기반 웹 시스템 전환 및 실시간 작업 공유/조회 기능 개발
+
+  - **SIMS – 재고 관리 시스템**: React.js 기반 웹 시스템 전환 및 실시간 작업 공유/조회 기능 개발
+  - **생산장비 ERP 연동 시스템**: Node.js 기반 OPC-UA 연동 실시간 생산모니터링 대시보드 개발 및 공정 데이터 시각화, 현장 맞춤 커스터마이징 수행
   - **SamKapp 스마트팩토리 솔루션**:설비·PLC 연동을 위한 OPC 통신 클라이언트 연동 지원 및 현장 설치/테스트 참여.
     생산 데이터 추적·모니터링 UI 개발로 정부 스마트팩토리 과제 8건 성공에 기여
-  - **이커머스 플랫폼 고도화**: 전체 UI 리뉴얼, 상품 관리 기능 확장, 이니페이 결제 모듈 안정 연동
   - **이미지 뷰어**: 웹 기반 3D·다중 이미지 기반 회전 객체에 좌표 태깅 가능한 이미지 뷰어 개발 및 유지보수
+  - **이커머스 플랫폼 고도화**: 전체 UI 리뉴얼, 상품 관리 기능 확장, 이니페이 결제 모듈 안정 연동
 
 ## **Side Projects.**
 
@@ -53,4 +55,4 @@
 - **Backend**: Nest.js, Node.js(Express), Firebase
 - **Infra & Cloud**: AWS, GCP, Docker
 - **Database**: PostgreSQL
-- **Tools**: Git, Jira, Confluence, Notion,
+- **Tools**: Git, Jira, Confluence, Notion
