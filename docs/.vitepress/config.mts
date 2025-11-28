@@ -430,7 +430,7 @@ export default withMermaid(
                   link: "/frontend/react/indexeddb-upload-queue",
                 },
                 {
-                  text: "React 렌더링 최적화 완전 정복",
+                  text: "React 성능 최적화 쉽게 이해하기: useMemo, useCallback, React.memo",
                   link: "/frontend/react/performance-optimization",
                 },
                 {
