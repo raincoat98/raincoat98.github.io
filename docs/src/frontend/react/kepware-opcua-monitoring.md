@@ -137,7 +137,7 @@ Channel: Channel1
 
 **NodeId 확인 방법:**
 
-- UA Expert 같은 OPC UA 클라이언트 도구 사용
+- [UA Expert](https://www.unified-automation.com/downloads/opc-ua-clients.html) 같은 OPC UA 클라이언트 도구 사용
 - Kepware의 Quick Client 기능 사용
 
 ## Node.js 서버 구현
@@ -474,7 +474,7 @@ const session = await client.createSession({
 
 **해결:**
 
-- UA Expert로 실제 NodeId 확인
+- [UA Expert](https://www.unified-automation.com/downloads/opc-ua-clients.html)로 실제 NodeId 확인
 - Kepware Quick Client에서 Tag 경로 확인
 - Namespace Index가 맞는지 확인 (보통 ns=2)
 
