@@ -433,6 +433,10 @@ export default withMermaid(
                   text: "React 렌더링 최적화 완전 정복",
                   link: "/frontend/react/performance-optimization",
                 },
+                {
+                  text: "Kepware OPC UA 서버에서 React로 설비 데이터 실시간 모니터링하기",
+                  link: "/frontend/react/kepware-opcua-monitoring",
+                },
               ],
             },
             {
