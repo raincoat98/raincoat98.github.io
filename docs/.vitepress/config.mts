@@ -416,7 +416,7 @@ export default withMermaid(
                   link: "/frontend/javascript/structured-clone",
                 },
                 {
-                  text: "IndexedDB vs LocalStorage 차이점",
+                  text: "IndexedDB vs LocalStorage: 웹 스토리지 완벽 비교 가이드",
                   link: "/frontend/javascript/indexeddb-vs-localstorage",
                 },
               ],
