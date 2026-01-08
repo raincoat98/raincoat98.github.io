@@ -419,6 +419,10 @@ export default withMermaid(
                   text: "IndexedDB vs LocalStorage: 웹 스토리지 완벽 비교 가이드",
                   link: "/frontend/javascript/indexeddb-vs-localstorage",
                 },
+                {
+                  text: "JavaScript 소수점 반올림 완벽 가이드",
+                  link: "/frontend/javascript/javascript-rounding",
+                },
               ],
             },
             {
