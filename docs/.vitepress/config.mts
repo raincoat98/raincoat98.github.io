@@ -430,6 +430,10 @@ export default withMermaid(
               collapsed: true,
               items: [
                 {
+                  text: "React + AG Grid + Drawer + URL 상태동기화",
+                  link: "/frontend/react/ag-grid-drawer-url-sync",
+                },
+                {
                   text: "React IndexedDB 업로드 큐",
                   link: "/frontend/react/indexeddb-upload-queue",
                 },
