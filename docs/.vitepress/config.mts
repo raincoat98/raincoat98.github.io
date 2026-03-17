@@ -430,6 +430,10 @@ export default withMermaid(
               collapsed: true,
               items: [
                 {
+                  text: "AG Grid 공통 래퍼 설계 (Client / Server 분리 전략)",
+                  link: "/frontend/react/ag-grid-wrapper-design",
+                },
+                {
                   text: "React + AG Grid + Drawer + URL 상태동기화",
                   link: "/frontend/react/ag-grid-drawer-url-sync",
                 },
