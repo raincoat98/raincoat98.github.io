@@ -426,7 +426,7 @@ export default withMermaid(
               ],
             },
             {
-              text: "리액트(React)",
+              text: "AG Grid",
               collapsed: true,
               items: [
                 {
@@ -441,6 +441,12 @@ export default withMermaid(
                   text: "React + AG Grid + Drawer + URL 상태동기화",
                   link: "/frontend/react/ag-grid-drawer-url-sync",
                 },
+              ],
+            },
+            {
+              text: "리액트(React)",
+              collapsed: true,
+              items: [
                 {
                   text: "React IndexedDB 업로드 큐",
                   link: "/frontend/react/indexeddb-upload-queue",
