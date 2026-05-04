@@ -2,6 +2,9 @@
 title: AG Grid v33 공통 래퍼 설계 (Client / Server 분리 전략)
 description: AG Grid v33 기준으로 실무에서 쓰는 공통 래퍼 설계 방법. ClientSideGrid와 ServerSideGrid를 분리하고 gridOptions로 기능을 위임하는 구조를 설명합니다.
 date: 2026-03-26
+tags: [React, AG Grid]
+platform: AG Grid v33
+readingTime: 8
 ---
 
 # AG Grid v33 공통 래퍼 설계 (Client / Server 분리 전략)
@@ -13,7 +16,6 @@ AG Grid 쓰다 보면 어느 순간 이런 생각이 들 거예요.
 저도 처음엔 그냥 복붙하면서 넘어갔는데, 화면이 10개 넘어가면서부터 진짜 관리가 안 되더라고요.
 그래서 공통 래퍼를 만들었고, 지금은 이 구조 없이는 AG Grid 못 쓸 것 같아요. 😅
 
----
 
 ## 설계할 때 고민했던 것들
 
@@ -22,7 +24,6 @@ AG Grid 쓰다 보면 어느 순간 이런 생각이 들 거예요.
 - Client용이랑 Server용은 역할이 달라서 분리하는 게 맞다
 - 나중에 수정할 때 래퍼 하나만 건드리면 되게 하자
 
----
 
 ## 핵심 아이디어
 
@@ -43,7 +44,6 @@ AG Grid 옵션이 엄청 많잖아요. 그걸 래퍼에서 다 prop으로 받으
 그래서 `gridOptions` 하나로 묶어서 그냥 통째로 넘기는 방식을 택했어요.
 AG Grid 공식 문서에 있는 옵션이면 뭐든 그대로 쓸 수 있어서 편하더라고요.
 
----
 
 ## 1. ClientSideGrid
 
@@ -131,8 +131,6 @@ const gridOptions = {
 
 `gridOptions`에 뭐든 넣으면 그대로 AG Grid로 전달돼요.
 공식 문서 보면서 필요한 옵션 바로 갖다 쓰면 되니까 되게 편해요.
-
----
 
 ## 2. ServerSideGrid
 
