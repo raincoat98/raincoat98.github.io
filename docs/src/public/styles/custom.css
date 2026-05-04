@@ -106,3 +106,154 @@
   background-color: rgba(255, 255, 255, 0.1);
   color: #ff6b9d;
 }
+
+/* =============================================
+   POST HEADER: 태그 필 & 메타 정보
+   ============================================= */
+.post-header {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  margin-bottom: 1.75rem;
+}
+
+/* 단일 다크 필: ● DEVOPS · SUPABASE */
+.post-tag-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.3rem 0.85rem;
+  border-radius: 999px;
+  background: #0f2a1a;
+  color: #86efac;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.09em;
+  border: 1px solid rgba(134, 239, 172, 0.25);
+  width: fit-content;
+  line-height: 1.5;
+}
+
+.dark .post-tag-pill {
+  background: rgba(15, 42, 26, 0.9);
+  border-color: rgba(134, 239, 172, 0.3);
+}
+
+.post-tag-dot {
+  font-size: 0.45rem;
+  line-height: 1;
+  opacity: 0.85;
+}
+
+/* 메타 정보: 2025 · GitHub Actions · 읽는 데 약 5분 */
+.post-meta {
+  font-size: 0.875rem;
+  color: var(--vp-c-text-2);
+}
+
+.meta-sep {
+  opacity: 0.5;
+}
+
+/* =============================================
+   코드 블록: macOS 스타일
+   ============================================= */
+.vp-doc div[class*="language-"] {
+  position: relative;
+  border-radius: 10px;
+  overflow: hidden;
+  margin: 1.5rem 0;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+  border: 1px solid var(--vp-c-divider);
+}
+
+.dark .vp-doc div[class*="language-"] {
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.45);
+  border-color: rgba(255, 255, 255, 0.06);
+}
+
+/* macOS 창 버튼 (red · yellow · green) — copy 버튼 왼쪽에 배치 */
+.vp-doc div[class*="language-"]::after {
+  content: '';
+  position: absolute;
+  top: 16px;
+  right: 56px;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #ff5f57;
+  box-shadow: -18px 0 0 #febc2e, -36px 0 0 #28c840;
+  pointer-events: none;
+  z-index: 5;
+}
+
+/* =============================================
+   블록쿼트: 콜아웃 스타일
+   ============================================= */
+.vp-doc blockquote {
+  border-left: 4px solid var(--vp-c-brand);
+  background: var(--vp-c-bg-soft);
+  border-radius: 0 8px 8px 0;
+  margin: 1.5rem 0;
+  padding: 0.8rem 1.25rem;
+  border-top: none;
+  border-right: none;
+  border-bottom: none;
+}
+
+.vp-doc blockquote > p {
+  margin: 0;
+  color: var(--vp-c-text-1);
+  line-height: 1.7;
+}
+
+/* =============================================
+   테이블
+   ============================================= */
+.vp-doc table {
+  border-collapse: separate;
+  border-spacing: 0;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.08);
+  margin: 1.5rem 0;
+  width: 100%;
+}
+
+.dark .vp-doc table {
+  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.3);
+}
+
+.vp-doc th {
+  background: var(--vp-c-bg-soft);
+  font-weight: 600;
+  padding: 0.7rem 1rem;
+  border-bottom: 2px solid var(--vp-c-divider);
+}
+
+.vp-doc td {
+  padding: 0.65rem 1rem;
+}
+
+.vp-doc tbody tr:hover td {
+  background: var(--vp-c-bg-soft);
+  transition: background 0.15s;
+}
+
+/* =============================================
+   h2 구분선 강조
+   ============================================= */
+.vp-doc h2 {
+  border-bottom-width: 2px;
+  border-bottom-color: var(--vp-c-divider);
+  margin-top: 2.5rem;
+}
+
+/* =============================================
+   수평선
+   ============================================= */
+.vp-doc hr {
+  border: none;
+  border-top: 1px solid var(--vp-c-divider);
+  margin: 2rem 0;
+}
