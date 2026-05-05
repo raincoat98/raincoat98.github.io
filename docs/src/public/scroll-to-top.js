@@ -1,11 +1,8 @@
-/**
- * ScrollToTop 버튼 컴포넌트
- * 트렌디한 디자인의 상단으로 가는 버튼
- */
-
-class ScrollToTopButton {
+class ScrollButtons {
   constructor() {
-    this.button = null;
+    this.container = null;
+    this.topBtn = null;
+    this.bottomBtn = null;
     this.isVisible = false;
     this.scrollThreshold = 300;
 
@@ -13,256 +10,154 @@ class ScrollToTopButton {
   }
 
   init() {
-    this.createButton();
+    this.createButtons();
     this.setupEventListeners();
     this.setupThemeWatcher();
-    this.handleScroll(); // 초기 상태 확인
+    this.handleScroll();
   }
 
-  createButton() {
-    // 버튼 요소 생성
-    this.button = document.createElement("button");
-    this.button.innerHTML = "↑";
-    this.button.className = "scroll-to-top-btn";
-    this.button.setAttribute("aria-label", "페이지 상단으로 이동");
-    this.button.setAttribute("title", "페이지 상단으로 이동");
-
-    // 트렌디한 스타일 설정
-    this.button.style.cssText = `
-      position: fixed !important;
-      bottom: 1.5rem !important;
-      right: 1.5rem !important;
+  btnStyle() {
+    return `
       width: 2.2rem !important;
       height: 2.2rem !important;
       background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
       color: white !important;
-      border: 1px solid rgba(255, 255, 255, 0.2) !important;
-      border-radius: 50% !important;
+      border: none !important;
       cursor: pointer !important;
       display: flex !important;
       align-items: center !important;
       justify-content: center !important;
-      box-shadow: 0 8px 32px rgba(102, 126, 234, 0.3) !important;
-      z-index: 9999 !important;
       font-size: 0.85rem !important;
       font-weight: 600 !important;
-      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1) !important;
-      backdrop-filter: blur(10px) !important;
-      -webkit-backdrop-filter: blur(10px) !important;
+      transition: background 0.2s ease, opacity 0.15s ease !important;
+      padding: 0 !important;
+      line-height: 1 !important;
+    `;
+  }
+
+  createButtons() {
+    this.container = document.createElement("div");
+    this.container.style.cssText = `
+      position: fixed !important;
+      bottom: 1.5rem !important;
+      right: 1.5rem !important;
+      display: flex !important;
+      flex-direction: column !important;
+      border-radius: 10px !important;
+      overflow: hidden !important;
+      box-shadow: 0 8px 32px rgba(102, 126, 234, 0.3) !important;
+      z-index: 9999 !important;
       opacity: 0 !important;
-      transform: translateY(30px) scale(0.8) !important;
+      transform: translateY(20px) scale(0.85) !important;
       pointer-events: none !important;
+      transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1) !important;
     `;
 
-    // DOM에 추가
-    document.body.appendChild(this.button);
+    this.topBtn = document.createElement("button");
+    this.topBtn.innerHTML = "↑";
+    this.topBtn.setAttribute("aria-label", "페이지 상단으로 이동");
+    this.topBtn.style.cssText = this.btnStyle() + `
+      border-bottom: 1px solid rgba(255,255,255,0.15) !important;
+    `;
+
+    this.bottomBtn = document.createElement("button");
+    this.bottomBtn.innerHTML = "↓";
+    this.bottomBtn.setAttribute("aria-label", "페이지 하단으로 이동");
+    this.bottomBtn.style.cssText = this.btnStyle();
+
+    this.container.appendChild(this.topBtn);
+    this.container.appendChild(this.bottomBtn);
+    document.body.appendChild(this.container);
   }
 
   setupEventListeners() {
-    // 스크롤 기능
-    this.button.addEventListener("click", () => {
-      window.scrollTo({
-        top: 0,
-        behavior: "smooth",
-      });
+    this.topBtn.addEventListener("click", () => {
+      window.scrollTo({ top: 0, behavior: "smooth" });
     });
 
-    // 스크롤 감지
+    this.bottomBtn.addEventListener("click", () => {
+      window.scrollTo({ top: document.body.scrollHeight, behavior: "smooth" });
+    });
+
     window.addEventListener("scroll", () => this.handleScroll());
 
-    // 호버 효과
-    this.button.addEventListener("mouseenter", () => this.handleMouseEnter());
-    this.button.addEventListener("mouseleave", () => this.handleMouseLeave());
-
-    // 클릭 효과
-    this.button.addEventListener("mousedown", () => this.handleMouseDown());
-    this.button.addEventListener("mouseup", () => this.handleMouseUp());
+    [this.topBtn, this.bottomBtn].forEach((btn) => {
+      btn.addEventListener("mouseenter", () => {
+        btn.style.setProperty("opacity", "0.85", "important");
+      });
+      btn.addEventListener("mouseleave", () => {
+        btn.style.setProperty("opacity", "1", "important");
+      });
+      btn.addEventListener("mousedown", () => {
+        btn.style.setProperty("transform", "scale(0.93)", "important");
+      });
+      btn.addEventListener("mouseup", () => {
+        btn.style.setProperty("transform", "scale(1)", "important");
+      });
+    });
   }
 
   handleScroll() {
-    const scrollY = window.scrollY;
-    const shouldShow = scrollY > this.scrollThreshold;
+    const shouldShow = window.scrollY > this.scrollThreshold;
+    if (shouldShow === this.isVisible) return;
+    this.isVisible = shouldShow;
 
-    if (shouldShow !== this.isVisible) {
-      this.isVisible = shouldShow;
-      if (this.isVisible) {
-        this.showButton();
-      } else {
-        this.hideButton();
-      }
-    }
-  }
-
-  showButton() {
-    this.button.style.setProperty("opacity", "1", "important");
-    this.button.style.setProperty(
-      "transform",
-      "translateY(0) scale(1)",
-      "important"
-    );
-    this.button.style.setProperty("pointer-events", "auto", "important");
-  }
-
-  hideButton() {
-    this.button.style.setProperty("opacity", "0", "important");
-    this.button.style.setProperty(
-      "transform",
-      "translateY(30px) scale(0.8)",
-      "important"
-    );
-    this.button.style.setProperty("pointer-events", "none", "important");
-  }
-
-  handleMouseEnter() {
     if (this.isVisible) {
-      this.button.style.setProperty(
-        "background",
-        "linear-gradient(135deg, #764ba2 0%, #667eea 100%)",
-        "important"
-      );
-      this.button.style.setProperty(
-        "transform",
-        "translateY(-4px) scale(1.05)",
-        "important"
-      );
-      this.button.style.setProperty(
-        "box-shadow",
-        "0 12px 40px rgba(102, 126, 234, 0.4)",
-        "important"
-      );
-      this.button.style.setProperty(
-        "border",
-        "1px solid rgba(255, 255, 255, 0.3)",
-        "important"
-      );
+      this.container.style.setProperty("opacity", "1", "important");
+      this.container.style.setProperty("transform", "translateY(0) scale(1)", "important");
+      this.container.style.setProperty("pointer-events", "auto", "important");
+    } else {
+      this.container.style.setProperty("opacity", "0", "important");
+      this.container.style.setProperty("transform", "translateY(20px) scale(0.85)", "important");
+      this.container.style.setProperty("pointer-events", "none", "important");
     }
   }
 
-  handleMouseLeave() {
-    if (this.isVisible) {
-      this.button.style.setProperty(
-        "background",
-        "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
-        "important"
-      );
-      this.button.style.setProperty(
-        "transform",
-        "translateY(0) scale(1)",
-        "important"
-      );
-      this.button.style.setProperty(
-        "box-shadow",
-        "0 8px 32px rgba(102, 126, 234, 0.3)",
-        "important"
-      );
-      this.button.style.setProperty(
-        "border",
-        "1px solid rgba(255, 255, 255, 0.2)",
-        "important"
-      );
-    }
-  }
+  setTheme(isDark) {
+    const bg = isDark
+      ? "linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%)"
+      : "linear-gradient(135deg, #667eea 0%, #764ba2 100%)";
+    const shadow = isDark
+      ? "0 8px 32px rgba(79, 70, 229, 0.4)"
+      : "0 8px 32px rgba(102, 126, 234, 0.3)";
 
-  handleMouseDown() {
-    if (this.isVisible) {
-      this.button.style.setProperty(
-        "transform",
-        "translateY(-2px) scale(0.95)",
-        "important"
-      );
-    }
-  }
-
-  handleMouseUp() {
-    if (this.isVisible) {
-      this.button.style.setProperty(
-        "transform",
-        "translateY(-4px) scale(1.05)",
-        "important"
-      );
-    }
+    [this.topBtn, this.bottomBtn].forEach((btn) => {
+      btn.style.setProperty("background", bg, "important");
+    });
+    this.container.style.setProperty("box-shadow", shadow, "important");
   }
 
   setupThemeWatcher() {
-    // 다크 모드 감지 및 스타일 적용
-    const updateTheme = () => {
+    const update = () => {
       const isDark =
         document.documentElement.classList.contains("dark") ||
         window.matchMedia("(prefers-color-scheme: dark)").matches;
-
-      if (isDark) {
-        this.button.style.setProperty(
-          "background",
-          "linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%)",
-          "important"
-        );
-        this.button.style.setProperty(
-          "box-shadow",
-          "0 8px 32px rgba(79, 70, 229, 0.4)",
-          "important"
-        );
-        this.button.style.setProperty(
-          "border",
-          "1px solid rgba(255, 255, 255, 0.1)",
-          "important"
-        );
-      } else {
-        this.button.style.setProperty(
-          "background",
-          "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
-          "important"
-        );
-        this.button.style.setProperty(
-          "box-shadow",
-          "0 8px 32px rgba(102, 126, 234, 0.3)",
-          "important"
-        );
-        this.button.style.setProperty(
-          "border",
-          "1px solid rgba(255, 255, 255, 0.2)",
-          "important"
-        );
-      }
+      this.setTheme(isDark);
     };
 
-    // 다크 모드 변경 감지
-    const darkModeObserver = new MutationObserver(updateTheme);
-    darkModeObserver.observe(document.documentElement, {
+    new MutationObserver(update).observe(document.documentElement, {
       attributes: true,
       attributeFilter: ["class"],
     });
-
-    // 미디어 쿼리 변경 감지
-    window
-      .matchMedia("(prefers-color-scheme: dark)")
-      .addEventListener("change", updateTheme);
-
-    // 초기 테마 적용
-    updateTheme();
-  }
-
-  // 공개 메서드들
-  setScrollThreshold(threshold) {
-    this.scrollThreshold = threshold;
+    window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", update);
+    update();
   }
 
   destroy() {
-    if (this.button && this.button.parentNode) {
-      this.button.parentNode.removeChild(this.button);
+    if (this.container?.parentNode) {
+      this.container.parentNode.removeChild(this.container);
     }
   }
 }
 
-// 페이지 로드 후 자동 초기화
-function initScrollToTopButton() {
+function initScrollButtons() {
   if (document.readyState === "loading") {
     document.addEventListener("DOMContentLoaded", () => {
-      window.scrollToTopButton = new ScrollToTopButton();
+      window.scrollButtons = new ScrollButtons();
     });
   } else {
-    window.scrollToTopButton = new ScrollToTopButton();
+    window.scrollButtons = new ScrollButtons();
   }
 }
 
-// 전역 초기화 함수 실행
-initScrollToTopButton();
+initScrollButtons();
