@@ -1,57 +1,46 @@
 ---
-title: Vue Query에서 WebSocket으로 실시간 동기화 문제 해결기
-description: Vue Query를 WebSocket으로 전환하여 실시간 데이터 동기화 문제를 해결한 경험을 공유합니다. WebSocket 설정, Vue Query와의 통합 방법을 포함합니다.
-keywords: Vue Query, WebSocket, 실시간 동기화, Vue.js, 실시간 데이터, 프론트엔드 개발
+title: Vue Query 폴링으로 시작해서 SSE 거쳐 WebSocket까지 간 이유
+description: 협업 애플리케이션에서 실시간 동기화 문제를 해결하기 위해 Vue Query 폴링 → SSE → WebSocket으로 단계적으로 전환한 경험을 공유합니다.
+keywords: Vue Query, WebSocket, SSE, 실시간 동기화, Vue.js, 프론트엔드 개발
 date: 2024-01-01
+tags: [Vue, WebSocket, SSE]
+platform: Vue Query
+readingTime: 10
 ---
 
-# Vue Query에서 WebSocket으로: 실시간 동기화 문제 해결기
+# Vue Query 폴링으로 시작해서 SSE 거쳐 WebSocket까지 간 이유
 
-## 문제의 발생
+협업 애플리케이션을 개발하면서 실시간 동기화 문제로 꽤 오래 고생했습니다.
+Vue Query 폴링으로 시작해서 SSE를 거쳐 최종적으로 WebSocket으로 갈아탄 과정을 정리했습니다.
 
-우리 팀은 Vue Query를 사용하여 데이터를 관리하는 협업 애플리케이션을 개발하고 있었습니다.<br>
-초기에는 모든 것이 순조로워 보였지만, 실제 운영 환경에서 심각한 문제가 발생했습니다.
+---
 
-**핵심 문제:** 여러 사용자가 동시에 작업할 때,<br>
-다른 사람이 수정한 내용이 내 화면에 즉시 반영되지 않았습니다.<br>
-이로 인해 데이터 충돌과 작업 손실이 빈번하게 발생했습니다.
+## 처음엔 Vue Query 폴링으로 시작했습니다
 
-## Vue Query의 한계
-
-문제의 원인을 분석해보니 Vue Query의 동작 방식에서 비롯되었습니다:
+초기 구현은 단순했습니다. Vue Query의 `refetchInterval`로 5초마다 서버에서 데이터를 가져오는 방식이었습니다.
 
 ```javascript
-// 기존 Vue Query 설정
-
 const { data } = useQuery({
   queryKey: ["documents", documentId],
-
   queryFn: fetchDocument,
-
-  refetchInterval: 5000, // 5초마다 폴링
-
+  refetchInterval: 5000,
   refetchOnWindowFocus: true,
 });
 ```
 
-Vue Query는 기본적으로 다음과 같은 상황에서만 데이터를 갱신합니다:
+개발 환경에서는 별 문제가 없었습니다. 그런데 실제 운영에 들어가면서 문제가 드러났습니다.
 
-- 창에 포커스가 돌아왔을 때
+**다른 사람이 수정한 내용이 내 화면에 즉시 반영되지 않았습니다.**
 
-- 네트워크가 다시 연결되었을 때
+원인은 브라우저의 성능 최적화 메커니즘이었습니다. 사용자가 다른 탭을 보거나 화면을 최소화하면 백그라운드에서 HTTP 요청을 보내지 않습니다. 협업 환경에서는 치명적인 동작이었습니다. 5초 간격 폴링만으로는 실시간 협업이 불가능했습니다.
 
-- 설정한 `refetchInterval`에 따라 주기적으로
+---
 
-**문제점:** 사용자가 다른 탭을 보거나 화면을 최소화하면, 백그라운드에서는 HTTP 요청을 하지 않습니다. <br>
-이는 브라우저의 성능 최적화 메커니즘이지만, 협업 환경에서는 치명적이었습니다.
+## SSE로 바꿨더니 서버가 힘들어했습니다
 
-## 첫 번째 시도: SSE(Server-Sent Events)
-
-실시간성을 개선하기 위해 SSE를 도입했습니다:
+실시간성을 높이기 위해 SSE(Server-Sent Events)를 도입했습니다. 서버에서 클라이언트로 변경사항을 푸시하는 방식입니다.
 
 ```javascript
-// SSE 연결 설정
-
 onMounted(() => {
   const eventSource = new EventSource(
     `/api/documents/${documentId.value}/stream`
@@ -59,7 +48,6 @@ onMounted(() => {
 
   eventSource.onmessage = (event) => {
     const newData = JSON.parse(event.data);
-
     queryClient.setQueryData(["documents", documentId.value], newData);
   };
 
@@ -69,72 +57,50 @@ onMounted(() => {
 });
 ```
 
-SSE를 통해 서버에서 클라이언트로 실시간 업데이트를 푸시할 수 있게 되었고,<br>
-일정 부분 문제가 해결되었습니다. 다른 사용자의 변경사항이 거의 실시간으로 반영되기 시작했습니다.
+다른 사용자의 변경사항이 거의 즉시 반영되기 시작했습니다. 일단은 만족스러웠습니다.
 
-## 새로운 문제: 서버 부하
-
-하지만 시간이 지나면서 새로운 문제가 발생했습니다.<br>
-동시 접속자가 증가하고 데이터가 누적되면서 서버에 심각한 부하가 걸리기 시작했습니다.
-
-**SSE의 한계:**
-
-1. 단방향 통신: 서버에서 클라이언트로만 데이터를 보낼 수 있습니다
-
-2. 연결 관리: 각 클라이언트마다 열린 HTTP 연결을 유지해야 합니다
-
-3. 폴링 방식: 서버가 주기적으로 모든 연결된 클라이언트에게 데이터를 전송해야 합니다
+그런데 동시 접속자가 늘어나면서 새로운 문제가 생겼습니다.
 
 ```
-
-동시 접속자 100명 × 5초마다 업데이트 = 서버에서 초당 20번의 브로드캐스트
-
+동시 접속자 100명 × 5초마다 업데이트 = 서버에서 초당 20번 브로드캐스트
 ```
 
-사용자가 늘어날수록 이 수치는 기하급수적으로 증가했고, 서버 응답 시간이 급격히 느려졌습니다.
+SSE는 각 클라이언트마다 HTTP 연결을 열어두고, 서버가 주기적으로 모든 연결에 데이터를 밀어넣어야 합니다. 사용자가 늘어날수록 서버 부하가 기하급수적으로 증가했고, 응답 시간이 눈에 띄게 느려졌습니다.
 
-## 최종 해결책: WebSocket
+SSE의 한계가 명확했습니다.
 
-근본적인 해결을 위해 WebSocket으로 전환하기로 결정했습니다.
+- 서버 → 클라이언트 **단방향 통신**만 가능
+- 클라이언트마다 **별도 HTTP 연결 유지** 필요
+- 변경사항이 없어도 **주기적으로 전송** 필요
 
-### WebSocket을 선택한 이유
+---
 
-1. **양방향 통신**: 클라이언트와 서버가 서로 자유롭게 메시지를 주고받을 수 있습니다
+## 결국 WebSocket으로 갔습니다
 
-2. **효율적인 연결 관리**: 단일 TCP 연결을 통해 실시간 통신을 유지합니다
+근본적인 해결을 위해 WebSocket으로 전환했습니다. WebSocket을 선택한 이유는 명확했습니다.
 
-3. **이벤트 기반 업데이트**: 변경사항이 있을 때만 메시지를 전송합니다
+- **양방향 통신**: 클라이언트와 서버가 서로 자유롭게 메시지를 주고받을 수 있습니다
+- **단일 TCP 연결**: 연결 수립 후 오버헤드 없이 실시간 통신이 유지됩니다
+- **이벤트 기반**: 변경사항이 있을 때만 메시지를 전송합니다
 
-4. **낮은 지연시간**: HTTP 오버헤드 없이 즉각적인 통신이 가능합니다
-
-### 구현 방법
-
-#### 1. WebSocket 연결 설정
+### WebSocket 연결 composable
 
 ```javascript
 // composables/useWebSocket.js
-
 import { ref, onMounted, onUnmounted } from "vue";
-
 import { useQueryClient } from "@tanstack/vue-query";
 
 export const useWebSocket = (documentId) => {
   const ws = ref(null);
-
   const queryClient = useQueryClient();
-
   const isConnected = ref(false);
 
   onMounted(() => {
-    // WebSocket 연결
-
     ws.value = new WebSocket(
       `wss://api.example.com/documents/${documentId.value}`
     );
 
     ws.value.onopen = () => {
-      console.log("WebSocket 연결됨");
-
       isConnected.value = true;
     };
 
@@ -143,28 +109,17 @@ export const useWebSocket = (documentId) => {
 
       switch (message.type) {
         case "document_update":
-          // Vue Query 캐시 업데이트
-
+          // Vue Query 캐시를 직접 업데이트
           queryClient.setQueryData(
             ["documents", documentId.value],
-
             message.data
           );
-
           break;
-
         case "user_joined":
-          // 사용자 입장 알림
-
           console.log(`${message.username}님이 입장했습니다`);
-
           break;
-
         case "user_left":
-          // 사용자 퇴장 알림
-
           console.log(`${message.username}님이 퇴장했습니다`);
-
           break;
       }
     };
@@ -174,8 +129,6 @@ export const useWebSocket = (documentId) => {
     };
 
     ws.value.onclose = () => {
-      console.log("WebSocket 연결 종료");
-
       isConnected.value = false;
     };
   });
@@ -185,8 +138,6 @@ export const useWebSocket = (documentId) => {
       ws.value.close();
     }
   });
-
-  // 메시지 전송 함수
 
   const sendMessage = (type, data) => {
     if (ws.value?.readyState === WebSocket.OPEN) {
@@ -198,47 +149,33 @@ export const useWebSocket = (documentId) => {
 };
 ```
 
-#### 2. 컴포넌트에서 사용
+### 컴포넌트에서 사용
 
 ```vue
 <!-- components/DocumentEditor.vue -->
-
 <script setup>
 import { ref } from "vue";
-
-import { useQuery, useMutation } from "@tanstack/vue-query";
-
+import { useQuery } from "@tanstack/vue-query";
 import { useWebSocket } from "../composables/useWebSocket";
 
-const props = defineProps({
-  documentId: String,
-});
+const props = defineProps({ documentId: String });
 
 const content = ref("");
-
 const { isConnected, sendMessage } = useWebSocket(props.documentId);
 
-// 초기 데이터 로드 (Vue Query)
-
+// 초기 데이터는 Vue Query로 로드
 const { data: document } = useQuery({
   queryKey: ["documents", props.documentId],
-
   queryFn: () => fetchDocument(props.documentId),
 });
 
-// 사용자가 내용을 수정할 때
-
+// 사용자가 내용을 수정하면 WebSocket으로 전송
 const handleChange = (newContent) => {
   content.value = newContent;
-
-  // WebSocket을 통해 변경사항 전송
-
   if (isConnected.value) {
     sendMessage("content_change", {
       documentId: props.documentId,
-
       content: newContent,
-
       timestamp: Date.now(),
     });
   }
@@ -250,7 +187,6 @@ const handleChange = (newContent) => {
     <div class="status">
       {{ isConnected ? "🟢 연결됨" : "🔴 연결 끊김" }}
     </div>
-
     <textarea
       v-model="content"
       @input="handleChange(content)"
@@ -260,103 +196,72 @@ const handleChange = (newContent) => {
 </template>
 ```
 
-#### 3. 서버 측 구현 예시 (Node.js)
+### 서버 측 구현 (Node.js)
 
 ```javascript
 // server.js
-
 const WebSocket = require("ws");
-
 const wss = new WebSocket.Server({ port: 8080 });
 
-// 문서별 연결된 클라이언트 관리
-
+// 문서별로 연결된 클라이언트 관리
 const documentClients = new Map();
 
 wss.on("connection", (ws, req) => {
   const documentId = extractDocumentId(req.url);
 
-  // 클라이언트 그룹에 추가
-
   if (!documentClients.has(documentId)) {
     documentClients.set(documentId, new Set());
   }
-
   documentClients.get(documentId).add(ws);
 
   ws.on("message", (message) => {
     const data = JSON.parse(message);
 
     if (data.type === "content_change") {
-      // 같은 문서를 보고 있는 다른 클라이언트들에게 브로드캐스트
-
+      // 같은 문서를 보고 있는 다른 클라이언트에게만 브로드캐스트
       const clients = documentClients.get(documentId);
-
       clients.forEach((client) => {
         if (client !== ws && client.readyState === WebSocket.OPEN) {
-          client.send(
-            JSON.stringify({
-              type: "document_update",
-
-              data: data.data,
-            })
-          );
+          client.send(JSON.stringify({ type: "document_update", data: data.data }));
         }
       });
     }
   });
 
   ws.on("close", () => {
-    // 연결 종료 시 클라이언트 제거
-
     const clients = documentClients.get(documentId);
-
     if (clients) {
       clients.delete(ws);
-
-      if (clients.size === 0) {
-        documentClients.delete(documentId);
-      }
+      if (clients.size === 0) documentClients.delete(documentId);
     }
   });
 });
 ```
 
-## 개선 효과
+---
 
-구체적인 지표를 측정하지는 못했지만,<br>
-실제 사용 과정에서 다음과 같은 개선을 명확하게 체감할 수 있었습니다:
+## 세 가지 방식 비교
 
-**응답 속도**
+| 항목 | Vue Query 폴링 | SSE | WebSocket |
+|------|---------------|-----|-----------|
+| 통신 방향 | 단방향 (클→서버) | 단방향 (서버→클) | 양방향 |
+| 실시간성 | 낮음 (5초 간격) | 중간 | 높음 (즉시) |
+| 서버 부하 | 낮음 | 접속자 증가 시 높아짐 | 낮음 |
+| 구현 난이도 | 쉬움 | 중간 | 중간 |
+| 적합한 상황 | 실시간성 불필요 | 단방향 알림 | 협업, 채팅, 실시간 편집 |
 
-- SSE: 다른 사용자의 변경사항이 수 초 후에 반영되어 답답함을 느꼈습니다
+---
 
-- WebSocket: 거의 즉시 반영되어 마치 같은 화면을 보는 것처럼 자연스러운 협업이 가능했습니다
+## 이 과정에서 배운 것
 
-**서버 안정성**
+**Vue Query는 여전히 유용합니다.** 초기 데이터 로드, 캐싱, 낙관적 업데이트는 Vue Query가 훨씬 편합니다. WebSocket으로 받은 데이터를 `queryClient.setQueryData()`로 캐시에 반영하면 두 가지를 함께 쓸 수 있습니다. 대체가 아니라 보완입니다.
 
-- SSE: 사용자가 늘어날수록 서버 응답이 느려지고 간헐적으로 타임아웃이 발생했습니다
+**SSE는 단방향 알림에 적합합니다.** 공지 알림, 진행 상태 표시처럼 서버에서 클라이언트로만 정보를 보내면 되는 경우라면 SSE가 WebSocket보다 구현이 단순합니다. 협업처럼 양방향 통신이 필요한 경우에는 맞지 않습니다.
 
-- WebSocket: 동시 접속자가 많아져도 안정적으로 동작했습니다
+**확장성은 처음부터 고려해야 합니다.** SSE로 전환할 때 동시 접속자가 늘어날 경우를 충분히 고려하지 못했습니다. 처음부터 WebSocket으로 갔더라면 전환 비용을 아낄 수 있었을 것입니다.
 
-**네트워크 효율성**
+---
 
-- SSE: 변경사항이 없어도 주기적으로 데이터를 전송해야 했습니다
+## 한 줄 정리
 
-- WebSocket: 실제 변경이 발생했을 때만 데이터를 주고받아 불필요한 트래픽이 줄었습니다
-
-## 배운 점
-
-1. **Vue Query는 여전히 유용합니다**: 초기 데이터 로드, 캐싱, 낙관적 업데이트 등에서 Vue Query의 강력한 기능을 활용하고, 실시간 동기화는 WebSocket으로 보완하는 하이브리드 접근이 최선이었습니다.
-
-2. **적절한 도구 선택의 중요성**: SSE는 서버에서 클라이언트로 단방향 알림이 필요한 경우에 적합하지만, 협업 애플리케이션처럼 양방향 통신이 필요한 경우에는 WebSocket이 더 적합합니다.
-
-3. **확장성 고려**: 초기 설계 단계에서 예상 트래픽과 동시 접속자 수를 고려한 아키텍처 선택이 중요합니다.
-
-## 결론
-
-Vue Query만으로는 실시간 협업 환경의 요구사항을 충족하기 어려웠습니다. SSE를 거쳐 최종적으로 WebSocket을 도입함으로써, 사용자 경험을 크게 개선하고 서버 부하도 줄일 수 있었습니다.
-
-**핵심 교훈:** 기술 선택은 현재 요구사항뿐만 아니라 미래의 확장성도 함께 고려해야 합니다.<br>
-때로는 처음부터 올바른 해결책을 찾기보다,<br>
-문제를 겪으며 점진적으로 개선하는 과정이 팀의 성장에 더 도움이 됩니다.
+> Vue Query는 초기 로드와 캐싱, 실시간 동기화는 WebSocket. 둘은 대체가 아니라 역할 분담입니다.
