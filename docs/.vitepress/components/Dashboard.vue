@@ -250,7 +250,7 @@ onMounted(() => { loadDocumentsFromStats(); });
   padding: 0;
   margin-top: 4rem;
   position: relative;
-  overflow: hidden;
+  overflow: visible;
 }
 
 /* 배경 */
