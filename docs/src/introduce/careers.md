@@ -9,7 +9,10 @@ readingTime: 3
 
 # 우상욱 — Frontend Engineer
 
-**Phone**: 010-2331-8579 | **Email**: raincoat@kakao.com | **GitHub**: [https://github.com/raincoat98](https://github.com/raincoat98) | **Blog**: [https://raincoat98.github.io/](https://raincoat98.github.io/)
+**Phone**: 010-2331-8579
+**Email**: raincoat@kakao.com
+**GitHub**: [https://github.com/raincoat98](https://github.com/raincoat98)
+**Blog**: [https://raincoat98.github.io/](https://raincoat98.github.io/)
 
 ---
 
