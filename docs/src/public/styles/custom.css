@@ -256,6 +256,7 @@
   border-bottom-width: 2px;
   border-bottom-color: var(--vp-c-divider);
   margin-top: 2.5rem;
+  border-top: none;
 }
 
 /* =============================================
