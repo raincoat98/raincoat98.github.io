@@ -603,18 +603,14 @@ onUnmounted(() => {
     overflow: hidden;
   }
 
-  .right-shapes {
-    width: 100%;
+  /* shape 4개만 표시 */
+  .shape-4 {
+    display: none;
   }
 
-  .gradient-orbs {
-    width: 100%;
-  }
-
-  .code-blocks {
-    width: 100%;
-  }
-
+  .right-shapes,
+  .gradient-orbs,
+  .code-blocks,
   .tech-icons {
     width: 100%;
   }
@@ -624,120 +620,87 @@ onUnmounted(() => {
     height: 50px;
   }
 
-  .shape-1 .shape-inner {
-    width: 45px;
-    height: 45px;
-  }
-
-  .shape-3 .shape-inner {
-    width: 40px;
-    height: 40px;
-  }
-
-  .shape-4 .shape-inner {
-    width: 50px;
-    height: 50px;
-  }
-
-  /* 모바일에서 shape 위치 조정 - 전체 영역에 분산 */
   .shape-0 {
     top: 10% !important;
-    left: 60% !important;
-  }
-
-  .shape-1 {
-    top: 25% !important;
-    left: 70% !important;
-  }
-
-  .shape-2 {
-    top: 50% !important;
     left: 65% !important;
   }
 
-  .shape-3 {
-    top: 15% !important;
-    left: 80% !important;
+  .shape-1 {
+    top: 30% !important;
+    left: 72% !important;
   }
 
-  .shape-4 {
-    top: 40% !important;
+  .shape-2 {
+    top: 55% !important;
+    left: 68% !important;
+  }
+
+  .shape-3 {
+    top: 72% !important;
     left: 75% !important;
   }
 
+  /* 아이콘 2개만 표시 */
   .tech-icon {
-    display: flex;
-    width: 45px;
-    height: 45px;
-    font-size: 1.5rem;
+    width: 44px;
+    height: 44px;
+    font-size: 1.4rem;
   }
 
   .icon-1 {
     top: 8% !important;
-    right: 8% !important;
+    right: 5% !important;
   }
 
   .icon-2 {
-    top: 30% !important;
-    right: 5% !important;
+    top: 38% !important;
+    right: 4% !important;
   }
 
   .icon-3 {
     bottom: 30% !important;
-    right: 10% !important;
+    right: 18% !important;
   }
 
   .icon-4 {
     bottom: 15% !important;
-    right: 8% !important;
+    right: 6% !important;
   }
 
-  .code-block {
+  /* code block 2개 표시 */
+  .code-block-3 {
+    display: none;
+  }
+
+  .code-block-1 {
+    top: 18% !important;
+    right: 18% !important;
+    width: 70px !important;
+  }
+
+  .code-block-2 {
+    top: 48% !important;
+    right: 22% !important;
     width: 60px !important;
-    padding: 0.5rem;
   }
 
-  .orb {
-    filter: blur(35px);
-  }
-
+  /* orb 2개 */
   .orb-1 {
     top: 5% !important;
     right: 0% !important;
-    width: 180px;
-    height: 180px;
+    width: 160px;
+    height: 160px;
   }
 
   .orb-2 {
-    top: 35% !important;
+    top: 40% !important;
     right: 5% !important;
-    width: 150px;
-    height: 150px;
-  }
-
-  .orb-3 {
-    bottom: 25% !important;
-    right: 0% !important;
     width: 130px;
     height: 130px;
   }
 
-  .code-block-1 {
-    top: 12% !important;
-    right: 8% !important;
-    width: 60px !important;
-  }
-
-  .code-block-2 {
-    top: 45% !important;
-    right: 12% !important;
-    width: 55px !important;
-  }
-
-  .code-block-3 {
-    bottom: 20% !important;
-    right: 8% !important;
-    width: 60px !important;
+  .orb-3 {
+    display: none;
   }
 }
 </style>
