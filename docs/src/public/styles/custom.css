@@ -44,6 +44,11 @@
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
 }
 
+/* 한국어 단어 단위 줄바꿈 */
+body {
+  word-break: keep-all;
+}
+
 /* 모바일 반응형 스타일 */
 @media (max-width: 768px) {
   .custom-layout {
