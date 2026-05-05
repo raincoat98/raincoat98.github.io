@@ -1,5 +1,5 @@
 ---
-title: 이력서
+title: 우상욱 이력서
 description: 프론트엔드 개발자 우상욱의 경력 및 프로젝트 이력서입니다.
 date: 2026-05-05
 tags: [소개, 이력서, 프론트엔드]
@@ -7,7 +7,7 @@ platform: Web
 readingTime: 3
 ---
 
-# 이력서
+# 우상욱 이력서
 
 **Phone**: 010-2331-8579  
 **Email**: raincoat@kakao.com  
