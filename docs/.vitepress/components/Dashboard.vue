@@ -505,7 +505,7 @@ onMounted(() => { loadDocumentsFromStats(); });
 /* 반응형 */
 @media (max-width: 768px) {
   .dashboard-wrapper { margin-top: 2rem; }
-  .dashboard-container { padding: 0 1rem; }
+  .dashboard-container { padding: 0; }
   .toolbar { flex-direction: column; align-items: flex-start; }
   .sort-buttons { flex-wrap: nowrap; overflow-x: auto; width: 100%; }
   .sort-btn { flex-shrink: 0; }
