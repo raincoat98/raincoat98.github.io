@@ -84,7 +84,6 @@ class ScrollToTopButton {
   handleScroll() {
     const scrollY = window.scrollY;
     const shouldShow = scrollY > this.scrollThreshold;
-    console.log("스크롤 위치:", scrollY, "버튼 표시:", shouldShow);
 
     if (shouldShow !== this.isVisible) {
       this.isVisible = shouldShow;
