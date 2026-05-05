@@ -136,6 +136,15 @@ export default withMermaid(
       ["link", { rel: "alternate icon", href: "/favicon.svg" }],
       ["meta", { name: "author", content: "SangWook Woo" }],
       ["script", { src: "/scroll-to-top.js" }],
+      [
+        "link",
+        {
+          rel: "stylesheet",
+          as: "style",
+          crossorigin: "",
+          href: "https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css",
+        },
+      ],
 
       // Canonical URL
       ["link", { rel: "canonical", href: "https://raincoat98.github.io" }],
