@@ -31,10 +31,25 @@ readingTime: 10
 
 ```tsx
 // main.tsx 또는 App.tsx
-import { AllEnterpriseModule } from "ag-grid-enterprise";
+import {
+  ColumnMenuModule,
+  ColumnsToolPanelModule,
+  ContextMenuModule,
+  ServerSideRowModelModule,
+  ClientSideRowModelModule,
+} from "ag-grid-enterprise";
+import { ValidationModule } from "ag-grid-community";
 import { AgGridProvider } from "ag-grid-react";
 
-const modules = [AllEnterpriseModule];
+const modules = [
+  ColumnsToolPanelModule,
+  ColumnMenuModule,
+  ContextMenuModule,
+  ServerSideRowModelModule,
+  ClientSideRowModelModule,
+  // 개발 환경에서만 유효성 검사 활성화
+  ...(process.env.NODE_ENV !== "production" ? [ValidationModule] : []),
+];
 
 function App() {
   return (
@@ -53,17 +68,6 @@ function App() {
 ```
 # .env
 VITE_AG_GRID_LICENSE_KEY=your_license_key_here
-```
-
-번들 크기가 중요하다면 필요한 모듈만 골라서 등록할 수 있어요.
-
-```tsx
-import {
-  ClientSideRowModelModule,
-  ServerSideRowModelModule,
-} from "ag-grid-enterprise";
-
-const modules = [ClientSideRowModelModule, ServerSideRowModelModule];
 ```
 
 ---
@@ -180,6 +184,20 @@ const gridOptions: GridOptions = {
 - 정렬·필터를 서버에서 처리해야 할 때
 - 페이지네이션이 서버 기반일 때
 
+### 핵심 패턴 — onGridReady에서 datasource 등록
+
+공식 예제 방식을 따라요.
+`onGridReady` 콜백 안에서 `params.api.setGridOption("serverSideDatasource", datasource)`로 등록하는 게 권장 패턴이에요.
+
+```
+그리드 마운트
+→ onGridReady 호출
+→ params.api.setGridOption("serverSideDatasource", datasource) 등록
+→ 그리드가 getRows 호출
+→ 서버 요청
+→ params.success({ rowData, rowCount }) 반환
+```
+
 ### 구현 코드
 
 ```tsx
@@ -192,10 +210,10 @@ import React, {
 } from "react";
 import { AgGridReact } from "ag-grid-react";
 import type {
-  GridApi,
   ColDef,
+  GridApi,
   GridOptions,
-  IServerSideDatasource,
+  GridReadyEvent,
 } from "ag-grid-community";
 
 import "ag-grid-community/styles/ag-grid.css";
@@ -211,7 +229,8 @@ interface ServerSideGridProps<TData = any> {
   theme?: string;
   width?: string;
   height?: string;
-  serverSideDatasource: IServerSideDatasource;
+  /** onGridReady에서 datasource를 만들어 params.api로 등록하는 콜백 */
+  onGridReady: (params: GridReadyEvent) => void;
   gridOptions?: GridOptions<TData>;
 }
 
@@ -223,7 +242,7 @@ const ServerSideGrid = forwardRef<ServerSideGridHandle, ServerSideGridProps>(
       theme = "ag-theme-quartz",
       width = "100%",
       height = "100%",
-      serverSideDatasource,
+      onGridReady,
       gridOptions = {},
     } = props;
 
@@ -238,7 +257,7 @@ const ServerSideGrid = forwardRef<ServerSideGridHandle, ServerSideGridProps>(
     const containerStyle = useMemo(() => ({ width, height }), [width, height]);
 
     const mergedDefaultColDef = useMemo<ColDef>(
-      () => ({ flex: 1, minWidth: 100, ...defaultColDef }),
+      () => ({ flex: 1, minWidth: 100, sortable: false, ...defaultColDef }),
       [defaultColDef]
     );
 
@@ -250,7 +269,7 @@ const ServerSideGrid = forwardRef<ServerSideGridHandle, ServerSideGridProps>(
             columnDefs={columnDefs}
             defaultColDef={mergedDefaultColDef}
             rowModelType="serverSide"
-            serverSideDatasource={serverSideDatasource}
+            onGridReady={onGridReady}
             {...gridOptions}
           />
         </div>
@@ -266,9 +285,24 @@ export default React.memo(ServerSideGrid);
 ### 사용 예시
 
 ```tsx
-// datasource는 useMemo 필수 — 없으면 리렌더마다 데이터 재요청
-const datasource = useMemo<IServerSideDatasource>(() => ({
+import { useCallback, useMemo } from "react";
+import ServerSideGrid from "@/components/grid/ServerSideGrid";
+import type { ColDef, GridOptions, IServerSideDatasource } from "ag-grid-community";
+
+const columns: ColDef[] = [
+  { field: "athlete", minWidth: 220 },
+  { field: "country", minWidth: 200 },
+  { field: "year" },
+  { field: "sport", minWidth: 200 },
+  { field: "gold" },
+  { field: "silver" },
+  { field: "bronze" },
+];
+
+// datasource 생성 함수 — 래퍼 바깥에서 정의
+const createDatasource = (): IServerSideDatasource => ({
   getRows: async (params) => {
+    console.log("[Datasource] rows requested:", params.request);
     try {
       const res = await fetch("/api/products", {
         method: "POST",
@@ -281,21 +315,33 @@ const datasource = useMemo<IServerSideDatasource>(() => ({
       params.fail();
     }
   },
-}), []);
+});
 
-const gridOptions: GridOptions = {
-  cacheBlockSize: 50,
-  rowSelection: { mode: "singleRow" },
-  getRowId: (params) => String(params.data.id),
-};
+function ProductListPage() {
+  // onGridReady: 그리드 준비되면 datasource 등록
+  const onGridReady = useCallback((params) => {
+    const datasource = createDatasource();
+    params.api.setGridOption("serverSideDatasource", datasource);
+  }, []);
 
-<ServerSideGrid
-  columnDefs={columns}
-  serverSideDatasource={datasource}
-  height="600px"
-  gridOptions={gridOptions}
-/>
+  const gridOptions: GridOptions = useMemo(() => ({
+    cacheBlockSize: 50,
+    rowSelection: { mode: "singleRow" },
+    getRowId: (params) => String(params.data.id),
+  }), []);
+
+  return (
+    <ServerSideGrid
+      columnDefs={columns}
+      onGridReady={onGridReady}
+      height="600px"
+      gridOptions={gridOptions}
+    />
+  );
+}
 ```
+
+---
 
 ### 서버 요청/응답 형태
 
@@ -321,11 +367,11 @@ const gridOptions: GridOptions = {
 ```tsx
 const gridRef = useRef<ServerSideGridHandle>(null);
 
-// 컬럼 변경
-gridRef.current?.api?.setGridOption("columnDefs", newCols);
-
 // 데이터 새로고침 (purge: true = 캐시 초기화)
 gridRef.current?.api?.refreshServerSide({ purge: true });
+
+// 컬럼 변경
+gridRef.current?.api?.setGridOption("columnDefs", newCols);
 ```
 
 ---
@@ -353,6 +399,7 @@ src/
 | 데이터 위치 | 브라우저 | 서버 |
 | 성능 | 적은 데이터에 적합 | 대용량에 최적 |
 | 정렬·필터 | 클라이언트에서 처리 | 서버에서 처리 |
+| datasource 등록 | 불필요 | onGridReady에서 등록 |
 | 구현 난이도 | 쉬움 | 중간 |
 | 추천 상황 | 관리 화면, 설정 페이지 | 검색 화면, 대용량 리스트 |
 
@@ -360,4 +407,4 @@ src/
 
 ## 한 줄 요약
 
-> "Provider로 주입, 래퍼는 최소, 나머지는 gridOptions"
+> "Provider로 주입, 래퍼는 최소, datasource는 onGridReady에서"
