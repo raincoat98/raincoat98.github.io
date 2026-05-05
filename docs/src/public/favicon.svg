@@ -1,24 +1,37 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#8b5cf6"/>
+      <stop offset="100%" stop-color="#4f46e5"/>
+    </linearGradient>
+    <linearGradient id="dome" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#ffffff"/>
+      <stop offset="100%" stop-color="#e0d7ff"/>
+    </linearGradient>
+  </defs>
+
   <!-- 배경 -->
-  <rect width="32" height="32" rx="8" fill="#3498DB"/>
-  
-  <!-- 우산 모양 -->
-  <g>
-    <!-- 우산 윗부분 -->
-    <path d="M16 6C8 6 4 16 4 16h24s-4-10-12-10z" fill="#E74C3C"/>
-    
-    <!-- 우산 손잡이 -->
-    <path d="M16 16v10c0 1.1 1.8 1.1 1.8 0v-10" stroke="#2C3E50" stroke-width="2" fill="none"/>
-    
-    <!-- 우산 아랫부분 무늬 -->
-    <path d="M8 16c1.5-3 4.5-6 8-6 3.5 0 6.5 3 8 6" fill="none" stroke="#FFFFFF" stroke-width="1"/>
-  </g>
-  
-  <!-- 다크 모드 지원 -->
-  <style>
-    @media (prefers-color-scheme: dark) {
-      rect { fill: #2C3E50; }
-    }
-  </style>
+  <rect width="32" height="32" rx="7" fill="url(#bg)"/>
+
+  <!-- 빗방울 3개 -->
+  <line x1="8"  y1="5" x2="7"  y2="8.5" stroke="white" stroke-width="1.2" stroke-linecap="round" opacity="0.35"/>
+  <line x1="16" y1="3" x2="15" y2="6.5" stroke="white" stroke-width="1.2" stroke-linecap="round" opacity="0.3"/>
+  <line x1="24" y1="5" x2="23" y2="8.5" stroke="white" stroke-width="1.2" stroke-linecap="round" opacity="0.35"/>
+
+  <!-- 우산 돔 -->
+  <path d="M5.5 17.5 A10.5 9.5 0 0 1 26.5 17.5 Z" fill="url(#dome)"/>
+
+  <!-- 돔 세그먼트 선 -->
+  <line x1="16"   y1="8.2"  x2="16"   y2="17.5" stroke="#7c3aed" stroke-width="0.7" opacity="0.25"/>
+  <line x1="10.8" y1="10.2" x2="10.8" y2="17.5" stroke="#7c3aed" stroke-width="0.7" opacity="0.2"/>
+  <line x1="21.2" y1="10.2" x2="21.2" y2="17.5" stroke="#7c3aed" stroke-width="0.7" opacity="0.2"/>
+
+  <!-- 우산 테두리 하이라이트 -->
+  <path d="M5.5 17.5 A10.5 9.5 0 0 1 26.5 17.5"
+        fill="none" stroke="white" stroke-width="0.5" opacity="0.6"/>
+
+  <!-- 손잡이 -->
+  <path d="M16 17.5 L16 24.5 Q16 27.5 13.2 27.5 Q10.5 27.5 10.5 25 Q10.5 23.5 12.2 23.5"
+        fill="none" stroke="white" stroke-width="2"
+        stroke-linecap="round" stroke-linejoin="round"/>
 </svg>
