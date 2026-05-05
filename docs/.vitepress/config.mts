@@ -439,8 +439,8 @@ export default withMermaid(
               collapsed: true,
               items: [
                 {
-                  text: "AG Grid v21 → v33 마이그레이션 완전 정리",
-                  link: "/frontend/react/ag-grid-v21-to-v33-migration",
+                  text: "AG Grid v21 → v35 마이그레이션 정리",
+                  link: "/frontend/react/ag-grid-v21-to-v35-migration",
                 },
                 {
                   text: "AG Grid v33 공통 래퍼 설계 (Client / Server 분리 전략)",
