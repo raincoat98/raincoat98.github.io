@@ -1,4 +1,8 @@
-# 깊은 복사 이제는 structuredClone ❗️
+---
+title: JavaScript 객체 복사, 뭐가 다를까?
+---
+
+# JavaScript 객체 복사, 뭐가 다를까?
 
 ## structuredClone
 

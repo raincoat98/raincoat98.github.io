@@ -1,11 +1,11 @@
 ---
-title: 내가 Vue.js를 사용하는 이유
+title: 내가 Vue를 쓰는 이유
 description: Vue.js와 Pinia를 선택한 이유와 React와의 비교, Vue.js의 장점에 대해 설명합니다.
 keywords: Vue.js, Pinia, React 비교, 프론트엔드 프레임워크, Vue.js 장점
 date: 2024-01-01
 ---
 
-# Vue.js와 Pinia를 선택한 이유
+# 내가 Vue를 쓰는 이유
 
 개발을 처음 시작할 때 JavaScript로 입문했고,<br>
 이후 React도 써봤지만 회사에서 Vue.js를 쓰게 되면서<br>

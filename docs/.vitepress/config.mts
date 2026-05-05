@@ -166,14 +166,6 @@ export default withMermaid(
             "React, Next.js, JavaScript, TypeScript, 프론트엔드 개발, 웹개발, 프론트엔드, UI/UX, 컴포넌트 설계, React Hooks, React Query, Redux, Zustand, Tailwind CSS",
         },
       ],
-      // Google Search Console 인증은 각 페이지에서 개별 설정 가능
-      // [
-      //   "meta",
-      //   {
-      //     name: "google-site-verification",
-      //     content: "여기에_구글이_제공한_인증_코드를_넣으세요",
-      //   },
-      // ],
 
       // 추가 SEO 메타 태그
       [
@@ -189,7 +181,6 @@ export default withMermaid(
       ["meta", { name: "generator", content: "VitePress" }],
       ["meta", { name: "theme-color", content: "#646cff" }],
       ["meta", { name: "color-scheme", content: "light dark" }],
-      // 추가 SEO 메타 태그
       ["meta", { name: "format-detection", content: "telephone=no" }],
       ["meta", { name: "apple-mobile-web-app-capable", content: "yes" }],
       [
@@ -199,19 +190,12 @@ export default withMermaid(
 
       // Open Graph / Facebook
       ["meta", { property: "og:type", content: "website" }],
-      [
-        "meta",
-        {
-          property: "og:title",
-          content: "Raincoat",
-        },
-      ],
+      ["meta", { property: "og:title", content: "Raincoat" }],
       [
         "meta",
         {
           property: "og:description",
-          content:
-            "프론트엔드 개발자 블로그. 웹 개발 경험과 지식을 공유합니다.",
+          content: "프론트엔드 개발자 블로그. 웹 개발 경험과 지식을 공유합니다.",
         },
       ],
       [
@@ -230,19 +214,12 @@ export default withMermaid(
 
       // Twitter
       ["meta", { name: "twitter:card", content: "summary_large_image" }],
-      [
-        "meta",
-        {
-          name: "twitter:title",
-          content: "Raincoat",
-        },
-      ],
+      ["meta", { name: "twitter:title", content: "Raincoat" }],
       [
         "meta",
         {
           name: "twitter:description",
-          content:
-            "프론트엔드 개발자 블로그. 웹 개발 경험과 지식을 공유합니다.",
+          content: "프론트엔드 개발자 블로그. 웹 개발 경험과 지식을 공유합니다.",
         },
       ],
       [
@@ -255,7 +232,7 @@ export default withMermaid(
       ["meta", { name: "twitter:site", content: "@raincoat98" }],
       ["meta", { name: "twitter:creator", content: "@raincoat98" }],
 
-      // Schema.org 구조화 데이터 추가 (JSON-LD) - WebSite 타입
+      // Schema.org 구조화 데이터 (JSON-LD) - WebSite
       [
         "script",
         { type: "application/ld+json" },
@@ -265,8 +242,7 @@ export default withMermaid(
           name: "Raincoat",
           alternateName: "Raincoat 개발자 블로그",
           url: "https://raincoat98.github.io",
-          description:
-            "프론트엔드 개발자 블로그. 웹 개발 경험과 지식을 공유합니다.",
+          description: "프론트엔드 개발자 블로그. 웹 개발 경험과 지식을 공유합니다.",
           author: {
             "@type": "Person",
             name: "SangWook Woo",
@@ -285,8 +261,7 @@ export default withMermaid(
             "@type": "SearchAction",
             target: {
               "@type": "EntryPoint",
-              urlTemplate:
-                "https://raincoat98.github.io/?q={search_term_string}",
+              urlTemplate: "https://raincoat98.github.io/?q={search_term_string}",
             },
             "query-input": "required name=search_term_string",
           },
@@ -300,13 +275,9 @@ export default withMermaid(
           "@context": "https://schema.org",
           "@type": "Blog",
           name: "Raincoat",
-          description:
-            "프론트엔드 개발자 블로그. 웹 개발 경험과 지식을 공유합니다.",
+          description: "프론트엔드 개발자 블로그. 웹 개발 경험과 지식을 공유합니다.",
           url: "https://raincoat98.github.io",
-          author: {
-            "@type": "Person",
-            name: "SangWook Woo",
-          },
+          author: { "@type": "Person", name: "SangWook Woo" },
           inLanguage: "ko-KR",
         }),
       ],
@@ -315,41 +286,14 @@ export default withMermaid(
     sitemap: {
       hostname: "https://raincoat98.github.io",
       transformItems: (items) => {
-        // 각 페이지의 우선순위와 변경 빈도 조정
         return items.map((item) => {
-          // 메인 페이지는 최고 우선순위
-          if (item.url === "/") {
-            return {
-              ...item,
-              changefreq: "daily",
-              priority: 1.0,
-            };
-          }
-          // 소개 페이지는 높은 우선순위
-          if (item.url.startsWith("/introduce/")) {
-            return {
-              ...item,
-              changefreq: "monthly",
-              priority: 0.9,
-            };
-          }
-          // 기술 블로그 포스트는 중간 우선순위
-          if (
-            item.url.startsWith("/frontend/") ||
-            item.url.startsWith("/backend/")
-          ) {
-            return {
-              ...item,
-              changefreq: "weekly",
-              priority: 0.8,
-            };
-          }
-          // 기타 페이지
-          return {
-            ...item,
-            changefreq: "monthly",
-            priority: 0.7,
-          };
+          if (item.url === "/")
+            return { ...item, changefreq: "daily", priority: 1.0 };
+          if (item.url.startsWith("/introduce/"))
+            return { ...item, changefreq: "monthly", priority: 0.9 };
+          if (item.url.startsWith("/frontend/") || item.url.startsWith("/backend/"))
+            return { ...item, changefreq: "weekly", priority: 0.8 };
+          return { ...item, changefreq: "monthly", priority: 0.7 };
         });
       },
     },
@@ -357,13 +301,12 @@ export default withMermaid(
     themeConfig: {
       aside: true,
       outline: {
-        level: [2, 3], // h2와 h3 헤딩을 TOC에 포함
-        label: "On this page", // 표시할 제목을 설정할 수 있음
+        level: [2, 3],
+        label: "On this page",
       },
       search: {
         provider: "local",
       },
-      // https://vitepress.dev/reference/default-theme-config
       nav: [
         { text: "Home", link: "/" },
         {
@@ -384,7 +327,7 @@ export default withMermaid(
               link: "/introduce/my-develop",
             },
             {
-              text: "우상욱 이력서",
+              text: "이력서",
               link: "/introduce/careers",
             },
           ],
@@ -398,38 +341,37 @@ export default withMermaid(
               collapsed: true,
               items: [
                 {
-                  text: "VitePress 댓글 기능 구현",
+                  text: "댓글 기능 구현하기",
                   link: "/frontend/vitepress/vitepress-comment",
                 },
               ],
             },
             {
-              text: "자바스크립트",
+              text: "JavaScript",
               collapsed: true,
-
               items: [
                 {
-                  text: "정규식(Regular Expression) 총정리",
+                  text: "정규식 한 번에 정리",
                   link: "/frontend/javascript/regular-expression",
                 },
                 {
-                  text: "ES Toolkit: 최신 자바스크립트 문법",
+                  text: "ES Toolkit 훑어보기",
                   link: "/frontend/javascript/es-toolkit",
                 },
                 {
-                  text: "자바스크립트 배열(Array) 메서드 정리",
+                  text: "배열 메서드 정리",
                   link: "/frontend/javascript/array-methods",
                 },
                 {
-                  text: "객체 복사: Structured Clone vs 기존 방식",
+                  text: "객체 복사, 뭐가 다를까?",
                   link: "/frontend/javascript/structured-clone",
                 },
                 {
-                  text: "IndexedDB vs LocalStorage: 웹 스토리지 완벽 비교 가이드",
+                  text: "IndexedDB vs LocalStorage",
                   link: "/frontend/javascript/indexeddb-vs-localstorage",
                 },
                 {
-                  text: "JavaScript 소수점 반올림 완벽 가이드",
+                  text: "소수점 반올림 제대로 하기",
                   link: "/frontend/javascript/javascript-rounding",
                 },
               ],
@@ -439,102 +381,101 @@ export default withMermaid(
               collapsed: true,
               items: [
                 {
-                  text: "AG Grid v21 → v35 마이그레이션 정리",
+                  text: "v21 → v35 마이그레이션",
                   link: "/frontend/react/ag-grid-v21-to-v35-migration",
                 },
                 {
-                  text: "AG Grid v35 공통 래퍼 설계 (Client / Server 분리 전략)",
+                  text: "공통 래퍼 설계 (Client / Server)",
                   link: "/frontend/react/ag-grid-v35-wrapper-design",
                 },
                 {
-                  text: "React + AG Grid + Drawer + URL 상태동기화",
+                  text: "Drawer + URL 상태 동기화",
                   link: "/frontend/react/ag-grid-drawer-url-sync",
                 },
               ],
             },
             {
-              text: "리액트(React)",
+              text: "React",
               collapsed: true,
               items: [
                 {
-                  text: "React IndexedDB 업로드 큐",
+                  text: "IndexedDB 업로드 큐 만들기",
                   link: "/frontend/react/indexeddb-upload-queue",
                 },
                 {
-                  text: "React 성능 최적화 쉽게 이해하기: useMemo, useCallback, React.memo",
+                  text: "useMemo · useCallback · memo 차이",
                   link: "/frontend/react/react-performance-optimization",
                 },
                 {
-                  text: "Kepware OPC UA 서버에서 React로 설비 데이터 실시간 모니터링하기",
+                  text: "OPC UA 설비 데이터 모니터링",
                   link: "/frontend/react/kepware-opcua-monitoring",
                 },
               ],
             },
             {
-              text: "뷰(Vue)",
+              text: "Vue",
               collapsed: false,
               items: [
                 {
-                  text: "Vue Query 폴링 → SSE → WebSocket 전환기",
+                  text: "폴링 → SSE → WebSocket 전환기",
                   link: "/frontend/vue/vue-query-websocket-sync",
                 },
                 {
-                  text: "Vue dayjs 한국 KST 시간 변환",
+                  text: "dayjs로 KST 시간 다루기",
                   link: "/frontend/vue/dayjs-korea",
                 },
                 {
-                  text: "Vue VeeValidate 폼 유효성 검증",
+                  text: "VeeValidate 폼 유효성 검증",
                   link: "/frontend/vue/vee-validate",
                 },
                 {
-                  text: "Vue 쿠키: 오늘 하루 보지 않기 팝업",
+                  text: "오늘 하루 보지 않기 팝업",
                   link: "/frontend/vue/vue-cookie",
                 },
                 {
-                  text: "Quasar TailwindCSS 통합 가이드",
+                  text: "Quasar + TailwindCSS 같이 쓰기",
                   link: "/frontend/vue/quasar-tailwind",
                 },
                 {
-                  text: "Vite + Quasar AOS 애니메이션 적용",
+                  text: "AOS 애니메이션 적용하기",
                   link: "/frontend/vue/vite-quasar-aos",
                 },
                 {
-                  text: "Vue TailwindCSS 브랜드 컬러 적용",
+                  text: "브랜드 컬러를 Tailwind에 넣는 법",
                   link: "/frontend/vue/tailwind-brand-color",
                 },
                 {
-                  text: "Vue 이벤트 핸들링 및 수정자",
+                  text: "이벤트 핸들링과 수정자",
                   link: "/frontend/vue/vue-event",
                 },
                 {
-                  text: "Vue 코드 컨벤션 가이드",
+                  text: "코드 컨벤션 가이드",
                   link: "/frontend/vue/vue-code-convention",
                 },
                 {
-                  text: "Vue 라이브러리 추천",
+                  text: "내가 쓰는 Vue 라이브러리",
                   link: "/frontend/vue/my-vue-library",
                 },
                 {
-                  text: "내가 VueJS를 사용하는 이유",
+                  text: "내가 Vue를 쓰는 이유",
                   link: "/frontend/vue/my-vue",
                 },
               ],
             },
-
             {
               text: "Vite",
               collapsed: true,
               items: [
                 {
-                  text: "Vite 경로 별칭(Path Alias) 설정",
+                  text: "Path Alias 설정하기",
                   link: "/frontend/vite/vite-alias",
                 },
                 {
-                  text: "Vite 포트 설정",
+                  text: "포트 바꾸는 법",
                   link: "/frontend/vite/vite-port",
                 },
                 {
-                  text: "Vite Proxy 설정",
+                  text: "Proxy 설정하기",
                   link: "/frontend/vite/proxy",
                 },
               ],
@@ -544,7 +485,7 @@ export default withMermaid(
               collapsed: true,
               items: [
                 {
-                  text: "Next.js suppressHydrationWarning 에러 해결",
+                  text: "Hydration 경고 없애기",
                   link: "/frontend/nextjs/suppress-hydration-warning",
                 },
               ],
@@ -554,84 +495,78 @@ export default withMermaid(
               collapsed: true,
               items: [
                 {
-                  text: "Chrome Extension MV3에서 Google 로그인 구현기",
+                  text: "MV3에서 Google 로그인 구현",
                   link: "/frontend/chrome-extension/firebase-google-login-mv3",
                 },
               ],
             },
           ],
         },
+
         {
-          text: "백엔드(Firebase, NestJS 등)",
+          text: "Backend",
           items: [
             {
               text: "Supabase",
               collapsed: true,
               items: [
                 {
-                  text: "Supabase 무료 플랜, 자동 일시 정지 막는 법",
+                  text: "무료 플랜 자동 정지 막는 법",
                   link: "/backend/supabase/supabase-keep-alive",
                 },
               ],
             },
             {
-              text: "Firebase 설치 및 프로젝트 시작",
+              text: "Firebase",
               collapsed: true,
               items: [
                 {
-                  text: "Firebase 설치 가이드",
+                  text: "CLI 설치 가이드",
                   link: "/backend/firebase/install-firebase",
                 },
               ],
             },
             {
-              text: "NestJS 실전 가이드",
+              text: "NestJS",
               collapsed: true,
               items: [
                 {
-                  text: "NestJS 장점과 사용 이유",
+                  text: "내가 NestJS를 쓰는 이유",
                   link: "/backend/nestjs/my-nestjs",
                 },
                 {
-                  text: "NestJS Dev 무한 루프 문제 해결(윈도우)",
+                  text: "윈도우 무한 루프 문제 해결",
                   link: "/backend/nestjs/nestjs-windows-startdev-loop-fix",
                 },
               ],
             },
           ],
         },
+
         {
-          text: "데이터베이스(SQL, PostgreSQL 등)",
+          text: "Database",
           items: [
             {
-              text: "SQL 조회 데이터 수정/업데이트",
+              text: "조회한 데이터 바로 수정하기",
               link: "/database/update-in",
             },
             {
-              text: "MySQL/MariaDB 한글 정렬(ORDER BY)",
+              text: "한글 정렬이 안 될 때",
               link: "/database/korean-sort",
             },
           ],
         },
+
         {
           text: "Git",
           items: [
-            // {
-            //   text: "Git",
-            //   collapsed: true,
-            //   items: [
-            //     {
-            //       text: "Git 명령어 정리",
-            //       link: "/git/git-command",
-            //     },
-            //   ],
-            // },
             {
-              text: "GitHub Readme 작성 가이드",
+              text: "README 잘 쓰는 법",
               link: "/git/github-readme",
             },
           ],
         },
+
         {
           text: "Examples",
           collapsed: true,
@@ -641,6 +576,7 @@ export default withMermaid(
           ],
         },
       ],
+
       socialLinks: [
         { icon: "github", link: "https://github.com/raincoat98/vitepress" },
       ],

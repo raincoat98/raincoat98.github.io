@@ -1,9 +1,9 @@
 ---
-title: JavaScript 소수점 반올림 완벽 가이드
+title: JavaScript 소수점 반올림 제대로 하기
 description: 부동소수점 오차를 해결하는 실무 최적화 패턴. Number.EPSILON, 정수 변환, Decimal 라이브러리까지 정확하고 안정적인 반올림 기법
 ---
 
-# JavaScript 소수점 반올림 완벽 가이드
+# JavaScript 소수점 반올림 제대로 하기
 
 JavaScript에서 소수점 반올림은 생각보다 복잡합니다. 부동소수점 오차 때문에 간단한 `Math.round()`로는 정확한 결과를 보장할 수 없기 때문이죠.
 

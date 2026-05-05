@@ -1,4 +1,8 @@
-# Chrome Extension MV3에서 Google 로그인 구현기
+---
+title: MV3에서 Google 로그인 구현
+---
+
+# MV3에서 Google 로그인 구현
 
 — 스크립트 추가 실패에서 시작한 새 탭 기반 Firebase OAuth 구현
 

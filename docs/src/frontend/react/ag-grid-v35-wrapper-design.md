@@ -1,5 +1,5 @@
 ---
-title: AG Grid v35 공통 래퍼 설계 (Client / Server 분리 전략)
+title: AG Grid 공통 래퍼 설계 (Client / Server)
 description: AG Grid v35 기준으로 실무에서 쓰는 공통 래퍼 설계 방법. AgGridProvider로 모듈과 라이선스를 주입하고, ClientSideGrid와 ServerSideGrid를 분리하는 구조를 설명합니다.
 date: 2026-05-05
 tags: [React, AG Grid]
@@ -7,7 +7,7 @@ platform: AG Grid v35
 readingTime: 10
 ---
 
-# AG Grid v35 공통 래퍼 설계 (Client / Server 분리 전략)
+# AG Grid 공통 래퍼 설계 (Client / Server)
 
 > 📎 참고 문서
 > - [React 모듈 등록](https://www.ag-grid.com/react-data-grid/modules/)

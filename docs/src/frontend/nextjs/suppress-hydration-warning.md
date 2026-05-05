@@ -1,4 +1,8 @@
-# Next.js suppressHydrationWarning 에러 해결법
+---
+title: Next.js Hydration 경고 없애기
+---
+
+# Next.js Hydration 경고 없애기
 
 ## 개요
 

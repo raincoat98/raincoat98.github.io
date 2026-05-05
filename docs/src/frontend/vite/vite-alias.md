@@ -1,4 +1,8 @@
-# Vite Import Alias 설정
+---
+title: Vite Path Alias 설정하기
+---
+
+# Vite Path Alias 설정하기
 
 ## 1. 기존의 문제점
 

@@ -1,4 +1,8 @@
-# 폼 검증하기
+---
+title: VeeValidate 폼 유효성 검증
+---
+
+# VeeValidate 폼 유효성 검증
 
 이 문서에서는 `vee-validate`와 `yup`을 사용하여 VitePress에서 폼 검증을 구현하는 방법을 설명합니다. `vee-validate`는 Vue.js를 위한 폼 검증 라이브러리이며, `yup`은 객체 스키마를 정의하고 검증하는 JavaScript 라이브러리입니다.
 
