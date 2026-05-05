@@ -13,7 +13,6 @@ class ScrollToTopButton {
   }
 
   init() {
-    console.log("ScrollToTop 버튼 초기화 시작");
     this.createButton();
     this.setupEventListeners();
     this.setupThemeWatcher();
@@ -31,10 +30,10 @@ class ScrollToTopButton {
     // 트렌디한 스타일 설정
     this.button.style.cssText = `
       position: fixed !important;
-      bottom: 2rem !important;
-      right: 2rem !important;
-      width: 3.5rem !important;
-      height: 3.5rem !important;
+      bottom: 1.5rem !important;
+      right: 1.5rem !important;
+      width: 2.2rem !important;
+      height: 2.2rem !important;
       background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
       color: white !important;
       border: 1px solid rgba(255, 255, 255, 0.2) !important;
@@ -45,7 +44,7 @@ class ScrollToTopButton {
       justify-content: center !important;
       box-shadow: 0 8px 32px rgba(102, 126, 234, 0.3) !important;
       z-index: 9999 !important;
-      font-size: 1.2rem !important;
+      font-size: 0.85rem !important;
       font-weight: 600 !important;
       transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1) !important;
       backdrop-filter: blur(10px) !important;
@@ -57,7 +56,6 @@ class ScrollToTopButton {
 
     // DOM에 추가
     document.body.appendChild(this.button);
-    console.log("ScrollToTop 버튼이 DOM에 추가됨:", this.button);
   }
 
   setupEventListeners() {
@@ -88,10 +86,8 @@ class ScrollToTopButton {
     if (shouldShow !== this.isVisible) {
       this.isVisible = shouldShow;
       if (this.isVisible) {
-        console.log("버튼 표시");
         this.showButton();
       } else {
-        console.log("버튼 숨김");
         this.hideButton();
       }
     }
