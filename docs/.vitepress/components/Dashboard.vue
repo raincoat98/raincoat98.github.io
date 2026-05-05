@@ -507,6 +507,8 @@ onMounted(() => { loadDocumentsFromStats(); });
   .dashboard-wrapper { margin-top: 2rem; }
   .dashboard-container { padding: 0 1rem; }
   .toolbar { flex-direction: column; align-items: flex-start; }
+  .sort-buttons { flex-wrap: nowrap; overflow-x: auto; width: 100%; }
+  .sort-btn { flex-shrink: 0; }
   .posts-grid { grid-template-columns: 1fr; gap: 1rem; }
 }
 </style>
