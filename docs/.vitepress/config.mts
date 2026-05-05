@@ -462,7 +462,7 @@ export default withMermaid(
                 },
                 {
                   text: "React 성능 최적화 쉽게 이해하기: useMemo, useCallback, React.memo",
-                  link: "/frontend/react/performance-optimization",
+                  link: "/frontend/react/react-performance-optimization",
                 },
                 {
                   text: "Kepware OPC UA 서버에서 React로 설비 데이터 실시간 모니터링하기",
