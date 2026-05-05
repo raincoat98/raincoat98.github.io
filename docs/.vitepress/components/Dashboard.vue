@@ -105,14 +105,14 @@ const allPosts = computed(() => {
 
   if (sortKey.value === "newest-created") {
     docs.sort((a, b) => {
-      const dateA = a.date ? new Date(a.date).getTime() : 0;
-      const dateB = b.date ? new Date(b.date).getTime() : 0;
+      const dateA = a.createdAt ? new Date(a.createdAt).getTime() : 0;
+      const dateB = b.createdAt ? new Date(b.createdAt).getTime() : 0;
       return dateB - dateA;
     });
   } else if (sortKey.value === "oldest-created") {
     docs.sort((a, b) => {
-      const dateA = a.date ? new Date(a.date).getTime() : Infinity;
-      const dateB = b.date ? new Date(b.date).getTime() : Infinity;
+      const dateA = a.createdAt ? new Date(a.createdAt).getTime() : Infinity;
+      const dateB = b.createdAt ? new Date(b.createdAt).getTime() : Infinity;
       return dateA - dateB;
     });
   } else if (sortKey.value === "newest-modified") {
@@ -133,8 +133,8 @@ const allPosts = computed(() => {
     link: doc.path || doc.link,
     text: cleanTitle(doc.title || doc.text),
     tag: doc.tag || getTagFromPath(doc.path || doc.link),
-    date: doc.date ? formatDate(doc.date) : "",
-    timeAgo: doc.lastModified ? getTimeAgo(doc.lastModified) : (doc.date ? getTimeAgo(doc.date) : ""),
+    date: doc.createdAt ? formatDate(doc.createdAt) : "",
+    timeAgo: doc.lastModified ? getTimeAgo(doc.lastModified) : (doc.createdAt ? getTimeAgo(doc.createdAt) : ""),
   }));
 });
 
@@ -164,7 +164,7 @@ const loadDocumentsFromStats = async () => {
     const sidebar = theme.value.sidebar;
     if (sidebar && Array.isArray(sidebar)) {
       const docs = extractDocumentsFromSidebar(sidebar);
-      documentsWithDates.value = docs.map((doc) => ({ ...doc, path: doc.link, title: doc.text, lastModified: null, date: null }));
+      documentsWithDates.value = docs.map((doc) => ({ ...doc, path: doc.link, title: doc.text, lastModified: null, createdAt: null }));
     }
   } catch { /* noop */ } finally {
     loading.value = false;
