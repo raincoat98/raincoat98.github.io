@@ -565,6 +565,16 @@ export default withMermaid(
           text: "백엔드(Firebase, NestJS 등)",
           items: [
             {
+              text: "Supabase",
+              collapsed: true,
+              items: [
+                {
+                  text: "Supabase 무료 플랜, 자동 일시 정지 막는 법",
+                  link: "/backend/supabase/supabase-keep-alive",
+                },
+              ],
+            },
+            {
               text: "Firebase 설치 및 프로젝트 시작",
               collapsed: true,
               items: [
