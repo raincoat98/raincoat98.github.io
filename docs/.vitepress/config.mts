@@ -475,7 +475,7 @@ export default withMermaid(
               collapsed: false,
               items: [
                 {
-                  text: "Vue Query에서 WebSocket으로: 실시간 동기화 문제 해결기",
+                  text: "Vue Query 폴링 → SSE → WebSocket 전환기",
                   link: "/frontend/vue/vue-query-websocket-sync",
                 },
                 {
