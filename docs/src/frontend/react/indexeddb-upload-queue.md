@@ -1,4 +1,8 @@
-# React IndexedDB 업로드 큐: 오피스 와이파이 업로드 안정화
+---
+title: React IndexedDB 업로드 큐 만들기
+---
+
+# React IndexedDB 업로드 큐 만들기
 
 ## 문제 배경
 

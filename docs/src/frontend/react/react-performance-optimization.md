@@ -1,5 +1,5 @@
 ---
-title: React 성능 최적화 쉽게 이해하기
+title: React useMemo · useCallback · memo 차이
 description: useMemo, useCallback, React.memo의 차이와 언제 써야 하는지를 실전 예제로 정리합니다.
 date: 2024-01-01
 tags: [React, 성능 최적화, useMemo, useCallback]
@@ -7,7 +7,7 @@ platform: React
 readingTime: 6
 ---
 
-# React 성능 최적화 쉽게 이해하기
+# React useMemo · useCallback · memo 차이
 
 React를 쓰다 보면 한 번쯤 의문이 생긴다. "왜 내 앱이 느려지지?"
 

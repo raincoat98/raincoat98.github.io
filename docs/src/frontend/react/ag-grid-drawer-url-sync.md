@@ -1,4 +1,8 @@
-# React + AG Grid + Drawer + URL 상태동기화 구현기
+---
+title: AG Grid Drawer + URL 상태 동기화
+---
+
+# AG Grid Drawer + URL 상태 동기화
 
 AG Grid로 목록을 만들다가 "상세보기 Drawer + URL 유지 + 새로고침 복원" 패턴이 필요해서 구현해봤다.
 실무에서도 자주 쓰는 구조라 기록 겸 정리한다.

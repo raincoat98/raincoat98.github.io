@@ -1,5 +1,5 @@
 ---
-title: Supabase 무료 플랜, 자동 일시 정지 막는 법
+title: Supabase 무료 플랜 자동 정지 막는 법
 description: Supabase Free 플랜의 7일 자동 일시 정지를 GitHub Actions로 막는 방법. RPC + health 폴백 구조로 안정적인 keep-alive를 구현합니다.
 date: 2026-05-05
 tags: [Supabase, GitHub Actions, DevOps]
@@ -7,7 +7,7 @@ platform: Supabase
 readingTime: 5
 ---
 
-# Supabase 무료 플랜, 자동 일시 정지 막는 법
+# Supabase 무료 플랜 자동 정지 막는 법
 
 며칠 뒤 돌아와보니 DB가 멈춰 있다. 이유도 알고,
 해결법도 간단하다. RPC + health 폴백 구조로 완전히 막아보자.

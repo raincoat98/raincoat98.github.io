@@ -1,4 +1,8 @@
-# Kepware OPC UA 서버에서 React로 설비 데이터 실시간 모니터링하기
+---
+title: OPC UA 설비 데이터 모니터링
+---
+
+# OPC UA 설비 데이터 모니터링
 
 ## 배경
 

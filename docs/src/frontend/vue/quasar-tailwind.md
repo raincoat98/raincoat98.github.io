@@ -1,4 +1,8 @@
-# Vue Quasar에서 Tailwind CSS 사용하기
+---
+title: Quasar + TailwindCSS 같이 쓰기
+---
+
+# Quasar + TailwindCSS 같이 쓰기
 
 이 문서는 Vue Quasar 프로젝트에서 Tailwind CSS를 사용하는 방법을 안내합니다.
 

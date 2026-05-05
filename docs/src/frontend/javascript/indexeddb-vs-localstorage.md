@@ -1,4 +1,8 @@
-# IndexedDB vs LocalStorage: 웹 스토리지 완벽 비교 가이드
+---
+title: IndexedDB vs LocalStorage
+---
+
+# IndexedDB vs LocalStorage
 
 웹 애플리케이션을 개발하다 보면 클라이언트 측에 데이터를 저장해야 하는 순간이 옵니다. 이때 가장 많이 고민하는 것이 바로 "IndexedDB를 쓸까, LocalStorage를 쓸까?"입니다. 오늘은 이 두 브라우저 스토리지 기술을 깊이 있게 비교해보겠습니다.
 

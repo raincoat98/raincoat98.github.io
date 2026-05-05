@@ -1,4 +1,8 @@
-# NestJS (Windows) - start\:dev 명령 실행 시 터미널 무한 초기화/재시작 문제 해결법
+---
+title: NestJS 윈도우 무한 루프 문제 해결
+---
+
+# NestJS 윈도우 무한 루프 문제 해결
 
 ## 문제 요약
 

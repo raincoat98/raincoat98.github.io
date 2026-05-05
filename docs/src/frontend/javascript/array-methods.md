@@ -1,4 +1,8 @@
-# JavaScript 배열 메서드와 `for...of` 비동기 처리
+---
+title: JavaScript 배열 메서드 정리
+---
+
+# JavaScript 배열 메서드 정리
 
 안녕하세요! 😊 오늘은 자바스크립트 배열을 다룰 때 자주 사용되는<br>
 네 가지 메서드(`map`, `filter`, `reduce`, `forEach`)와 함께<br>

@@ -1,4 +1,8 @@
-# Vitepress 테마 설정 방법 및 댓글 기능 구현 (Utterances 사용)
+---
+title: VitePress 댓글 기능 구현하기
+---
+
+# VitePress 댓글 기능 구현하기
 
 ## 1. Utterances 설치
 

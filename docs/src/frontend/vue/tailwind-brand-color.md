@@ -1,4 +1,8 @@
-# Vue에 설치된 Tailwind brand 컬러 지정
+---
+title: 브랜드 컬러를 Tailwind에 넣는 법
+---
+
+# 브랜드 컬러를 Tailwind에 넣는 법
 
 ## 1. Tailwind 설정 파일 수정하기
 
