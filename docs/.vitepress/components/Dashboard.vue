@@ -412,7 +412,12 @@ onMounted(() => { loadDocumentsFromStats(); });
   text-transform: uppercase;
   letter-spacing: 0.05em;
   color: white;
-  flex-shrink: 0;
+  flex-shrink: 1;
+  min-width: 0;
+  max-width: 55%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .card-time {
