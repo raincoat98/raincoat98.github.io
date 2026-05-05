@@ -11,10 +11,10 @@ type SortKey = "newest-created" | "newest-modified" | "name" | "oldest-created";
 const sortKey = ref<SortKey>("newest-created");
 
 const sortOptions: { key: SortKey; label: string }[] = [
-  { key: "newest-created", label: "최신 생성순" },
-  { key: "newest-modified", label: "최신 수정순" },
+  { key: "newest-created", label: "최신생성순" },
+  { key: "newest-modified", label: "최신수정순" },
   { key: "name", label: "이름순" },
-  { key: "oldest-created", label: "오래된 생성순" },
+  { key: "oldest-created", label: "오래된순" },
 ];
 
 // 3D 효과용 refs
@@ -322,32 +322,32 @@ onMounted(() => { loadDocumentsFromStats(); });
 
 .sort-buttons {
   display: flex;
-  gap: 0.5rem;
+  gap: 0;
   flex-wrap: wrap;
 }
 
 .sort-btn {
-  padding: 0.4rem 0.9rem;
-  border-radius: 20px;
+  padding: 0.25rem 0.65rem;
+  border-radius: 0;
   font-size: 0.8rem;
   font-weight: 500;
-  border: 1px solid var(--vp-c-divider);
-  background: var(--vp-c-bg);
-  color: var(--vp-c-text-2);
+  border: none;
+  border-bottom: 2px solid transparent;
+  background: transparent;
+  color: var(--vp-c-text-3);
   cursor: pointer;
   transition: all 0.2s ease;
   white-space: nowrap;
 }
 
 .sort-btn:hover {
-  border-color: var(--vp-c-brand-1);
-  color: var(--vp-c-brand-1);
+  color: var(--vp-c-text-1);
 }
 
 .sort-btn.active {
-  background: var(--vp-c-brand-1);
-  border-color: var(--vp-c-brand-1);
-  color: white;
+  color: var(--vp-c-brand-1);
+  border-bottom-color: var(--vp-c-brand-1);
+  font-weight: 600;
 }
 
 /* 카드 그리드 */

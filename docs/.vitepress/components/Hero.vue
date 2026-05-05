@@ -179,8 +179,8 @@ import Hero3D from "./Hero3D.vue";
 /* 반응형 */
 @media (max-width: 768px) {
   .custom-hero {
-    min-height: 500px;
-    padding: 2rem 1rem;
+    min-height: 380px;
+    padding: 1.25rem 1rem;
   }
 
   .hero-name {
@@ -214,12 +214,9 @@ import Hero3D from "./Hero3D.vue";
     font-size: 1rem;
   }
 
-  .hero-actions {
-    flex-direction: column;
-  }
-
   .action-btn {
-    width: 100%;
+    padding: 0.55rem 1rem;
+    font-size: 0.85rem;
   }
 }
 </style>
