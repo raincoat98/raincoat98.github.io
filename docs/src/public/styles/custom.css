@@ -8,6 +8,14 @@
     "Segoe UI Symbol", "Noto Color Emoji";
 }
 
+/* 다크모드 Primary Color — Electric Violet */
+.dark {
+  --vp-c-brand-1: #a78bfa;
+  --vp-c-brand-2: #8b5cf6;
+  --vp-c-brand-3: #c4b5fd;
+  --vp-c-brand-soft: rgba(167, 139, 250, 0.14);
+}
+
 /* 홈페이지 custom-layout 스타일 */
 .custom-layout {
   max-width: 1200px;
