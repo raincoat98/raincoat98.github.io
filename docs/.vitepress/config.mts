@@ -443,8 +443,8 @@ export default withMermaid(
                   link: "/frontend/react/ag-grid-v21-to-v35-migration",
                 },
                 {
-                  text: "AG Grid v33 공통 래퍼 설계 (Client / Server 분리 전략)",
-                  link: "/frontend/react/ag-grid-wrapper-design",
+                  text: "AG Grid v35 공통 래퍼 설계 (Client / Server 분리 전략)",
+                  link: "/frontend/react/ag-grid-v35-wrapper-design",
                 },
                 {
                   text: "React + AG Grid + Drawer + URL 상태동기화",
