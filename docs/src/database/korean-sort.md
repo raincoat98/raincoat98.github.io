@@ -1,49 +1,41 @@
 ---
-title: 한글 정렬이 안 될 때
+title: SQL에서 한글 ORDER BY가 이상할 때
+description: ORDER BY를 걸었는데 한글이 이상한 순서로 나올 때 원인과 해결 방법. MySQL COLLATE 절과 PostgreSQL bytea 캐스팅을 사용한 DBMS별 정렬 처리 방법을 정리합니다.
+date: 2024-09-03
+tags: [SQL, Database, MySQL, PostgreSQL]
+platform: Database
+readingTime: 2
 ---
 
-# 한글 정렬이 안 될 때
+# SQL에서 한글 ORDER BY가 이상할 때
 
-한글 데이터를 정렬할 때는 일반적인 `ORDER BY` 절을 사용할 수 있습니다.<br>
-하지만 한글은 기본적으로 UTF-8 인코딩이 되어 있어,<br>
-이를 올바르게 정렬하려면 인코딩을 고려해야 할 때가 있습니다.
+ORDER BY를 걸었는데 한글이 이상한 순서로 나올 때가 있습니다. 대부분 인코딩이나 Collation 설정 문제입니다. DBMS별로 해결 방법이 다릅니다.
 
-## 1. 한글 정렬
+## MySQL / MariaDB
 
-한글 데이터가 올바르게 정렬되도록 하려면<br>
-SQL 데이터베이스에서 사용할 수 있는 여러 가지 방법이 있습니다.<br>
-각 데이터베이스 관리 시스템(DBMS)마다 처리 방식이 다를 수 있으므로,<br>
-사용 중인 DBMS의 특성을 고려하여 적절한 방법을 선택해야 합니다.
-
-### 예제: PostgreSQL에서 한글 정렬
-
-아래의 예제는 PostgreSQL에서 `name` 컬럼의 한글 데이터를 `bytea` 타입으로 변환하여 정렬하는 방법을 보여줍니다:
+COLLATE 절로 정렬 규칙을 직접 지정합니다.
 
 ```sql
--- 한글 이름을 bytea로 변환하여 정렬
-SELECT name
-FROM users
-ORDER BY name::bytea;
-```
-
-`name::bytea`는 `name` 컬럼을 `bytea` 타입으로 변환하여, UTF-8 인코딩을 기준으로 정렬합니다. 이렇게 하면 한글이 정확히 정렬됩니다.
-
-### 예제: MySQL에서 한글 정렬
-
-MySQL에서는 한글 정렬을 위해 `COLLATE` 절을 사용할 수 있습니다. 다음은 한글 데이터를 올바르게 정렬하기 위해 `utf8mb4_unicode_ci` 대소문자 구분이 없는 유니코드 기반의 정렬 규칙을 사용하는 예제입니다:
-
-```sql
--- 한글 데이터를 올바르게 정렬하기
 SELECT name
 FROM users
 ORDER BY name COLLATE utf8mb4_unicode_ci;
 ```
 
-이 예제는 MySQL의 `COLLATE` 절을 사용하여 한글 데이터를 올바르게 정렬합니다.
+`utf8mb4_unicode_ci`는 유니코드 기반 정렬 규칙으로, 한글을 가나다 순으로 정확하게 정렬합니다. 테이블 기본 Collation이 맞지 않을 때 쿼리 단에서 이렇게 재지정할 수 있습니다.
 
-### 참고 사항
+## PostgreSQL
 
-- **DBMS별 한글 정렬 지원**: Oracle, SQL Server 등 다른 데이터베이스에서도 한글 정렬을 지원하는 방법이 있습니다. 각 데이터베이스 시스템의 공식 문서를 참고하여 한글 정렬 방법을 확인하세요.
-- **정렬 규칙(Collation)**: DBMS에 따라 한글 데이터를 포함한 문자열 정렬 방식을 결정하는 규칙이 있습니다. 올바른 정렬 규칙을 사용하는 것이 중요합니다.
+컬럼을 `bytea` 타입으로 캐스팅해서 UTF-8 바이트 순서 기준으로 정렬합니다.
 
-이와 같은 방법들을 사용하여 한글 데이터를 올바르게 정렬할 수 있습니다.
+```sql
+SELECT name
+FROM users
+ORDER BY name::bytea;
+```
+
+PostgreSQL은 Collation 설정에 따라 동작이 달라질 수 있어서, `bytea` 캐스팅으로 인코딩 기준 정렬을 강제하는 방식이 깔끔합니다.
+
+## 참고
+
+- Oracle, SQL Server도 각자 Collation 설정이 있습니다. 사용 중인 DBMS 공식 문서에서 한글 Collation을 확인하세요.
+- 테이블 생성 시 Collation을 미리 `utf8mb4_unicode_ci`로 잡아두면 쿼리마다 지정할 필요가 없습니다.
