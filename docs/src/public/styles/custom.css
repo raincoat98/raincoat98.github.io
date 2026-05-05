@@ -213,17 +213,17 @@
    테이블
    ============================================= */
 .vp-doc table {
-  border-collapse: separate;
+  /* border-collapse: separate;
   border-spacing: 0;
   border-radius: 8px;
   overflow: hidden;
   box-shadow: 0 1px 6px rgba(0, 0, 0, 0.08);
   margin: 1.5rem 0;
-  width: 100%;
+  width: 100%; */
 }
 
 .dark .vp-doc table {
-  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.3);
+  /* box-shadow: 0 1px 6px rgba(0, 0, 0, 0.3); */
 }
 
 .vp-doc th {
