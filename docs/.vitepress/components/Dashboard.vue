@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, computed, onMounted } from "vue";
+import { ref, computed, onMounted, watch } from "vue";
 import { useData } from "vitepress";
 
 const { site, theme } = useData();
@@ -8,7 +8,12 @@ const documentsWithDates = ref<any[]>([]);
 const loading = ref(true);
 
 type SortKey = "newest-created" | "newest-modified" | "name" | "oldest-created";
+const SORT_KEY_STORAGE = "dashboard-sort-key";
 const sortKey = ref<SortKey>("newest-created");
+
+watch(sortKey, (val) => {
+  localStorage.setItem(SORT_KEY_STORAGE, val);
+});
 
 const sortOptions: { key: SortKey; label: string }[] = [
   { key: "newest-created", label: "최신생성순" },
@@ -171,7 +176,13 @@ const loadDocumentsFromStats = async () => {
   }
 };
 
-onMounted(() => { loadDocumentsFromStats(); });
+onMounted(() => {
+  const saved = localStorage.getItem(SORT_KEY_STORAGE) as SortKey | null;
+  if (saved && sortOptions.some((o) => o.key === saved)) {
+    sortKey.value = saved;
+  }
+  loadDocumentsFromStats();
+});
 </script>
 
 <template>
