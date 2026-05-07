@@ -1,129 +1,205 @@
 ---
 title: AG Grid Drawer + URL 상태 동기화
+description: AG Grid 목록에서 상세 Drawer를 열고, URL에 상태를 저장해 새로고침해도 복원되는 패턴. Row 자동 선택과 스크롤 이동까지 정리합니다.
+keywords: AG Grid, React, Drawer, URL 상태, query string, ensureNodeVisible
+date: 2024-01-01
+tags: [React, AG Grid]
+platform: AG Grid v33+
+readingTime: 6
 ---
 
 # AG Grid Drawer + URL 상태 동기화
 
-AG Grid로 목록을 만들다가 "상세보기 Drawer + URL 유지 + 새로고침 복원" 패턴이 필요해서 구현해봤다.
-실무에서도 자주 쓰는 구조라 기록 겸 정리한다.
-
-## 구현 목표
-
-1. AG Grid로 상품 목록 표시
-2. "상세보기" 클릭 시 Drawer 오픈
-3. URL에 상태 저장 → 새로고침해도 동일 상태 복원
-4. Drawer 열려 있으면 해당 Row 자동 선택 + 스크롤 이동
+목록에서 상세보기를 누르면 Drawer가 열리고, URL에 상태가 저장돼서 **새로고침해도 동일한 상태로 복원**되는 패턴입니다.
 
 ---
 
-## 전체 코드
+## 동작 흐름
 
-### 1. ProductList.js (AG Grid)
+```
+1. 목록에서 "상세보기" 클릭
+2. Drawer 오픈 + URL에 ?id=3&page=1&detail=true 저장
+3. 새로고침해도 URL을 읽어 Drawer 다시 오픈
+4. 해당 Row 자동 선택 + 스크롤 이동
+```
 
-```javascript
-import React, { useState, useEffect, useMemo, useCallback } from 'react';
-import { Button } from 'antd';
-import { AgGridReact } from 'ag-grid-react';
-import { ModuleRegistry, AllCommunityModule } from 'ag-grid-community';
-import { fetchProducts } from '@/api/productApi';
-import 'ag-grid-community/styles/ag-grid.css';
-import 'ag-grid-community/styles/ag-theme-balham.css';
+---
 
-ModuleRegistry.registerModules([AllCommunityModule]);
+## 1. ProductsApp — URL ↔ 상태 동기화
 
-function ProductList({ onOpenDrawer, onProductsLoaded, currentPage = 1, selectedProductId = null }) {
+URL을 읽어 Drawer 상태를 복원하고, Drawer 열고 닫을 때 URL을 갱신합니다.
+
+```jsx
+import { useState, useEffect } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
+import { Card } from "antd";
+import ProductList from "./ProductList";
+import ProductDetailDrawer from "./ProductDetailDrawer";
+
+function ProductsApp() {
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  const [drawerVisible, setDrawerVisible] = useState(false);
+  const [drawerProduct, setDrawerProduct] = useState(null);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [allProducts, setAllProducts] = useState([]);
+
+  // URL → 상태 복원
+  useEffect(() => {
+    const params = new URLSearchParams(location.search);
+    const productId = parseInt(params.get("id"));
+    const page = parseInt(params.get("page")) || 1;
+    const detail = params.get("detail") === "true";
+
+    setCurrentPage(page);
+
+    // 데이터 로드 후에만 product 찾기
+    if (detail && productId && allProducts.length > 0) {
+      const product = allProducts.find((p) => p.id === productId);
+      if (product) {
+        setDrawerProduct(product);
+        setDrawerVisible(true);
+      }
+    }
+  }, [location.search, allProducts]);
+
+  // Drawer 열기 → URL 갱신
+  const handleOpenDrawer = (product, page = currentPage) => {
+    setDrawerProduct(product);
+    setDrawerVisible(true);
+
+    const params = new URLSearchParams({
+      id: product.id,
+      page,
+      detail: "true",
+    });
+    navigate(`${location.pathname}?${params.toString()}`);
+  };
+
+  // Drawer 닫기 → URL 초기화
+  const handleCloseDrawer = () => {
+    setDrawerVisible(false);
+    setDrawerProduct(null);
+    navigate(location.pathname);
+  };
+
+  return (
+    <>
+      <Card title="상품 목록">
+        <ProductList
+          onOpenDrawer={handleOpenDrawer}
+          onProductsLoaded={setAllProducts}
+          currentPage={currentPage}
+          selectedProductId={drawerProduct?.id ?? null}
+        />
+      </Card>
+      <ProductDetailDrawer
+        product={drawerProduct}
+        visible={drawerVisible}
+        onClose={handleCloseDrawer}
+      />
+    </>
+  );
+}
+
+export default ProductsApp;
+```
+
+---
+
+## 2. ProductList — Row 자동 선택 + 스크롤
+
+`getRowId`로 식별자를 정의하고, `selectedProductId`가 바뀔 때 해당 Row를 선택·스크롤합니다.
+
+```jsx
+import { useState, useEffect, useMemo, useCallback } from "react";
+import { Button } from "antd";
+import { AgGridReact } from "ag-grid-react";
+import { fetchProducts } from "@/api/productApi";
+
+import "ag-grid-community/styles/ag-grid.css";
+import "ag-grid-community/styles/ag-theme-quartz.css";
+
+function ProductList({
+  onOpenDrawer,
+  onProductsLoaded,
+  currentPage = 1,
+  selectedProductId = null,
+}) {
   const [products, setProducts] = useState([]);
-  const [loading, setLoading] = useState(true);
   const [gridApi, setGridApi] = useState(null);
 
   useEffect(() => {
     fetchProducts().then((data) => {
       setProducts(data);
-      onProductsLoaded && onProductsLoaded(data);
-      setLoading(false);
+      onProductsLoaded?.(data);
     });
   }, [onProductsLoaded]);
 
+  // selectedProductId 변경 시 Row 선택 + 스크롤
   useEffect(() => {
-    if (gridApi && selectedProductId) {
-      const rowNode = gridApi.getRowNode(String(selectedProductId));
-      if (rowNode) {
-        rowNode.setSelected(true);
-        gridApi.ensureNodeVisible(rowNode, 'middle');
-      }
+    if (!gridApi || !selectedProductId) return;
+    const rowNode = gridApi.getRowNode(String(selectedProductId));
+    if (rowNode) {
+      rowNode.setSelected(true);
+      gridApi.ensureNodeVisible(rowNode, "middle");
     }
   }, [gridApi, selectedProductId]);
 
-  const handleOpenDrawer = useCallback((product) => {
-    onOpenDrawer && onOpenDrawer(product, currentPage);
-  }, [onOpenDrawer, currentPage]);
+  const handleOpenDrawer = useCallback(
+    (product) => onOpenDrawer?.(product, currentPage),
+    [onOpenDrawer, currentPage]
+  );
 
-  const columnDefs = useMemo(() => [
-    {
-      field: 'id',
-      headerName: '상세',
-      width: 80,
-      suppressRowClickSelection: true,
-      cellRenderer: (params) => (
-        <Button
-          type="link"
-          size="small"
-          onClick={(e) => {
-            e.stopPropagation();
-            handleOpenDrawer(params.data);
-          }}
-        >
-          상세보기
-        </Button>
-      ),
-    },
-    { field: 'name', headerName: '상품명', width: 150, sortable: true, filter: true },
-    { field: 'description', headerName: '설명', width: 200, sortable: true, filter: true },
-    {
-      field: 'price',
-      headerName: '가격',
-      width: 120,
-      cellRenderer: (p) => `₩${p.value.toLocaleString()}`,
-    },
-    {
-      field: 'stock',
-      headerName: '재고',
-      width: 100,
-      cellRenderer: (p) => (
-        <span style={{ color: p.value < 20 ? '#ff4d4f' : '#52c41a' }}>
-          {p.value}
-        </span>
-      ),
-    },
-    { field: 'category', headerName: '카테고리', width: 120 },
-  ], [handleOpenDrawer]);
-
-  const onGridReady = (params) => {
-    setGridApi(params.api);
-
-    if (selectedProductId) {
-      const rowNode = params.api.getRowNode(String(selectedProductId));
-      if (rowNode) {
-        rowNode.setSelected(true);
-        params.api.ensureNodeVisible(rowNode, 'middle');
-      }
-    }
-  };
+  const columnDefs = useMemo(
+    () => [
+      {
+        headerName: "상세",
+        width: 80,
+        cellRenderer: (params) => (
+          <Button
+            type="link"
+            size="small"
+            onClick={(e) => {
+              e.stopPropagation(); // Row click 버블링 방지
+              handleOpenDrawer(params.data);
+            }}
+          >
+            상세보기
+          </Button>
+        ),
+      },
+      { field: "name", headerName: "상품명", width: 150 },
+      { field: "description", headerName: "설명", width: 200 },
+      {
+        field: "price",
+        headerName: "가격",
+        width: 120,
+        valueFormatter: (p) => `₩${p.value.toLocaleString()}`,
+      },
+      {
+        field: "stock",
+        headerName: "재고",
+        width: 100,
+        cellStyle: (p) => ({ color: p.value < 20 ? "#ff4d4f" : "#52c41a" }),
+      },
+      { field: "category", headerName: "카테고리", width: 120 },
+    ],
+    [handleOpenDrawer]
+  );
 
   return (
-    <div style={{ height: 500 }}>
-      <div className="ag-theme-balham" style={{ height: '100%' }}>
-        <AgGridReact
-          columnDefs={columnDefs}
-          rowData={products}
-          rowSelection="single"
-          pagination
-          paginationPageSize={5}
-          onGridReady={onGridReady}
-          getRowId={(p) => String(p.data.id)}
-          loading={loading}
-        />
-      </div>
+    <div className="ag-theme-quartz" style={{ height: 500 }}>
+      <AgGridReact
+        rowData={products}
+        columnDefs={columnDefs}
+        rowSelection={{ mode: "singleRow" }}
+        pagination
+        paginationPageSize={5}
+        onGridReady={(params) => setGridApi(params.api)}
+        getRowId={(p) => String(p.data.id)}
+      />
     </div>
   );
 }
@@ -131,167 +207,60 @@ function ProductList({ onOpenDrawer, onProductsLoaded, currentPage = 1, selected
 export default ProductList;
 ```
 
-### 2. ProductDetailDrawer.js
-
-```javascript
-import React from 'react';
-import { Drawer, Divider, Tag } from 'antd';
-
-function ProductDetailDrawer({ product, visible, onClose }) {
-  return (
-    <Drawer
-      title={product ? `상품 상세 정보 - ${product.name}` : '상품 상세 정보'}
-      placement="right"
-      onClose={onClose}
-      visible={visible}
-      width={400}
-    >
-      {product && (
-        <>
-          <p><b>ID:</b> {product.id}</p>
-          <Divider />
-          <p><b>상품명:</b> {product.name}</p>
-          <Divider />
-          <p><b>설명:</b> {product.description}</p>
-          <Divider />
-          <p><b>가격:</b> <Tag color="blue">₩{product.price.toLocaleString()}</Tag></p>
-          <Divider />
-          <p><b>재고:</b> <Tag color={product.stock < 20 ? 'red' : 'green'}>{product.stock}</Tag></p>
-          <Divider />
-          <p><b>카테고리:</b> <Tag>{product.category}</Tag></p>
-        </>
-      )}
-    </Drawer>
-  );
-}
-
-export default ProductDetailDrawer;
-```
-
-### 3. ProductsApp.js
-
-```javascript
-import React, { useState, useEffect } from 'react';
-import { Card } from 'antd';
-import { withRouter } from 'react-router-dom';
-import ProductList from './ProductList';
-import ProductDetailDrawer from './ProductDetailDrawer';
-
-function ProductsApp({ location, history }) {
-  const [drawerVisible, setDrawerVisible] = useState(false);
-  const [drawerProduct, setDrawerProduct] = useState(null);
-  const [currentPage, setCurrentPage] = useState(1);
-  const [allProducts, setAllProducts] = useState([]);
-
-  useEffect(() => {
-    const params = new URLSearchParams(location.search);
-    const productId = parseInt(params.get('id'));
-    const page = parseInt(params.get('page')) || 1;
-    const detail = params.get('detail') === 'true';
-
-    setCurrentPage(page);
-
-    if (detail && productId) {
-      setDrawerVisible(true);
-
-      if (allProducts.length > 0) {
-        const product = allProducts.find(p => p.id === productId);
-        if (product) setDrawerProduct(product);
-      }
-    }
-  }, [location.search, allProducts]);
-
-  const handleOpenDrawer = (product, page = currentPage) => {
-    setDrawerProduct(product);
-    setDrawerVisible(true);
-
-    const params = new URLSearchParams();
-    params.set('id', product.id);
-    params.set('page', page);
-    params.set('detail', 'true');
-    history.push(`${location.pathname}?${params.toString()}`);
-  };
-
-  const handleCloseDrawer = () => {
-    setDrawerVisible(false);
-    setDrawerProduct(null);
-    history.push(location.pathname);
-  };
-
-  return (
-    <div>
-      <Card title="상품 목록">
-        <ProductList
-          onOpenDrawer={handleOpenDrawer}
-          onProductsLoaded={setAllProducts}
-          currentPage={currentPage}
-          selectedProductId={drawerProduct?.id || null}
-        />
-      </Card>
-
-      <ProductDetailDrawer
-        product={drawerProduct}
-        visible={drawerVisible}
-        onClose={handleCloseDrawer}
-      />
-    </div>
-  );
-}
-
-export default withRouter(ProductsApp);
-```
-
 ---
 
-## 구현 포인트 (실무 핵심)
+## 핵심 포인트 4가지
 
-### 1. URL 상태 동기화
+### 1. `getRowId` 필수
 
-Drawer 열면 URL이 다음과 같이 변경됨:
-```
-?id=3&page=1&detail=true
-```
-
-새로고침해도 동일 상태가 복원되기 때문에 사용자 경험이 좋다.
-
-**핵심 로직:**
-- `history.push()`로 URL 업데이트
-- `location.search`로 URL 감시
-- 페이지 로드 시 URLSearchParams 파싱하여 상태 복원
-
-### 2. Row 자동 선택 + 스크롤
-
-```javascript
-const rowNode = gridApi.getRowNode(String(selectedProductId));
-if (rowNode) {
-  rowNode.setSelected(true);
-  gridApi.ensureNodeVisible(rowNode, 'middle');
-}
+```jsx
+getRowId={(p) => String(p.data.id)}
 ```
 
-**주의사항:**
-- `getRowId` 반드시 정의해야 함 (row 식별자)
-- `ensureNodeVisible(rowNode, 'middle')`로 스크롤 위치 조정
-- AG Grid 초기화 후에만 gridApi 사용 가능
+이게 없으면 `gridApi.getRowNode()`로 특정 Row를 찾을 수 없습니다.
+URL 복원 시 Row 자동 선택이 동작하려면 반드시 필요합니다.
 
-### 3. 이벤트 버블링 방지
+### 2. `ensureNodeVisible`로 스크롤 이동
 
-```javascript
+```jsx
+gridApi.ensureNodeVisible(rowNode, "middle");
+```
+
+선택만으로는 부족합니다. 페이지가 길면 해당 Row가 보이지 않을 수 있어요.
+`"middle"`로 지정하면 화면 가운데로 스크롤됩니다.
+
+### 3. `e.stopPropagation()`으로 버블링 차단
+
+```jsx
 onClick={(e) => {
   e.stopPropagation();
   handleOpenDrawer(params.data);
 }}
 ```
 
-버튼 클릭 시 row click 이벤트가 발생하면 selection이 꼬인다.
-`e.stopPropagation()`으로 버블링 방지 필수.
+버튼 클릭이 Row click 이벤트로 번지면 selection이 꼬입니다. 반드시 차단하세요.
 
-### 4. URL 복원 타이밍
+### 4. 데이터 로드 타이밍 처리
 
-**문제:** 데이터 없을 때 Drawer 먼저 열리면 빈 Drawer 발생
+URL 파싱 시 `allProducts`가 아직 비어있으면 product를 찾을 수 없습니다.
 
-**해결:**
-- `allProducts` 로드 후 다시 find하는 구조
-- `useEffect` 의존성: `[location.search, allProducts]`
-- 두 조건이 모두 충족될 때만 Drawer 오픈
+```jsx
+useEffect(() => {
+  // ...
+  if (detail && productId && allProducts.length > 0) {
+    const product = allProducts.find((p) => p.id === productId);
+    if (product) {
+      setDrawerProduct(product);
+      setDrawerVisible(true);
+    }
+  }
+}, [location.search, allProducts]); // allProducts도 의존성에 포함
+```
 
+`allProducts`를 의존성에 넣으면 데이터 로드 후 자동으로 다시 실행돼서 Drawer가 정상 복원됩니다.
+
+---
+
+## 한 줄 정리
+
+> URL에 `?id=...&detail=true`를 저장 → `useEffect`로 복원 → `getRowId` + `ensureNodeVisible`로 Row 동기화.
