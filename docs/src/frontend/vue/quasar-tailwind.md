@@ -1,4 +1,5 @@
 ---
+category: Vue
 title: Quasar + TailwindCSS 같이 쓰기
 ---
 

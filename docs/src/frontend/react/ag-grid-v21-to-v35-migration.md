@@ -1,4 +1,5 @@
 ---
+category: React
 title: AG Grid v21 → v35 마이그레이션
 description: AG Grid v21에서 v35 마이그레이션 시 필수로 처리해야 할 변경사항. rowSelection, cellRendererFramework, CSS 경로, Module 등록, setGridOption API 통합까지 실무 기준 완전 정리.
 date: 2026-05-05
