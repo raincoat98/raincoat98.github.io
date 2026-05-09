@@ -132,8 +132,8 @@ body {
   margin-bottom: 1.75rem;
 }
 
-/* 단일 다크 필: ● DEVOPS · SUPABASE */
-.post-tag-pill {
+/* 단일 카테고리 필: ● DEVOPS · SUPABASE */
+.post-category-pill {
   display: inline-flex;
   align-items: center;
   gap: 0.45rem;
@@ -149,12 +149,12 @@ body {
   line-height: 1.5;
 }
 
-.dark .post-tag-pill {
+.dark .post-category-pill {
   background: rgba(15, 42, 26, 0.9);
   border-color: rgba(134, 239, 172, 0.3);
 }
 
-.post-tag-dot {
+.post-category-dot {
   font-size: 0.45rem;
   line-height: 1;
   opacity: 0.85;
@@ -169,6 +169,37 @@ body {
 .meta-sep {
   opacity: 0.5;
 }
+
+/* =============================================
+   POST FOOTER: 컬러 태그 목록
+   ============================================= */
+.post-footer-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.post-tag-pill {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.3rem 0.9rem;
+  border-radius: 999px;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  border: 1.5px solid;
+  line-height: 1.5;
+  white-space: nowrap;
+}
+
+.post-tag-pill--green  { color: #4ade80; background: rgba(20, 83, 45, 0.45);  border-color: rgba(74, 222, 128, 0.45); }
+.post-tag-pill--blue   { color: #60a5fa; background: rgba(23, 37, 84, 0.5);   border-color: rgba(96, 165, 250, 0.45); }
+.post-tag-pill--orange { color: #fbbf24; background: rgba(78, 52, 0, 0.5);    border-color: rgba(251, 191, 36, 0.4);  }
+.post-tag-pill--red    { color: #f87171; background: rgba(69, 10, 10, 0.5);   border-color: rgba(248, 113, 113, 0.4); }
+.post-tag-pill--purple { color: #c084fc; background: rgba(59, 7, 100, 0.45);  border-color: rgba(192, 132, 252, 0.4); }
+.post-tag-pill--teal   { color: #2dd4bf; background: rgba(19, 78, 74, 0.45);  border-color: rgba(45, 212, 191, 0.4);  }
+.post-tag-pill--pink   { color: #f472b6; background: rgba(80, 7, 36, 0.45);   border-color: rgba(244, 114, 182, 0.4); }
 
 /* =============================================
    코드 블록: macOS 스타일
