@@ -1,5 +1,5 @@
 ---
-category: Vue
+category: [Vue]
 title: Vue 코드 컨벤션 가이드
 ---
 

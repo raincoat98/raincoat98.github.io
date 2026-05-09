@@ -1,5 +1,5 @@
 ---
-category: React
+category: [React]
 title: OPC UA 설비 데이터 모니터링
 ---
 

@@ -1,5 +1,5 @@
 ---
-category: Vue
+category: [Vue]
 title: 브랜드 컬러를 Tailwind에 넣는 법
 ---
 
