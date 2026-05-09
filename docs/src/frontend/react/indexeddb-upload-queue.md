@@ -1,5 +1,5 @@
 ---
-category: React
+category: [React]
 title: React IndexedDB 업로드 큐 만들기
 ---
 

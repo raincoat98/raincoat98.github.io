@@ -1,5 +1,5 @@
 ---
-category: Vue
+category: [Vue]
 title: Vue 오늘 하루 보지 않기 팝업
 outline: deep
 ---

@@ -1,5 +1,5 @@
 ---
-category: React
+category: [React]
 title: AG Grid 공통 래퍼 설계 (Client / Server)
 description: AG Grid v35 기준으로 실무에서 쓰는 공통 래퍼 설계 방법. AgGridProvider로 모듈과 라이선스를 주입하고, ClientSideGrid와 ServerSideGrid를 분리하는 구조를 설명합니다.
 date: 2026-05-05

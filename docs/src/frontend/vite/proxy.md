@@ -1,5 +1,5 @@
 ---
-category: Vite
+category: [Vite]
 title: Vite Proxy 설정하기
 ---
 

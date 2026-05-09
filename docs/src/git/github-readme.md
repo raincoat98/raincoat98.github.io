@@ -1,5 +1,5 @@
 ---
-category: Git
+category: [Git]
 title: README 잘 쓰는 법
 ---
 
