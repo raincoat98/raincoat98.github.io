@@ -4,14 +4,14 @@ import { computed } from 'vue'
 
 const { frontmatter, page } = useData()
 
-const tags = computed(() => {
-  const t = frontmatter.value.tags
-  if (!t) return []
-  return Array.isArray(t) ? t : [t]
+const categories = computed(() => {
+  const c = frontmatter.value.category
+  if (!c) return []
+  return Array.isArray(c) ? c : [c]
 })
 
-const tagLabel = computed(() =>
-  tags.value.map(t => t.toUpperCase()).join(' · ')
+const categoryLabel = computed(() =>
+  categories.value.map(c => c.toUpperCase()).join(' · ')
 )
 
 const year = computed(() => {
@@ -30,15 +30,15 @@ const metaItems = computed(() => {
 const shouldShow = computed(() =>
   frontmatter.value.layout !== 'home' &&
   page.value.relativePath !== 'index.md' &&
-  (tags.value.length > 0 || metaItems.value.length > 0)
+  (categories.value.length > 0 || metaItems.value.length > 0)
 )
 </script>
 
 <template>
   <div v-if="shouldShow" class="post-header">
-    <div v-if="tags.length" class="post-tag-pill">
-      <span class="post-tag-dot">●</span>
-      {{ tagLabel }}
+    <div v-if="categories.length" class="post-category-pill">
+      <span class="post-category-dot">●</span>
+      {{ categoryLabel }}
     </div>
     <div v-if="metaItems.length" class="post-meta">
       <template v-for="(item, i) in metaItems" :key="item">
