@@ -1,5 +1,5 @@
 ---
-category: [Vue]
+categories: [Vue]
 title: 내가 쓰는 Vue 라이브러리
 ---
 

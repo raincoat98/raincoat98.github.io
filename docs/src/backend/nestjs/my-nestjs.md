@@ -1,5 +1,5 @@
 ---
-category: [NestJS]
+categories: [NestJS]
 title: 내가 NestJS를 쓰는 이유
 ---
 

@@ -1,5 +1,5 @@
 ---
-category: [Vue]
+categories: [Vue]
 title: Vue 이벤트 핸들링과 수정자
 ---
 

@@ -1,5 +1,5 @@
 ---
-category: [JavaScript]
+categories: [JavaScript]
 title: JavaScript 객체 복사, 뭐가 다를까?
 ---
 
