@@ -1,4 +1,5 @@
 ---
+category: NestJS
 title: NestJS 윈도우 무한 루프 문제 해결
 ---
 

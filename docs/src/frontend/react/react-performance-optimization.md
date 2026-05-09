@@ -1,4 +1,5 @@
 ---
+category: React
 title: React useMemo · useCallback · memo 차이
 description: useMemo, useCallback, React.memo의 차이와 언제 써야 하는지를 실전 예제로 정리합니다.
 date: 2024-01-01

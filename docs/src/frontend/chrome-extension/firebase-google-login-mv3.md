@@ -1,4 +1,5 @@
 ---
+category: Chrome Extension
 title: MV3에서 Google 로그인 구현
 ---
 
