@@ -1,5 +1,5 @@
 ---
-category: [Vue]
+categories: [Vue]
 title: AOS 애니메이션 적용하기
 ---
 

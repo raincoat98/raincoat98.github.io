@@ -1,5 +1,5 @@
 ---
-category: [Vue]
+categories: [Vue]
 title: VeeValidate 폼 유효성 검증
 ---
 

@@ -1,5 +1,5 @@
 ---
-category: [Database]
+categories: [Database]
 title: 조회한 데이터 바로 수정하기
 ---
 

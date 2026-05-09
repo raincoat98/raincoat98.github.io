@@ -1,5 +1,5 @@
 ---
-category: [Vite]
+categories: [Vite]
 title: Vite Path Alias 설정하기
 ---
 

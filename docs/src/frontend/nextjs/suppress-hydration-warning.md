@@ -1,5 +1,5 @@
 ---
-category: [Next.js]
+categories: [Next.js]
 title: Next.js Hydration 경고 없애기
 ---
 

@@ -5,7 +5,7 @@ import { computed } from 'vue'
 const { frontmatter, page } = useData()
 
 const categories = computed(() => {
-  const c = frontmatter.value.category
+  const c = frontmatter.value.categories
   if (!c) return []
   return Array.isArray(c) ? c : [c]
 })
