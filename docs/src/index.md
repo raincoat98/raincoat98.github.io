@@ -12,7 +12,7 @@ head:
       content: website
   - - meta
     - property: og:image
-      content: https://raincoat98.github.io/og-image.svg
+      content: https://raincoat98.github.io/og-image.png
 ---
 
 <Hero />
