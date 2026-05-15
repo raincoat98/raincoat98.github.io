@@ -558,6 +558,22 @@ export default withMermaid(
         },
 
         {
+          text: "Tools",
+          items: [
+            {
+              text: "IntelliJ",
+              collapsed: true,
+              items: [
+                {
+                  text: "플러그인 추천 (Java / Spring Boot)",
+                  link: "/tools/intellij/intellij-plugins",
+                },
+              ],
+            },
+          ],
+        },
+
+        {
           text: "Git",
           items: [
             {
