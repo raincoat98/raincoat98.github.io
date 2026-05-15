@@ -202,12 +202,12 @@ export default withMermaid(
         "meta",
         {
           property: "og:image",
-          content: "https://raincoat98.github.io/og-image.svg",
+          content: "https://raincoat98.github.io/og-image.png",
         },
       ],
       ["meta", { property: "og:image:width", content: "1200" }],
       ["meta", { property: "og:image:height", content: "630" }],
-      ["meta", { property: "og:image:type", content: "image/svg+xml" }],
+      ["meta", { property: "og:image:type", content: "image/png" }],
       ["meta", { property: "og:url", content: "https://raincoat98.github.io" }],
       ["meta", { property: "og:site_name", content: "Raincoat" }],
       ["meta", { property: "og:locale", content: "ko_KR" }],
@@ -226,7 +226,7 @@ export default withMermaid(
         "meta",
         {
           name: "twitter:image",
-          content: "https://raincoat98.github.io/og-image.svg",
+          content: "https://raincoat98.github.io/og-image.png",
         },
       ],
       ["meta", { name: "twitter:site", content: "@raincoat98" }],
