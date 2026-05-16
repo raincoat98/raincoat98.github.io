@@ -492,20 +492,20 @@ onMounted(() => {
 .empty-text { font-size: 1rem; margin: 0; }
 
 /* 태그 색상 */
-.modern-tag.vue { background: linear-gradient(135deg, #42b883, #35495e); }
-.modern-tag.react { background: linear-gradient(135deg, #2196f3, #0d47a1); }
-.modern-tag.javascript { background: linear-gradient(135deg, #f7df1e, #f0db4f); color: #323330; }
-.modern-tag.typescript { background: linear-gradient(135deg, #3178c6, #235a97); }
-.modern-tag.nestjs { background: linear-gradient(135deg, #ea2845, #c1223a); }
-.modern-tag.firebase { background: linear-gradient(135deg, #ffca28, #ffa000); color: #323330; }
-.modern-tag.supabase { background: linear-gradient(135deg, #3ecf8e, #1a7f57); }
-.modern-tag.database { background: linear-gradient(135deg, #4a4a4a, #2d2d2d); }
-.modern-tag.git { background: linear-gradient(135deg, #f05033, #c93c24); }
-.modern-tag.vite { background: linear-gradient(135deg, #646cff, #4f56d8); }
-.modern-tag.vitepress { background: linear-gradient(135deg, #42c2a0, #2fa085); }
-.modern-tag.nextjs { background: linear-gradient(135deg, #090909, #333333); }
-.modern-tag.chrome { background: linear-gradient(135deg, #4285f4, #1a73e8); }
-.modern-tag.기타 { background: linear-gradient(135deg, #777, #555); }
+.modern-tag.vue { background: #42b883; }
+.modern-tag.react { background: #2196f3; }
+.modern-tag.javascript { background: #f7df1e; color: #323330; }
+.modern-tag.typescript { background: #3178c6; }
+.modern-tag.nestjs { background: #ea2845; }
+.modern-tag.firebase { background: #ffca28; color: #323330; }
+.modern-tag.supabase { background: #3ecf8e; }
+.modern-tag.database { background: #4a4a4a; }
+.modern-tag.git { background: #f05033; }
+.modern-tag.vite { background: #646cff; }
+.modern-tag.vitepress { background: #42c2a0; }
+.modern-tag.nextjs { background: #090909; }
+.modern-tag.chrome { background: #4285f4; }
+.modern-tag.기타 { background: #777; }
 
 /* 애니메이션 */
 @keyframes fadeInUp {
