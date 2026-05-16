@@ -94,6 +94,62 @@ export default withMermaid(
       head.push(["meta", { property: "og:url", content: url }] as HeadConfig);
       head.push(["link", { rel: "canonical", href: url }] as HeadConfig);
 
+      // og:image (frontmatter.image 우선, 없으면 기본 이미지)
+      const ogImage = pageData.frontmatter.image
+        ? `https://raincoat98.github.io${pageData.frontmatter.image}`
+        : "https://raincoat98.github.io/og-image.png";
+      const ogImageAlt = pageData.frontmatter.title || "Raincoat 개발자 블로그";
+      head.push(["meta", { property: "og:image", content: ogImage }] as HeadConfig);
+      head.push(["meta", { property: "og:image:alt", content: ogImageAlt }] as HeadConfig);
+      head.push(["meta", { property: "og:image:width", content: "1200" }] as HeadConfig);
+      head.push(["meta", { property: "og:image:height", content: "630" }] as HeadConfig);
+      head.push(["meta", { property: "og:image:type", content: "image/png" }] as HeadConfig);
+      head.push(["meta", { name: "twitter:image", content: ogImage }] as HeadConfig);
+      head.push(["meta", { name: "twitter:image:alt", content: ogImageAlt }] as HeadConfig);
+
+      // 포스트 태그 → article:tag + keywords
+      if (isPost && Array.isArray(pageData.frontmatter.tags) && pageData.frontmatter.tags.length) {
+        for (const tag of pageData.frontmatter.tags) {
+          head.push(["meta", { property: "article:tag", content: tag }] as HeadConfig);
+        }
+        head.push(["meta", { name: "keywords", content: pageData.frontmatter.tags.join(", ") }] as HeadConfig);
+      }
+
+      // BreadcrumbList 구조화 데이터 (구글 검색 경로 표시)
+      const segments = path.split("/").filter(Boolean);
+      if (segments.length > 0) {
+        const sectionLabels: Record<string, string> = {
+          frontend: "Frontend", backend: "Backend", database: "Database",
+          tools: "Tools", git: "Git", introduce: "소개",
+          javascript: "JavaScript", react: "React", vue: "Vue",
+          vite: "Vite", nextjs: "Next.js", nestjs: "NestJS",
+          supabase: "Supabase", firebase: "Firebase", vitepress: "VitePress",
+          intellij: "IntelliJ", "chrome-extension": "Chrome Extension",
+        };
+        const toLabel = (seg: string) =>
+          sectionLabels[seg] || seg.replace(/-/g, " ").replace(/\b\w/g, (c) => c.toUpperCase());
+
+        const breadcrumbItems: object[] = [
+          { "@type": "ListItem", position: 1, name: "Home", item: "https://raincoat98.github.io/" },
+        ];
+        let currentUrl = "https://raincoat98.github.io";
+        segments.forEach((seg, i) => {
+          currentUrl += `/${seg}`;
+          breadcrumbItems.push({
+            "@type": "ListItem",
+            position: i + 2,
+            name: i === segments.length - 1 ? (pageData.frontmatter.title || toLabel(seg)) : toLabel(seg),
+            item: currentUrl,
+          });
+        });
+
+        head.push(["script", { type: "application/ld+json" }, JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "BreadcrumbList",
+          itemListElement: breadcrumbItems,
+        })] as HeadConfig);
+      }
+
       // 블로그 포스트인 경우 BlogPosting 구조화 데이터 추가
       if (isPost) {
         const blogPosting = {
@@ -162,6 +218,8 @@ export default withMermaid(
       ["link", { rel: "alternate icon", href: "/favicon.svg" }],
       ["meta", { name: "author", content: "SangWook Woo" }],
       ["script", { src: "/scroll-to-top.js" }],
+      ["link", { rel: "preconnect", href: "https://cdn.jsdelivr.net" }],
+      ["link", { rel: "dns-prefetch", href: "https://cdn.jsdelivr.net" }],
       [
         "link",
         {
@@ -224,16 +282,6 @@ export default withMermaid(
           content: "프론트엔드 개발자 블로그. 웹 개발 경험과 지식을 공유합니다.",
         },
       ],
-      [
-        "meta",
-        {
-          property: "og:image",
-          content: "https://raincoat98.github.io/og-image.png",
-        },
-      ],
-      ["meta", { property: "og:image:width", content: "1200" }],
-      ["meta", { property: "og:image:height", content: "630" }],
-      ["meta", { property: "og:image:type", content: "image/png" }],
       ["meta", { property: "og:url", content: "https://raincoat98.github.io" }],
       ["meta", { property: "og:site_name", content: "Raincoat" }],
       ["meta", { property: "og:locale", content: "ko_KR" }],
@@ -246,13 +294,6 @@ export default withMermaid(
         {
           name: "twitter:description",
           content: "프론트엔드 개발자 블로그. 웹 개발 경험과 지식을 공유합니다.",
-        },
-      ],
-      [
-        "meta",
-        {
-          name: "twitter:image",
-          content: "https://raincoat98.github.io/og-image.png",
         },
       ],
       ["meta", { name: "twitter:site", content: "@raincoat98" }],
