@@ -1,11 +1,10 @@
 {
-  "generatedAt": "2026-05-16T06:33:41.495Z",
+  "generatedAt": "2026-05-16T07:28:44.556Z",
   "documents": [
     {
       "path": "/database/korean-sort",
       "title": "SQL에서 한글 ORDER BY가 이상할 때",
       "createdAt": "2024-09-03",
-      "lastModified": "2026-05-10",
       "modificationCount": 6,
       "author": "WooSangWook"
     },
@@ -13,15 +12,13 @@
       "path": "/database/update-in",
       "title": "조회한 데이터 바로 수정하기",
       "createdAt": "2024-08-28",
-      "lastModified": "2024-08-28",
-      "modificationCount": 6,
+      "modificationCount": 7,
       "author": "WooSangWook"
     },
     {
       "path": "/tools/intellij/intellij-plugins",
       "title": "IntelliJ 플러그인 추천 (Java / Spring Boot 개발자용)",
       "createdAt": "2026-05-16",
-      "lastModified": "2026-05-16",
       "modificationCount": 1,
       "author": "WooSangWook"
     },
@@ -29,159 +26,139 @@
       "path": "/frontend/vitepress/vitepress-comment",
       "title": "VitePress 댓글 기능 구현하기",
       "createdAt": "2024-04-17",
-      "lastModified": "2024-04-17",
-      "modificationCount": 5,
+      "modificationCount": 6,
       "author": "WooSangWook"
     },
     {
       "path": "/frontend/vue/vue-code-convention",
       "title": "Vue 코드 컨벤션 가이드",
       "createdAt": "2024-04-12",
-      "lastModified": "2024-04-12",
-      "modificationCount": 6,
+      "modificationCount": 7,
       "author": "WooSangWook"
     },
     {
       "path": "/frontend/vue/dayjs-korea",
       "title": "Vue dayjs로 KST 시간 다루기",
       "createdAt": "2025-05-08",
-      "lastModified": "2025-05-08",
-      "modificationCount": 7,
+      "modificationCount": 8,
       "author": "WooSangWook"
     },
     {
       "path": "/frontend/vue/vite-quasar-aos",
       "title": "AOS 애니메이션 적용하기",
       "createdAt": "2024-04-12",
-      "lastModified": "2024-04-12",
-      "modificationCount": 6,
+      "modificationCount": 7,
       "author": "WooSangWook"
     },
     {
       "path": "/frontend/vue/vue-event",
       "title": "Vue 이벤트 핸들링과 수정자",
       "createdAt": "2024-10-28",
-      "lastModified": "2024-10-28",
-      "modificationCount": 5,
+      "modificationCount": 6,
       "author": "WooSangWook"
     },
     {
       "path": "/frontend/vue/vue-cookie",
       "title": "Vue 오늘 하루 보지 않기 팝업",
       "createdAt": "2024-04-05",
-      "lastModified": "2024-04-05",
-      "modificationCount": 5,
+      "modificationCount": 6,
       "author": "WooSangWook"
     },
     {
       "path": "/frontend/vue/my-vue-library",
       "title": "내가 쓰는 Vue 라이브러리",
       "createdAt": "2024-04-08",
-      "lastModified": "2024-04-08",
-      "modificationCount": 6,
+      "modificationCount": 7,
       "author": "WooSangWook"
     },
     {
       "path": "/frontend/vue/vee-validate",
       "title": "VeeValidate 폼 유효성 검증",
       "createdAt": "2024-08-28",
-      "lastModified": "2024-08-28",
-      "modificationCount": 8,
+      "modificationCount": 9,
       "author": "WooSangWook"
     },
     {
       "path": "/frontend/vue/quasar-tailwind",
       "title": "Quasar + TailwindCSS 같이 쓰기",
       "createdAt": "2024-04-10",
-      "lastModified": "2024-04-10",
-      "modificationCount": 8,
+      "modificationCount": 9,
       "author": "WooSangWook"
     },
     {
       "path": "/frontend/vue/vue-query-websocket-sync",
       "title": "Vue 폴링 → SSE → WebSocket 전환기",
       "createdAt": "2025-11-26",
-      "lastModified": "2025-11-26",
-      "modificationCount": 7,
+      "modificationCount": 8,
       "author": "WooSangWook"
     },
     {
       "path": "/frontend/vue/tailwind-brand-color",
       "title": "브랜드 컬러를 Tailwind에 넣는 법",
       "createdAt": "2024-04-12",
-      "lastModified": "2024-04-12",
-      "modificationCount": 5,
+      "modificationCount": 6,
       "author": "WooSangWook"
     },
     {
       "path": "/frontend/vue/my-vue",
       "title": "내가 Vue를 쓰는 이유",
       "createdAt": "2024-04-05",
-      "lastModified": "2024-04-05",
-      "modificationCount": 9,
+      "modificationCount": 10,
       "author": "WooSangWook"
     },
     {
       "path": "/frontend/chrome-extension/firebase-google-login-mv3",
       "title": "MV3에서 Google 로그인 구현",
       "createdAt": "2025-11-21",
-      "lastModified": "2025-11-21",
-      "modificationCount": 6,
+      "modificationCount": 7,
       "author": "WooSangWook"
     },
     {
       "path": "/frontend/vite/vite-port",
       "title": "Vite 포트 바꾸는 법",
       "createdAt": "2025-02-05",
-      "lastModified": "2025-02-05",
-      "modificationCount": 5,
+      "modificationCount": 6,
       "author": "WooSangWook"
     },
     {
       "path": "/frontend/vite/vite-alias",
       "title": "Vite Path Alias 설정하기",
       "createdAt": "2025-02-05",
-      "lastModified": "2025-02-05",
-      "modificationCount": 5,
+      "modificationCount": 6,
       "author": "WooSangWook"
     },
     {
       "path": "/frontend/vite/proxy",
       "title": "Vite Proxy 설정하기",
       "createdAt": "2025-02-05",
-      "lastModified": "2025-02-05",
-      "modificationCount": 5,
+      "modificationCount": 6,
       "author": "WooSangWook"
     },
     {
       "path": "/frontend/nextjs/suppress-hydration-warning",
       "title": "Next.js Hydration 경고 없애기",
       "createdAt": "2025-09-04",
-      "lastModified": "2025-09-04",
-      "modificationCount": 6,
+      "modificationCount": 7,
       "author": "WooSangWook"
     },
     {
       "path": "/frontend/javascript/array-methods",
       "title": "JavaScript 배열 메서드 정리",
       "createdAt": "2024-11-04",
-      "lastModified": "2024-11-04",
-      "modificationCount": 6,
+      "modificationCount": 7,
       "author": "WooSangWook"
     },
     {
       "path": "/frontend/javascript/regular-expression",
       "title": "JavaScript 정규식 한 번에 정리",
       "createdAt": "2024-12-20",
-      "lastModified": "2024-12-20",
-      "modificationCount": 8,
+      "modificationCount": 9,
       "author": "WooSangWook"
     },
     {
       "path": "/frontend/javascript/structured-clone",
       "title": "JavaScript 객체 복사, 뭐가 다를까?",
       "createdAt": "2024-01-01",
-      "lastModified": "2026-05-16",
       "modificationCount": 10,
       "author": "WooSangWook"
     },
@@ -189,31 +166,27 @@
       "path": "/frontend/javascript/es-toolkit",
       "title": "ES Toolkit 훑어보기",
       "createdAt": "2024-09-02",
-      "lastModified": "2024-09-02",
-      "modificationCount": 8,
+      "modificationCount": 9,
       "author": "WooSangWook"
     },
     {
       "path": "/frontend/javascript/indexeddb-vs-localstorage",
       "title": "IndexedDB vs LocalStorage",
       "createdAt": "2025-09-17",
-      "lastModified": "2025-09-17",
-      "modificationCount": 7,
+      "modificationCount": 8,
       "author": "WooSangWook"
     },
     {
       "path": "/frontend/javascript/javascript-rounding",
       "title": "JavaScript 소수점 반올림 제대로 하기",
       "createdAt": "2026-01-08",
-      "lastModified": "2026-01-08",
-      "modificationCount": 6,
+      "modificationCount": 7,
       "author": "WooSangWook"
     },
     {
       "path": "/frontend/react/ag-grid-v21-to-v35-migration",
       "title": "AG Grid v21 → v35 마이그레이션",
       "createdAt": "2026-05-05",
-      "lastModified": "2026-05-10",
       "modificationCount": 5,
       "author": "WooSangWook"
     },
@@ -221,31 +194,27 @@
       "path": "/frontend/react/indexeddb-upload-queue",
       "title": "React IndexedDB 업로드 큐 만들기",
       "createdAt": "2025-11-26",
-      "lastModified": "2025-11-26",
-      "modificationCount": 6,
+      "modificationCount": 7,
       "author": "WooSangWook"
     },
     {
       "path": "/frontend/react/kepware-opcua-monitoring",
       "title": "OPC UA 설비 데이터 모니터링",
       "createdAt": "2025-11-28",
-      "lastModified": "2025-11-28",
-      "modificationCount": 7,
+      "modificationCount": 8,
       "author": "WooSangWook"
     },
     {
       "path": "/frontend/react/react-performance-optimization",
       "title": "React useMemo · useCallback · memo 차이",
       "createdAt": "2026-05-05",
-      "lastModified": "2026-05-05",
-      "modificationCount": 5,
+      "modificationCount": 6,
       "author": "WooSangWook"
     },
     {
       "path": "/frontend/react/ag-grid-v35-wrapper-design",
       "title": "AG Grid 공통 래퍼 설계 (Client / Server)",
       "createdAt": "2026-05-05",
-      "lastModified": "2026-05-10",
       "modificationCount": 6,
       "author": "WooSangWook"
     },
@@ -253,15 +222,13 @@
       "path": "/frontend/react/ag-grid-drawer-url-sync",
       "title": "AG Grid Drawer + URL 상태 동기화",
       "createdAt": "2026-02-13",
-      "lastModified": "2026-02-13",
-      "modificationCount": 7,
+      "modificationCount": 8,
       "author": "WooSangWook"
     },
     {
       "path": "/introduce/careers",
       "title": "우상욱 이력서",
       "createdAt": "2026-05-05",
-      "lastModified": "2026-05-10",
       "modificationCount": 29,
       "author": "WooSangWook"
     },
@@ -269,23 +236,20 @@
       "path": "/introduce/about-me",
       "title": "Raincoat",
       "createdAt": "2024-04-26",
-      "lastModified": "2024-04-26",
-      "modificationCount": 8,
+      "modificationCount": 9,
       "author": "WooSangWook"
     },
     {
       "path": "/introduce/my-develop",
       "title": "왜 개발자가 되었나요?",
       "createdAt": "2024-04-05",
-      "lastModified": "2024-04-05",
-      "modificationCount": 16,
+      "modificationCount": 17,
       "author": "WooSangWook"
     },
     {
       "path": "/backend/supabase/supabase-keep-alive",
       "title": "Supabase 무료 플랜 자동 정지 막는 법",
       "createdAt": "2026-05-05",
-      "lastModified": "2026-05-10",
       "modificationCount": 5,
       "author": "WooSangWook"
     },
@@ -293,7 +257,6 @@
       "path": "/backend/firebase/install-firebase",
       "title": "Firebase CLI 설치 가이드",
       "createdAt": "2026-05-05",
-      "lastModified": "2026-05-10",
       "modificationCount": 5,
       "author": "WooSangWook"
     },
@@ -301,23 +264,20 @@
       "path": "/backend/nestjs/my-nestjs",
       "title": "내가 NestJS를 쓰는 이유",
       "createdAt": "2024-04-05",
-      "lastModified": "2024-04-05",
-      "modificationCount": 8,
+      "modificationCount": 9,
       "author": "WooSangWook"
     },
     {
       "path": "/backend/nestjs/nestjs-windows-startdev-loop-fix",
       "title": "NestJS 윈도우 무한 루프 문제 해결",
       "createdAt": "2025-05-27",
-      "lastModified": "2025-05-27",
-      "modificationCount": 5,
+      "modificationCount": 6,
       "author": "WooSangWook"
     },
     {
       "path": "/index",
       "title": "Raincoat",
       "createdAt": "2024-04-05",
-      "lastModified": "2026-05-16",
       "modificationCount": 14,
       "author": "WooSangWook"
     },
@@ -325,7 +285,6 @@
       "path": "/examples/api-examples",
       "title": "Runtime API Examples",
       "createdAt": "2024-04-05",
-      "lastModified": "2024-04-05",
       "modificationCount": 3,
       "author": "WooSangWook"
     },
@@ -333,7 +292,6 @@
       "path": "/examples/markdown-examples",
       "title": "Markdown Extension Examples",
       "createdAt": "2024-04-05",
-      "lastModified": "2024-12-20",
       "modificationCount": 4,
       "author": "WooSangWook"
     },
@@ -341,11 +299,10 @@
       "path": "/git/github-readme",
       "title": "README 잘 쓰는 법",
       "createdAt": "2024-04-12",
-      "lastModified": "2024-04-12",
-      "modificationCount": 5,
+      "modificationCount": 6,
       "author": "WooSangWook"
     }
   ],
   "totalDocuments": 43,
-  "totalModifications": 300
+  "totalModifications": 332
 }
