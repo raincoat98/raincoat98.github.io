@@ -374,6 +374,7 @@ export default withMermaid(
     },
 
     themeConfig: {
+      logo: "/favicon.svg",
       aside: true,
       outline: {
         level: [2, 3],
