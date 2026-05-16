@@ -1,6 +1,11 @@
 ---
 categories: [Vue]
 title: 내가 쓰는 Vue 라이브러리
+description: Vue 프로젝트에서 필수적으로 사용하는 라이브러리 목록을 소개합니다. Vue Router, Pinia, VeeValidate, Quasar 등 실무에서 검증된 라이브러리를 정리합니다.
+date: 2024-04-08
+tags: [Vue, Pinia, Quasar, VeeValidate, VueUse, 라이브러리]
+platform: Vue 3
+readingTime: 4
 ---
 
 # 내가 쓰는 Vue 라이브러리

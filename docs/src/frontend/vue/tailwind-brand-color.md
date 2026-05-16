@@ -1,6 +1,11 @@
 ---
 categories: [Vue]
 title: 브랜드 컬러를 Tailwind에 넣는 법
+description: Tailwind CSS 설정 파일에 브랜드 컬러를 추가하고, 접두어(prefix)를 활용하여 클래스 충돌 없이 사용하는 방법을 정리합니다.
+date: 2024-04-12
+tags: [Vue, TailwindCSS, 브랜드 컬러, 디자인 시스템]
+platform: Vue 3 + TailwindCSS
+readingTime: 3
 ---
 
 # 브랜드 컬러를 Tailwind에 넣는 법
