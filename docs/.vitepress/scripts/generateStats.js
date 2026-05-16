@@ -10,57 +10,45 @@ const path = require("path");
 
 function getDocumentStats() {
   try {
-    // 모든 Markdown 파일 목록을 가져옴
     const mdFiles = execSync(`find docs/src -name "*.md" -type f`, {
       encoding: "utf8",
-    })
-      .trim()
-      .split("\n")
-      .filter(Boolean);
+    }).trim().split("\n").filter(Boolean);
 
     const documents = [];
 
-    // 각 파일별로 Git 히스토리 분석
     for (const filePath of mdFiles) {
       try {
-        // 파일의 첫 번째 커밋 (생성일)
         const firstCommit = execSync(
-          `git log --follow --format="%H|%an|%ad|%s" --date=short --reverse "${filePath}" | head -1`,
+          `git log --follow --format="%an|%ad" --date=short --reverse "${filePath}" | head -1`,
           { encoding: "utf8" }
         ).trim();
 
-        // 파일의 마지막 커밋 (최종 수정일)
-        const lastCommit = execSync(
-          `git log --follow --format="%H|%an|%ad|%s" --date=short "${filePath}" | head -1`,
+        if (!firstCommit) continue;
+
+        const gitLastDate = execSync(
+          `git log --follow --format="%ad" --date=short "${filePath}" | head -1`,
           { encoding: "utf8" }
         ).trim();
 
-        // 파일의 총 커밋 수 (수정 횟수)
-        const commitCount = execSync(
-          `git log --follow --oneline "${filePath}" | wc -l`,
-          { encoding: "utf8" }
-        ).trim();
+        const commitCount = parseInt(
+          execSync(`git log --follow --oneline "${filePath}" | wc -l`, {
+            encoding: "utf8",
+          }).trim()
+        );
 
-        if (firstCommit && lastCommit) {
-          const [firstHash, firstAuthor, firstDate, firstSubject] =
-            firstCommit.split("|");
-          const [lastHash, lastAuthor, lastDate, lastSubject] =
-            lastCommit.split("|");
+        const [firstAuthor, firstDate] = firstCommit.split("|");
+        const webPath = filePath.replace("docs/src/", "/").replace(".md", "");
+        const frontmatterDate = getFrontmatterField(filePath, "date");
+        const frontmatterUpdated = getFrontmatterField(filePath, "updated");
 
-          // 파일 경로를 웹 경로로 변환
-          const webPath = filePath.replace("docs/src/", "/").replace(".md", "");
-
-          documents.push({
-            path: webPath,
-            title: getTitleFromPath(filePath),
-            createdAt: firstDate,
-            lastModified: lastDate,
-            modificationCount: parseInt(commitCount),
-            author: firstAuthor,
-            firstCommit: firstHash,
-            lastCommit: lastHash,
-          });
-        }
+        documents.push({
+          path: webPath,
+          title: getTitleFromPath(filePath),
+          createdAt: frontmatterDate || firstDate,
+          lastModified: frontmatterUpdated || frontmatterDate || gitLastDate,
+          modificationCount: commitCount,
+          author: firstAuthor,
+        });
       } catch (fileError) {
         console.warn(`파일 ${filePath} 분석 중 오류:`, fileError.message);
       }
@@ -70,6 +58,23 @@ function getDocumentStats() {
   } catch (error) {
     console.error("Git 통계를 가져오는 중 오류 발생:", error);
     return [];
+  }
+}
+
+function getFrontmatterField(filePath, field) {
+  try {
+    const content = fs.readFileSync(filePath, "utf-8");
+    const lines = content.split("\n");
+    if (!lines[0].startsWith("---")) return null;
+    for (let i = 1; i < lines.length; i++) {
+      if (lines[i].startsWith("---")) break;
+      if (lines[i].startsWith(`${field}:`)) {
+        return lines[i].replace(new RegExp(`^${field}:\\s*`), "").replace(/^["']|["']$/g, "").trim() || null;
+      }
+    }
+    return null;
+  } catch {
+    return null;
   }
 }
 
