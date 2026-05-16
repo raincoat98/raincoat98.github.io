@@ -3,7 +3,7 @@ categories: [NestJS]
 title: 내가 NestJS를 쓰는 이유
 description: Java 경험자가 NestJS를 선택한 이유. 직관적인 문법, 모듈 기반 확장성, 풍부한 공식 문서 세 가지를 중심으로 설명합니다.
 created: 2024-04-05
-updated: 2026-05-16
+updated: 2024-10-28
 tags: [NestJS|red, Node.js|green, Backend|blue]
 platform: NestJS
 readingTime: 2

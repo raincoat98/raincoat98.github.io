@@ -3,7 +3,7 @@ categories: [Chrome Extension]
 title: MV3에서 Google 로그인 구현
 description: Chrome Extension Manifest V3 환경에서 Firebase Google 로그인을 구현하는 방법. CSP 제약으로 인해 스크립트가 실행되지 않는 문제를 새 탭 기반 OAuth 흐름으로 해결합니다.
 created: 2025-11-21
-updated: 2026-05-16
+updated: 2025-11-24
 tags: [Chrome Extension|blue, Firebase|orange, Google 로그인|blue, MV3|teal, OAuth|blue]
 platform: Chrome Extension MV3
 readingTime: 7

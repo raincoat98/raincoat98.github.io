@@ -3,7 +3,7 @@ categories: [Vue]
 title: Vue dayjs로 KST 시간 다루기
 description: Vue 프로젝트에서 dayjs를 사용하여 한국 시간(KST)을 처리하는 방법을 정리합니다. 타임존 설정, 플러그인 사용법, 실제 예제를 포함합니다.
 created: 2025-05-08
-updated: 2026-05-16
+updated: 2025-11-26
 tags: [Vue|green, dayjs|orange, KST|teal, 한국 시간|teal, 타임존|teal, 날짜 처리|teal]
 platform: Vue 3
 readingTime: 5
