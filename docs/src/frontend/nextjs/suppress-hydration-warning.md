@@ -2,7 +2,7 @@
 categories: [Next.js]
 title: Next.js Hydration 경고 없애기
 description: Next.js SSR에서 발생하는 suppressHydrationWarning 에러의 원인과 해결 방법을 정리합니다. 서버·클라이언트 불일치 시나리오별 대응 방법을 소개합니다.
-date: 2025-09-04
+created: 2025-09-04
 updated: 2026-05-16
 tags: [Next.js|purple, SSR|teal, Hydration|teal, React|blue]
 platform: Next.js
