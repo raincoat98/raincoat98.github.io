@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-16T06:21:00.897Z",
+  "generatedAt": "2026-05-16T06:22:08.202Z",
   "documents": [
     {
       "path": "/database/korean-sort",
@@ -180,7 +180,7 @@
     {
       "path": "/frontend/javascript/structured-clone",
       "title": "JavaScript 객체 복사, 뭐가 다를까?",
-      "createdAt": "2026-05-16",
+      "createdAt": "2024-01-01",
       "lastModified": "2026-05-16",
       "modificationCount": 9,
       "author": "WooSangWook"
