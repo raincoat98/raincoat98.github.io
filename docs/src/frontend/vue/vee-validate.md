@@ -2,7 +2,7 @@
 categories: [Vue]
 title: VeeValidate 폼 유효성 검증
 description: vee-validate와 yup을 사용하여 Vue 프로젝트에서 폼 유효성 검증을 구현하는 방법을 예제 코드와 함께 정리합니다.
-date: 2024-08-28
+created: 2024-08-28
 updated: 2026-05-16
 tags: [Vue|green, VeeValidate|purple, yup|purple, 폼 검증]
 platform: Vue 3

@@ -2,7 +2,7 @@
 categories: [Vue]
 title: AOS 애니메이션 적용하기
 description: Vite와 Quasar를 사용하는 Vue 프로젝트에 AOS(Animate On Scroll) 라이브러리를 적용하여 스크롤 애니메이션을 추가하는 방법을 안내합니다.
-date: 2024-04-12
+created: 2024-04-12
 updated: 2026-05-16
 tags: [Vue|green, Quasar|blue, AOS|pink, 애니메이션|pink, 스크롤|teal]
 platform: Quasar + Vite
