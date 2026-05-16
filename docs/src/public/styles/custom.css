@@ -109,7 +109,7 @@ body {
 
 /* 코드 블록 스크롤바 */
 .vp-doc div[class*="language-"] pre::-webkit-scrollbar {
-  height: 5px;
+  height: 8px;
 }
 .vp-doc div[class*="language-"] pre::-webkit-scrollbar-track {
   background: #e2e8f0;
