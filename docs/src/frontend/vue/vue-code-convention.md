@@ -1,6 +1,11 @@
 ---
 categories: [Vue]
 title: Vue 코드 컨벤션 가이드
+description: Vue.js 프로젝트에서 일관된 코드 스타일을 유지하기 위한 컨벤션 가이드입니다. Composition API 기반의 코드 작성 규칙과 예제를 정리합니다.
+date: 2024-04-12
+tags: [Vue, 코드 컨벤션, Composition API, 코드 스타일]
+platform: Vue 3
+readingTime: 4
 ---
 
 # Vue 코드 컨벤션 가이드

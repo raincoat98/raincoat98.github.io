@@ -2,9 +2,8 @@
 categories: [Vue]
 title: Vue 폴링 → SSE → WebSocket 전환기
 description: 협업 애플리케이션에서 실시간 동기화 문제를 해결하기 위해 Vue Query 폴링 → SSE → WebSocket으로 단계적으로 전환한 경험을 공유합니다.
-keywords: Vue Query, WebSocket, SSE, 실시간 동기화, Vue.js, 프론트엔드 개발
-date: 2024-01-01
-tags: [Vue, WebSocket, SSE]
+date: 2025-11-26
+tags: [Vue, WebSocket, SSE, Vue Query, 실시간 동기화]
 platform: Vue Query
 readingTime: 10
 ---

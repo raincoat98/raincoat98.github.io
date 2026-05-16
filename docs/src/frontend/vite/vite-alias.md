@@ -1,6 +1,11 @@
 ---
 categories: [Vite]
 title: Vite Path Alias 설정하기
+description: Vite 프로젝트에서 Import Alias를 설정하여 복잡한 상대 경로 문제를 해결하는 방법을 정리합니다. tsconfig.json과 vite.config.js 설정 방법을 함께 소개합니다.
+date: 2025-02-05
+tags: [Vite, Path Alias, TypeScript, 개발환경]
+platform: Vite
+readingTime: 3
 ---
 
 # Vite Path Alias 설정하기
