@@ -152,6 +152,16 @@ import Hero3D from "./Hero3D.vue";
   background: var(--vp-c-brand-2);
 }
 
+.dark .action-btn-primary {
+  background: #6d28d9;
+  box-shadow: 0 4px 12px rgba(109, 40, 217, 0.4);
+}
+
+.dark .action-btn-primary:hover {
+  background: #5b21b6;
+  box-shadow: 0 8px 20px rgba(109, 40, 217, 0.5);
+}
+
 .action-btn-secondary {
   background: var(--vp-c-bg-soft);
   color: var(--vp-c-text-1);
