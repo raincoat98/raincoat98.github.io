@@ -139,18 +139,19 @@ body {
   gap: 0.45rem;
   padding: 0.3rem 0.85rem;
   border-radius: 999px;
-  background: #0f2a1a;
-  color: #86efac;
+  background: rgba(220, 252, 231, 0.85);
+  color: #15803d;
   font-size: 0.72rem;
   font-weight: 700;
   letter-spacing: 0.09em;
-  border: 1px solid rgba(134, 239, 172, 0.25);
+  border: 1px solid rgba(74, 222, 128, 0.5);
   width: fit-content;
   line-height: 1.5;
 }
 
 .dark .post-category-pill {
-  background: rgba(15, 42, 26, 0.9);
+  background: #0f2a1a;
+  color: #86efac;
   border-color: rgba(134, 239, 172, 0.3);
 }
 
