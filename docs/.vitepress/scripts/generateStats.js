@@ -45,7 +45,7 @@ function getDocumentStats() {
           path: webPath,
           title: getTitleFromPath(filePath),
           createdAt: frontmatterDate || firstDate,
-          lastModified: frontmatterUpdated || frontmatterDate || gitLastDate,
+          lastModified: frontmatterUpdated || gitLastDate,
           modificationCount: commitCount,
           author: firstAuthor,
         });
