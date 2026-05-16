@@ -107,6 +107,27 @@ body {
   scrollbar-color: rgba(255, 255, 255, 0.15) transparent;
 }
 
+/* 코드 블록 스크롤바 */
+.vp-doc div[class*="language-"]::-webkit-scrollbar {
+  height: 5px;
+}
+.vp-doc div[class*="language-"]::-webkit-scrollbar-track {
+  background: transparent;
+}
+.vp-doc div[class*="language-"]::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, 0.15);
+  border-radius: 3px;
+}
+.vp-doc div[class*="language-"]::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(0, 0, 0, 0.28);
+}
+.dark .vp-doc div[class*="language-"]::-webkit-scrollbar-thumb {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+.dark .vp-doc div[class*="language-"]::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(255, 255, 255, 0.38);
+}
+
 /* .vp-doc 내 태그 스타일 커스터마이징 */
 .vp-doc :not(pre, h1, h2, h3, h4, h5, h6) > code {
   background-color: var(--vp-c-bg-soft);
