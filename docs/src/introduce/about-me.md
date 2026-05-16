@@ -3,6 +3,7 @@ categories: [소개]
 title: Raincoat
 description: 순간을 사랑하는 프론트엔드 개발자 우상욱의 소개 페이지입니다. 사진, 신앙, 커피, 전자기기, 독서 등 일상을 이루는 것들을 소개합니다.
 date: 2024-04-26
+updated: 2025-05-09
 tags: [소개, About Me]
 platform: Web
 readingTime: 2

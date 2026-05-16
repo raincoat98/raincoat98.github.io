@@ -3,6 +3,7 @@ categories: [JavaScript]
 title: JavaScript 소수점 반올림 제대로 하기
 description: 부동소수점 오차로 인한 반올림 버그를 해결하는 방법. Number.EPSILON 패턴부터 정수 변환, Decimal 라이브러리까지 정리합니다.
 date: 2026-01-08
+updated: 2026-05-07
 tags: [JavaScript, 반올림, Math.round, Number.EPSILON, 부동소수점, decimal.js]
 platform: Browser / Node.js
 readingTime: 6

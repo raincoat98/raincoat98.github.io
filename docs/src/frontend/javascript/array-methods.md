@@ -3,6 +3,7 @@ categories: [JavaScript]
 title: JavaScript 배열 메서드 정리
 description: map, filter, reduce, forEach와 for...of 비동기 처리까지. 실무에서 자주 쓰는 배열 메서드를 예제 위주로 정리합니다.
 date: 2024-11-04
+updated: 2026-05-07
 tags: [JavaScript, 배열, map, filter, reduce, forEach, 비동기]
 platform: Browser / Node.js
 readingTime: 5
