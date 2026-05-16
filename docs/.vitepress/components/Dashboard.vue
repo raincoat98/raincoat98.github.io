@@ -492,7 +492,7 @@ onMounted(() => {
 .empty-text { font-size: 1rem; margin: 0; }
 
 /* 태그 색상 */
-.modern-tag.vue { background: linear-gradient(135deg, #42b883, #35495e); }
+.modern-tag.vue { background: linear-gradient(135deg, #42b883, #2d9c6a); }
 .modern-tag.react { background: linear-gradient(135deg, #2196f3, #0d47a1); }
 .modern-tag.javascript { background: linear-gradient(135deg, #f7df1e, #f0db4f); color: #323330; }
 .modern-tag.typescript { background: linear-gradient(135deg, #3178c6, #235a97); }
