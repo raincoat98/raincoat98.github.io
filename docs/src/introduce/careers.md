@@ -3,7 +3,7 @@ categories: [소개]
 title: 우상욱 이력서
 description: 프론트엔드 개발자 우상욱의 경력 및 프로젝트 이력서입니다.
 created: 2026-05-05
-updated: 2026-05-16
+updated: 2026-05-06
 tags: [소개|purple, 이력서|purple, 프론트엔드|blue]
 platform: Web
 readingTime: 3

@@ -3,7 +3,7 @@ categories: [React]
 title: React IndexedDB 업로드 큐 만들기
 description: 오피스 빌딩 와이파이 끊김 환경에서 파일 업로드 실패를 IndexedDB 큐로 해결하는 방법. 즉시 전송 대신 저장 후 백그라운드 업로드 패턴을 구현합니다.
 created: 2025-11-26
-updated: 2026-05-16
+updated: 2026-05-10
 tags: [React|blue, IndexedDB|teal, 오프라인|orange]
 platform: Browser
 readingTime: 8
