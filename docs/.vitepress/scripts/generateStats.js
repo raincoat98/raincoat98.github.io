@@ -34,11 +34,13 @@ function getDocumentStats() {
         const [firstAuthor, firstDate] = firstCommit.split("|");
         const webPath = filePath.replace("docs/src/", "/").replace(".md", "");
         const frontmatterDate = getFrontmatterField(filePath, "date");
+        const frontmatterUpdated = getFrontmatterField(filePath, "updated");
 
         documents.push({
           path: webPath,
           title: getTitleFromPath(filePath),
           createdAt: frontmatterDate || firstDate,
+          lastModified: frontmatterUpdated || frontmatterDate || firstDate,
           modificationCount: commitCount,
           author: firstAuthor,
         });

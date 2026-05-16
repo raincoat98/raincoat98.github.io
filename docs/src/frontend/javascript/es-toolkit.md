@@ -3,6 +3,7 @@ categories: [JavaScript]
 title: ES Toolkit 훑어보기
 description: lodash 대안으로 주목받는 es-toolkit의 주요 기능을 소개합니다. 작은 번들 사이즈와 빠른 성능을 자랑하는 현대적인 JavaScript 유틸리티 라이브러리입니다.
 date: 2024-09-02
+updated: 2024-09-03
 tags: [JavaScript, es-toolkit, lodash, 유틸리티]
 platform: Browser / Node.js
 readingTime: 5

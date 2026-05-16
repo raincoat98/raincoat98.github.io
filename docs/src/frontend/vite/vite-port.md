@@ -3,6 +3,7 @@ categories: [Vite]
 title: Vite 포트 바꾸는 법
 description: Vite 개발 서버의 기본 포트를 변경하는 방법을 정리합니다. vite.config.js 설정과 환경 변수(.env)를 이용한 동적 포트 설정 방법을 소개합니다.
 date: 2025-02-05
+updated: 2025-02-05
 tags: [Vite, 개발환경, 포트 설정]
 platform: Vite
 readingTime: 2
