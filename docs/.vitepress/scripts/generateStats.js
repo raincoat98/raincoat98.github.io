@@ -25,11 +25,6 @@ function getDocumentStats() {
 
         if (!firstCommit) continue;
 
-        const gitLastDate = execSync(
-          `git log --follow --format="%ad" --date=short "${filePath}" | head -1`,
-          { encoding: "utf8" }
-        ).trim();
-
         const commitCount = parseInt(
           execSync(`git log --follow --oneline "${filePath}" | wc -l`, {
             encoding: "utf8",
@@ -39,13 +34,11 @@ function getDocumentStats() {
         const [firstAuthor, firstDate] = firstCommit.split("|");
         const webPath = filePath.replace("docs/src/", "/").replace(".md", "");
         const frontmatterDate = getFrontmatterField(filePath, "date");
-        const frontmatterUpdated = getFrontmatterField(filePath, "updated");
 
         documents.push({
           path: webPath,
           title: getTitleFromPath(filePath),
           createdAt: frontmatterDate || firstDate,
-          lastModified: frontmatterUpdated || gitLastDate,
           modificationCount: commitCount,
           author: firstAuthor,
         });
