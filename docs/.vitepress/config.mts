@@ -23,6 +23,22 @@ export default withMermaid(
       if (path === "index") path = "";
       const url = `https://raincoat98.github.io${path ? `/${path}` : ""}`;
 
+      const isExamples = pageData.relativePath.startsWith("examples/");
+
+      // examples 페이지는 검색 엔진에서 제외
+      if (isExamples) {
+        head.push(["meta", { name: "robots", content: "noindex, nofollow" }] as HeadConfig);
+        return head;
+      }
+
+      const isPost = pageData.frontmatter.title && pageData.relativePath !== "index.md";
+      const datePublished = pageData.frontmatter.date
+        ? new Date(pageData.frontmatter.date).toISOString()
+        : undefined;
+      const dateModified = pageData.lastUpdated
+        ? new Date(pageData.lastUpdated).toISOString()
+        : datePublished;
+
       // 페이지별 제목과 설명이 있으면 사용
       if (pageData.frontmatter.title) {
         head.push([
@@ -62,12 +78,24 @@ export default withMermaid(
         ] as HeadConfig);
       }
 
+      // 블로그 포스트는 og:type을 article로
+      if (isPost) {
+        head.push(["meta", { property: "og:type", content: "article" }] as HeadConfig);
+        if (datePublished) {
+          head.push(["meta", { property: "article:published_time", content: datePublished }] as HeadConfig);
+        }
+        if (dateModified) {
+          head.push(["meta", { property: "article:modified_time", content: dateModified }] as HeadConfig);
+        }
+        head.push(["meta", { property: "article:author", content: "https://github.com/raincoat98" }] as HeadConfig);
+      }
+
       // 페이지별 URL
       head.push(["meta", { property: "og:url", content: url }] as HeadConfig);
       head.push(["link", { rel: "canonical", href: url }] as HeadConfig);
 
       // 블로그 포스트인 경우 BlogPosting 구조화 데이터 추가
-      if (pageData.frontmatter.title && pageData.relativePath !== "index.md") {
+      if (isPost) {
         const blogPosting = {
           "@context": "https://schema.org",
           "@type": "BlogPosting",
@@ -87,10 +115,8 @@ export default withMermaid(
             },
           },
           url: url,
-          datePublished: pageData.frontmatter.date || new Date().toISOString(),
-          dateModified: pageData.lastUpdated
-            ? new Date(pageData.lastUpdated).toISOString()
-            : new Date().toISOString(),
+          datePublished: datePublished || new Date().toISOString(),
+          dateModified: dateModified || new Date().toISOString(),
           inLanguage: "ko-KR",
           mainEntityOfPage: {
             "@type": "WebPage",
@@ -286,15 +312,23 @@ export default withMermaid(
     sitemap: {
       hostname: "https://raincoat98.github.io",
       transformItems: (items) => {
-        return items.map((item) => {
-          if (item.url === "/")
-            return { ...item, changefreq: "daily", priority: 1.0 };
-          if (item.url.startsWith("/introduce/"))
-            return { ...item, changefreq: "monthly", priority: 0.9 };
-          if (item.url.startsWith("/frontend/") || item.url.startsWith("/backend/"))
-            return { ...item, changefreq: "weekly", priority: 0.8 };
-          return { ...item, changefreq: "monthly", priority: 0.7 };
-        });
+        return items
+          .filter((item) => !item.url.startsWith("/examples/"))
+          .map((item) => {
+            if (item.url === "/")
+              return { ...item, changefreq: "daily", priority: 1.0 };
+            if (item.url.startsWith("/introduce/"))
+              return { ...item, changefreq: "monthly", priority: 0.9 };
+            if (
+              item.url.startsWith("/frontend/") ||
+              item.url.startsWith("/backend/") ||
+              item.url.startsWith("/database/") ||
+              item.url.startsWith("/tools/") ||
+              item.url.startsWith("/git/")
+            )
+              return { ...item, changefreq: "weekly", priority: 0.8 };
+            return { ...item, changefreq: "monthly", priority: 0.7 };
+          });
       },
     },
 
