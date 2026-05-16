@@ -183,6 +183,10 @@ import Hero3D from "./Hero3D.vue";
     padding: 1.25rem 1rem;
   }
 
+  .hero-content {
+    padding: 0;
+  }
+
   .hero-name {
     font-size: 2.5rem;
   }
