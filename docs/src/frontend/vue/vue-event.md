@@ -3,8 +3,8 @@ categories: [Vue]
 title: Vue 이벤트 핸들링과 수정자
 description: Vue 템플릿에서 사용하는 주요 이벤트 종류와 .stop, .prevent 등 이벤트 수정자의 사용 방법을 표와 예제로 정리합니다.
 date: 2024-10-28
-updated: 2024-10-28
-tags: [Vue, 이벤트, 이벤트 수정자, 템플릿]
+updated: 2026-05-16
+tags: [Vue|green, 이벤트|orange, 이벤트 수정자|orange, 템플릿|teal]
 platform: Vue 3
 readingTime: 4
 ---

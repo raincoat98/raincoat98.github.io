@@ -3,8 +3,8 @@ categories: [Vite]
 title: Vite Proxy 설정하기
 description: PHP와 React 연동 시 발생하는 CORS 문제를 Vite의 proxy 설정으로 우회하는 방법을 소개합니다. WebSocket 프록시 설정까지 함께 정리합니다.
 date: 2025-02-05
-updated: 2025-02-05
-tags: [Vite, CORS, Proxy, 개발환경]
+updated: 2026-05-16
+tags: [Vite|purple, CORS|red, Proxy|teal, 개발환경|teal]
 platform: Vite
 readingTime: 3
 ---
