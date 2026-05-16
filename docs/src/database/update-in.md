@@ -3,8 +3,8 @@ categories: [Database]
 title: 조회한 데이터 바로 수정하기
 description: SQL에서 IN 절을 활용하여 조회한 결과를 바로 업데이트하는 방법과 실무 예제를 정리합니다.
 date: 2024-08-28
-updated: 2024-09-03
-tags: [SQL, Database, UPDATE, IN]
+updated: 2026-05-16
+tags: [SQL|teal, Database|teal, UPDATE|blue, IN|blue]
 platform: SQL
 readingTime: 3
 ---
