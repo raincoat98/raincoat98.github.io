@@ -180,7 +180,7 @@ import Hero3D from "./Hero3D.vue";
 @media (max-width: 768px) {
   .custom-hero {
     min-height: 380px;
-    padding: 1.25rem 1rem;
+    padding: 0;
   }
 
   .hero-content {
