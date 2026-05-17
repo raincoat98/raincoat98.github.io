@@ -34,13 +34,17 @@ function getDocumentStats() {
         const [firstAuthor, firstDate] = firstCommit.split("|");
         const webPath = filePath.replace("docs/src/", "/").replace(".md", "");
         const frontmatterDate = getFrontmatterField(filePath, "created");
-        const frontmatterUpdated = getFrontmatterField(filePath, "updated");
+
+        const lastCommit = execSync(
+          `git log -1 --format="%ad" --date=short "${filePath}"`,
+          { encoding: "utf8" }
+        ).trim();
 
         documents.push({
           path: webPath,
           title: getTitleFromPath(filePath),
           createdAt: frontmatterDate || firstDate,
-          lastModified: frontmatterUpdated || frontmatterDate || firstDate,
+          lastModified: lastCommit || frontmatterDate || firstDate,
           modificationCount: commitCount,
           author: firstAuthor,
         });

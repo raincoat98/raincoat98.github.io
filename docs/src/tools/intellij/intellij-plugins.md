@@ -3,7 +3,6 @@ categories: [Tools]
 title: IntelliJ 플러그인 추천 (Java / Spring Boot 개발자용)
 description: Java / Spring Boot 개발자를 위한 IntelliJ 플러그인 추천. 실무 생산성을 높여주는 SonarLint, GitToolBox 등 별도 설치 추천 목록과 기본 내장 기능을 정리합니다.
 created: 2026-05-16
-updated: 2026-05-16
 tags: [IntelliJ|orange, Java|orange, Spring Boot|green, Plugin|purple, 개발도구|teal]
 platform: Tools
 readingTime: 4

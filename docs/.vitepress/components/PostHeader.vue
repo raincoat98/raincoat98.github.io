@@ -1,6 +1,7 @@
 <script setup>
 import { useData } from 'vitepress'
 import { computed } from 'vue'
+import dayjs from 'dayjs'
 
 const { frontmatter, page } = useData()
 
@@ -14,14 +15,21 @@ const categoryLabel = computed(() =>
   categories.value.map(c => c.toUpperCase()).join(' · ')
 )
 
-const year = computed(() => {
-  const d = frontmatter.value.date
-  return d ? new Date(d).getFullYear() : null
+const createdAt = computed(() => {
+  const d = frontmatter.value.created || frontmatter.value.date
+  return d ? dayjs(d).format('YYYY-MM-DD') : null
 })
+
+const updatedAt = computed(() =>
+  page.value.lastUpdated
+    ? dayjs(page.value.lastUpdated).format('YYYY-MM-DD HH:mm')
+    : null
+)
 
 const metaItems = computed(() => {
   const items = []
-  if (year.value) items.push(String(year.value))
+  if (createdAt.value) items.push(`작성일: ${createdAt.value}`)
+  if (updatedAt.value) items.push(`수정일: ${updatedAt.value}`)
   if (frontmatter.value.platform) items.push(frontmatter.value.platform)
   if (frontmatter.value.readingTime) items.push(`읽는 데 약 ${frontmatter.value.readingTime}분`)
   return items

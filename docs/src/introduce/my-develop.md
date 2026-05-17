@@ -3,7 +3,6 @@ categories: [소개]
 title: 왜 개발자가 되었나요?
 description: 프론트엔드 개발자 우상욱의 개발 여정과 개발자로서의 철학을 소개합니다. 사용자 경험을 중시하는 프론트엔드 개발자의 이야기입니다.
 created: 2024-04-05
-updated: 2026-05-06
 tags: [소개|purple, 프론트엔드|blue, 개발자|teal]
 platform: Web
 readingTime: 2
