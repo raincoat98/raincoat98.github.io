@@ -2,6 +2,10 @@
 import { useData } from 'vitepress'
 import { computed } from 'vue'
 import dayjs from 'dayjs'
+import relativeTime from 'dayjs/plugin/relativeTime'
+import 'dayjs/locale/ko'
+dayjs.extend(relativeTime)
+dayjs.locale('ko')
 
 const { frontmatter, page } = useData()
 
@@ -17,12 +21,12 @@ const categoryLabel = computed(() =>
 
 const createdAt = computed(() => {
   const d = frontmatter.value.created || frontmatter.value.date
-  return d ? dayjs(d).format('YYYY-MM-DD') : null
+  return d ? dayjs(d).fromNow() : null
 })
 
 const updatedAt = computed(() =>
   page.value.lastUpdated
-    ? dayjs(page.value.lastUpdated).format('YYYY-MM-DD HH:mm')
+    ? dayjs(page.value.lastUpdated).fromNow()
     : null
 )
 
