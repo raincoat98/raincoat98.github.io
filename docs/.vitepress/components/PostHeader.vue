@@ -26,10 +26,15 @@ const updatedAt = computed(() =>
     : null
 )
 
-const metaItems = computed(() => {
+const dateItems = computed(() => {
   const items = []
   if (createdAt.value) items.push(`작성일: ${createdAt.value}`)
   if (updatedAt.value) items.push(`수정일: ${updatedAt.value}`)
+  return items
+})
+
+const infoItems = computed(() => {
+  const items = []
   if (frontmatter.value.platform) items.push(frontmatter.value.platform)
   if (frontmatter.value.readingTime) items.push(`읽는 데 약 ${frontmatter.value.readingTime}분`)
   return items
@@ -38,7 +43,7 @@ const metaItems = computed(() => {
 const shouldShow = computed(() =>
   frontmatter.value.layout !== 'home' &&
   page.value.relativePath !== 'index.md' &&
-  (categories.value.length > 0 || metaItems.value.length > 0)
+  (categories.value.length > 0 || dateItems.value.length > 0 || infoItems.value.length > 0)
 )
 </script>
 
@@ -48,8 +53,13 @@ const shouldShow = computed(() =>
       <span class="post-category-dot">●</span>
       {{ categoryLabel }}
     </div>
-    <div v-if="metaItems.length" class="post-meta">
-      <template v-for="(item, i) in metaItems" :key="item">
+    <div v-if="dateItems.length" class="post-meta">
+      <template v-for="(item, i) in dateItems" :key="item">
+        <span v-if="i > 0" class="meta-sep"> · </span>{{ item }}
+      </template>
+    </div>
+    <div v-if="infoItems.length" class="post-meta">
+      <template v-for="(item, i) in infoItems" :key="item">
         <span v-if="i > 0" class="meta-sep"> · </span>{{ item }}
       </template>
     </div>
