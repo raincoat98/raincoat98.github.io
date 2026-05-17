@@ -36,7 +36,7 @@ function getDocumentStats() {
         const frontmatterDate = getFrontmatterField(filePath, "created");
 
         const lastCommit = execSync(
-          `git log -1 --format="%ad" --date=short "${filePath}"`,
+          `git log -1 --format="%aI" "${filePath}"`,
           { encoding: "utf8" }
         ).trim();
 
