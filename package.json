@@ -3,8 +3,7 @@
     "docs:dev": "vitepress dev docs",
     "docs:build": "node docs/.vitepress/scripts/generateStats.js && vitepress build docs",
     "docs:preview": "vitepress preview docs",
-    "docs:stats": "node docs/.vitepress/scripts/generateStats.js",
-    "docs:touch": "UPDATE=1 node docs/.vitepress/scripts/pre-commit.js"
+    "docs:stats": "node docs/.vitepress/scripts/generateStats.js"
   },
   "devDependencies": {
     "@resvg/resvg-js": "^2.6.2",

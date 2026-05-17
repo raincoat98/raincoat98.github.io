@@ -3,7 +3,6 @@ categories: [NestJS]
 title: NestJS 윈도우 무한 루프 문제 해결
 description: Windows WSL 환경에서 NestJS start:dev 실행 시 발생하는 무한 루프 문제의 원인과 tsconfig.json watchOptions 설정으로 해결하는 방법을 정리합니다.
 created: 2025-05-27
-updated: 2025-05-27
 tags: [NestJS|red, Windows|blue, WSL|teal, TypeScript|blue]
 platform: NestJS
 readingTime: 2

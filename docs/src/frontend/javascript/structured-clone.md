@@ -3,7 +3,6 @@ categories: [JavaScript]
 title: JavaScript 객체 복사, 뭐가 다를까?
 description: structuredClone, lodash cloneDeep, JSON.parse/stringify 세 가지 깊은 복사 방법의 차이점과 각 방법의 장단점을 비교합니다.
 created: 2024-01-01
-updated: 2026-05-16
 tags: [JavaScript|orange, Frontend|blue]
 platform: Frontend
 readingTime: 3

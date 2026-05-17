@@ -3,7 +3,6 @@ categories: [VitePress]
 title: VitePress 댓글 기능 구현하기
 description: VitePress 블로그에 Utterances를 이용한 GitHub 이슈 기반 댓글 기능을 추가하는 방법을 단계별로 안내합니다.
 created: 2024-04-17
-updated: 2024-04-17
 tags: [VitePress|teal, Utterances|purple, 댓글|pink, GitHub|orange]
 platform: VitePress
 readingTime: 3
