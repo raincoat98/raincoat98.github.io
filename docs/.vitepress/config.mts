@@ -664,6 +664,10 @@ export default withMermaid(
           text: "Git",
           items: [
             {
+              text: "Git 완전 가이드",
+              link: "/git/git-complete-guide",
+            },
+            {
               text: "README 잘 쓰는 법",
               link: "/git/github-readme",
             },
