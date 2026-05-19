@@ -2,6 +2,7 @@
 import Comment from "../components/Comment.vue";
 import PostHeader from "../components/PostHeader.vue";
 import PostFooter from "../components/PostFooter.vue";
+import PostMeta from "../components/PostMeta.vue";
 import DefaultTheme from "vitepress/theme";
 
 const { Layout } = DefaultTheme;
@@ -11,6 +12,9 @@ const { Layout } = DefaultTheme;
   <Layout>
     <template #doc-before>
       <PostHeader />
+    </template>
+    <template #aside-top>
+      <PostMeta />
     </template>
     <template #doc-footer-before>
       <PostFooter />
