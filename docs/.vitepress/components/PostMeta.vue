@@ -12,11 +12,10 @@ const fmt = (d) => dayjs(d).format('YYYY년 MM월 DD일')
 const items = computed(() => {
   const list = []
   const created = frontmatter.value.created || frontmatter.value.date
-  if (created) list.push({ label: '생성', value: fmt(created) })
-  if (page.value.lastUpdated) list.push({ label: '수정', value: fmt(page.value.lastUpdated) })
+  if (created) list.push({ label: '작성일', value: fmt(created) })
+  if (page.value.lastUpdated) list.push({ label: '수정일', value: fmt(page.value.lastUpdated) })
   if (frontmatter.value.charCount) list.push({ label: '분량', value: frontmatter.value.charCount.toLocaleString() })
-  if (frontmatter.value.platform) list.push({ label: '플랫폼', value: frontmatter.value.platform })
-  if (frontmatter.value.readingTime) list.push({ label: '읽기', value: `약 ${frontmatter.value.readingTime}분` })
+  if (frontmatter.value.readingTime) list.push({ label: '읽는 시간', value: `약 ${frontmatter.value.readingTime}분` })
   return list
 })
 

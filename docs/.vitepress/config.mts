@@ -389,7 +389,7 @@ export default withMermaid(
       aside: true,
       outline: {
         level: [2, 3],
-        label: "On this page",
+        label: "목차",
       },
       search: {
         provider: "local",
