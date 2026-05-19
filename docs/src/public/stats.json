@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-17T12:38:06.295Z",
+  "generatedAt": "2026-05-19T13:17:46.822Z",
   "documents": [
     {
       "path": "/database/korean-sort",
@@ -344,8 +344,16 @@
       "lastModified": "2026-05-17T21:02:35+09:00",
       "modificationCount": 11,
       "author": "WooSangWook"
+    },
+    {
+      "path": "/git/git-complete-guide",
+      "title": "Git 완전 가이드 — 기초부터 브랜치 전략, GitHub Flow, 복구까지",
+      "createdAt": "2026-05-19",
+      "lastModified": "2026-05-19T22:13:25+09:00",
+      "modificationCount": 1,
+      "author": "WooSangWook"
     }
   ],
-  "totalDocuments": 43,
-  "totalModifications": 530
+  "totalDocuments": 44,
+  "totalModifications": 531
 }

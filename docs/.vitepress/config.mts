@@ -1,5 +1,7 @@
 import { defineConfig, type HeadConfig } from "vitepress";
 import { withMermaid } from "vitepress-plugin-mermaid";
+import { readFileSync } from "fs";
+import { resolve } from "path";
 
 // https://vitepress.dev/reference/site-config
 export default withMermaid(
@@ -12,6 +14,15 @@ export default withMermaid(
 
     // SEO 최적화 설정
     lastUpdated: true,
+
+    transformPageData(pageData, { siteConfig }) {
+      const filePath = resolve(siteConfig.srcDir, pageData.relativePath);
+      try {
+        const raw = readFileSync(filePath, "utf-8");
+        const content = raw.replace(/^---[\s\S]*?---\s*\n/, "");
+        pageData.frontmatter.charCount = content.length;
+      } catch {}
+    },
 
     // 각 페이지별 동적 메타 태그 생성
     transformHead: ({ pageData }): HeadConfig[] => {

@@ -2,9 +2,7 @@
 import { useData } from 'vitepress'
 import { computed } from 'vue'
 import dayjs from 'dayjs'
-import relativeTime from 'dayjs/plugin/relativeTime'
 import 'dayjs/locale/ko'
-dayjs.extend(relativeTime)
 dayjs.locale('ko')
 
 const { frontmatter, page } = useData()
@@ -19,21 +17,22 @@ const categoryLabel = computed(() =>
   categories.value.map(c => c.toUpperCase()).join(' · ')
 )
 
+const fmt = (d) => dayjs(d).format('YYYY년 MM월 DD일')
+
 const createdAt = computed(() => {
   const d = frontmatter.value.created || frontmatter.value.date
-  return d ? dayjs(d).fromNow() : null
+  return d ? fmt(d) : null
 })
 
 const updatedAt = computed(() =>
-  page.value.lastUpdated
-    ? dayjs(page.value.lastUpdated).fromNow()
-    : null
+  page.value.lastUpdated ? fmt(page.value.lastUpdated) : null
 )
 
 const metaItems = computed(() => {
   const items = []
-  if (createdAt.value) items.push(`${createdAt.value} 작성`)
-  if (updatedAt.value) items.push(`${updatedAt.value} 수정`)
+  if (createdAt.value) items.push(`생성: ${createdAt.value}`)
+  if (updatedAt.value) items.push(`수정: ${updatedAt.value}`)
+  if (frontmatter.value.charCount) items.push(`분량: ${frontmatter.value.charCount.toLocaleString()}`)
   if (frontmatter.value.platform) items.push(frontmatter.value.platform)
   if (frontmatter.value.readingTime) items.push(`약 ${frontmatter.value.readingTime}분`)
   return items
