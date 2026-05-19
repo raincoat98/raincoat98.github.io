@@ -12,6 +12,7 @@ const { Layout } = DefaultTheme;
   <Layout>
     <template #doc-before>
       <PostHeader />
+      <PostMeta mobile />
     </template>
     <template #aside-top>
       <PostMeta />
