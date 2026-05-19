@@ -1,7 +1,7 @@
 ---
 categories: [JavaScript]
-title: ES Toolkit 훑어보기
-description: lodash 대안으로 주목받는 es-toolkit의 주요 기능을 소개합니다. 작은 번들 사이즈와 빠른 성능을 자랑하는 현대적인 JavaScript 유틸리티 라이브러리입니다.
+title: es-toolkit 완전 정리 — lodash 대안, 번들 사이즈·성능 비교
+description: lodash 대안 es-toolkit 주요 기능과 실전 사용법. lodash 대비 번들 사이즈·성능 비교, chunk·cloneDeep·debounce 등 자주 쓰는 함수를 정리합니다.
 created: 2024-09-02
 tags: [JavaScript|orange, es-toolkit|teal, lodash|teal, 유틸리티|orange]
 platform: Browser / Node.js

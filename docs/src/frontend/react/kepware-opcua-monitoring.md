@@ -1,7 +1,7 @@
 ---
 categories: [React]
-title: OPC UA 설비 데이터 모니터링
-description: Kepware OPC UA 서버와 Node.js를 연동하여 제조 현장 PLC 설비 데이터를 React 대시보드로 실시간 모니터링하는 시스템 구축 경험을 공유합니다.
+title: Kepware OPC UA + React 실시간 모니터링 — Node.js 서버 연동 가이드
+description: Kepware OPC UA 서버와 Node.js를 연동해 PLC 설비 데이터를 React 대시보드로 실시간 모니터링하는 구축 방법. 구독·세션 관리·UI 연동까지 정리합니다.
 created: 2025-11-28
 tags: [React|blue, OPC UA|teal, Kepware|teal, 모니터링|orange, Node.js|green, 제조|teal]
 platform: React + Node.js

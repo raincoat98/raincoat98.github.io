@@ -1,7 +1,7 @@
 ---
 categories: [JavaScript]
-title: JavaScript 정규식 한 번에 정리
-description: 자주 사용하는 정규식 패턴과 기본 개념을 정리했습니다. 이메일, 전화번호, 비밀번호 등 실무에서 바로 쓰는 예제 위주로 정리합니다.
+title: JavaScript 정규식(RegExp) 완전 정리 — 패턴, 메서드, 실전 예제
+description: 이메일·전화번호·비밀번호 등 실무 정규식 패턴부터 match, replace, test, exec 메서드까지. JavaScript 정규식을 한 번에 완전 정리합니다.
 created: 2024-12-20
 tags: [JavaScript|orange, 정규식|red, RegExp|red, 패턴 매칭|red, 문자열 검증|red]
 platform: Browser / Node.js

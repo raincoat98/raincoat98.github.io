@@ -1,7 +1,7 @@
 ---
 categories: [Vue]
-title: Vue 오늘 하루 보지 않기 팝업
-description: vue-cookies를 이용하여 "오늘 하루 보지 않기" 팝업 기능을 구현하는 방법을 소개합니다. 쿠키 기반으로 팝업 표시 여부를 제어하는 실전 예제입니다.
+title: Vue "오늘 하루 보지 않기" 팝업 구현 — vue-cookies 완전 가이드
+description: Vue에서 "오늘 하루 보지 않기" 팝업 구현 방법. vue-cookies로 쿠키를 설정해 하루 동안 팝업을 숨기는 예제 코드와 함께 단계별로 정리합니다.
 created: 2024-04-05
 tags: [Vue|green, Cookie|orange, 팝업|pink, vue-cookies|green]
 platform: Vue 3

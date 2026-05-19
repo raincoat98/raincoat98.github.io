@@ -1,7 +1,7 @@
 ---
 categories: [Git]
-title: README 잘 쓰는 법
-description: 오픈소스 및 개인 프로젝트의 README를 효과적으로 작성하는 방법을 소개합니다. 프로젝트 개요, 설치 방법, 커밋 컨벤션 등 필수 항목을 템플릿과 함께 정리합니다.
+title: GitHub README 잘 쓰는 법 — 필수 항목과 마크다운 템플릿 완전 가이드
+description: 오픈소스·개인 프로젝트 GitHub README 작성 완전 가이드. 프로젝트 소개·설치·사용법·커밋 컨벤션 등 필수 항목을 마크다운 템플릿과 함께 정리합니다.
 created: 2024-04-12
 tags: [Git|orange, GitHub|orange, README|teal, 문서화|teal]
 platform: GitHub

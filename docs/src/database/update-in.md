@@ -1,7 +1,7 @@
 ---
 categories: [Database]
-title: 조회한 데이터 바로 수정하기
-description: SQL에서 IN 절을 활용하여 조회한 결과를 바로 업데이트하는 방법과 실무 예제를 정리합니다.
+title: SQL UPDATE WHERE IN — 조회 결과를 바로 수정하는 방법
+description: SQL에서 SELECT로 조회한 ID 목록을 UPDATE WHERE IN으로 즉시 수정하는 방법. 서브쿼리와 JOIN UPDATE 패턴을 MySQL·PostgreSQL 예제로 정리합니다.
 created: 2024-08-28
 tags: [SQL|teal, Database|teal, UPDATE|blue, IN|blue]
 platform: SQL

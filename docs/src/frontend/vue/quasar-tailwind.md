@@ -1,7 +1,7 @@
 ---
 categories: [Vue]
-title: Quasar + TailwindCSS 같이 쓰기
-description: Vue Quasar 프로젝트에서 TailwindCSS를 함께 사용하는 방법을 안내합니다. 설치, 초기화, 설정까지 단계별로 정리합니다.
+title: Quasar + TailwindCSS 함께 사용하기 — Vue 프로젝트 설정 완전 가이드
+description: Vue Quasar 프로젝트에 TailwindCSS를 함께 설치하고 설정하는 방법. 충돌 없이 두 프레임워크를 함께 쓰는 설정을 단계별로 안내합니다.
 created: 2024-04-10
 tags: [Vue|green, Quasar|blue, TailwindCSS|teal, 스타일링|purple]
 platform: Quasar + Vite

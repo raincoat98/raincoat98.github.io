@@ -1,7 +1,7 @@
 ---
 categories: [Database]
-title: SQL에서 한글 ORDER BY가 이상할 때
-description: ORDER BY를 걸었는데 한글이 이상한 순서로 나올 때 원인과 해결 방법. MySQL COLLATE 절과 PostgreSQL bytea 캐스팅을 사용한 DBMS별 정렬 처리 방법을 정리합니다.
+title: SQL 한글 ORDER BY 정렬 오류 해결 — MySQL COLLATE, PostgreSQL 설정
+description: SQL ORDER BY에서 한글이 이상한 순서로 정렬될 때 해결 방법. MySQL COLLATE utf8mb4_unicode_ci와 PostgreSQL bytea 캐스팅을 사용한 DBMS별 한글 정렬 처리법을 정리합니다.
 created: 2024-09-03
 tags: [SQL|teal, Database|teal, MySQL|blue, PostgreSQL|blue]
 platform: Database

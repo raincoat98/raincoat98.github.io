@@ -1,7 +1,7 @@
 ---
 categories: [Vue]
-title: 브랜드 컬러를 Tailwind에 넣는 법
-description: Tailwind CSS 설정 파일에 브랜드 컬러를 추가하고, 접두어(prefix)를 활용하여 클래스 충돌 없이 사용하는 방법을 정리합니다.
+title: Tailwind CSS 커스텀 색상(브랜드 컬러) 추가하기 — tailwind.config.js 설정
+description: Tailwind CSS 설정 파일에 브랜드 컬러를 추가하고 prefix로 클래스 충돌을 방지하는 방법. extend와 colors 설정으로 디자인 시스템을 구축합니다.
 created: 2024-04-12
 tags: [Vue|green, TailwindCSS|teal, 브랜드 컬러|purple, 디자인 시스템|purple]
 platform: Vue 3 + TailwindCSS

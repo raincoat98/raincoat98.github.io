@@ -82,7 +82,14 @@ function getTitleFromPath(filePath) {
     const content = fs.readFileSync(filePath, "utf-8");
     const lines = content.split("\n");
 
-    // frontmatter에서 title 찾기
+    // 첫 번째 # 헤더 찾기 (카드 표시용 짧은 제목)
+    for (const line of lines) {
+      if (line.startsWith("# ")) {
+        return line.replace(/^#\s+/, "").trim();
+      }
+    }
+
+    // frontmatter에서 title 찾기 (H1 없을 때 fallback)
     if (lines[0].startsWith("---")) {
       for (let i = 1; i < lines.length; i++) {
         if (lines[i].startsWith("---")) break;
@@ -92,13 +99,6 @@ function getTitleFromPath(filePath) {
             .replace(/^["']|["']$/g, "")
             .trim();
         }
-      }
-    }
-
-    // 첫 번째 # 헤더 찾기
-    for (const line of lines) {
-      if (line.startsWith("# ")) {
-        return line.replace(/^#\s+/, "").trim();
       }
     }
 

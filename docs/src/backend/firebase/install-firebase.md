@@ -1,7 +1,7 @@
 ---
 categories: [Firebase]
-title: Firebase CLI 설치 가이드
-description: Firebase CLI 최신 버전(v14) 기준 설치부터 프로젝트 초기화까지. npm 설치, 로그인, firebase init, 배포까지 한 번에 정리합니다.
+title: Firebase CLI 설치 가이드 — npm 설치, 로그인, init, deploy 완전 정리
+description: Firebase CLI 최신 버전 설치부터 프로젝트 초기화·배포까지. npm install -g firebase-tools, firebase login, firebase init, deploy를 단계별로 정리합니다.
 created: 2026-05-05
 tags: [Firebase|orange, DevOps|teal]
 platform: Firebase CLI v14

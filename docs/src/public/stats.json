@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-19T13:17:46.822Z",
+  "generatedAt": "2026-05-19T13:53:32.222Z",
   "documents": [
     {
       "path": "/database/korean-sort",
@@ -315,7 +315,7 @@
     },
     {
       "path": "/index",
-      "title": "Raincoat",
+      "title": "https://vitepress.dev/reference/default-theme-home-page",
       "createdAt": "2024-04-05",
       "lastModified": "2026-05-16T01:54:29+09:00",
       "modificationCount": 14,
@@ -347,7 +347,7 @@
     },
     {
       "path": "/git/git-complete-guide",
-      "title": "Git 완전 가이드 — 기초부터 브랜치 전략, GitHub Flow, 복구까지",
+      "title": "Git 완전 가이드",
       "createdAt": "2026-05-19",
       "lastModified": "2026-05-19T22:13:25+09:00",
       "modificationCount": 1,
