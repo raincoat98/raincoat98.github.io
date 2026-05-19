@@ -8,7 +8,7 @@ platform: Vue 3
 readingTime: 5
 ---
 
-# Vue dayjs로 KST 시간 다루기
+# Vue + dayjs KST 한국 시간 설정 완전 가이드
 
 ## 배경
 

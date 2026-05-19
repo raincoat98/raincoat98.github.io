@@ -8,7 +8,7 @@ platform: Browser / Node.js
 readingTime: 6
 ---
 
-# JavaScript 정규식 한 번에 정리
+# JavaScript 정규식(RegExp) 완전 정리
 
 정규식은 외울 필요 없습니다. 패턴만 이해하면 필요할 때 조합해서 쓸 수 있습니다.
 자주 쓰는 메타문자와 실무 패턴을 한 곳에 정리했습니다.

@@ -8,7 +8,7 @@ platform: Frontend
 readingTime: 3
 ---
 
-# JavaScript 객체 복사, 뭐가 다를까?
+# JavaScript structuredClone 완전 정리
 
 JavaScript에서 객체를 복사하는 방법은 여러 가지가 있습니다. 이 글에서는 가장 많이 쓰이는 세 가지 방법(`structuredClone`, `lodash cloneDeep`, `JSON.parse(JSON.stringify())`)을 비교해보겠습니다 😃
 

@@ -8,7 +8,7 @@ platform: React + Node.js
 readingTime: 6
 ---
 
-# OPC UA 설비 데이터 모니터링
+# Kepware OPC UA + React 실시간 모니터링
 
 ## 배경
 

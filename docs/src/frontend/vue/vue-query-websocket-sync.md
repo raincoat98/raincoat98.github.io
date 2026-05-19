@@ -8,7 +8,7 @@ platform: Vue Query
 readingTime: 10
 ---
 
-# Vue 폴링 → SSE → WebSocket 전환기
+# Vue 실시간 동기화
 
 협업 애플리케이션을 개발하면서 실시간 동기화 문제로 꽤 오래 고생했습니다.
 Vue Query 폴링으로 시작해서 SSE를 거쳐 최종적으로 WebSocket으로 갈아탄 과정을 정리했습니다.

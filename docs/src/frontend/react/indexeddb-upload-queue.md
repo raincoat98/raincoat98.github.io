@@ -8,7 +8,7 @@ platform: Browser
 readingTime: 8
 ---
 
-# React IndexedDB 업로드 큐 만들기
+# React + IndexedDB 파일 업로드 큐 구현
 
 오피스 빌딩에서 층간 이동, 엘리베이터, 지하 주차장 등 와이파이가 끊기는 순간 파일 업로드가 실패하고, 메모리에 있던 `File` 객체가 사라져서 사용자가 다시 촬영해야 하는 문제를 겪었습니다.
 

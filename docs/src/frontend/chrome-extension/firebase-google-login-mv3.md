@@ -8,7 +8,7 @@ platform: Chrome Extension MV3
 readingTime: 7
 ---
 
-# MV3에서 Google 로그인 구현
+# Chrome Extension MV3 Firebase Google 로그인 구현
 
 — 스크립트 추가 실패에서 시작한 새 탭 기반 Firebase OAuth 구현
 

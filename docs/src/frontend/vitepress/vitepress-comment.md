@@ -8,7 +8,7 @@ platform: VitePress
 readingTime: 3
 ---
 
-# VitePress 댓글 기능 구현하기
+# VitePress 댓글 기능 추가
 
 ## 1. Utterances 설치
 

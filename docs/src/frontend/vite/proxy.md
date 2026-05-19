@@ -8,7 +8,7 @@ platform: Vite
 readingTime: 3
 ---
 
-# Vite Proxy 설정하기
+# Vite proxy 설정으로 CORS 해결하기
 
 PHP와 React 프로젝트를 연동하는 과정에서 CORS 문제가 발생했습니다.<br>
 PHP 측에서 헤더 설정을 수정하는 등의 여러 방법을 시도했지만 해결되지 않았습니다.<br>

@@ -8,7 +8,7 @@ platform: Browser / Node.js
 readingTime: 5
 ---
 
-# JavaScript 배열 메서드 정리
+# JavaScript 배열 메서드 완전 정리
 
 `map`, `filter`, `reduce`, `forEach` 네 가지와 비동기 처리에 쓰는 `for...of`까지 예제 위주로 정리했습니다.
 

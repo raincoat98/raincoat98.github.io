@@ -8,7 +8,7 @@ platform: Supabase
 readingTime: 5
 ---
 
-# Supabase 무료 플랜 자동 정지 막는 법
+# Supabase 무료 플랜 자동 정지 방지
 
 며칠 뒤 돌아와보니 DB가 멈춰 있다. 이유도 알고,
 해결법도 간단하다. RPC + health 폴백 구조로 완전히 막아보자.

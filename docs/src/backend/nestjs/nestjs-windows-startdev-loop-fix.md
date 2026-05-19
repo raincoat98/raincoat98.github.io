@@ -8,7 +8,7 @@ platform: NestJS
 readingTime: 2
 ---
 
-# NestJS 윈도우 무한 루프 문제 해결
+# NestJS start:dev 무한 루프 해결
 
 ## 문제 요약
 

@@ -8,7 +8,7 @@ platform: Quasar + Vite
 readingTime: 3
 ---
 
-# AOS 애니메이션 적용하기
+# Vue Quasar + AOS 스크롤 애니메이션 적용
 
 이 문서는 Vite와 Quasar를 사용하여 웹 페이지에 스크롤 애니메이션을 추가하는 방법을 안내합니다. AOS (Animate On Scroll) 라이브러리를 사용하여 웹 페이지에 동적인 효과를 적용할 수 있습니다.
 

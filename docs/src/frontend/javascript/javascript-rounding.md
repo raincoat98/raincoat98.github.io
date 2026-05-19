@@ -8,7 +8,7 @@ platform: Browser / Node.js
 readingTime: 6
 ---
 
-# JavaScript 소수점 반올림 제대로 하기
+# JavaScript 소수점 반올림 버그 해결
 
 `Math.round(1.005 * 100) / 100`이 `1.01`이 아니라 `1`을 반환합니다.
 부동소수점 때문에 발생하는 버그인데, 실무에서는 자주 마주칩니다.

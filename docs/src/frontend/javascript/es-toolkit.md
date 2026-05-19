@@ -8,7 +8,7 @@ platform: Browser / Node.js
 readingTime: 5
 ---
 
-# ES Toolkit 훑어보기
+# es-toolkit 완전 정리
 
 [[toc]]
 

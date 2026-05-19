@@ -8,7 +8,7 @@ platform: SQL
 readingTime: 3
 ---
 
-# 조회한 데이터 바로 수정하기
+# SQL UPDATE WHERE IN
 
 SQL에서 특정 조건에 맞는 데이터를 조회한 후,<br>
 그 데이터를 업데이트하는 것은 매우 일반적인 작업입니다.<br>

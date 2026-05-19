@@ -8,7 +8,7 @@ platform: Vue 3
 readingTime: 2
 ---
 
-# 내가 Vue를 쓰는 이유
+# Vue vs React
 
 개발을 처음 시작할 때 JavaScript로 입문했고,<br>
 이후 React도 써봤지만 회사에서 Vue.js를 쓰게 되면서<br>

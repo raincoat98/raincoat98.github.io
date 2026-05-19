@@ -8,7 +8,7 @@ platform: Vue 3
 readingTime: 4
 ---
 
-# Vue 코드 컨벤션 가이드
+# Vue Composition API 코드 컨벤션 가이드
 
 ## **개요**
 

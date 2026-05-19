@@ -8,7 +8,7 @@ platform: GitHub
 readingTime: 3
 ---
 
-# README 잘 쓰는 법
+# GitHub README 잘 쓰는 법
 
 ---
 

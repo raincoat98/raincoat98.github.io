@@ -8,7 +8,7 @@ platform: Vite
 readingTime: 2
 ---
 
-# Vite 포트 바꾸는 법
+# Vite 개발 서버 포트 변경하는 법
 
 Vite는 기본적으로 3000번 포트를 사용하여 개발 서버를 실행합니다. <br>
 그러나 다른 포트를 사용하고자 할 경우, `vite.config.js` 파일에서 설정할 수 있습니다. <br>

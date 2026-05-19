@@ -8,7 +8,7 @@ platform: Vue 3 + TailwindCSS
 readingTime: 3
 ---
 
-# 브랜드 컬러를 Tailwind에 넣는 법
+# Tailwind CSS 커스텀 색상(브랜드 컬러) 추가하기
 
 ## 1. Tailwind 설정 파일 수정하기
 

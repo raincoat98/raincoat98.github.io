@@ -8,7 +8,7 @@ platform: Next.js
 readingTime: 4
 ---
 
-# Next.js Hydration 경고 없애기
+# Next.js Hydration 에러 해결
 
 ## 개요
 

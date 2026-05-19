@@ -8,7 +8,7 @@ platform: Database
 readingTime: 2
 ---
 
-# SQL에서 한글 ORDER BY가 이상할 때
+# SQL 한글 ORDER BY 정렬 오류 해결
 
 ORDER BY를 걸었는데 한글이 이상한 순서로 나올 때가 있습니다. 대부분 인코딩이나 Collation 설정 문제입니다. DBMS별로 해결 방법이 다릅니다.
 

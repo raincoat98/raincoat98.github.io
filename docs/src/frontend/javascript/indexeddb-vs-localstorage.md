@@ -8,7 +8,7 @@ platform: Browser
 readingTime: 7
 ---
 
-# IndexedDB vs LocalStorage
+# IndexedDB vs LocalStorage 차이점 완전 비교
 
 클라이언트에 데이터를 저장할 때 가장 많이 고민하는 두 가지입니다.
 결론부터 말하면 **간단한 설정값은 LocalStorage, 대용량·구조화 데이터는 IndexedDB**입니다.
