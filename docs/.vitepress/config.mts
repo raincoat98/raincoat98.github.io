@@ -428,7 +428,7 @@ export default withMermaid(
               collapsed: true,
               items: [
                 {
-                  text: "댓글 기능 구현하기",
+                  text: "VitePress 댓글 기능 추가",
                   link: "/frontend/vitepress/vitepress-comment",
                 },
               ],
@@ -438,27 +438,27 @@ export default withMermaid(
               collapsed: true,
               items: [
                 {
-                  text: "정규식 한 번에 정리",
+                  text: "JavaScript 정규식(RegExp) 완전 정리",
                   link: "/frontend/javascript/regular-expression",
                 },
                 {
-                  text: "ES Toolkit 훑어보기",
+                  text: "es-toolkit 완전 정리",
                   link: "/frontend/javascript/es-toolkit",
                 },
                 {
-                  text: "배열 메서드 정리",
+                  text: "JavaScript 배열 메서드 완전 정리",
                   link: "/frontend/javascript/array-methods",
                 },
                 {
-                  text: "객체 복사, 뭐가 다를까?",
+                  text: "JavaScript structuredClone 완전 정리",
                   link: "/frontend/javascript/structured-clone",
                 },
                 {
-                  text: "IndexedDB vs LocalStorage",
+                  text: "IndexedDB vs LocalStorage 차이점 완전 비교",
                   link: "/frontend/javascript/indexeddb-vs-localstorage",
                 },
                 {
-                  text: "소수점 반올림 제대로 하기",
+                  text: "JavaScript 소수점 반올림 버그 해결",
                   link: "/frontend/javascript/javascript-rounding",
                 },
               ],
@@ -486,15 +486,15 @@ export default withMermaid(
               collapsed: true,
               items: [
                 {
-                  text: "IndexedDB 업로드 큐 만들기",
+                  text: "React + IndexedDB 파일 업로드 큐 구현",
                   link: "/frontend/react/indexeddb-upload-queue",
                 },
                 {
-                  text: "useMemo · useCallback · memo 차이",
+                  text: "React useMemo · useCallback · memo 차이",
                   link: "/frontend/react/react-performance-optimization",
                 },
                 {
-                  text: "OPC UA 설비 데이터 모니터링",
+                  text: "Kepware OPC UA + React 실시간 모니터링",
                   link: "/frontend/react/kepware-opcua-monitoring",
                 },
               ],
@@ -504,47 +504,47 @@ export default withMermaid(
               collapsed: false,
               items: [
                 {
-                  text: "폴링 → SSE → WebSocket 전환기",
+                  text: "Vue 실시간 동기화",
                   link: "/frontend/vue/vue-query-websocket-sync",
                 },
                 {
-                  text: "dayjs로 KST 시간 다루기",
+                  text: "Vue + dayjs KST 한국 시간 설정 완전 가이드",
                   link: "/frontend/vue/dayjs-korea",
                 },
                 {
-                  text: "VeeValidate 폼 유효성 검증",
+                  text: "VeeValidate + yup으로 Vue 폼 유효성 검증 완전 정리",
                   link: "/frontend/vue/vee-validate",
                 },
                 {
-                  text: "오늘 하루 보지 않기 팝업",
+                  text: "Vue \"오늘 하루 보지 않기\" 팝업 구현",
                   link: "/frontend/vue/vue-cookie",
                 },
                 {
-                  text: "Quasar + TailwindCSS 같이 쓰기",
+                  text: "Quasar + TailwindCSS 함께 사용하기",
                   link: "/frontend/vue/quasar-tailwind",
                 },
                 {
-                  text: "AOS 애니메이션 적용하기",
+                  text: "Vue Quasar + AOS 스크롤 애니메이션 적용",
                   link: "/frontend/vue/vite-quasar-aos",
                 },
                 {
-                  text: "브랜드 컬러를 Tailwind에 넣는 법",
+                  text: "Tailwind CSS 커스텀 색상(브랜드 컬러) 추가하기",
                   link: "/frontend/vue/tailwind-brand-color",
                 },
                 {
-                  text: "이벤트 핸들링과 수정자",
+                  text: "Vue 이벤트 핸들링 완전 정리",
                   link: "/frontend/vue/vue-event",
                 },
                 {
-                  text: "코드 컨벤션 가이드",
+                  text: "Vue Composition API 코드 컨벤션 가이드",
                   link: "/frontend/vue/vue-code-convention",
                 },
                 {
-                  text: "내가 쓰는 Vue 라이브러리",
+                  text: "Vue 필수 라이브러리 모음",
                   link: "/frontend/vue/my-vue-library",
                 },
                 {
-                  text: "내가 Vue를 쓰는 이유",
+                  text: "Vue vs React",
                   link: "/frontend/vue/my-vue",
                 },
               ],
@@ -554,15 +554,15 @@ export default withMermaid(
               collapsed: true,
               items: [
                 {
-                  text: "Path Alias 설정하기",
+                  text: "Vite Path Alias(@) 설정",
                   link: "/frontend/vite/vite-alias",
                 },
                 {
-                  text: "포트 바꾸는 법",
+                  text: "Vite 개발 서버 포트 변경하는 법",
                   link: "/frontend/vite/vite-port",
                 },
                 {
-                  text: "Proxy 설정하기",
+                  text: "Vite proxy 설정으로 CORS 해결하기",
                   link: "/frontend/vite/proxy",
                 },
               ],
@@ -572,7 +572,7 @@ export default withMermaid(
               collapsed: true,
               items: [
                 {
-                  text: "Hydration 경고 없애기",
+                  text: "Next.js Hydration 에러 해결",
                   link: "/frontend/nextjs/suppress-hydration-warning",
                 },
               ],
@@ -582,7 +582,7 @@ export default withMermaid(
               collapsed: true,
               items: [
                 {
-                  text: "MV3에서 Google 로그인 구현",
+                  text: "Chrome Extension MV3 Firebase Google 로그인 구현",
                   link: "/frontend/chrome-extension/firebase-google-login-mv3",
                 },
               ],
@@ -598,7 +598,7 @@ export default withMermaid(
               collapsed: true,
               items: [
                 {
-                  text: "무료 플랜 자동 정지 막는 법",
+                  text: "Supabase 무료 플랜 자동 정지 방지",
                   link: "/backend/supabase/supabase-keep-alive",
                 },
               ],
@@ -608,7 +608,7 @@ export default withMermaid(
               collapsed: true,
               items: [
                 {
-                  text: "CLI 설치 가이드",
+                  text: "Firebase CLI 설치 가이드",
                   link: "/backend/firebase/install-firebase",
                 },
               ],
@@ -618,11 +618,11 @@ export default withMermaid(
               collapsed: true,
               items: [
                 {
-                  text: "내가 NestJS를 쓰는 이유",
+                  text: "NestJS vs Express",
                   link: "/backend/nestjs/my-nestjs",
                 },
                 {
-                  text: "윈도우 무한 루프 문제 해결",
+                  text: "NestJS start:dev 무한 루프 해결",
                   link: "/backend/nestjs/nestjs-windows-startdev-loop-fix",
                 },
               ],
@@ -634,11 +634,11 @@ export default withMermaid(
           text: "Database",
           items: [
             {
-              text: "조회한 데이터 바로 수정하기",
+              text: "SQL UPDATE WHERE IN",
               link: "/database/update-in",
             },
             {
-              text: "한글 정렬이 안 될 때",
+              text: "SQL 한글 ORDER BY 정렬 오류 해결",
               link: "/database/korean-sort",
             },
           ],
@@ -668,7 +668,7 @@ export default withMermaid(
               link: "/git/git-complete-guide",
             },
             {
-              text: "README 잘 쓰는 법",
+              text: "GitHub README 잘 쓰는 법",
               link: "/git/github-readme",
             },
           ],
