@@ -7,6 +7,7 @@ import { resolve } from "path";
 export default withMermaid(
   defineConfig({
     base: "/",
+    lang: "ko-KR",
     title: "Raincoat",
     description: "프론트엔드 개발자 블로그. 웹 개발 경험과 지식을 공유합니다.",
     cleanUrls: true,
