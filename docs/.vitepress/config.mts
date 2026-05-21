@@ -50,46 +50,22 @@ export default withMermaid(
         ? new Date(pageData.lastUpdated).toISOString()
         : datePublished;
 
-      // 페이지별 제목과 설명이 있으면 사용
-      if (pageData.frontmatter.title) {
-        head.push([
-          "meta",
-          {
-            property: "og:title",
-            content: `${pageData.frontmatter.title} | Raincoat`,
-          },
-        ] as HeadConfig);
-        head.push([
-          "meta",
-          {
-            name: "twitter:title",
-            content: `${pageData.frontmatter.title} | Raincoat`,
-          },
-        ] as HeadConfig);
-      }
+      const siteTitle = "Raincoat";
+      const siteDescription = "프론트엔드 개발자 블로그. 웹 개발 경험과 지식을 공유합니다.";
 
-      if (pageData.frontmatter.description) {
-        head.push([
-          "meta",
-          {
-            property: "og:description",
-            content: pageData.frontmatter.description,
-          },
-        ] as HeadConfig);
-        head.push([
-          "meta",
-          {
-            name: "twitter:description",
-            content: pageData.frontmatter.description,
-          },
-        ] as HeadConfig);
-        head.push([
-          "meta",
-          { name: "description", content: pageData.frontmatter.description },
-        ] as HeadConfig);
-      }
+      // 페이지별 제목과 설명 (없으면 사이트 기본값 사용)
+      const pageTitle = pageData.frontmatter.title
+        ? `${pageData.frontmatter.title} | ${siteTitle}`
+        : siteTitle;
+      const pageDescription = pageData.frontmatter.description || siteDescription;
 
-      // 블로그 포스트는 og:type을 article로
+      head.push(["meta", { property: "og:title", content: pageTitle }] as HeadConfig);
+      head.push(["meta", { name: "twitter:title", content: pageTitle }] as HeadConfig);
+      head.push(["meta", { property: "og:description", content: pageDescription }] as HeadConfig);
+      head.push(["meta", { name: "twitter:description", content: pageDescription }] as HeadConfig);
+      head.push(["meta", { name: "description", content: pageDescription }] as HeadConfig);
+
+      // 블로그 포스트는 og:type을 article로, 나머지는 website
       if (isPost) {
         head.push(["meta", { property: "og:type", content: "article" }] as HeadConfig);
         if (datePublished) {
@@ -99,6 +75,8 @@ export default withMermaid(
           head.push(["meta", { property: "article:modified_time", content: dateModified }] as HeadConfig);
         }
         head.push(["meta", { property: "article:author", content: "https://github.com/raincoat98" }] as HeadConfig);
+      } else {
+        head.push(["meta", { property: "og:type", content: "website" }] as HeadConfig);
       }
 
       // 페이지별 URL
@@ -241,9 +219,6 @@ export default withMermaid(
         },
       ],
 
-      // Canonical URL
-      ["link", { rel: "canonical", href: "https://raincoat98.github.io" }],
-
       // 모바일 최적화
       [
         "meta",
@@ -283,30 +258,12 @@ export default withMermaid(
         { name: "apple-mobile-web-app-status-bar-style", content: "default" },
       ],
 
-      // Open Graph / Facebook
-      ["meta", { property: "og:type", content: "website" }],
-      ["meta", { property: "og:title", content: "Raincoat" }],
-      [
-        "meta",
-        {
-          property: "og:description",
-          content: "프론트엔드 개발자 블로그. 웹 개발 경험과 지식을 공유합니다.",
-        },
-      ],
-      ["meta", { property: "og:url", content: "https://raincoat98.github.io" }],
+      // Open Graph / Facebook (페이지별 값은 transformHead에서 처리)
       ["meta", { property: "og:site_name", content: "Raincoat" }],
       ["meta", { property: "og:locale", content: "ko_KR" }],
 
-      // Twitter
+      // Twitter (페이지별 값은 transformHead에서 처리)
       ["meta", { name: "twitter:card", content: "summary_large_image" }],
-      ["meta", { name: "twitter:title", content: "Raincoat" }],
-      [
-        "meta",
-        {
-          name: "twitter:description",
-          content: "프론트엔드 개발자 블로그. 웹 개발 경험과 지식을 공유합니다.",
-        },
-      ],
       ["meta", { name: "twitter:site", content: "@raincoat98" }],
       ["meta", { name: "twitter:creator", content: "@raincoat98" }],
 
