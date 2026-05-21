@@ -322,18 +322,22 @@ export default withMermaid(
       hostname: "https://raincoat98.github.io",
       transformItems: (items) => {
         return items
-          .filter((item) => !item.url.startsWith("/examples/"))
+          .filter((item) => {
+            const u = item.url.replace(/^\//, "");
+            return !u.startsWith("examples/") && u !== "examples";
+          })
           .map((item) => {
-            if (item.url === "/")
+            const u = item.url.replace(/^\//, "");
+            if (u === "" || u === "index")
               return { ...item, changefreq: "daily", priority: 1.0 };
-            if (item.url.startsWith("/introduce/"))
+            if (u.startsWith("introduce/"))
               return { ...item, changefreq: "monthly", priority: 0.9 };
             if (
-              item.url.startsWith("/frontend/") ||
-              item.url.startsWith("/backend/") ||
-              item.url.startsWith("/database/") ||
-              item.url.startsWith("/tools/") ||
-              item.url.startsWith("/git/")
+              u.startsWith("frontend/") ||
+              u.startsWith("backend/") ||
+              u.startsWith("database/") ||
+              u.startsWith("tools/") ||
+              u.startsWith("git/")
             )
               return { ...item, changefreq: "weekly", priority: 0.8 };
             return { ...item, changefreq: "monthly", priority: 0.7 };
