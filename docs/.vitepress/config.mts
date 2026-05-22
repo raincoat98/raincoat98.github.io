@@ -10,7 +10,7 @@ export default withMermaid(
     lang: "ko-KR",
     title: "Raincoat",
     description: "프론트엔드 개발자 블로그. 웹 개발 경험과 지식을 공유합니다.",
-    cleanUrls: true,
+    cleanUrls: false,
     srcDir: "./src",
 
     // SEO 최적화 설정
@@ -28,11 +28,11 @@ export default withMermaid(
     // 각 페이지별 동적 메타 태그 생성
     transformHead: ({ pageData }): HeadConfig[] => {
       const head: HeadConfig[] = [];
-      // cleanUrls가 true이므로 확장자 제거 및 index 처리
+      // cleanUrls가 false이므로 .md → .html 변환
       let path = pageData.relativePath
-        .replace(/\.md$/, "")
-        .replace(/\/index$/, "");
-      if (path === "index") path = "";
+        .replace(/\.md$/, ".html")
+        .replace(/\/index\.html$/, "/");
+      if (path === "index.html") path = "";
       const url = `https://raincoat98.github.io${path ? `/${path}` : ""}`;
 
       const isExamples = pageData.relativePath.startsWith("examples/");
