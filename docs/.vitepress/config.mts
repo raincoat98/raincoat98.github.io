@@ -463,6 +463,10 @@ export default withMermaid(
                   text: "Kepware OPC UA + React 실시간 모니터링",
                   link: "/frontend/react/kepware-opcua-monitoring",
                 },
+                {
+                  text: "nuqs URL 쿼리 파라미터 상태 관리",
+                  link: "/frontend/react/nuqs-url-state",
+                },
               ],
             },
             {
