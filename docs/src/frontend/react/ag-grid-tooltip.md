@@ -1,6 +1,6 @@
 ---
 categories: [React]
-title: AG Grid Tooltip 사용법 — tooltipField · tooltipValueGetter · 딜레이 설정
+title: AG Grid Tooltip 사용법 — tooltipField · tooltipValueGetter · tooltipShowDelay
 description: AG Grid tooltipField, tooltipValueGetter, headerTooltip, tooltipShowMode, tooltipShowDelay 설정 방법을 JavaScript·React 예제와 함께 한 번에 정리합니다.
 created: 2026-05-31
 tags: [AG Grid|blue, React|blue, Tooltip|teal, tooltipField|teal, tooltipValueGetter|teal]
@@ -10,7 +10,7 @@ readingTime: 8
 
 # AG Grid Tooltip 사용법
 
-> `tooltipField` · `tooltipValueGetter` · `headerTooltip` · 딜레이 설정 · `tooltipShowMode` 한 번에 정리
+> `tooltipField` · `tooltipValueGetter` · `headerTooltip` · `tooltipShowDelay` · `tooltipShowMode` 한 번에 정리
 
 AG Grid에서 툴팁은 별도 플러그인 없이 `ColDef`나 `GridOptions`만으로 구현할 수 있습니다.  
 이 글에서는 **셀 툴팁·헤더 툴팁·표시 조건·타이밍 제어**까지 실무에서 자주 쓰는 패턴을 모두 정리합니다.
