@@ -441,6 +441,10 @@ export default withMermaid(
                   text: "Drawer + URL 상태 동기화",
                   link: "/frontend/react/ag-grid-drawer-url-sync",
                 },
+                {
+                  text: "Tooltip 사용법",
+                  link: "/frontend/react/ag-grid-tooltip",
+                },
               ],
             },
             {
