@@ -552,7 +552,7 @@ export default withMermaid(
               collapsed: true,
               items: [
                 {
-                  text: "Chrome Extension MV3 Firebase Google 로그인 구현",
+                  text: "MV3 Firebase Google 로그인 — React 연동 가이드",
                   link: "/frontend/chrome-extension/firebase-google-login-mv3",
                 },
               ],
@@ -604,6 +604,10 @@ export default withMermaid(
           text: "Database",
           items: [
             {
+              text: "Oracle SQL 완전 가이드",
+              link: "/database/oracle-sql-guide",
+            },
+            {
               text: "SQL UPDATE WHERE IN",
               link: "/database/update-in",
             },
@@ -622,7 +626,7 @@ export default withMermaid(
               collapsed: true,
               items: [
                 {
-                  text: "플러그인 추천 (Java / Spring Boot)",
+                  text: "개발이 편해지는 플러그인 추천 (2026)",
                   link: "/tools/intellij/intellij-plugins",
                 },
               ],
