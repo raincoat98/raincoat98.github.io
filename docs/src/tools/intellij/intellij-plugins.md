@@ -1,109 +1,91 @@
 ---
 categories: [Tools]
-title: IntelliJ 플러그인 추천 (Java / Spring Boot 개발자용)
-description: Java / Spring Boot 개발자를 위한 IntelliJ 플러그인 추천. 실무 생산성을 높여주는 SonarLint, GitToolBox 등 별도 설치 추천 목록과 기본 내장 기능을 정리합니다.
+title: 개발이 편해지는 IntelliJ 플러그인 추천 (2026년 최신)
+description: 실무에서 효과가 큰 IntelliJ 플러그인을 필수 / 권장 / 추가 추천 / 유료 / 내장으로 나눠 정리했습니다. Rainbow Brackets, GitToolBox, MyBatisX 등 바로 체감되는 플러그인을 소개합니다.
 created: 2026-05-16
 tags: [IntelliJ|orange, Java|orange, Spring Boot|green, Plugin|purple, 개발도구|teal]
 platform: Tools
-readingTime: 4
+readingTime: 6
 ---
 
-# IntelliJ 플러그인 추천 (Java / Spring Boot 개발자용)
+# 개발이 편해지는 IntelliJ 플러그인 추천 (2026년 최신)
 
-IntelliJ는 기본만으로도 충분히 강력하지만, 플러그인 몇 개만 깔아두면 실무 생산성이 확연히 달라집니다.
-Java / Spring Boot 개발자 기준으로 실제로 도움이 되는 것들만 정리했습니다.
+IntelliJ는 기본만으로도 훌륭하지만, 플러그인을 더하면 작업 속도가 확 빨라집니다. 이 글에서는 실무에서 효과가 큰 플러그인을 **필수 / 권장 / 추가 추천 / 유료 / 내장** 으로 나눠 쉽게 정리했습니다.
 
-## 별도 설치 추천 (우선순위 순)
-
-마켓플레이스에서 직접 설치해야 하는 것들입니다. 깔자마자 효과를 체감할 수 있는 순서로 정렬했습니다.
-
-### 1. SonarLint (현재 명칭: SonarQube for IDE)
-
-코드 작성하는 동안 실시간으로 버그·코드 스멜·보안 이슈를 잡아줍니다.
-"PR 올린 다음에 코드 리뷰에서 지적받기 전에" 잡는 게 핵심입니다.
-
-> 어느 에디션에서도 기본 내장이 아닙니다. 마켓플레이스에서 직접 설치하세요. 최근 버전부터 이름이 **SonarQube for IDE**로 바뀌었으니 검색 시 참고하세요.
-
-### 2. GitToolBox
-
-Git Blame을 줄 옆에 인라인으로 표시하고, 브랜치 상태(ahead/behind)를 항상 보여줍니다.
-"이 줄 누가 언제 짰지?"를 매번 누르지 않아도 됩니다.
-
-> 무료 버전으로 충분합니다. `Settings → Plugins`에서 GitToolBox로 검색해서 설치하면 됩니다.
->
-> 마켓플레이스에 **GitToolBox Pro**도 있는데, 이건 추가 기능(상세 통계, 고급 blame)이 있는 유료 확장이에요. 일반 사용에는 무료 버전만 깔아도 충분합니다.
-
-### 3. Key Promoter X
-
-마우스로 메뉴를 클릭할 때마다 단축키를 알림으로 띄워줍니다.
-처음엔 귀찮지만 2주 정도 쓰면 단축키가 자연스럽게 손에 붙습니다.
-
-### 4. EnvFile
-
-`.env` 파일을 Run Configuration에 환경변수로 주입할 수 있습니다.
-로컬·개발·운영 환경 분리할 때 유용합니다.
-
-## 용도별 전체 정리
-
-| 용도 | 플러그인 | 설치 |
-|---|---|---|
-| 코드 품질 검사 | SonarLint (SonarQube for IDE) | 별도 설치 |
-| Git 시각화 | GitToolBox | 별도 설치 |
-| 단축키 학습 | Key Promoter X | 별도 설치 |
-| 환경변수 | EnvFile | 별도 설치 |
-| 포맷·컨벤션 | Prettier, EditorConfig | 별도 설치 |
-| 컨테이너 | Docker | 별도 설치 |
-| Lombok 어노테이션 | Lombok | 기본 내장 |
-| Spring Boot 개발 | Spring Boot | Ultimate 내장 |
-| API 테스트 | HTTP Client | 기본 내장 |
-| DB 작업 | Database Tools and SQL | Ultimate 내장 |
-| JSON 보기 | JSON 기능 | 기본 내장 |
-| React / JS / TS | 내장 강화 (2026.1+) | 기본 내장 |
+**설치 방법은 모두 같습니다.** `Settings(Ctrl+Alt+S) → Plugins → Marketplace`에서 이름 검색 → Install → 재시작. 끝!
 
 ---
 
-## 기본 내장 (따로 안 깔아도 됨)
+## 🔥 필수 플러그인
+거의 모든 개발자에게 도움이 되는, 
+"깔면 바로 체감되는" 플러그인입니다.
 
-여기부터는 IntelliJ에 이미 들어 있어서 새로 설치할 필요가 없는 것들입니다.
+| 플러그인                    | 한 줄 설명                                           |
+| ----------------------- | ------------------------------------------------ |
+| **Rainbow Brackets**    | 괄호 `( ) [ ] { }` 를 색깔로 구분해 짝을 한눈에 보여줍니다.         |
+| **Atom Material Icons** | 파일·폴더 아이콘을 예쁘고 알아보기 쉽게 바꿔줍니다.                    |
+| **GitToolBox**          | 코드 옆에 "누가 언제 고쳤는지"를 표시하고 Git 상태를 알려줍니다.          |
+| **CamelCase**           | 단축키 한 번으로 `camelCase ↔ snake_case` 등 표기법을 변환합니다. |
+| **MyBatisX**            | MyBatis 매퍼와 XML 사이를 클릭 한 번으로 오갈 수 있게 해줍니다.       |
+| **Key Promoter X**      | 마우스로 한 동작에 "이런 단축키가 있어요"라고 알려줍니다.                |
+| **Grep Console**        | 콘솔 로그를 색으로 강조하고, 원하는 줄만 골라 볼 수 있습니다.             |
 
-### Lombok
+### 조금 더 자세히
 
-`@Getter`, `@Setter`, `@Builder` 같은 어노테이션을 인식하게 해줍니다.
-Lombok 쓰는 프로젝트라면 이게 없으면 에디터가 빨갛게 도배됩니다.
+- **Rainbow Brackets** — 중첩된 조건문이나 람다에서 괄호 짝 찾기가 쉬워집니다.
+  > ⚠️ 원조 버전은 일부 기능이 **유료**로 바뀌었어요. 무료로 쓰려면 **Rainbow Brackets Lite**를 설치하세요. (같은 개발자의 무료 버전입니다.)
+- **MyBatisX** — Java/Spring/MyBatis 쓰는 분에게는 사실상 필수입니다. SQL 자동완성도 됩니다.
+- **Key Promoter X** — 단축키를 자연스럽게 외우게 해줘서, 시간이 지날수록 손이 빨라집니다.
 
-> IntelliJ 2020.3부터 모든 에디션에 번들로 포함되어 있고, 어노테이션 프로세싱도 자동 활성화됩니다. 동작 안 하면 `Settings → Build → Compiler → Annotation Processors`에서 활성화하세요.
+---
 
-### Spring Boot (Ultimate 한정)
+## 👍 권장 플러그인
 
-`application.yml` 자동완성, Bean 의존성 시각화, Actuator 엔드포인트 탐색 등 Spring 작업의 90%를 편하게 만들어줍니다.
+필수는 아니지만, 상황에 따라 큰 도움이 됩니다.
 
-> Ultimate에는 기본 포함입니다. Community에서는 별도 설치가 필요하고 일부 기능이 제한됩니다.
+- **Continue** — 오픈소스 AI 코딩 도우미. 코드 자동완성·질문·수정을 도와줍니다.
+  > ⚠️ 현재 JetBrains 플러그인은 커뮤니티가 관리 중이고, 공식적으로는 터미널용 **Continue CLI** 사용을 권장합니다. JetBrains 자체 AI(AI Assistant, Junie)도 좋은 대안입니다.
+- **EnvFile** — 실행할 때 `.env` 파일의 환경 변수를 자동으로 불러옵니다.
+- **.ignore** — `.gitignore` 같은 파일을 자동완성·색상 강조로 편하게 작성합니다.
+- **.env files support** — `.env` 파일 편집을 도와줍니다. (위 EnvFile과 함께 쓰면 좋아요.)
+- **CodeMetrics** — 메서드가 얼마나 복잡한지 숫자로 보여줘, 리팩터링 지점을 알려줍니다.
+- **CodeGlance3** — VS Code처럼 코드 전체 축소 지도(미니맵)를 띄워 빠르게 이동합니다.
 
-### 그 외 내장 기능
+---
 
-- **Spring Initializr 연동** — New Project에서 바로 Spring Boot 프로젝트 생성
-- **HTTP Client** — Postman 안 깔아도 `.http` 파일로 API 테스트 가능
-- **Database Tools** — 별도 DB 클라이언트 없이 쿼리·테이블 편집 (Ultimate)
-- **JSON Viewer** — 큰 JSON도 접고 펴면서 탐색
+## ➕ 추가 추천 플러그인
 
-## 라이선스 주의사항
+위 목록에 더해, 많이들 쓰는 유용한 플러그인을 골라봤습니다.
 
-설치하기 전에 알아둘 점이 있습니다.
+- **SonarQube for IDE** (예전 이름: SonarLint) — 코드를 작성하는 동안 버그·나쁜 코드를 실시간으로 잡아줍니다. 무료입니다.
+- **Maven Helper** — Maven 의존성 충돌을 트리로 보여주고, 어떤 라이브러리가 겹치는지 쉽게 찾아줍니다. (Maven 프로젝트에 강력 추천)
+- **String Manipulation** — 텍스트 대소문자 변환, 정렬, 인코딩 등 문자열 작업을 단축키로 처리합니다.
+- **Translation** — 코드나 주석을 그 자리에서 번역해 줍니다. 영문 문서·라이브러리 볼 때 편합니다.
+- **GenerateAllSetter** — 객체의 모든 `setter` 호출 코드를 한 번에 생성해 줍니다. 테스트 코드 짤 때 유용합니다.
+- **Presentation Assistant** — 단축키를 누를 때마다 화면에 표시해 줍니다. 발표·강의·페어 프로그래밍에 좋습니다.
 
-**유료 / Ultimate 전용**
+---
 
-- **Database Tools and SQL** — IntelliJ IDEA Ultimate에만 포함. Community에서는 사용 불가
-- **Spring Boot** — Ultimate에는 기본 포함, Community에서는 설치는 되지만 일부 기능 제한
-- **GitToolBox Pro** — 유료 확장. 기본 GitToolBox는 무료
+## 💳 유료 (Ultimate 전용)
 
-**무료 대안**
+- **Database (데이터베이스 도구)** — IDE 안에서 바로 DB에 접속해 쿼리를 실행하고 데이터를 봅니다.
+  - **Ultimate 사용자**: 이미 내장돼 있어 설치 불필요.
+  - **무료(Community) 사용자**: 사용 불가. 대신 **DataGrip**(유료) 또는 **DBeaver**(무료)를 쓰면 됩니다.
 
-- DB 작업: DBeaver (무료, 크로스 플랫폼)
-- API 테스트: IntelliJ 내장 HTTP Client는 Community에서도 사용 가능
+---
 
-Community 에디션 사용자라면 위 사항을 먼저 확인하세요.
+## 📦 내장 (이미 들어 있어요)
 
-## 한 줄 정리
+- **Lombok** — `@Getter`, `@Setter`, `@Builder` 같은 어노테이션을 IDE가 인식하게 해줍니다.
+  > ✅ 최신 IntelliJ에는 **기본 포함**이라 따로 설치할 필요가 없습니다. 단, `Settings → Build, Execution, Deployment → Compiler → Annotation Processors`에서 **annotation processing이 켜져 있는지**만 확인하세요.
 
-별도로 깔 건 **SonarLint · GitToolBox · Key Promoter X · EnvFile** 이 4개입니다.
-**Lombok**(모든 에디션)과 **Spring Boot**(Ultimate)는 이미 내장이라 따로 설치할 필요가 없습니다.
+---
+
+## 마무리
+
+플러그인은 많이 깐다고 좋은 게 아닙니다. 너무 많으면 IDE가 무거워집니다. **필요한 것부터 하나씩** 추가하세요.
+
+처음이라면 이 3가지부터 추천합니다 👉 **Key Promoter X · GitToolBox · Atom Material Icons**
+자바/스프링/MyBatis 환경이라면 **MyBatisX**와 **Maven Helper**도 꼭 챙기세요.
+
+안 쓰는 플러그인은 `Settings → Plugins → Installed`에서 가끔 정리하면 IDE를 가볍게 유지할 수 있습니다.
