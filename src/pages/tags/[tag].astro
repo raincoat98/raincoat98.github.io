@@ -5,9 +5,7 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
 type Post = CollectionEntry<"docs">;
 
 export async function getStaticPaths() {
-  function ts(q: Post): number {
-    return (q.data.created ?? q.data.date)?.getTime?.() ?? 0;
-  }
+  const ts = (q: Post) => (q.data.created ?? q.data.date)?.getTime?.() ?? 0;
   const all = (await getCollection("docs")).filter(
     (p) => !!p.data.title && !p.id.includes("examples/") && !p.data.draft
   );
@@ -35,30 +33,53 @@ const { tag, posts } = Astro.props;
 const fmtDate = (d?: Date) =>
   d ? new Intl.DateTimeFormat("ko-KR", { year: "numeric", month: "2-digit", day: "2-digit" }).format(d) : "";
 ---
-<BaseLayout title={`${tag} · 태그`} description={`태그 ${tag} 포스트 목록입니다.`} path={`/tags/${tag.toLowerCase()}`} breadcrumb={[`tags/${tag.toLowerCase()}`]}>
+<BaseLayout title={`${tag} · 태그`} description={`태그 ${tag} 포스트 목록입니다.`} path={`/tags/${tag}`} breadcrumb={[`tags/${tag}`]}>
   <div class="page">
-    <header>
-      <h1><span class="hash">#</span>{tag}</h1>
-      <p>총 {posts.length}개의 글</p>
+    <header class="page-head">
+      <span class="eyebrow">Tag</span>
+      <h1 class="kicker">#{tag}</h1>
+      <p class="count">총 {posts.length}개의 글</p>
     </header>
-    <ul class="list">
+
+    <div class="list-wrap">
       {posts.map((post) => (
-        <li>
-          <a href={`/${post.id}/`}>
-            <strong>{post.data.title}</strong>
-            <time datetime={post.data.created?.toISOString()}>{fmtDate(post.data.created ?? post.data.date)}</time>
-          </a>
-        </li>
+        <a class="row" href={`/${post.id}/`}>
+          <strong>{post.data.title}</strong>
+          <time datetime={post.data.created?.toISOString()}>{fmtDate(post.data.created ?? post.data.date)}</time>
+        </a>
       ))}
-    </ul>
+    </div>
   </div>
 </BaseLayout>
 
 <style>
-  .page { max-width: var(--max-width); margin: 0 auto; padding: 2rem 1.25rem; }
-  h1 .hash { color: var(--brand); }
-  .list { list-style: none; margin: 1rem 0 0; padding: 0; display: flex; flex-direction: column; gap: 0.5rem; }
-  .list a { display: flex; justify-content: space-between; gap: 1rem; padding: 0.75rem 0; border-bottom: 1px solid var(--border); color: var(--text-1); }
-  .list a:hover { text-decoration: none; color: var(--brand); }
-  .list time { color: var(--text-2); font-size: 0.85rem; white-space: nowrap; }
+  .page { max-width: var(--max-w); margin: 0 auto; padding: 3rem 1.25rem 4rem; }
+  .page-head { margin-bottom: 2rem; }
+  .eyebrow {
+    display: inline-block;
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--brand);
+    margin-bottom: 0.5rem;
+  }
+  .kicker { margin: 0; font-size: 1.9rem; }
+  .count { color: var(--text-3); margin: 0.35rem 0 0; }
+  .list-wrap {
+    display: flex;
+    flex-direction: column;
+  }
+  .row {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    align-items: baseline;
+    padding: 0.9rem 0.25rem;
+    border-bottom: 1px solid var(--border);
+    color: var(--text);
+  }
+  .row:hover { color: var(--brand); text-decoration: none; }
+  .row strong { font-weight: 600; }
+  .row time { color: var(--text-3); font-size: 0.85rem; white-space: nowrap; }
 </style>

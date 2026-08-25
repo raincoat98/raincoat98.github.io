@@ -1,0 +1,56 @@
+---
+const label = "테마 전환";
+---
+<button
+  type="button"
+  class="theme-toggle"
+  data-theme-toggle
+  data-active="light"
+  aria-label={label}
+  title={label}
+>
+  <span class="icon-sun" aria-hidden="true">☀</span>
+  <span class="icon-moon" aria-hidden="true">☾</span>
+</button>
+
+<script>
+  const btn = document.querySelector("[data-theme-toggle]");
+  if (btn) {
+    btn.setAttribute("data-active", document.documentElement.getAttribute("data-theme") === "dark" ? "dark" : "light");
+    btn.addEventListener("click", () => {
+      const next = document.documentElement.getAttribute("data-theme") === "dark" ? "light" : "dark";
+      try { localStorage.setItem("rc-theme", next); } catch (e) {}
+      document.documentElement.setAttribute("data-theme", next);
+      btn.setAttribute("data-active", next);
+    });
+  }
+</script>
+
+<style>
+  .theme-toggle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 38px;
+    height: 38px;
+    border-radius: 999px;
+    border: 1px solid var(--border);
+    background: var(--surface);
+    color: var(--text-2);
+    cursor: pointer;
+    font-size: 16px;
+    transition: border-color 0.15s ease, color 0.15s ease, transform 0.15s ease;
+  }
+  .theme-toggle:hover {
+    border-color: var(--brand);
+    color: var(--brand);
+    transform: translateY(-1px);
+  }
+  .theme-toggle span {
+    display: none;
+    line-height: 1;
+  }
+  /* light 상태(현재 라이트) → 해/달 중 무엇이 보일지: 클릭하면 dark로 가므로 해를 보여준다 */
+  .theme-toggle[data-active="light"] .icon-sun { display: inline-flex; }
+  .theme-toggle[data-active="dark"] .icon-moon { display: inline-flex; }
+</style>

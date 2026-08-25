@@ -8,7 +8,7 @@
 </section>
 
 <script>
-  const dark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+  const dark = document.documentElement.getAttribute("data-theme") === "dark";
   const container = document.getElementById("comments-container");
   if (container) {
     const script = document.createElement("script");
@@ -24,13 +24,17 @@
 
 <style>
   .comments {
-    max-width: var(--max-width);
-    margin: 3rem auto 0;
-    padding: 1rem 1.25rem;
+    max-width: var(--content-w);
+    margin: 3.5rem auto 0;
+    padding: 1.25rem;
     border-top: 1px solid var(--border);
   }
   .comments-title {
     font-weight: 700;
+    font-size: 1.05rem;
     margin-bottom: 1rem;
+  }
+  @media (max-width: 900px) {
+    .comments { max-width: none; }
   }
 </style>

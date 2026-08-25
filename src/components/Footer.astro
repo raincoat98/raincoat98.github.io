@@ -3,10 +3,11 @@ const year = new Date().getFullYear();
 ---
 <footer class="site-footer">
   <div class="footer-inner">
-    <p>© {year} Raincoat · 우상욱 (WooSangWook)</p>
-    <div>
+    <p class="copy">© {year} Raincoat · 우상욱</p>
+    <div class="links">
       <a href="https://github.com/raincoat98" rel="noopener" target="_blank">GitHub</a>
       <a href="mailto:raincoat@kakao.com">이메일</a>
+      <a href="/rss.xml">RSS</a>
     </div>
   </div>
 </footer>
@@ -18,22 +19,27 @@ const year = new Date().getFullYear();
     padding: 1.5rem 0;
   }
   .footer-inner {
-    max-width: var(--max-width);
+    max-width: var(--max-w);
     margin: 0 auto;
     padding: 0 1.25rem;
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
+    align-items: center;
     gap: 0.5rem;
+  }
+  .copy {
+    color: var(--text-3);
+    font-size: 0.9rem;
+    margin: 0;
+  }
+  .links {
+    display: flex;
+    gap: 1.1rem;
+  }
+  .links a {
     color: var(--text-2);
     font-size: 0.9rem;
   }
-  .footer-inner div {
-    display: flex;
-    gap: 1rem;
-  }
-  .footer-inner a {
-    color: var(--brand-2);
-    text-decoration: underline;
-  }
+  .links a:hover { color: var(--brand); }
 </style>
