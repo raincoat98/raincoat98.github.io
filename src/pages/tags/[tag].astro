@@ -1,0 +1,64 @@
+---
+import { getCollection, type CollectionEntry } from "astro:content";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+
+type Post = CollectionEntry<"docs">;
+
+export async function getStaticPaths() {
+  function ts(q: Post): number {
+    return (q.data.created ?? q.data.date)?.getTime?.() ?? 0;
+  }
+  const all = (await getCollection("docs")).filter(
+    (p) => !!p.data.title && !p.id.includes("examples/") && !p.data.draft
+  );
+  const tags = new Map<string, Post[]>();
+  for (const post of all) {
+    for (const rawTag of post.data.tags) {
+      const tag = rawTag.split("|")[0].trim();
+      if (!tag) continue;
+      if (!tags.has(tag)) tags.set(tag, []);
+      tags.get(tag)!.push(post);
+    }
+  }
+  return [...tags.entries()].map(([tag, posts]) => ({
+    params: { tag: tag.toLowerCase() },
+    props: { tag, posts: [...posts].sort((a, b) => ts(b) - ts(a)) },
+  }));
+}
+
+interface Props {
+  tag: string;
+  posts: Post[];
+}
+const { tag, posts } = Astro.props;
+
+const fmtDate = (d?: Date) =>
+  d ? new Intl.DateTimeFormat("ko-KR", { year: "numeric", month: "2-digit", day: "2-digit" }).format(d) : "";
+---
+<BaseLayout title={`${tag} · 태그`} description={`태그 ${tag} 포스트 목록입니다.`} path={`/tags/${tag.toLowerCase()}`} breadcrumb={[`tags/${tag.toLowerCase()}`]}>
+  <div class="page">
+    <header>
+      <h1><span class="hash">#</span>{tag}</h1>
+      <p>총 {posts.length}개의 글</p>
+    </header>
+    <ul class="list">
+      {posts.map((post) => (
+        <li>
+          <a href={`/${post.id}/`}>
+            <strong>{post.data.title}</strong>
+            <time datetime={post.data.created?.toISOString()}>{fmtDate(post.data.created ?? post.data.date)}</time>
+          </a>
+        </li>
+      ))}
+    </ul>
+  </div>
+</BaseLayout>
+
+<style>
+  .page { max-width: var(--max-width); margin: 0 auto; padding: 2rem 1.25rem; }
+  h1 .hash { color: var(--brand); }
+  .list { list-style: none; margin: 1rem 0 0; padding: 0; display: flex; flex-direction: column; gap: 0.5rem; }
+  .list a { display: flex; justify-content: space-between; gap: 1rem; padding: 0.75rem 0; border-bottom: 1px solid var(--border); color: var(--text-1); }
+  .list a:hover { text-decoration: none; color: var(--brand); }
+  .list time { color: var(--text-2); font-size: 0.85rem; white-space: nowrap; }
+</style>

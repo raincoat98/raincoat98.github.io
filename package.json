@@ -5,10 +5,10 @@
   "private": true,
   "scripts": {
     "dev": "astro dev",
-    "build": "astro build",
+    "stats": "node scripts/generateStats.mjs",
+    "build": "node scripts/generateStats.mjs && astro build",
     "preview": "astro preview",
-    "check": "astro check",
-    "stats": "node scripts/generateStats.mjs"
+    "check": "astro check"
   },
   "dependencies": {
     "@astrojs/rss": "^4.0.19",
