@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://raincoat98.github.io/sitemap.xml
+Sitemap: https://raincoat98.github.io/sitemap-index.xml
