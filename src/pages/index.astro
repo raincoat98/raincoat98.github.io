@@ -1,0 +1,174 @@
+---
+import { getCollection } from "astro:content";
+import BaseLayout from "../layouts/BaseLayout.astro";
+
+// 예시·프론트매터 없음(제목 없음) 포스트를 제외하고 게시글만
+const all = await getCollection("docs");
+const posts = all
+  .filter((p) => !!p.data.title && !p.id.includes("examples/") && !p.data.draft)
+  .sort((a, b) => {
+    const ad = a.data.created ?? a.data.date;
+    const bd = b.data.created ?? b.data.date;
+    return (bd?.getTime?.() ?? 0) - (ad?.getTime?.() ?? 0);
+  });
+
+const categories = [...new Set(posts.flatMap((p) => p.data.categories))].sort();
+const totalCount = posts.length;
+const fmtDate = (d?: Date) =>
+  d ? new Intl.DateTimeFormat("ko-KR", { year: "numeric", month: "2-digit", day: "2-digit" }).format(d) : "";
+---
+<BaseLayout title="Raincoat" description="프론트엔드 개발자 블로그. 웹 개발 경험과 지식을 공유합니다." path="/">
+  <section class="hero">
+    <div class="hero-inner">
+      <h1>Raincoat</h1>
+      <p class="hero-sub">프론트엔드 개발자</p>
+      <p class="hero-tagline">웹 개발 경험과 지식을 공유합니다</p>
+      <div class="hero-actions">
+        <a class="btn primary" href="/introduce/my-develop">소개 보기</a>
+        <a class="btn secondary" href="/introduce/careers">포트폴리오</a>
+      </div>
+    </div>
+  </section>
+
+  <div class="layout">
+    <aside class="category-nav" aria-label="카테고리">
+      <h2>카테고리</h2>
+      <ul>
+        {categories.map((c) => (
+          <li><a href={`/category/${c.toLowerCase()}`}>{c}</a></li>
+        ))}
+      </ul>
+    </aside>
+
+    <section class="posts" aria-label="전체 글">
+      <div class="toolbar">
+        <span class="total-count">총 {totalCount}개</span>
+      </div>
+      <div class="posts-grid">
+        {
+          posts.map((post) => (
+            <a class="card" href={`/${post.id}`}>
+              <h3>{post.data.title}</h3>
+              {post.data.description && <p class="desc">{post.data.description}</p>}
+              <div class="meta">
+                {post.data.categories[0] && <span class="badge">{post.data.categories[0]}</span>}
+                <time datetime={post.data.created?.toISOString()}>{fmtDate(post.data.created ?? post.data.date)}</time>
+                {post.data.readingTime && <span>약 {post.data.readingTime}분</span>}
+              </div>
+            </a>
+          ))
+        }
+      </div>
+    </section>
+  </div>
+</BaseLayout>
+
+<style>
+  .hero {
+    background: radial-gradient(1200px 500px at 50% -10%, color-mix(in srgb, var(--brand) 18%, transparent), transparent);
+    border-bottom: 1px solid var(--border);
+    padding: 4rem 0 3rem;
+  }
+  .hero-inner {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: 0 1.25rem;
+    text-align: center;
+  }
+  .hero h1 {
+    margin: 0;
+    font-size: 2.6rem;
+  }
+  .hero-sub {
+    font-weight: 600;
+    margin: 0.5rem 0 0;
+  }
+  .hero-tagline {
+    color: var(--text-2);
+    margin: 0.25rem 0 1.5rem;
+  }
+  .hero-actions {
+    display: flex;
+    gap: 0.75rem;
+    justify-content: center;
+  }
+  .btn {
+    padding: 0.6rem 1.2rem;
+    border-radius: 999px;
+    font-weight: 600;
+  }
+  .btn.primary { background: var(--brand); color: #fff; }
+  .btn.secondary { border: 1px solid var(--border); color: var(--text-1); }
+
+  .layout {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: 2.5rem 1.25rem;
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    gap: 2.5rem;
+  }
+  .category-nav h2 {
+    font-size: 1rem;
+    margin: 0 0 0.75rem;
+  }
+  .category-nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+  }
+  .category-nav a { color: var(--text-2); }
+  .toolbar { margin-bottom: 1rem; color: var(--text-2); font-size: 0.9rem; }
+  .posts-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 1rem;
+  }
+  .card {
+    display: block;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1.1rem 1.2rem;
+    color: inherit;
+    box-shadow: var(--shadow);
+    transition: transform 0.12s ease, border-color 0.12s ease;
+  }
+  .card:hover {
+    text-decoration: none;
+    transform: translateY(-2px);
+    border-color: var(--brand);
+  }
+  .card h3 { margin: 0 0 0.4rem; font-size: 1.05rem; }
+  .card .desc {
+    color: var(--text-2);
+    font-size: 0.9rem;
+    margin: 0 0 0.75rem;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  .card .meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    align-items: center;
+    font-size: 0.8rem;
+    color: var(--text-2);
+  }
+  .badge {
+    background: color-mix(in srgb, var(--brand) 12%, transparent);
+    color: var(--brand);
+    padding: 0.1rem 0.5rem;
+    border-radius: 999px;
+    font-size: 0.75rem;
+    font-weight: 600;
+  }
+  @media (max-width: 768px) {
+    .layout { grid-template-columns: 1fr; }
+    .category-nav ul { flex-direction: row; flex-wrap: wrap; }
+  }
+</style>

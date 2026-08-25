@@ -1,15 +1,23 @@
 {
+  "name": "raincoat98-blog",
+  "type": "module",
+  "version": "0.1.0",
+  "private": true,
   "scripts": {
-    "docs:dev": "vitepress dev docs",
-    "docs:build": "node docs/.vitepress/scripts/generateStats.js && vitepress build docs",
-    "docs:preview": "vitepress preview docs",
-    "docs:stats": "node docs/.vitepress/scripts/generateStats.js"
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "check": "astro check",
+    "stats": "node scripts/generateStats.mjs"
+  },
+  "dependencies": {
+    "@astrojs/rss": "^4.0.19",
+    "@astrojs/sitemap": "^3.7.3",
+    "astro": "^7.2.6",
+    "sharp": "^0.35.3"
   },
   "devDependencies": {
-    "@resvg/resvg-js": "^2.6.2",
-    "mermaid": "^11.12.1",
-    "terser": "^5.39.0",
-    "vitepress": "latest",
-    "vitepress-plugin-mermaid": "^2.0.17"
+    "@astrojs/check": "^0.9.10",
+    "typescript": "^6.0.3"
   }
 }

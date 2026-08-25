@@ -1,0 +1,118 @@
+---
+import { getCollection, render } from "astro:content";
+import BaseLayout from "../layouts/BaseLayout.astro";
+
+// content collection에서 정적 생성 (intro, posts, examples 전부 — examples는 noindex 처리)
+export async function getStaticPaths() {
+  const posts = await getCollection("docs");
+  return posts.map((post) => ({
+    params: { slug: post.id },
+    props: { post },
+  }));
+}
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+
+// 태그·카테고리 표시명
+const tags = post.data.tags.map((t) => t.split("|")[0].trim());
+const category = post.data.categories[0]?.split("|")[0].trim();
+
+const title = post.data.title || "";
+
+// breadcrumb segs
+const isExamples = post.id.startsWith("examples/");
+const pubIso = post.data.created || post.data.date;
+const modIso = post.data.updated;
+
+const breadcrumb = post.id
+  .split("/")
+  .filter(Boolean)
+  .slice(0, -1)
+  .map((seg) => seg.replace(/-/g, " ").replace(/\b\w/g, (c) => c.toUpperCase()));
+
+const fmtFull = (d?: Date) =>
+  d
+    ? new Intl.DateTimeFormat("ko-KR", { year: "numeric", month: "long", day: "numeric" }).format(d)
+    : "";
+---
+<BaseLayout
+  title={title || category || "Raincoat"}
+  description={post.data.description}
+  image={post.data.image ? `/${post.id.replace(/\/[^/]+$/, "")}/${post.data.image}` : undefined}
+  type="article"
+  path={`/${post.id}`}
+  noindex={isExamples}
+  tags={tags}
+  publishedTime={pubIso?.toISOString()}
+  modifiedTime={modIso?.toISOString()}
+  breadcrumb={breadcrumb}
+>
+  <article class="post">
+    <header class="post-header">
+      {category && <p class="category">{category}</p>}
+      <h1>{title}</h1>
+      {post.data.description && <p class="lead">{post.data.description}</p>}
+      <div class="post-meta">
+        {pubIso && <time datetime={pubIso.toISOString()}>작성 {fmtFull(pubIso)}</time>}
+        {modIso && pubIso?.getTime() !== modIso.getTime() && (
+          <span>업데이트 {fmtFull(modIso)}</span>
+        )}
+        {post.data.readingTime && <span>약 {post.data.readingTime}분 읽기</span>}
+      </div>
+    </header>
+
+    <div class="post-body prose">
+      <Content />
+    </div>
+  </article>
+</BaseLayout>
+
+<style>
+  .post {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: 2rem 1.25rem 1rem;
+  }
+  .post-header .category {
+    color: var(--brand);
+    font-weight: 600;
+    font-size: 0.9rem;
+    margin: 0 0 0.5rem;
+  }
+  .post-header h1 {
+    font-size: 2rem;
+    margin: 0 0 0.5rem;
+  }
+  .post-header .lead {
+    color: var(--text-2);
+    margin: 0 0 1rem;
+    font-size: 1.05rem;
+  }
+  .post-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    color: var(--text-2);
+    font-size: 0.85rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--border);
+  }
+  .prose {
+    line-height: 1.85;
+  }
+  .prose h2 { margin-top: 2.4rem; font-size: 1.5rem; border-bottom: 1px solid var(--border); padding-bottom: 0.4rem; }
+  .prose h3 { margin-top: 2rem; font-size: 1.2rem; }
+  .prose blockquote {
+    margin: 1rem 0;
+    padding: 0.5rem 1rem;
+    border-left: 4px solid var(--brand);
+    background: var(--bg-2);
+    color: var(--text-2);
+  }
+  .prose code { background: var(--bg-2); padding: 0.15rem 0.35rem; border-radius: 5px; font-size: 0.9em; }
+  .prose pre code { background: none; padding: 0; }
+  .prose ul, .prose ol { padding-left: 1.5rem; }
+  .prose li { margin: 0.35rem 0; }
+  .prose a { word-break: break-word; }
+</style>

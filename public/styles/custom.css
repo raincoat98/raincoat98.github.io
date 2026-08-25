@@ -1,0 +1,358 @@
+/* 전역 폰트 설정 */
+:root {
+  --vp-font-family-base: "Pretendard Variable", Pretendard, ui-sans-serif,
+    system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
+    "Segoe UI Symbol", "Noto Color Emoji";
+  --default-font-family: "Pretendard Variable", Pretendard, ui-sans-serif,
+    system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
+    "Segoe UI Symbol", "Noto Color Emoji";
+}
+
+/* 다크모드 Primary Color — Electric Violet */
+.dark {
+  --vp-c-brand-1: #a78bfa;
+  --vp-c-brand-2: #8b5cf6;
+  --vp-c-brand-3: #c4b5fd;
+  --vp-c-brand-soft: rgba(167, 139, 250, 0.14);
+}
+
+/* 홈페이지 custom-layout 스타일 */
+.custom-layout {
+  max-width: 1200px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background-color: var(--vp-c-bg-soft);
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.custom-layout h1 {
+  margin-top: 0;
+  margin-bottom: 1.5rem;
+  color: var(--vp-c-brand);
+  font-size: 2rem;
+}
+
+.custom-layout p {
+  margin-bottom: 1.2rem;
+  line-height: 1.7;
+}
+
+/* 다크 모드 스타일 조정 */
+.dark .custom-layout {
+  background-color: var(--vp-c-bg-alt);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* 한국어 단어 단위 줄바꿈 */
+body {
+  word-break: keep-all;
+}
+
+/* 모바일 반응형 스타일 */
+@media (max-width: 768px) {
+  .custom-layout {
+    margin: 1rem;
+    padding: 1.5rem;
+  }
+
+  .custom-layout h1 {
+    font-size: 1.8rem;
+  }
+}
+
+/* 사이드바 배경색 흰색으로 변경 */
+:root {
+  --vp-sidebar-bg-color: #ffffff;
+}
+
+.dark {
+  --vp-sidebar-bg-color: #1e1e20;
+}
+
+/* 사이드바 스크롤바 스타일 커스터마이징 */
+.VPSidebar::-webkit-scrollbar {
+  width: 6px;
+}
+
+.VPSidebar::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.VPSidebar::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, 0.1);
+  border-radius: 3px;
+  border: none;
+}
+
+.VPSidebar::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(0, 0, 0, 0.15);
+}
+
+.dark .VPSidebar::-webkit-scrollbar-thumb {
+  background-color: rgba(255, 255, 255, 0.15);
+}
+
+.dark .VPSidebar::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(255, 255, 255, 0.25);
+}
+
+/* Firefox 스크롤바 스타일 */
+.VPSidebar {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(0, 0, 0, 0.1) transparent;
+}
+
+.dark .VPSidebar {
+  scrollbar-color: rgba(255, 255, 255, 0.15) transparent;
+}
+
+/* 코드 블록 스크롤바 */
+.vp-doc div[class*="language-"] pre::-webkit-scrollbar {
+  height: 8px;
+}
+.vp-doc div[class*="language-"] pre::-webkit-scrollbar-track {
+  background: #e2e8f0;
+}
+.vp-doc div[class*="language-"] pre::-webkit-scrollbar-thumb {
+  background-color: #94a3b8;
+  border-radius: 3px;
+}
+.vp-doc div[class*="language-"] pre::-webkit-scrollbar-thumb:hover {
+  background-color: #64748b;
+}
+.dark .vp-doc div[class*="language-"] pre::-webkit-scrollbar-track {
+  background: #1e293b;
+}
+.dark .vp-doc div[class*="language-"] pre::-webkit-scrollbar-thumb {
+  background-color: #475569;
+}
+.dark .vp-doc div[class*="language-"] pre::-webkit-scrollbar-thumb:hover {
+  background-color: #64748b;
+}
+
+/* .vp-doc 내 태그 스타일 커스터마이징 */
+.vp-doc :not(pre, h1, h2, h3, h4, h5, h6) > code {
+  background-color: var(--vp-c-bg-soft);
+  color: #e06c75;
+  padding: 0.2rem 0.4rem;
+  border-radius: 4px;
+  font-size: 0.9em;
+  font-weight: bold;
+}
+
+.dark .vp-doc :not(pre, h1, h2, h3, h4, h5, h6) > code {
+  background-color: rgba(255, 255, 255, 0.1);
+  color: #ff6b9d;
+}
+
+/* =============================================
+   POST HEADER: 태그 필 & 메타 정보
+   ============================================= */
+.post-header {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  margin-bottom: 1.75rem;
+}
+
+/* 단일 카테고리 필: ● DEVOPS · SUPABASE */
+.post-category-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.3rem 0.85rem;
+  border-radius: 999px;
+  background: rgba(220, 252, 231, 0.85);
+  color: #15803d;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.09em;
+  border: 1px solid rgba(74, 222, 128, 0.5);
+  width: fit-content;
+  line-height: 1.5;
+}
+
+.dark .post-category-pill {
+  background: #0f2a1a;
+  color: #86efac;
+  border-color: rgba(134, 239, 172, 0.3);
+}
+
+.post-category-dot {
+  font-size: 0.45rem;
+  line-height: 1;
+  opacity: 0.85;
+}
+
+/* 메타 정보: 2025 · GitHub Actions · 읽는 데 약 5분 */
+.post-meta {
+  font-size: 0.875rem;
+  color: var(--vp-c-text-2);
+}
+
+.meta-sep {
+  opacity: 0.5;
+}
+
+.VPLastUpdated {
+  display: none;
+}
+
+/* =============================================
+   POST FOOTER: 컬러 태그 목록
+   ============================================= */
+.post-footer-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.post-tag-pill {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.3rem 0.9rem;
+  border-radius: 999px;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  border: 1.5px solid;
+  line-height: 1.5;
+  white-space: nowrap;
+}
+
+/* 라이트모드 태그 색상 */
+.post-tag-pill--green  { color: #15803d; background: rgba(220, 252, 231, 0.85); border-color: rgba(74, 222, 128, 0.5);  }
+.post-tag-pill--blue   { color: #1d4ed8; background: rgba(219, 234, 254, 0.85); border-color: rgba(96, 165, 250, 0.5);  }
+.post-tag-pill--orange { color: #b45309; background: rgba(254, 243, 199, 0.85); border-color: rgba(251, 191, 36, 0.5);  }
+.post-tag-pill--red    { color: #b91c1c; background: rgba(254, 226, 226, 0.85); border-color: rgba(248, 113, 113, 0.5); }
+.post-tag-pill--purple { color: #7e22ce; background: rgba(243, 232, 255, 0.85); border-color: rgba(192, 132, 252, 0.5); }
+.post-tag-pill--teal   { color: #0f766e; background: rgba(204, 251, 241, 0.85); border-color: rgba(45, 212, 191, 0.5);  }
+.post-tag-pill--pink   { color: #be185d; background: rgba(253, 242, 248, 0.85); border-color: rgba(244, 114, 182, 0.5); }
+
+/* 다크모드 태그 색상 */
+.dark .post-tag-pill--green  { color: #4ade80; background: rgba(20, 83, 45, 0.45);  border-color: rgba(74, 222, 128, 0.45); }
+.dark .post-tag-pill--blue   { color: #60a5fa; background: rgba(23, 37, 84, 0.5);   border-color: rgba(96, 165, 250, 0.45); }
+.dark .post-tag-pill--orange { color: #fbbf24; background: rgba(78, 52, 0, 0.5);    border-color: rgba(251, 191, 36, 0.4);  }
+.dark .post-tag-pill--red    { color: #f87171; background: rgba(69, 10, 10, 0.5);   border-color: rgba(248, 113, 113, 0.4); }
+.dark .post-tag-pill--purple { color: #c084fc; background: rgba(59, 7, 100, 0.45);  border-color: rgba(192, 132, 252, 0.4); }
+.dark .post-tag-pill--teal   { color: #2dd4bf; background: rgba(19, 78, 74, 0.45);  border-color: rgba(45, 212, 191, 0.4);  }
+.dark .post-tag-pill--pink   { color: #f472b6; background: rgba(80, 7, 36, 0.45);   border-color: rgba(244, 114, 182, 0.4); }
+
+/* =============================================
+   코드 블록: macOS 스타일
+   ============================================= */
+.vp-doc div[class*="language-"] {
+  position: relative;
+  border-radius: 10px;
+  overflow: hidden;
+  margin: 1.5rem 0;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+  border: 1px solid var(--vp-c-divider);
+}
+
+.dark .vp-doc div[class*="language-"] {
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.45);
+  border-color: rgba(255, 255, 255, 0.06);
+}
+
+/* macOS 창 버튼 (red · yellow · green) — 왼쪽 정렬 */
+.vp-doc div[class*="language-"]::after {
+  content: '';
+  position: absolute;
+  top: 16px;
+  left: 12px;
+  right: auto;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #ff5f57;
+  box-shadow: 18px 0 0 #febc2e, 36px 0 0 #28c840;
+  pointer-events: none;
+  z-index: 5;
+}
+
+/* 코드가 상단 버튼에 가리지 않도록 여백 확보 */
+.vp-doc div[class*="language-"] pre {
+  padding-top: 2.75rem;
+}
+
+/* =============================================
+   블록쿼트: 콜아웃 스타일
+   ============================================= */
+.vp-doc blockquote {
+  border-left: 4px solid var(--vp-c-brand);
+  background: var(--vp-c-bg-soft);
+  border-radius: 0 8px 8px 0;
+  margin: 1.5rem 0;
+  padding: 0.8rem 1.25rem;
+  border-top: none;
+  border-right: none;
+  border-bottom: none;
+}
+
+.vp-doc blockquote > p {
+  margin: 0;
+  color: var(--vp-c-text-1);
+  line-height: 1.7;
+}
+
+/* =============================================
+   테이블
+   ============================================= */
+.vp-doc table {
+  /* border-collapse: separate;
+  border-spacing: 0;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.08);
+  margin: 1.5rem 0;
+  width: 100%; */
+}
+
+.dark .vp-doc table {
+  /* box-shadow: 0 1px 6px rgba(0, 0, 0, 0.3); */
+}
+
+.vp-doc th {
+  background: var(--vp-c-bg-soft);
+  font-weight: 600;
+  padding: 0.7rem 1rem;
+  border-bottom: 2px solid var(--vp-c-divider);
+}
+
+.vp-doc td {
+  padding: 0.65rem 1rem;
+}
+
+.vp-doc tbody tr:hover td {
+  background: var(--vp-c-bg-soft);
+  transition: background 0.15s;
+}
+
+/* =============================================
+   제목 폰트 굵기
+   ============================================= */
+.vp-doc h1 {
+  font-weight: 800;
+}
+
+/* =============================================
+   h2 구분선 강조
+   ============================================= */
+.vp-doc h2 {
+  border-bottom-width: 2px;
+  border-bottom-color: var(--vp-c-divider);
+  margin-top: 2.5rem;
+  border-top: none;
+}
+
+/* =============================================
+   수평선
+   ============================================= */
+.vp-doc hr {
+  border: none;
+  border-top: 1px solid var(--vp-c-divider);
+  margin: 2rem 0;
+}

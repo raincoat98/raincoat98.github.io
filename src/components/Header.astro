@@ -1,0 +1,90 @@
+---
+const nav = [
+  { text: "Home", href: "/" },
+  { text: "About", href: "/introduce/my-develop" },
+  { text: "Git", href: "/git/git-complete-guide" },
+  { text: "Frontend", href: "/frontend" },
+  { text: "Database", href: "/database" },
+  { text: "Backend", href: "/backend" },
+];
+const current = Astro.url;
+---
+<header class="site-header">
+  <div class="header-inner">
+    <a class="logo" href="/" aria-label="Raincoat 블로그 홈">
+      <img src="/favicon.svg" alt="" width="26" height="26" aria-hidden="true" />
+      <span>Raincoat</span>
+    </a>
+    <nav aria-label="주요 탐색">
+      <ul>
+        {
+          nav.map((item) => (
+            <li>
+              <a href={item.href} class:list={{ active: current.pathname === item.href || (item.href !== "/" && current.pathname.startsWith(item.href)) }}>
+                {item.text}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<style>
+  .site-header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: color-mix(in srgb, var(--bg-1) 88%, transparent);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--border);
+  }
+  .header-inner {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: 0 1.25rem;
+    height: var(--header-h);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+  .logo {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-weight: 700;
+    font-size: 1.1rem;
+    color: var(--text-1);
+  }
+  .logo:hover {
+    text-decoration: none;
+  }
+  nav ul {
+    list-style: none;
+    display: flex;
+    gap: 1.25rem;
+    margin: 0;
+    padding: 0;
+  }
+  nav a {
+    color: var(--text-2);
+    font-size: 0.95rem;
+  }
+  nav a:hover {
+    color: var(--text-1);
+  }
+  nav a.active {
+    color: var(--brand);
+    font-weight: 600;
+  }
+  @media (max-width: 640px) {
+    nav ul {
+      gap: 0.75rem;
+    }
+    nav a {
+      font-size: 0.85rem;
+    }
+  }
+</style>
