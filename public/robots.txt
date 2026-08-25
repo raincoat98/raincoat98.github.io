@@ -55,4 +55,4 @@ Allow: /
 Crawl-delay: 0
 
 # 사이트맵 위치
-Sitemap: https://raincoat98.github.io/sitemap.xml 
+Sitemap: https://raincoat98.github.io/sitemap-index.xml 
