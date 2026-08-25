@@ -6,9 +6,10 @@
   "scripts": {
     "dev": "astro dev",
     "stats": "node scripts/generateStats.mjs",
-    "build": "node scripts/generateStats.mjs && astro build",
+    "build": "node scripts/generateStats.mjs && astro build && pagefind --site dist",
     "preview": "astro preview",
-    "check": "astro check"
+    "check": "astro check",
+    "search:index": "pagefind --site dist"
   },
   "dependencies": {
     "@astrojs/rss": "^4.0.19",
@@ -18,6 +19,8 @@
   },
   "devDependencies": {
     "@astrojs/check": "^0.9.10",
+    "@pagefind/default-ui": "^1.5.2",
+    "pagefind": "^1.5.2",
     "typescript": "^6.0.3"
   }
 }

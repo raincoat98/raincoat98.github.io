@@ -1,0 +1,20 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+---
+<BaseLayout title="검색" description="Raincoat 블로그 게시글 검색" path="/search/">
+  <div class="search-page">
+    <h1>검색</h1>
+    <div id="search"></div>
+  </div>
+</BaseLayout>
+
+<script>
+  import { PagefindUI } from "@pagefind/default-ui";
+  import "@pagefind/default-ui/css/ui.css";
+  new PagefindUI({ element: "#search", debouncedTimeoutMs: 300 });
+</script>
+
+<style>
+  .search-page { max-width: var(--max-width); margin: 0 auto; padding: 2rem 1.25rem; }
+  .search-page h1 { font-size: 1.8rem; }
+</style>
