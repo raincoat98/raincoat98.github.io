@@ -1,0 +1,82 @@
+---
+import { getCollection } from "astro:content";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+
+const all = (await getCollection("docs")).filter(
+  (p) => !!p.data.title && !p.id.includes("examples/") && !p.data.draft
+);
+const tags = new Map<string, number>();
+for (const post of all) {
+  for (const raw of post.data.tags) {
+    const tag = raw.split("|")[0].trim();
+    if (!tag) continue;
+    tags.set(tag, (tags.get(tag) ?? 0) + 1);
+  }
+}
+const sorted = [...tags.entries()].sort((a, b) => b[1] - a[1]);
+---
+<BaseLayout title="태그" description="전체 태그 목록입니다." path="/tags/">
+  <div class="page" data-pagefind-ignore>
+    <header class="page-head">
+      <span class="eyebrow">Tags</span>
+      <h1 class="kicker">태그</h1>
+      <p class="count">총 {sorted.length}개의 태그</p>
+    </header>
+
+    <div class="tag-cloud">
+      {sorted.map(([tag, count]) => (
+        <a class="tag" href={`/tags/${tag.toLowerCase()}`}>
+          <span class="tag-name">#{tag}</span>
+          <span class="tag-count">{count}</span>
+        </a>
+      ))}
+    </div>
+  </div>
+</BaseLayout>
+
+<style>
+  .page { max-width: var(--max-w); margin: 0 auto; padding: 3rem 1.25rem 4rem; }
+  .page-head { margin-bottom: 1.8rem; }
+  .eyebrow {
+    display: inline-block;
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--brand);
+    margin-bottom: 0.5rem;
+  }
+  .kicker { margin: 0; font-size: 1.9rem; }
+  .count { color: var(--text-3); margin: 0.35rem 0 0; }
+  .tag-cloud {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+  }
+  .tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    padding: 0.4rem 0.9rem;
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    background: var(--surface);
+    color: var(--text-2);
+    font-size: 0.92rem;
+    transition: border-color 0.15s ease, color 0.15s ease, transform 0.15s ease;
+  }
+  .tag:hover {
+    border-color: var(--brand);
+    color: var(--brand);
+    text-decoration: none;
+    transform: translateY(-1px);
+  }
+  .tag-name { font-weight: 600; }
+  .tag-count {
+    font-size: 0.78rem;
+    color: var(--text-3);
+    background: var(--bg-alt);
+    border-radius: 999px;
+    padding: 0.05rem 0.45rem;
+  }
+</style>

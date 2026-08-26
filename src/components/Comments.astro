@@ -1,0 +1,40 @@
+---
+// utterances 기반 댓글 — 기존 VitePress Comment.vue와 동일한 설정 이관
+// repo: raincoat98/blog_comment, issue-term: pathname
+---
+<section class="comments" aria-label="댓글">
+  <div class="comments-title">댓글</div>
+  <div id="comments-container"></div>
+</section>
+
+<script>
+  const dark = document.documentElement.getAttribute("data-theme") === "dark";
+  const container = document.getElementById("comments-container");
+  if (container) {
+    const script = document.createElement("script");
+    script.src = "https://utteranc.es/client.js";
+    script.setAttribute("repo", "raincoat98/blog_comment");
+    script.setAttribute("issue-term", "pathname");
+    script.setAttribute("theme", dark ? "github-dark" : "github-light");
+    script.setAttribute("crossorigin", "anonymous");
+    script.async = true;
+    container.appendChild(script);
+  }
+</script>
+
+<style>
+  .comments {
+    max-width: var(--content-w);
+    margin: 3.5rem auto 0;
+    padding: 1.25rem;
+    border-top: 1px solid var(--border);
+  }
+  .comments-title {
+    font-weight: 700;
+    font-size: 1.05rem;
+    margin-bottom: 1rem;
+  }
+  @media (max-width: 900px) {
+    .comments { max-width: none; }
+  }
+</style>

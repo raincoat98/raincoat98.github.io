@@ -1,0 +1,229 @@
+<button
+  type="button"
+  class="search-trigger"
+  data-search-open
+  aria-label="검색 열기"
+  aria-haspopup="dialog"
+  aria-controls="search-dialog"
+  title="검색"
+>
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
+    <circle cx="11" cy="11" r="6.5"></circle>
+    <path d="m16 16 4 4"></path>
+  </svg>
+</button>
+
+<dialog id="search-dialog" class="search-dialog" data-search-dialog aria-labelledby="search-title">
+  <div class="search-surface" data-search-surface>
+    <div class="search-shell">
+      <header class="search-header">
+        <div>
+          <span class="search-eyebrow">Search</span>
+          <h2 id="search-title">블로그 검색</h2>
+        </div>
+        <button type="button" class="search-close" data-search-close aria-label="검색 닫기" title="닫기">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
+            <path d="m6 6 12 12"></path>
+            <path d="M18 6 6 18"></path>
+          </svg>
+        </button>
+      </header>
+
+      <p class="search-description">게시글 제목과 본문에서 원하는 내용을 찾아보세요.</p>
+      <div id="overlay-search" class="search-host"></div>
+    </div>
+  </div>
+</dialog>
+
+<script>
+  import { PagefindUI } from "@pagefind/default-ui";
+  import "@pagefind/default-ui/css/ui.css";
+
+  const trigger = document.querySelector<HTMLButtonElement>("[data-search-open]");
+  const dialog = document.querySelector<HTMLDialogElement>("[data-search-dialog]");
+  const closeButton = document.querySelector<HTMLButtonElement>("[data-search-close]");
+  const surface = document.querySelector<HTMLElement>("[data-search-surface]");
+  let initialized = false;
+  let previousOverflow = "";
+
+  const focusSearch = () => {
+    requestAnimationFrame(() => {
+      document.querySelector<HTMLInputElement>("#overlay-search .pagefind-ui__search-input")?.focus();
+    });
+  };
+
+  const openSearch = () => {
+    if (!dialog) return;
+
+    if (!initialized) {
+      new PagefindUI({
+        element: "#overlay-search",
+        debouncedTimeoutMs: 250,
+        showImages: false,
+        autofocus: false,
+        translations: {
+          placeholder: "검색어를 입력하세요",
+          clear_search: "검색어 지우기",
+          load_more: "검색 결과 더 보기",
+          search_label: "블로그 검색",
+          zero_results: "[SEARCH_TERM]에 대한 결과가 없습니다",
+          many_results: "[SEARCH_TERM]에 대한 결과 [COUNT]건",
+          one_result: "[SEARCH_TERM]에 대한 결과 1건",
+          searching: "[SEARCH_TERM] 검색 중...",
+          results_label: "검색 결과",
+          input_hint: "입력하는 동안 결과가 표시됩니다",
+          loading: "불러오는 중",
+        },
+      });
+      initialized = true;
+    }
+
+    previousOverflow = document.documentElement.style.overflow;
+    document.documentElement.style.overflow = "hidden";
+    dialog.showModal();
+    focusSearch();
+  };
+
+  const closeSearch = () => dialog?.close();
+
+  trigger?.addEventListener("click", openSearch);
+  closeButton?.addEventListener("click", closeSearch);
+  surface?.addEventListener("click", (event) => {
+    if (event.target === surface) closeSearch();
+  });
+  dialog?.addEventListener("close", () => {
+    document.documentElement.style.overflow = previousOverflow;
+    trigger?.focus();
+  });
+</script>
+
+<style>
+  .search-trigger,
+  .search-close {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 38px;
+    height: 38px;
+    padding: 0;
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    background: var(--surface);
+    color: var(--text-2);
+    cursor: pointer;
+    transition: border-color 0.15s ease, color 0.15s ease, transform 0.15s ease;
+  }
+  .search-trigger:hover,
+  .search-close:hover {
+    border-color: var(--brand);
+    color: var(--brand);
+    transform: translateY(-1px);
+  }
+  .search-trigger svg { width: 17px; height: 17px; stroke-width: 1.8; }
+  .search-close svg { width: 18px; height: 18px; stroke-width: 1.8; stroke-linecap: round; }
+
+  .search-dialog {
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    max-width: none;
+    height: 100%;
+    max-height: none;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    color: var(--text);
+    overflow: hidden;
+  }
+  .search-dialog::backdrop { background: transparent; }
+  .search-dialog[open] { animation: overlay-in 0.18s ease-out; }
+  .search-surface {
+    width: 100%;
+    height: 100%;
+    overflow-y: auto;
+    background:
+      radial-gradient(700px 300px at 50% 0%, var(--brand-soft), transparent 72%),
+      var(--bg);
+  }
+  .search-shell {
+    width: min(760px, 100%);
+    min-height: 100%;
+    margin: 0 auto;
+    padding: clamp(1.25rem, 4vw, 3rem) 1.25rem 4rem;
+  }
+  .search-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 1.5rem;
+  }
+  .search-eyebrow {
+    display: block;
+    margin-bottom: 0.35rem;
+    color: var(--brand);
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+  .search-header h2 { margin: 0; font-size: clamp(1.7rem, 4vw, 2.25rem); }
+  .search-description { margin: 0.55rem 0 2rem; color: var(--text-2); }
+  .search-host { min-height: 8rem; }
+
+  :global(#overlay-search .pagefind-ui) {
+    --pagefind-ui-scale: 1;
+    --pagefind-ui-primary: var(--brand);
+    --pagefind-ui-text: var(--text);
+    --pagefind-ui-background: var(--surface);
+    --pagefind-ui-border: var(--border-strong);
+    --pagefind-ui-tag: var(--brand-soft);
+    font-family: inherit;
+  }
+  :global(#overlay-search .pagefind-ui__search-input) {
+    height: 4.2rem !important;
+    border: 1px solid var(--border-strong) !important;
+    border-radius: var(--radius) !important;
+    background-color: var(--surface) !important;
+    color: var(--text) !important;
+    box-shadow: var(--shadow-md) !important;
+    font-size: 1.05rem !important;
+  }
+  :global(#overlay-search .pagefind-ui__search-input:focus) {
+    border-color: var(--brand) !important;
+    outline: 3px solid var(--brand-soft) !important;
+  }
+  :global(#overlay-search .pagefind-ui__search-clear) {
+    color: var(--brand-strong) !important;
+  }
+  :global(#overlay-search .pagefind-ui__drawer) { margin-top: 1.4rem !important; }
+  :global(#overlay-search .pagefind-ui__result) {
+    padding: 1.25rem 0 !important;
+    border-top: 1px solid var(--border) !important;
+  }
+  :global(#overlay-search .pagefind-ui__result-link) {
+    color: var(--text) !important;
+    font-weight: 700 !important;
+  }
+  :global(#overlay-search .pagefind-ui__result-link:hover) { color: var(--brand-strong) !important; }
+  :global(#overlay-search .pagefind-ui__result-excerpt) { color: var(--text-2) !important; }
+  :global(#overlay-search .pagefind-ui__button) {
+    border: 1px solid var(--border-strong) !important;
+    border-radius: var(--radius-sm) !important;
+    background: var(--surface) !important;
+    color: var(--text-2) !important;
+  }
+
+  @keyframes overlay-in {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  @media (max-width: 640px) {
+    .search-shell { padding-top: 1.25rem; }
+    .search-description { margin-bottom: 1.5rem; }
+    :global(#overlay-search .pagefind-ui__search-input) { height: 3.8rem !important; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .search-dialog[open] { animation: none; }
+  }
+</style>

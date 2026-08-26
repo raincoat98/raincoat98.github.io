@@ -1,0 +1,45 @@
+---
+const year = new Date().getFullYear();
+---
+<footer class="site-footer">
+  <div class="footer-inner">
+    <p class="copy">© {year} Raincoat · 우상욱</p>
+    <div class="links">
+      <a href="https://github.com/raincoat98" rel="noopener" target="_blank">GitHub</a>
+      <a href="mailto:raincoat@kakao.com">이메일</a>
+      <a href="/rss.xml">RSS</a>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .site-footer {
+    border-top: 1px solid var(--border);
+    margin-top: 4rem;
+    padding: 1.5rem 0;
+  }
+  .footer-inner {
+    max-width: var(--max-w);
+    margin: 0 auto;
+    padding: 0 1.25rem;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .copy {
+    color: var(--text-3);
+    font-size: 0.9rem;
+    margin: 0;
+  }
+  .links {
+    display: flex;
+    gap: 1.1rem;
+  }
+  .links a {
+    color: var(--text-2);
+    font-size: 0.9rem;
+  }
+  .links a:hover { color: var(--brand); }
+</style>

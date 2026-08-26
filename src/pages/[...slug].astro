@@ -1,0 +1,143 @@
+---
+import { getCollection, render } from "astro:content";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Comments from "../components/Comments.astro";
+import Toc from "../components/Toc.astro";
+
+// content collection에서 정적 생성 (intro, posts, examples 전부 — examples는 noindex 처리)
+export async function getStaticPaths() {
+  const posts = await getCollection("docs");
+  return posts.map((post) => ({
+    params: { slug: post.id },
+    props: { post },
+  }));
+}
+
+const { post } = Astro.props;
+const { Content, headings } = await render(post);
+
+// 태그·카테고리 표시명 (색상 메타 분리)
+const tags = post.data.tags.map((t) => t.split("|")[0].trim());
+const category = post.data.categories[0]?.split("|")[0].trim();
+
+const title = post.data.title || "";
+const isExamples = post.id.startsWith("examples/");
+const pubIso = post.data.created || post.data.date;
+const modIso = post.data.updated;
+
+const breadcrumb = post.id
+  .split("/")
+  .filter(Boolean)
+  .slice(0, -1)
+  .map((seg) => seg.replace(/-/g, " ").replace(/\b\w/g, (c) => c.toUpperCase()));
+
+const fmtFull = (d?: Date) =>
+  d
+    ? new Intl.DateTimeFormat("ko-KR", { year: "numeric", month: "long", day: "numeric" }).format(d)
+    : "";
+
+const toc = headings.filter((h) => h.depth >= 2 && h.depth <= 3);
+---
+<BaseLayout
+  title={title || category || "Raincoat"}
+  description={post.data.description}
+  image={post.data.image ? `/${post.id.replace(/\/[^/]+$/, "")}/${post.data.image}` : undefined}
+  type="article"
+  path={`/${post.id}`}
+  noindex={isExamples}
+  tags={tags}
+  publishedTime={pubIso?.toISOString()}
+  modifiedTime={modIso?.toISOString()}
+  breadcrumb={breadcrumb}
+>
+  <div class="post-layout">
+    <header class="post-header">
+      {category && <span class="category">{category}</span>}
+              <h1 data-pagefind-body>{title}</h1>
+      {post.data.description && <p class="lead">{post.data.description}</p>}
+      <div class="post-meta">
+        {pubIso && <time datetime={pubIso.toISOString()}>작성 {fmtFull(pubIso)}</time>}
+        {modIso && pubIso?.getTime() !== modIso.getTime() && (
+          <span>업데이트 {fmtFull(modIso)}</span>
+        )}
+        {post.data.readingTime && <span>약 {post.data.readingTime}분 읽기</span>}
+      </div>
+      {tags.length > 0 && (
+        <div class="post-tags">
+          {tags.map((t) => (
+            <a class="tag" href={`/tags/${t.toLowerCase()}`}>#{t}</a>
+          ))}
+        </div>
+      )}
+    </header>
+
+    {!isExamples && toc.length > 0 && <Toc headings={toc} />}
+
+    <div class="post-body prose">
+      <Content />
+    </div>
+  </div>
+
+  {!isExamples && <Comments />}
+</BaseLayout>
+
+<style>
+  .post-layout {
+    max-width: var(--max-w);
+    margin: 0 auto;
+    padding: 2.6rem 1.25rem 0;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 220px;
+    grid-template-areas: "header toc" "body toc";
+    gap: 3rem;
+  }
+  .post-header { grid-area: header; max-width: var(--content-w); margin-bottom: 2rem; }
+  .post-body { grid-area: body; max-width: var(--content-w); min-width: 0; }
+  .post-header .category {
+    display: inline-block;
+    background: var(--brand-soft);
+    color: var(--brand-strong);
+    padding: 0.2rem 0.7rem;
+    border-radius: 999px;
+    font-size: 0.82rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+  }
+  .post-header h1 { margin: 0 0 0.7rem; font-size: clamp(1.7rem, 3.5vw, 2.3rem); }
+  .post-header .lead { color: var(--text-2); margin: 0 0 1.2rem; font-size: 1.05rem; }
+  .post-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.1rem;
+    color: var(--text-3);
+    font-size: 0.86rem;
+    padding-bottom: 1.2rem;
+    border-bottom: 1px solid var(--border);
+  }
+  .post-tags { display: flex; flex-wrap: wrap; gap: 0.45rem; margin-top: 1rem; }
+  .tag {
+    color: var(--brand);
+    font-size: 0.82rem;
+    font-weight: 500;
+    padding: 0.2rem 0.6rem;
+    border-radius: 999px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+  }
+  .tag:hover { border-color: var(--brand); text-decoration: none; }
+
+  .prose { line-height: 1.85; }
+  .prose > :first-child { margin-top: 0; }
+  .prose h1, .prose h2, .prose h3, .prose h4 { margin-top: 2.2rem; }
+  .prose h2 { padding-bottom: 0.45rem; border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 0.5rem; }
+  .prose table { display: block; overflow-x: auto; }
+  .prose :not(pre) > code { background: var(--brand-soft); }
+
+  @media (max-width: 900px) {
+    .post-layout { grid-template-columns: 1fr; grid-template-areas: "header" "toc" "body"; gap: 1rem; }
+    .post-header, .post-body { max-width: none; }
+  }
+  @media (max-width: 640px) {
+    .post-layout { padding-top: 1.8rem; }
+  }
+</style>

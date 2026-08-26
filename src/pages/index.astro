@@ -1,0 +1,82 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import LatestPosts from "../components/LatestPosts.astro";
+import { getPostCategories, getPublishedPosts, POSTS_PER_PAGE } from "../lib/posts";
+
+const posts = await getPublishedPosts();
+const categories = getPostCategories(posts);
+const totalCount = posts.length;
+const totalPages = Math.ceil(totalCount / POSTS_PER_PAGE);
+const firstPagePosts = posts.slice(0, POSTS_PER_PAGE);
+---
+<BaseLayout title="Raincoat" description="프론트엔드 개발자 블로그. 웹 개발 경험과 지식을 공유합니다." path="/">
+  <section class="hero">
+    <div class="hero-inner">
+      <span class="hero-eyebrow">Frontend Developer Blog</span>
+      <h1 class="hero-title" data-pagefind-body>Raincoat</h1>
+      <p class="hero-sub">프론트엔드 개발자 우상욱의 실무 개발 기록</p>
+      <p class="hero-stack" aria-label="주요 기술 스택">
+        React <span aria-hidden="true">·</span> Next.js <span aria-hidden="true">·</span> Vue <span aria-hidden="true">·</span> TypeScript <span aria-hidden="true">·</span> JavaScript <span aria-hidden="true">·</span> NestJS
+      </p>
+    </div>
+  </section>
+
+  <LatestPosts
+    posts={firstPagePosts}
+    categories={categories}
+    totalCount={totalCount}
+    currentPage={1}
+    totalPages={totalPages}
+  />
+</BaseLayout>
+
+<style>
+  .hero {
+    position: relative;
+    overflow: hidden;
+    border-bottom: 1px solid var(--border);
+    background:
+      radial-gradient(900px 400px at 50% -20%, var(--brand-glow), transparent 70%),
+      var(--bg);
+    padding: 5rem 0 4rem;
+  }
+  .hero-inner {
+    max-width: var(--max-w);
+    margin: 0 auto;
+    padding: 0 1.25rem;
+    text-align: center;
+  }
+  .hero-eyebrow {
+    display: inline-block;
+    font-size: 0.82rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--brand);
+    margin-bottom: 0.9rem;
+  }
+  .hero-title {
+    margin: 0;
+    font-size: clamp(2.4rem, 6vw, 3.6rem);
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    background: linear-gradient(135deg, var(--hero-title-start), var(--hero-title-end));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  .hero-sub { font-size: 1.18rem; font-weight: 600; color: var(--text); margin: 0.7rem 0 0; }
+  .hero-stack {
+    margin: 1.4rem auto 0;
+    font-family: ui-monospace, "SF Mono", SFMono-Regular, Menlo, Consolas, monospace;
+    font-size: 0.92rem;
+    letter-spacing: 0.01em;
+    color: var(--text-2);
+  }
+  .hero-stack span { color: var(--brand); margin: 0 0.35rem; }
+
+
+  @media (max-width: 640px) {
+    .hero { padding: 3.5rem 0 3rem; }
+  }
+</style>
