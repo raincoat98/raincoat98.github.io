@@ -19,6 +19,12 @@
   --brand-strong: #6d28d9;
   --brand-soft: rgb(124 58 237 / 0.1);
   --brand-glow: rgb(124 58 237 / 0.22);
+  --brand-fill: #7c3aed;
+  --brand-fill-strong: #6d28d9;
+  --cta-fill: #7c3aed;
+  --cta-fill-strong: #6d28d9;
+  --hero-title-start: #7c3aed;
+  --hero-title-end: #8b5cf6;
 
   /* surfaces */
   --bg: #fbfbfd;
@@ -54,6 +60,12 @@
   --brand-strong: #c4b5fd;
   --brand-soft: rgb(167 139 250 / 0.14);
   --brand-glow: rgb(167 139 250 / 0.24);
+  --brand-fill: #6d28d9;
+  --brand-fill-strong: #4c1d95;
+  --cta-fill: #5b21b6;
+  --cta-fill-strong: #3b0764;
+  --hero-title-start: #e7e9f5;
+  --hero-title-end: #c4b5fd;
 
   --bg: #0f1117;
   --bg-alt: #171a23;
