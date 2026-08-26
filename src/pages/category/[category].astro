@@ -38,6 +38,10 @@ const segments = category.toLowerCase();
 ---
 <BaseLayout title={`${category} · 카테고리`} description={`${category} 카테고리 포스트 목록입니다.`} path={`/category/${segments}`} breadcrumb={[`category/${segments}`]}>
   <div class="page">
+    <a class="back-link" href="/#latest-posts">
+      <span aria-hidden="true">←</span>
+      최신 글로 돌아가기
+    </a>
     <header class="page-head">
       <span class="eyebrow">Category</span>
       <h1 class="kicker">{category}</h1>
@@ -62,6 +66,27 @@ const segments = category.toLowerCase();
 <style>
   .page { max-width: var(--max-w); margin: 0 auto; padding: 3rem 1.25rem 4rem; }
   .page-head { margin-bottom: 2rem; }
+  .back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    margin-bottom: 1.5rem;
+    padding: 0.45rem 0.8rem;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    background: var(--surface);
+    color: var(--text-2);
+    font-size: 0.88rem;
+    font-weight: 600;
+    line-height: 1.2;
+    transition: border-color 0.15s ease, background-color 0.15s ease, color 0.15s ease;
+  }
+  .back-link:hover {
+    border-color: var(--brand);
+    background: var(--brand-soft);
+    color: var(--brand-strong);
+    text-decoration: none;
+  }
   .eyebrow {
     display: inline-block;
     font-size: 0.78rem;
