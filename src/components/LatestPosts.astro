@@ -23,7 +23,7 @@ const fmtDate = (date?: Date) =>
   date ? new Intl.DateTimeFormat("ko-KR", { year: "numeric", month: "short", day: "numeric" }).format(date) : "";
 const pageHref = (page: number) => page === 1 ? "/#latest-posts" : `/page/${page}/#latest-posts`;
 ---
-<div class:list={["layout", { "page-layout": headingLevel === "h1" }]}>
+<div class:list={["layout", { "page-layout": headingLevel === "h1" }]} data-pagefind-ignore>
   <div class="toolbar">
     <div>
       {headingLevel === "h1" ? (
