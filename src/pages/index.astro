@@ -14,12 +14,10 @@ const firstPagePosts = posts.slice(0, POSTS_PER_PAGE);
     <div class="hero-inner">
       <span class="hero-eyebrow">Frontend Developer Blog</span>
       <h1 class="hero-title" data-pagefind-body>Raincoat</h1>
-      <p class="hero-sub">프론트엔드 개발자 우상욱의 개발 블로그</p>
-      <p class="hero-tagline">웹 개발 경험과 지식을 공유합니다</p>
-      <div class="hero-actions">
-        <a class="btn primary" href="/introduce/my-develop">소개 보기</a>
-        <a class="btn ghost" href="/introduce/careers">포트폴리오</a>
-      </div>
+      <p class="hero-sub">프론트엔드 개발자 우상욱의 실무 개발 기록</p>
+      <p class="hero-stack" aria-label="주요 기술 스택">
+        React <span aria-hidden="true">·</span> Next.js <span aria-hidden="true">·</span> Vue <span aria-hidden="true">·</span> TypeScript <span aria-hidden="true">·</span> JavaScript <span aria-hidden="true">·</span> NestJS
+      </p>
     </div>
   </section>
 
@@ -67,24 +65,15 @@ const firstPagePosts = posts.slice(0, POSTS_PER_PAGE);
     background-clip: text;
     color: transparent;
   }
-  .hero-sub { font-size: 1.2rem; font-weight: 600; color: var(--text); margin: 0.6rem 0 0; }
-  .hero-tagline { color: var(--text-2); margin: 0.3rem 0 1.8rem; }
-  .hero-actions { display: flex; gap: 0.7rem; justify-content: center; }
-  .btn {
-    display: inline-flex;
-    padding: 0.6rem 1.3rem;
-    border-radius: 999px;
-    font-weight: 600;
-    font-size: 0.95rem;
-    transition: transform 0.15s ease, box-shadow 0.15s ease, background-color 0.15s ease;
+  .hero-sub { font-size: 1.18rem; font-weight: 600; color: var(--text); margin: 0.7rem 0 0; }
+  .hero-stack {
+    margin: 1.4rem auto 0;
+    font-family: ui-monospace, "SF Mono", SFMono-Regular, Menlo, Consolas, monospace;
+    font-size: 0.92rem;
+    letter-spacing: 0.01em;
+    color: var(--text-2);
   }
-  .btn:hover { text-decoration: none; transform: translateY(-2px); }
-  .btn.primary {
-    background: linear-gradient(135deg, var(--cta-fill), var(--cta-fill-strong));
-    color: #fff;
-    box-shadow: 0 6px 18px -6px var(--brand-glow);
-  }
-  .btn.ghost { border: 1px solid var(--border-strong); color: var(--text); background: var(--surface); }
+  .hero-stack span { color: var(--brand); margin: 0 0.35rem; }
 
 
   @media (max-width: 640px) {
