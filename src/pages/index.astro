@@ -1,20 +1,13 @@
 ---
-import { getCollection } from "astro:content";
 import BaseLayout from "../layouts/BaseLayout.astro";
+import LatestPosts from "../components/LatestPosts.astro";
+import { getPostCategories, getPublishedPosts, POSTS_PER_PAGE } from "../lib/posts";
 
-const all = await getCollection("docs");
-const posts = all
-  .filter((p) => !!p.data.title && !p.id.includes("examples/") && !p.data.draft)
-  .sort((a, b) => {
-    const ad = a.data.created ?? a.data.date;
-    const bd = b.data.created ?? b.data.date;
-    return (bd?.getTime?.() ?? 0) - (ad?.getTime?.() ?? 0);
-  });
-
-const categories = [...new Set(posts.flatMap((p) => p.data.categories.map((c) => c.split("|")[0].trim())))].sort();
+const posts = await getPublishedPosts();
+const categories = getPostCategories(posts);
 const totalCount = posts.length;
-const fmtDate = (d?: Date) =>
-  d ? new Intl.DateTimeFormat("ko-KR", { year: "numeric", month: "short", day: "numeric" }).format(d) : "";
+const totalPages = Math.ceil(totalCount / POSTS_PER_PAGE);
+const firstPagePosts = posts.slice(0, POSTS_PER_PAGE);
 ---
 <BaseLayout title="Raincoat" description="프론트엔드 개발자 블로그. 웹 개발 경험과 지식을 공유합니다." path="/">
   <section class="hero">
@@ -30,38 +23,13 @@ const fmtDate = (d?: Date) =>
     </div>
   </section>
 
-  <div class="layout">
-    <div class="toolbar">
-      <div>
-        <h2 class="section-title">최신 글</h2>
-        <p class="section-sub">총 {totalCount}개</p>
-      </div>
-      <div class="cat-links" aria-label="카테고리">
-        {categories.map((c) => (
-          <a href={`/category/${c.toLowerCase()}`} class="cat-chip">{c}</a>
-        ))}
-      </div>
-    </div>
-
-    <div class="posts-grid">
-      {
-        posts.map((post) => (
-          <a class="card" href={`/${post.id}/`}>
-            <div class="card-top">
-              <span class="badge">{post.data.categories[0]?.split("|")[0].trim() || "글"}</span>
-              <time datetime={post.data.created?.toISOString()}>{fmtDate(post.data.created ?? post.data.date)}</time>
-            </div>
-            <h3>{post.data.title}</h3>
-            {post.data.description && <p class="desc">{post.data.description}</p>}
-            <div class="card-foot">
-              {post.data.readingTime && <span>약 {post.data.readingTime}분</span>}
-              <span class="arrow" aria-hidden="true">→</span>
-            </div>
-          </a>
-        ))
-      }
-    </div>
-  </div>
+  <LatestPosts
+    posts={firstPagePosts}
+    categories={categories}
+    totalCount={totalCount}
+    currentPage={1}
+    totalPages={totalPages}
+  />
 </BaseLayout>
 
 <style>
@@ -94,7 +62,7 @@ const fmtDate = (d?: Date) =>
     font-size: clamp(2.4rem, 6vw, 3.6rem);
     font-weight: 800;
     letter-spacing: -0.03em;
-    background: linear-gradient(135deg, var(--text), var(--brand-strong));
+    background: linear-gradient(135deg, var(--hero-title-start), var(--hero-title-end));
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
@@ -112,100 +80,14 @@ const fmtDate = (d?: Date) =>
   }
   .btn:hover { text-decoration: none; transform: translateY(-2px); }
   .btn.primary {
-    background: linear-gradient(135deg, var(--brand), var(--brand-strong));
+    background: linear-gradient(135deg, var(--cta-fill), var(--cta-fill-strong));
     color: #fff;
     box-shadow: 0 6px 18px -6px var(--brand-glow);
   }
   .btn.ghost { border: 1px solid var(--border-strong); color: var(--text); background: var(--surface); }
 
-  .layout {
-    max-width: var(--max-w);
-    margin: 0 auto;
-    padding: 2.8rem 1.25rem 4rem;
-  }
-  .toolbar {
-    display: flex;
-    align-items: flex-end;
-    justify-content: space-between;
-    gap: 1rem;
-    flex-wrap: wrap;
-    margin-bottom: 1.6rem;
-  }
-  .section-title { margin: 0; font-size: 1.5rem; }
-  .section-sub { margin: 0.2rem 0 0; color: var(--text-3); font-size: 0.92rem; }
-  .cat-links { display: flex; flex-wrap: wrap; gap: 0.4rem; }
-  .cat-chip {
-    padding: 0.3rem 0.8rem;
-    border: 1px solid var(--border);
-    border-radius: 999px;
-    color: var(--text-2);
-    font-size: 0.85rem;
-    transition: border-color 0.15s ease, color 0.15s ease;
-  }
-  .cat-chip:hover { border-color: var(--brand); color: var(--brand); text-decoration: none; }
-
-  .posts-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    gap: 1.2rem;
-  }
-  .card {
-    display: flex;
-    flex-direction: column;
-    gap: 0.6rem;
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    background: var(--surface);
-    padding: 1.3rem 1.4rem;
-    color: inherit;
-    box-shadow: var(--shadow-sm);
-    transition: transform 0.18s ease, border-color 0.18s ease, box-shadow 0.18s ease;
-  }
-  .card:hover {
-    transform: translateY(-3px);
-    border-color: var(--brand);
-    box-shadow: var(--shadow-md);
-    text-decoration: none;
-  }
-  .card-top {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 0.5rem;
-  }
-  .badge {
-    background: var(--brand-soft);
-    color: var(--brand-strong);
-    padding: 0.15rem 0.6rem;
-    border-radius: 999px;
-    font-size: 0.78rem;
-    font-weight: 600;
-  }
-  .card-top time { color: var(--text-3); font-size: 0.82rem; }
-  .card h3 { margin: 0.2rem 0 0; font-size: 1.08rem; line-height: 1.4; }
-  .card .desc {
-    color: var(--text-2);
-    font-size: 0.9rem;
-    margin: 0;
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-    flex: 1;
-  }
-  .card-foot {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    color: var(--text-3);
-    font-size: 0.85rem;
-    margin-top: 0.3rem;
-  }
-  .card-foot .arrow { color: var(--brand); font-weight: 700; transition: transform 0.15s ease; }
-  .card:hover .arrow { transform: translateX(3px); }
 
   @media (max-width: 640px) {
-    .posts-grid { grid-template-columns: 1fr; }
     .hero { padding: 3.5rem 0 3rem; }
   }
 </style>

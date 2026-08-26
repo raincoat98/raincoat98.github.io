@@ -1,0 +1,57 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import LatestPosts from "../../components/LatestPosts.astro";
+import {
+  getPostCategories,
+  getPublishedPosts,
+  POSTS_PER_PAGE,
+  type Post,
+} from "../../lib/posts";
+
+interface Props {
+  posts: Post[];
+  categories: string[];
+  totalCount: number;
+  currentPage: number;
+  totalPages: number;
+}
+
+export async function getStaticPaths() {
+  const allPosts = await getPublishedPosts();
+  const totalCount = allPosts.length;
+  const totalPages = Math.ceil(totalCount / POSTS_PER_PAGE);
+  const categories = getPostCategories(allPosts);
+
+  return Array.from({ length: Math.max(totalPages - 1, 0) }, (_, index) => {
+    const currentPage = index + 2;
+    const start = (currentPage - 1) * POSTS_PER_PAGE;
+
+    return {
+      params: { page: String(currentPage) },
+      props: {
+        posts: allPosts.slice(start, start + POSTS_PER_PAGE),
+        categories,
+        totalCount,
+        currentPage,
+        totalPages,
+      },
+    };
+  });
+}
+
+const { posts, categories, totalCount, currentPage, totalPages } = Astro.props;
+---
+<BaseLayout
+  title={`최신 글 ${currentPage}페이지`}
+  description={`Raincoat 블로그의 최신 글 ${currentPage}페이지입니다.`}
+  path={`/page/${currentPage}/`}
+>
+  <LatestPosts
+    posts={posts}
+    categories={categories}
+    totalCount={totalCount}
+    currentPage={currentPage}
+    totalPages={totalPages}
+    headingLevel="h1"
+  />
+</BaseLayout>
