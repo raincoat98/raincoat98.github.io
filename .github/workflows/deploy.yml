@@ -24,8 +24,6 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-        with:
-          fetch-depth: 0 # stats.json이 git 히스토리를 분석하므로 필요합니다
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
@@ -38,7 +36,7 @@ jobs:
       - name: Type check
         run: npm run check
       - name: Build with Astro
-        run: npm run build # stats.json 생성 → astro build → pagefind 색인
+        run: npm run build # astro build → pagefind 색인
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:

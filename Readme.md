@@ -20,7 +20,7 @@ npm run dev
 ## 스크립트
 
 - `npm run dev` — Astro 개발 서버
-- `npm run build` — `stats.json` 생성 → Astro 빌드 → Pagefind 색인 (`dist/`)
+- `npm run build` — Astro 빌드 → Pagefind 색인 (`dist/`)
 - `npm run check` — 타입 검사 (astro check)
 - `npm run preview` — 빌드 결과 미리보기
 

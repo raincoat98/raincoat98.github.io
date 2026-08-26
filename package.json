@@ -5,8 +5,7 @@
   "private": true,
   "scripts": {
     "dev": "astro dev",
-    "stats": "node scripts/generateStats.mjs",
-    "build": "node scripts/generateStats.mjs && astro build && pagefind --site dist",
+    "build": "astro build && pagefind --site dist",
     "preview": "astro preview",
     "preview:search": "npm run build && python3 -m http.server 4173 --directory dist",
     "check": "astro check",
