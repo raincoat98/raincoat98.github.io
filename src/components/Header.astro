@@ -1,12 +1,12 @@
 ---
 import ThemeToggle from "./ThemeToggle.astro";
+import SearchOverlay from "./SearchOverlay.astro";
 const nav = [
   { text: "홈", href: "/" },
   { text: "소개", href: "/introduce/my-develop" },
   { text: "Git", href: "/git/git-complete-guide" },
   { text: "프론트엔드", href: "/category/react" },
   { text: "데이터베이스", href: "/category/database" },
-  { text: "검색", href: "/search/" },
   { text: "태그", href: "/tags" },
 ];
 const current = Astro.url;
@@ -41,6 +41,7 @@ const isActiveHome = current.pathname === "/";
     </nav>
 
     <div class="header-actions">
+      <SearchOverlay />
       <ThemeToggle />
     </div>
   </div>
