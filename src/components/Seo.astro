@@ -39,7 +39,8 @@ const finalKeywords =
   keywords.length > 0
     ? keywords.join(", ")
     : "React, Next.js, JavaScript, TypeScript, 프론트엔드 개발, 웹개발, 프론트엔드, UI/UX, 컴포넌트 설계, React Hooks, React Query, Redux, Zustand, Tailwind CSS";
-const canonical = `${url}${path === "/" ? "" : path}`;
+const pathSlug = path === "/" ? "" : path.endsWith("/") ? path : `${path}/`;
+const canonical = `${url}${pathSlug}`;
 const ogImage = image
   ? image.startsWith("http")
     ? image
@@ -49,11 +50,11 @@ const authorName = "SangWook Woo";
 ---
 
 <meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>{finalTitle}</title>
 <meta name="description" content={finalDesc} />
 <meta name="author" content={authorName} />
-<link rel="canonical" href={canonical} />
+<link rel="canonical" href={canonical} data-pagefind-meta="url[href]" />
 {
   noindex
     ? <meta name="robots" content="noindex, nofollow" />
@@ -66,7 +67,7 @@ const authorName = "SangWook Woo";
 <meta name="theme-color" content="#646cff" />
 <meta name="color-scheme" content="light dark" />
 <meta name="format-detection" content="telephone=no" />
-<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="mobile-web-app-capable" content="yes" />
 <meta name="apple-mobile-web-app-status-bar-style" content="default" />
 <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
 <link rel="alternate icon" href="/favicon.svg" />
@@ -79,6 +80,7 @@ const authorName = "SangWook Woo";
 <meta property="og:url" content={canonical} />
 <meta property="og:locale" content="ko_KR" />
 <meta property="og:image" content={ogImage} />
+<meta property="og:image:secure_url" content={ogImage} />
 <meta property="og:image:alt" content={title} />
 <meta property="og:image:width" content="1200" />
 <meta property="og:image:height" content="630" />
@@ -132,6 +134,25 @@ const authorName = "SangWook Woo";
         { "@type": "ListItem", position: 1, name: "Home", item: `${url}/` },
         ...breadcrumb.map((seg, i) => ({ "@type": "ListItem", position: i + 2, name: seg, item: `${url}/${seg}` })),
       ],
+    })} />
+  )
+}
+
+<!-- 사이트(홈) 구조화 -->
+{
+  type === "website" && path === "/" && (
+    <script type="application/ld+json" is:inline set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      name: sitename,
+      url: `${url}/`,
+      description: siteDesc || description || undefined,
+      inLanguage: "ko-KR",
+      publisher: {
+        "@type": "Organization",
+        name: sitename,
+        logo: { "@type": "ImageObject", url: `${url}/favicon.svg` },
+      },
     })} />
   )
 }
