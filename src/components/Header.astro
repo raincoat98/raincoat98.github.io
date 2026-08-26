@@ -15,7 +15,13 @@ const isActiveHome = current.pathname === "/";
 <header class="site-header">
   <div class="header-inner">
     <a class="logo" href="/" aria-label="Raincoat 블로그 홈">
-      <span class="logo-mark" aria-hidden="true">R</span>
+      <span class="logo-mark" aria-hidden="true">
+        <svg viewBox="0 0 32 32" fill="none">
+          <path d="M5.5 17.5 A10.5 9.5 0 0 1 26.5 17.5 Z" fill="currentColor"/>
+          <path d="M16 17.5 L16 24.5 Q16 27.5 13.2 27.5 Q10.5 27.5 10.5 25 Q10.5 23.5 12.2 23.5"
+                stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </span>
       <span class="logo-text">Raincoat</span>
     </a>
 
@@ -84,9 +90,12 @@ const isActiveHome = current.pathname === "/";
     border-radius: 9px;
     background: linear-gradient(135deg, var(--brand-fill), var(--brand-fill-strong));
     color: #fff;
-    font-weight: 800;
-    font-size: 1rem;
     box-shadow: 0 4px 12px -4px var(--brand-glow);
+  }
+  .logo-mark svg {
+    width: 20px;
+    height: 20px;
+    display: block;
   }
   .logo-text {
     font-weight: 800;
