@@ -6,7 +6,6 @@ Astro 기반 기술 블로그. Content Collections(콘텐츠 컬렉션)로 마�
 관리하고 SEO·검색(Pagefind)·RSS·댓글(utterances)을 포함한다.
 
 > 이 브랜치(`feat/astro-migration`)는 VitePress → Astro 이관 진행 상태입니다.
-> 이관 계획은 `docs/astro-migration-plan.md`를 참고하세요.
 
 ## 설치 방법
 
