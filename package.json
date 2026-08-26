@@ -8,6 +8,7 @@
     "stats": "node scripts/generateStats.mjs",
     "build": "node scripts/generateStats.mjs && astro build && pagefind --site dist",
     "preview": "astro preview",
+    "preview:search": "astro build && python3 -m http.server 4173 --directory dist",
     "check": "astro check",
     "search:index": "pagefind --site dist"
   },
