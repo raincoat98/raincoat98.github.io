@@ -51,6 +51,7 @@ const { headings } = Astro.props;
 
 <style>
   .toc {
+    grid-area: toc;
     position: sticky;
     top: calc(var(--header-h) + 28px);
     max-height: calc(100vh - var(--header-h) - 56px);
@@ -89,5 +90,8 @@ const { headings } = Astro.props;
     border-left-color: var(--brand);
     font-weight: 600;
   }
-  .toc li.is-h3 a { padding-left: 1.2rem; font-size: 0.82rem; }
+
+  @media (max-width: 900px) {
+    .toc { position: static; max-height: none; margin-bottom: 1.5rem; padding: 0; }
+  }
 </style>

@@ -51,33 +51,31 @@ const toc = headings.filter((h) => h.depth >= 2 && h.depth <= 3);
   breadcrumb={breadcrumb}
 >
   <div class="post-layout">
-    <article class="post">
-      <header class="post-header">
-        {category && <span class="category">{category}</span>}
-        <h1>{title}</h1>
-        {post.data.description && <p class="lead">{post.data.description}</p>}
-        <div class="post-meta">
-          {pubIso && <time datetime={pubIso.toISOString()}>작성 {fmtFull(pubIso)}</time>}
-          {modIso && pubIso?.getTime() !== modIso.getTime() && (
-            <span>업데이트 {fmtFull(modIso)}</span>
-          )}
-          {post.data.readingTime && <span>약 {post.data.readingTime}분 읽기</span>}
-        </div>
-        {tags.length > 0 && (
-          <div class="post-tags">
-            {tags.map((t) => (
-              <a class="tag" href={`/tags/${t.toLowerCase()}`}>#{t}</a>
-            ))}
-          </div>
+    <header class="post-header">
+      {category && <span class="category">{category}</span>}
+      <h1>{title}</h1>
+      {post.data.description && <p class="lead">{post.data.description}</p>}
+      <div class="post-meta">
+        {pubIso && <time datetime={pubIso.toISOString()}>작성 {fmtFull(pubIso)}</time>}
+        {modIso && pubIso?.getTime() !== modIso.getTime() && (
+          <span>업데이트 {fmtFull(modIso)}</span>
         )}
-      </header>
-
-      <div class="post-body prose">
-        <Content />
+        {post.data.readingTime && <span>약 {post.data.readingTime}분 읽기</span>}
       </div>
-    </article>
+      {tags.length > 0 && (
+        <div class="post-tags">
+          {tags.map((t) => (
+            <a class="tag" href={`/tags/${t.toLowerCase()}`}>#{t}</a>
+          ))}
+        </div>
+      )}
+    </header>
 
     {!isExamples && toc.length > 0 && <Toc headings={toc} />}
+
+    <div class="post-body prose">
+      <Content />
+    </div>
   </div>
 
   {!isExamples && <Comments />}
@@ -90,13 +88,11 @@ const toc = headings.filter((h) => h.depth >= 2 && h.depth <= 3);
     padding: 2.6rem 1.25rem 0;
     display: grid;
     grid-template-columns: minmax(0, 1fr) 220px;
+    grid-template-areas: "header toc" "body toc";
     gap: 3rem;
   }
-  .post {
-    min-width: 0;
-    max-width: var(--content-w);
-  }
-  .post-header { margin-bottom: 2rem; }
+  .post-header { grid-area: header; max-width: var(--content-w); margin-bottom: 2rem; }
+  .post-body { grid-area: body; max-width: var(--content-w); min-width: 0; }
   .post-header .category {
     display: inline-block;
     background: var(--brand-soft);
@@ -138,8 +134,8 @@ const toc = headings.filter((h) => h.depth >= 2 && h.depth <= 3);
   .prose :not(pre) > code { background: var(--brand-soft); }
 
   @media (max-width: 900px) {
-    .post-layout { grid-template-columns: 1fr; gap: 1rem; }
-    .post { max-width: none; }
+    .post-layout { grid-template-columns: 1fr; grid-template-areas: "header" "toc" "body"; gap: 1rem; }
+    .post-header, .post-body { max-width: none; }
   }
   @media (max-width: 640px) {
     .post-layout { padding-top: 1.8rem; }
