@@ -37,14 +37,14 @@ const fmtDate = (d?: Date) =>
 const segments = category.toLowerCase();
 ---
 <BaseLayout title={`${category} · 카테고리`} description={`${category} 카테고리 포스트 목록입니다.`} path={`/category/${segments}`} breadcrumb={[`category/${segments}`]}>
-  <div class="page">
+  <div class="page" data-pagefind-ignore>
     <a class="back-link" href="/#latest-posts">
       <span aria-hidden="true">←</span>
       최신 글로 돌아가기
     </a>
     <header class="page-head">
       <span class="eyebrow">Category</span>
-      <h1 class="kicker" data-pagefind-body>{category}</h1>
+      <h1 class="kicker">{category}</h1>
       <p class="count">총 {posts.length}개의 글</p>
     </header>
 

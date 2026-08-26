@@ -16,10 +16,10 @@ for (const post of all) {
 const sorted = [...tags.entries()].sort((a, b) => b[1] - a[1]);
 ---
 <BaseLayout title="태그" description="전체 태그 목록입니다." path="/tags/">
-  <div class="page">
+  <div class="page" data-pagefind-ignore>
     <header class="page-head">
       <span class="eyebrow">Tags</span>
-      <h1 class="kicker" data-pagefind-body>태그</h1>
+      <h1 class="kicker">태그</h1>
       <p class="count">총 {sorted.length}개의 태그</p>
     </header>
 

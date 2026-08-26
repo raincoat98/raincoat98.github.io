@@ -34,10 +34,10 @@ const fmtDate = (d?: Date) =>
   d ? new Intl.DateTimeFormat("ko-KR", { year: "numeric", month: "2-digit", day: "2-digit" }).format(d) : "";
 ---
 <BaseLayout title={`${tag} · 태그`} description={`태그 ${tag} 포스트 목록입니다.`} path={`/tags/${tag}`} breadcrumb={[`tags/${tag}`]}>
-  <div class="page">
+  <div class="page" data-pagefind-ignore>
     <header class="page-head">
       <span class="eyebrow">Tag</span>
-      <h1 class="kicker" data-pagefind-body>#{tag}</h1>
+      <h1 class="kicker">#{tag}</h1>
       <p class="count">총 {posts.length}개의 글</p>
     </header>
 
