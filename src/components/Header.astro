@@ -11,6 +11,9 @@ const nav = [
 ];
 const current = Astro.url;
 const isActiveHome = current.pathname === "/";
+const isActive = (item: { href: string }) =>
+  (isActiveHome && item.href === "/") ||
+  (item.href !== "/" && current.pathname.startsWith(item.href));
 ---
 <header class="site-header">
   <div class="header-inner">
@@ -24,14 +27,7 @@ const isActiveHome = current.pathname === "/";
         {
           nav.map((item) => (
             <li>
-              <a
-                href={item.href}
-                class:list={{
-                  active:
-                    (isActiveHome && item.href === "/") ||
-                    (item.href !== "/" && current.pathname.startsWith(item.href)),
-                }}
-              >
+              <a href={item.href} class:list={{ active: isActive(item) }}>
                 {item.text}
               </a>
             </li>
@@ -43,9 +39,94 @@ const isActiveHome = current.pathname === "/";
     <div class="header-actions">
       <SearchOverlay />
       <ThemeToggle />
+      <button
+        class="nav-toggle"
+        type="button"
+        aria-label="메뉴 열기"
+        aria-expanded="false"
+        aria-controls="mobile-nav"
+        data-nav-toggle
+      >
+        <span></span><span></span><span></span>
+      </button>
     </div>
   </div>
 </header>
+
+<div class="drawer-backdrop" data-nav-backdrop hidden></div>
+<aside class="drawer" id="mobile-nav" aria-label="모바일 탐색" data-nav-drawer hidden>
+  <div class="drawer-header">
+    <a class="logo" href="/" aria-label="Raincoat 블로그 홈" data-nav-close>
+      <img class="logo-mark" src="/favicon.svg" alt="" width="30" height="30" />
+      <span class="logo-text">Raincoat</span>
+    </a>
+    <button class="drawer-close" type="button" aria-label="메뉴 닫기" data-nav-close>
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+        <path d="M18 6 6 18M6 6l12 12"></path>
+      </svg>
+    </button>
+  </div>
+  <nav aria-label="모바일 주요 탐색">
+    <ul>
+      {
+        nav.map((item) => (
+          <li>
+            <a href={item.href} class:list={{ active: isActive(item) }}>
+              {item.text}
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </nav>
+</aside>
+
+<script>
+  const toggle = document.querySelector<HTMLElement>("[data-nav-toggle]")!;
+  const drawer = document.querySelector<HTMLElement>("[data-nav-drawer]")!;
+  const backdrop = document.querySelector<HTMLElement>("[data-nav-backdrop]")!;
+  const body = document.body;
+  const closeButtons = document.querySelectorAll("[data-nav-close]");
+
+  function open() {
+    drawer.hidden = false;
+    backdrop.hidden = false;
+    requestAnimationFrame(() => drawer.classList.add("open"));
+    requestAnimationFrame(() => backdrop.classList.add("open"));
+    toggle.setAttribute("aria-expanded", "true");
+    toggle.setAttribute("aria-label", "메뉴 닫기");
+    body.style.overflow = "hidden";
+    (drawer.querySelector("a") ?? drawer.querySelector("button"))?.focus();
+  }
+
+  function close() {
+    drawer.classList.remove("open");
+    backdrop.classList.remove("open");
+    toggle.setAttribute("aria-expanded", "false");
+    toggle.setAttribute("aria-label", "메뉴 열기");
+    body.style.overflow = "";
+    const closed = () => {
+      drawer.hidden = true;
+      backdrop.hidden = true;
+      drawer.removeEventListener("transitionend", closed);
+    };
+    drawer.addEventListener("transitionend", closed);
+    toggle.focus();
+  }
+
+  toggle.addEventListener("click", () => {
+    drawer.hidden ? open() : close();
+  });
+  backdrop.addEventListener("click", close);
+  closeButtons.forEach((btn) => btn.addEventListener("click", close));
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && !drawer.hidden) close();
+  });
+
+  window.addEventListener("resize", () => {
+    if (window.innerWidth > 720 && !drawer.hidden) close();
+  });
+</script>
 
 <style>
   .site-header {
@@ -120,7 +201,108 @@ const isActiveHome = current.pathname === "/";
     gap: 0.5rem;
     flex-shrink: 0;
   }
+  .nav-toggle {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    gap: 5px;
+    width: 40px;
+    height: 40px;
+    padding: 10px;
+    border: 0;
+    border-radius: 10px;
+    background: transparent;
+    cursor: pointer;
+  }
+  .nav-toggle span {
+    display: block;
+    width: 100%;
+    height: 2px;
+    border-radius: 2px;
+    background: var(--text);
+    transition: opacity 0.2s ease, transform 0.2s ease;
+  }
+  .nav-toggle:hover { background: var(--bg-alt); }
+
+  .drawer-backdrop {
+    position: fixed;
+    inset: 0;
+    z-index: 199;
+    background: rgba(0, 0, 0, 0.45);
+    opacity: 0;
+    transition: opacity 0.22s ease;
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+  }
+  .drawer-backdrop.open { opacity: 1; }
+
+  .drawer {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 200;
+    width: min(78vw, 300px);
+    height: 100dvh;
+    overflow-y: auto;
+    background: var(--bg);
+    border-right: 1px solid var(--border);
+    box-shadow: 8px 0 32px -12px rgba(0, 0, 0, 0.35);
+    transform: translateX(-100%);
+    transition: transform 0.25s ease;
+  }
+  .drawer.open { transform: translateX(0); }
+  .drawer-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem 1rem 0.75rem;
+    border-bottom: 1px solid var(--border);
+  }
+  .drawer-close {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    border: 0;
+    border-radius: 10px;
+    background: transparent;
+    color: var(--text-2);
+    cursor: pointer;
+  }
+  .drawer-close:hover {
+    background: var(--bg-alt);
+    color: var(--text);
+  }
+  .drawer nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 0.75rem;
+  }
+  .drawer nav a {
+    display: flex;
+    align-items: center;
+    padding: 0.8rem 0.9rem;
+    border-radius: 10px;
+    color: var(--text-2);
+    font-size: 1rem;
+    font-weight: 500;
+    margin-bottom: 2px;
+    transition: color 0.15s ease, background-color 0.15s ease;
+  }
+  .drawer nav a:hover {
+    color: var(--text);
+    background: var(--bg-alt);
+    text-decoration: none;
+  }
+  .drawer nav a.active {
+    color: var(--brand);
+    background: var(--brand-soft);
+    font-weight: 600;
+  }
+
   @media (max-width: 720px) {
     .nav-desktop { display: none; }
+    .nav-toggle { display: flex; }
   }
 </style>
