@@ -1,6 +1,6 @@
 ---
 categories: [JavaScript]
-title: IndexedDB vs LocalStorage 차이점 완전 비교 — 언제 무엇을 써야 할까
+title: IndexedDB vs LocalStorage 차이점 완전 비교
 description: IndexedDB vs LocalStorage 저장 용량·동기/비동기·데이터 타입·브라우저 지원 완전 비교. 웹 스토리지 선택 기준과 활용 팁을 정리합니다.
 created: 2025-09-17
 tags: [JavaScript|orange, IndexedDB|teal, LocalStorage|teal, 웹 스토리지|teal, 브라우저 저장소|teal]

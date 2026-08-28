@@ -1,6 +1,6 @@
 ---
 categories: [React]
-title: React useMemo · useCallback · memo 차이 — 언제 써야 하나 실전 가이드
+title: React useMemo · useCallback · memo 차이
 description: React.memo, useMemo, useCallback의 차이점과 올바른 사용 시점. 불필요한 리렌더링을 막는 최적화 패턴을 실전 예제와 함께 정리합니다.
 created: 2026-05-05
 tags: [React|blue, 성능 최적화|orange, useMemo|teal, useCallback|teal]
@@ -38,7 +38,7 @@ function Counter() {
 
 ---
 
-## 1. useMemo — 계산 결과를 기억한다
+## 1. useMemo
 
 ### 문제
 
@@ -92,7 +92,7 @@ function ShoppingList() {
 
 ---
 
-## 2. useCallback — 함수를 기억한다
+## 2. useCallback
 
 ### 문제
 
@@ -151,7 +151,7 @@ const fn    = useCallback(() => doSomething(), []);  // 함수를 기억
 
 ---
 
-## 3. React.memo — 컴포넌트를 기억한다
+## 3. React.memo
 
 ### 문제
 

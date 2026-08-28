@@ -54,7 +54,7 @@ FROM EMPLOYEE
 GROUP BY ROLLUP(DEPT_ID);   -- 부서별 합계 + 맨 아래 전체 총합 한 줄 추가
 ```
 
-## JOIN — 여러 테이블 연결
+## JOIN
 
 흩어진 테이블을 키로 이어 한 결과로 보는 게 JOIN입니다.
 
@@ -90,7 +90,7 @@ LEFT JOIN EMPLOYEE M ON E.MANAGER_ID = M.EMP_NO;
 
 `INNER`, `OUTER` 키워드는 생략 가능합니다. (`JOIN` = INNER, `LEFT JOIN` = LEFT OUTER JOIN)
 
-### 함정 1 — LEFT JOIN이 INNER JOIN처럼 되는 경우
+### 함정 1
 
 ```sql
 -- 의도: 모든 직원 + (서울 부서면) 부서명
@@ -114,7 +114,7 @@ LEFT JOIN DEPARTMENT D
 
 핵심 원리: **`ON`은 JOIN 도중**(안 맞아도 왼쪽 생존), **`WHERE`는 JOIN 끝난 뒤**(NULL 행 제거)에 적용됩니다.
 
-### 함정 2 — 1:N 조인의 행 뻥튼기
+### 함정 2
 
 사용자 1명이 주문 3건이면 결과에 그 사용자가 3줄 나옵니다. 여기서 `COUNT(*)`나 `SUM`을 하면 값이 부풀려집니다.
 
@@ -165,7 +165,7 @@ SELECT E.EMP_NAME,
 FROM EMPLOYEE E;
 ```
 
-### EXISTS — 존재 여부 확인 (중복 없음)
+### EXISTS
 
 ```sql
 -- 주문이 있는 사용자
@@ -237,7 +237,7 @@ FROM EMPLOYEE;
 
 ## WITH(CTE)와 계층 쿼리
 
-### WITH — 복잡한 쿼리를 이름 붙여 정리
+### WITH
 
 ```sql
 WITH DEPT_AVG AS (
@@ -252,7 +252,7 @@ WHERE E.SALARY > D.AVG_SAL;   -- 부서 평균보다 많이 받는 직원
 
 서브쿼리를 미리 이름 붙여 빼두면 본문이 훨씬 읽기 편해집니다. 같은 블록을 여러 번 참조할 때도 유용합니다.
 
-### 계층 쿼리 (CONNECT BY) — 조직도/카테고리 트리
+### 계층 쿼리 (CONNECT BY)
 
 ```sql
 SELECT LPAD(' ', (LEVEL-1)*2) || EMP_NAME AS 조직도, LEVEL

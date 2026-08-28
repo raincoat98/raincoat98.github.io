@@ -1,6 +1,6 @@
 ---
 categories: [Git]
-title: Git 복구 가이드 — 실수로 날린 커밋 되살리기
+title: Git 복구 가이드
 description: 커밋 메시지 오타, 잘못된 브랜치에 커밋, reset --hard로 커밋 날림, rebase 꼬임, stash 분실까지. git reflog와 reset/revert로 사고를 복구하는 상황별 매뉴얼과 응급 치트시트를 정리합니다.
 created: 2026-05-19
 tags: [Git|orange, 버전관리|teal, 복구|teal]
@@ -25,7 +25,7 @@ readingTime: 13
 
 ## 복구의 핵심 무기 3가지
 
-### git reflog — Git의 블랙박스
+### git reflog
 
 `HEAD`가 움직인 모든 기록이 남습니다. reset, rebase, checkout, commit 전부요.
 
@@ -36,7 +36,7 @@ git reflog
 # i7j8k9l HEAD@{2}: checkout: moving from main to feature
 ```
 
-### git reset — 시간 되돌리기 (로컬 전용)
+### git reset
 
 | 옵션 | 커밋 | 스테이징 | 작업 파일 | 용도 |
 |------|------|---------|----------|------|
@@ -44,7 +44,7 @@ git reflog
 | `--mixed` (기본) | 취소 | 취소 | **유지** | 스테이징부터 다시 시작 |
 | `--hard` | 취소 | 취소 | **삭제** ⚠️ | 전부 없던 일로 (위험) |
 
-### git revert — 안전한 되돌리기 (공유 브랜치용)
+### git revert
 
 이미 push해서 공유된 커밋은 `reset`으로 지우면 안 됩니다. `revert`는 **"그 커밋을 취소하는 새 커밋"**을 만들어 히스토리를 깨지 않습니다.
 

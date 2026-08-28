@@ -1,6 +1,6 @@
 ---
 categories: [Next.js]
-title: Next.js Hydration 에러 해결 — suppressHydrationWarning 원인과 대응 방법
+title: Next.js Hydration 에러 해결
 description: Next.js SSR에서 발생하는 Hydration 경고(Text content did not match) 원인과 suppressHydrationWarning 해결법. 서버·클라이언트 불일치 시나리오별 대응 방법을 정리합니다.
 created: 2025-09-04
 tags: [Next.js|purple, SSR|teal, Hydration|teal, React|blue]

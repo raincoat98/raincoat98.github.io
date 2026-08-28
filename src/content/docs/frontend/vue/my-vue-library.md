@@ -1,6 +1,6 @@
 ---
 categories: [Vue]
-title: Vue 필수 라이브러리 모음 — Vue Router, Pinia, VeeValidate, Quasar, VueUse
+title: Vue 필수 라이브러리 모음
 description: Vue 프로젝트에서 검증된 필수 라이브러리 모음. Vue Router, Pinia, VeeValidate, Quasar, VueUse의 특징과 선택 이유를 정리합니다.
 created: 2024-04-08
 tags: [Vue|green, Pinia|green, Quasar|blue, VeeValidate|purple, VueUse|teal, 라이브러리|orange]

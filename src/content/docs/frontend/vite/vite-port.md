@@ -1,6 +1,6 @@
 ---
 categories: [Vite]
-title: Vite 개발 서버 포트 변경하는 법 — server.port 설정과 .env 활용
+title: Vite 개발 서버 포트 변경하는 법
 description: Vite 개발 서버 기본 포트(5173)를 변경하는 방법. vite.config.js server.port 설정과 .env 환경 변수를 이용한 동적 포트 설정까지 정리합니다.
 created: 2025-02-05
 tags: [Vite|purple, 개발환경|teal, 포트 설정|teal]

@@ -21,7 +21,7 @@ readingTime: 16
 
 > 기초 개념이 필요하면 [Git 기초 가이드](./git-basic-guide)를 먼저 읽으세요. 사고 복구는 [Git 복구 가이드](./git-recovery-guide)에서 다룹니다.
 
-## 1. 3단계 브랜치 전략 — master / stage / production
+## 1. 3단계 브랜치 전략
 
 자주 쓰는 3단계 브랜치 전략입니다. 핵심은 단순합니다.
 

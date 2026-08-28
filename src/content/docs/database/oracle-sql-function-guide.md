@@ -93,7 +93,7 @@ SELECT NULLIF(A, B)                          FROM DUAL;      -- A=B면 NULL, 아
 
 ## 조건 분기 (CASE / DECODE)
 
-### CASE — 표준이며 범위 비교 가능
+### CASE
 
 ```sql
 SELECT EMP_NAME,
@@ -116,7 +116,7 @@ SELECT CASE DEPT_ID
 FROM EMPLOYEE;
 ```
 
-### DECODE — Oracle 전용 축약형 (등가 비교만)
+### DECODE
 
 ```sql
 SELECT EMP_NAME,

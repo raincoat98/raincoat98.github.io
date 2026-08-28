@@ -44,7 +44,7 @@ DELETE FROM EMPLOYEE WHERE EMP_NO = 1001;
 
 > **UPDATE·DELETE에서 WHERE를 빼면 전체 행**이 바뀌거나 지워집니다. 실행 전 같은 조건으로 SELECT를 먼저 돌려 영향 범위를 확인하는 습관을 들이세요.
 
-### MERGE (UPSERT) — 있으면 수정, 없으면 입력
+### MERGE (UPSERT)
 
 ```sql
 MERGE INTO EMPLOYEE T
@@ -110,7 +110,7 @@ WHERE RN BETWEEN 1 AND 10;
 
 ## 뷰 · 시퀀스 · 인덱스
 
-### 뷰 (View) — 저장된 SELECT
+### 뷰 (View)
 
 복잡한 쿼리를 가상의 테이블처럼 이름 붙여 재사용합니다.
 
@@ -122,7 +122,7 @@ FROM EMPLOYEE GROUP BY DEPT_ID;
 SELECT * FROM V_DEPT_SALARY;   -- 테이블처럼 조회
 ```
 
-### 시퀀스 (Sequence) — 자동 증가 번호
+### 시퀀스 (Sequence)
 
 PK용 일련번호를 자동 생성합니다.
 
@@ -133,7 +133,7 @@ INSERT INTO EMPLOYEE (EMP_NO, EMP_NAME)
 VALUES (SEQ_EMP.NEXTVAL, '신입사원');   -- 다음 번호 자동 할당
 ```
 
-### 인덱스 (Index) — 조회 속도 향상
+### 인덱스 (Index)
 
 책의 색인처럼, 자주 검색·조인하는 컬럼에 만들면 조회가 빨라집니다.
 

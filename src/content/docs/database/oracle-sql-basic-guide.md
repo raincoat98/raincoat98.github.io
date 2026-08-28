@@ -139,7 +139,7 @@ WHERE DEPT_ID = 10
 
 연산자: `=`, `!=`(`<>`), `>`, `<`, `>=`, `<=`, `AND`, `OR`, `NOT`
 
-### LIKE — 패턴 검색
+### LIKE
 
 ```sql
 WHERE NAME LIKE '김%'    -- 김으로 시작
@@ -161,7 +161,7 @@ WHERE DEPT_ID IN (10, 20, 30);              -- 여러 값 중 하나
 WHERE SALARY BETWEEN 3000 AND 5000;         -- 3000 이상 5000 이하(양끝 포함)
 ```
 
-### NULL 다루기 — 가장 흔한 실수
+### NULL 다루기
 
 NULL은 "값이 없음"이라 `=`로 비교가 안 됩니다. 반드시 `IS NULL` / `IS NOT NULL`을 써야 합니다.
 

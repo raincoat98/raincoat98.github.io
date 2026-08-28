@@ -1,6 +1,6 @@
 ---
 categories: [Vue]
-title: Vue vs React — Vue.js를 선택한 이유와 Pinia 생태계 장점
+title: Vue vs React
 description: React 대신 Vue.js와 Pinia를 선택한 이유. 직관적인 템플릿 문법, Composition API, 가벼운 학습 곡선 등 Vue가 가진 실질적인 장점을 설명합니다.
 created: 2024-04-05
 tags: [Vue.js|green, Pinia|green, React 비교|blue, 프론트엔드 프레임워크|purple]
@@ -20,7 +20,7 @@ Vue.js와 Pinia를 선택한 이유를 간단히 소개할게요 :)
 Vue.js의 문법은 매우 직관적이라서 HTML과 비슷하게 코드를 작성할 수 있습니다.<br>
 HTML과 JavaScript가 잘 분리되어 있어 코드를 읽고 관리하기가 편합니다.
 
-## 2. 간단한 상태 관리 – Pinia
+## 2. 간단한 상태 관리
 
 Vue.js에서 상태 관리는 Pinia를 사용합니다.<br>
 Pinia는 Vuex보다 간단하고 사용하기 쉬운 구조라 초보자도 쉽게 상태를 다룰 수 있습니다.<br>

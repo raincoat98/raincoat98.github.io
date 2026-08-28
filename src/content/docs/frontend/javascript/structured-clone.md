@@ -1,6 +1,6 @@
 ---
 categories: [JavaScript]
-title: JavaScript structuredClone 완전 정리 — cloneDeep · JSON.parse 차이점
+title: JavaScript structuredClone 완전 정리
 description: structuredClone vs JSON.parse/stringify vs lodash cloneDeep 깊은 복사 완전 비교. 순환 참조·Date·Map·Set 지원 여부, 성능 차이까지 실전 예제로 정리합니다.
 created: 2024-01-01
 tags: [JavaScript|orange, Frontend|blue]

@@ -1,6 +1,6 @@
 ---
 categories: [Vite]
-title: Vite proxy 설정으로 CORS 해결하기 — server.proxy 완전 가이드
+title: Vite proxy 설정으로 CORS 해결하기
 description: Vite 개발 서버 server.proxy 설정으로 CORS 문제를 우회하는 방법. API 서버 연동, WebSocket 프록시, changeOrigin 설정까지 예제로 정리합니다.
 created: 2025-02-05
 tags: [Vite|purple, CORS|red, Proxy|teal, 개발환경|teal]
