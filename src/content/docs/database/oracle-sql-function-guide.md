@@ -76,7 +76,7 @@ SELECT TO_NUMBER('1500') FROM DUAL;
 
 **자주 쓰는 날짜 포맷:** `YYYY`(연), `MM`(월), `DD`(일), `HH24`(24시간제), `MI`(분), `SS`(초), `DAY`(요일 전체), `DY`(요일 약자)
 
-## NULL 처리 함수 — 실무 필수
+## NULL 처리 함수
 
 ```sql
 SELECT NVL(COMMISSION, 0)                    FROM EMPLOYEE;  -- NULL이면 0

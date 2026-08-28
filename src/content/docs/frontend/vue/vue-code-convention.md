@@ -1,7 +1,7 @@
 ---
 categories: [Vue]
-title: Vue Composition API 코드 컨벤션 가이드 — 실무 기준 코드 스타일 정리
-description: Vue.js Composition API 기반 코드 컨벤션 완전 가이드. 파일 구조, 변수 네이밍, props/emits 작성 규칙, script setup 패턴을 실무 기준으로 정리합니다.
+title: Vue Composition API 코드 컨벤션 가이드
+description: Vue.js Composition API 기반 코드 컨벤션 완전 가이드. 파일 구조, 변수 네이밍, props/emits 작성 규칙, script setup 패턴을 정리합니다.
 created: 2024-04-12
 tags: [Vue|green, 코드 컨벤션|purple, Composition API|green, 코드 스타일|purple]
 platform: Vue 3

@@ -1,7 +1,7 @@
 ---
 categories: [Tools]
 title: 개발이 편해지는 IntelliJ 플러그인 추천 (2026년 최신)
-description: 실무에서 효과가 큰 IntelliJ 플러그인을 필수 / 권장 / 추가 추천 / 유료 / 내장으로 나눠 정리했습니다. Rainbow Brackets, GitToolBox, MyBatisX 등 바로 체감되는 플러그인을 소개합니다.
+description: 효과가 큰 IntelliJ 플러그인을 필수 / 권장 / 추가 추천 / 유료 / 내장으로 나눠 정리했습니다. Rainbow Brackets, GitToolBox, MyBatisX 등 바로 체감되는 플러그인을 소개합니다.
 created: 2026-05-16
 tags: [IntelliJ|orange, Java|orange, Spring Boot|green, Plugin|purple, 개발도구|teal]
 platform: Tools
@@ -10,7 +10,7 @@ readingTime: 6
 
 # 개발이 편해지는 IntelliJ 플러그인 추천 (2026년 최신)
 
-IntelliJ는 기본만으로도 훌륭하지만, 플러그인을 더하면 작업 속도가 확 빨라집니다. 이 글에서는 실무에서 효과가 큰 플러그인을 **필수 / 권장 / 추가 추천 / 유료 / 내장** 으로 나눠 쉽게 정리했습니다.
+IntelliJ는 기본만으로도 훌륭하지만, 플러그인을 더하면 작업 속도가 확 빨라집니다. 이 글에서는 효과가 큰 플러그인을 **필수 / 권장 / 추가 추천 / 유료 / 내장** 으로 나눠 쉽게 정리했습니다.
 
 **설치 방법은 모두 같습니다.** `Settings(Ctrl+Alt+S) → Plugins → Marketplace`에서 이름 검색 → Install → 재시작. 끝!
 

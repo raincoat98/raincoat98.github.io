@@ -13,7 +13,7 @@ readingTime: 8
 > `tooltipField` · `tooltipValueGetter` · `headerTooltip` · `tooltipShowDelay` · `tooltipShowMode` 한 번에 정리
 
 AG Grid에서 툴팁은 별도 플러그인 없이 `ColDef`나 `GridOptions`만으로 구현할 수 있습니다.  
-이 글에서는 **셀 툴팁·헤더 툴팁·표시 조건·타이밍 제어**까지 실무에서 자주 쓰는 패턴을 모두 정리합니다.
+이 글에서는 **셀 툴팁·헤더 툴팁·표시 조건·타이밍 제어**까지 자주 쓰는 패턴을 모두 정리합니다.
 
 ---
 

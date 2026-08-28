@@ -1,16 +1,16 @@
 ---
 categories: [Database]
-title: Oracle SQL 실무 가이드
-description: INSERT·UPDATE·DELETE·MERGE 데이터 변경, 트랜잭션(COMMIT·ROLLBACK), 페이징, 뷰·시퀀스·인덱스와 실무 주의사항 10가지까지. 운영에서 바로 쓰는 Oracle SQL을 정리했습니다.
+title: Oracle SQL 가이드
+description: INSERT·UPDATE·DELETE·MERGE 데이터 변경, 트랜잭션(COMMIT·ROLLBACK), 페이징, 뷰·시퀀스·인덱스와 주의사항 10가지까지. 운영에서 바로 쓰는 Oracle SQL을 정리했습니다.
 created: 2026-06-04
-tags: [SQL|teal, Oracle|red, Database|teal, 실무|orange]
+tags: [SQL|teal, Oracle|red, Database|teal]
 platform: Database
 readingTime: 7
 ---
 
-# Oracle SQL 실무 가이드
+# Oracle SQL 가이드
 
-데이터를 바꾸고, 확정하고, 성능을 관리하는 운영 관점의 SQL입니다. 실무에서 마주하는 작업과 사고 예방을 다룹니다.
+데이터를 바꾸고, 확정하고, 성능을 관리하는 운영 관점의 SQL입니다. 실제 작업과 사고 예방을 다룹니다.
 
 **이전 글:** [Oracle SQL 조회 심화 가이드](./oracle-sql-query-guide)
 
@@ -143,7 +143,7 @@ CREATE INDEX IDX_EMP_DEPT ON EMPLOYEE (DEPT_ID);
 
 > 인덱스는 조회를 빠르게 하지만 INSERT/UPDATE/DELETE 시 갱신 부담이 생깁니다. 또 컬럼을 함수로 가공(`WHERE UPPER(NAME)=...`)하면 인덱스를 못 타니 주의하세요.
 
-## 실무 주의사항 10가지
+## 주의사항 10가지
 
 이것만 몸에 익혀도 흔한 SQL 사고의 대부분을 막을 수 있습니다.
 

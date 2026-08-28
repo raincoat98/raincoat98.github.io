@@ -1,7 +1,7 @@
 ---
 categories: [Database]
 title: Oracle SQL 조회 심화 가이드
-description: 집계(GROUP BY·HAVING), JOIN과 실무 함정 2가지, 서브쿼리, 집합 연산, 윈도우 함수, WITH·계층 쿼리까지. Oracle로 복잡한 조회를 다루는 방법을 정리했습니다.
+description: 집계(GROUP BY·HAVING), JOIN과 함정 2가지, 서브쿼리, 집합 연산, 윈도우 함수, WITH·계층 쿼리까지. Oracle로 복잡한 조회를 다루는 방법을 정리했습니다.
 created: 2026-06-04
 tags: [SQL|teal, Oracle|red, Database|teal]
 platform: Database
@@ -10,9 +10,9 @@ readingTime: 8
 
 # Oracle SQL 조회 심화 가이드
 
-기본 조회와 함수를 익혔다면 이제 데이터를 묶고, 이어 붙이고, 가공하는 심화 조회를 배울 차례입니다. 실무 SQL의 핵심입니다.
+기본 조회와 함수를 익혔다면 이제 데이터를 묶고, 이어 붙이고, 가공하는 심화 조회를 배울 차례입니다. 실제 SQL의 핵심입니다.
 
-**이전 글:** [Oracle SQL 함수 가이드](./oracle-sql-function-guide) · **다음 글:** [Oracle SQL 실무 가이드](./oracle-sql-practice-guide)
+**이전 글:** [Oracle SQL 함수 가이드](./oracle-sql-function-guide) · **다음 글:** [Oracle SQL 가이드](./oracle-sql-practice-guide)
 
 ## 집계와 그룹핑 (GROUP BY / HAVING)
 
@@ -90,7 +90,7 @@ LEFT JOIN EMPLOYEE M ON E.MANAGER_ID = M.EMP_NO;
 
 `INNER`, `OUTER` 키워드는 생략 가능합니다. (`JOIN` = INNER, `LEFT JOIN` = LEFT OUTER JOIN)
 
-### 실무 함정 1 — LEFT JOIN이 INNER JOIN처럼 되는 경우
+### 함정 1 — LEFT JOIN이 INNER JOIN처럼 되는 경우
 
 ```sql
 -- 의도: 모든 직원 + (서울 부서면) 부서명
@@ -114,7 +114,7 @@ LEFT JOIN DEPARTMENT D
 
 핵심 원리: **`ON`은 JOIN 도중**(안 맞아도 왼쪽 생존), **`WHERE`는 JOIN 끝난 뒤**(NULL 행 제거)에 적용됩니다.
 
-### 실무 함정 2 — 1:N 조인의 행 뻥튀기
+### 함정 2 — 1:N 조인의 행 뻥튼기
 
 사용자 1명이 주문 3건이면 결과에 그 사용자가 3줄 나옵니다. 여기서 `COUNT(*)`나 `SUM`을 하면 값이 부풀려집니다.
 
@@ -265,6 +265,6 @@ CONNECT BY PRIOR EMP_NO = MANAGER_ID;  -- 부모(PRIOR)-자식 연결
 
 ## 정리
 
-조회 쪽에서 만나는 대부분의 문제는 이 글의 5가지 도구(집계·JOIN·서브쿼리·윈도우·WITH)로 해결됩니다. 다음은 데이터를 바꾸는 DML과 실무 운영 이야기입니다.
+조회 쪽에서 만나는 대부분의 문제는 이 글의 5가지 도구(집계·JOIN·서브쿼리·윈도우·WITH)로 해결됩니다. 다음은 데이터를 바꾸는 DML과 운영 이야기입니다.
 
-**다음 글:** [Oracle SQL 실무 가이드](./oracle-sql-practice-guide)
+**다음 글:** [Oracle SQL 가이드](./oracle-sql-practice-guide)
