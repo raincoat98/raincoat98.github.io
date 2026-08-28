@@ -1,6 +1,6 @@
 ---
 categories: [NestJS]
-title: NestJS start:dev 무한 루프 해결 — Windows WSL watchOptions 설정
+title: NestJS start:dev 무한 루프 해결
 description: Windows WSL 환경에서 NestJS start:dev 실행 시 발생하는 무한 루프 문제 해결법. tsconfig.json watchOptions excludeDirectories 설정으로 파일 감지 오작동을 수정합니다.
 created: 2025-05-27
 tags: [NestJS|red, Windows|blue, WSL|teal, TypeScript|blue]

@@ -1,6 +1,6 @@
 ---
 categories: [Vite]
-title: Vite Path Alias(@) 설정 — vite.config.js + tsconfig.json 완전 가이드
+title: Vite Path Alias(@) 설정
 description: Vite 프로젝트에서 @ alias를 설정해 복잡한 상대 경로를 정리하는 방법. vite.config.js resolve.alias와 tsconfig.json paths 동시 설정 방법을 정리합니다.
 created: 2025-02-05
 tags: [Vite|purple, Path Alias|teal, TypeScript|blue, 개발환경|teal]

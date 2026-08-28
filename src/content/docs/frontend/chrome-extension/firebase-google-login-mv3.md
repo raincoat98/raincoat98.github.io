@@ -1,6 +1,6 @@
 ---
 categories: [Chrome Extension]
-title: Chrome Extension(MV3)에서 Firebase Google 로그인 구현하기 — React 연동 완벽 가이드
+title: Chrome Extension(MV3)에서 Firebase Google 로그인 구현하기
 description: MV3에서 Firebase Google 로그인이 막히는 이유와 chrome.identity / Offscreen Document 두 가지 구현 방법을 React 환경 기준으로 정리합니다.
 created: 2025-11-21
 tags: [Chrome Extension|blue, Firebase|orange, Google 로그인|blue, MV3|teal, React|cyan]
@@ -8,7 +8,7 @@ platform: Chrome Extension MV3
 readingTime: 10
 ---
 
-# Chrome Extension(MV3)에서 Firebase Google 로그인 구현하기 — React 연동 완벽 가이드
+# Chrome Extension(MV3)에서 Firebase Google 로그인 구현하기
 
 크롬 확장 프로그램에 "구글로 로그인" 버튼 하나 붙이는 건 웹앱에선 5분이면 끝나는 일이다. `signInWithPopup` 한 줄이면 되니까. 그런데 Manifest V3(MV3) 확장 프로그램에서 똑같이 하면 콘솔에 빨간 에러만 잔뜩 뜨고 팝업은 열리지 않는다.
 

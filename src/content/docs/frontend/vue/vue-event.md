@@ -1,6 +1,6 @@
 ---
 categories: [Vue]
-title: Vue 이벤트 핸들링 완전 정리 — v-on, @click, .stop, .prevent 수정자
+title: Vue 이벤트 핸들링 완전 정리
 description: Vue v-on(@) 이벤트 바인딩부터 .stop, .prevent, .once, .self, .capture 수정자까지. Vue 이벤트 핸들링과 수정자를 표와 실전 예제로 완전 정리합니다.
 created: 2024-10-28
 tags: [Vue|green, 이벤트|orange, 이벤트 수정자|orange, 템플릿|teal]

@@ -1,6 +1,6 @@
 ---
 categories: [Database]
-title: SQL UPDATE WHERE IN — 조회 결과를 바로 수정하는 방법
+title: SQL UPDATE WHERE IN
 description: SQL에서 SELECT로 조회한 ID 목록을 UPDATE WHERE IN으로 즉시 수정하는 방법. 서브쿼리와 JOIN UPDATE 패턴을 MySQL·PostgreSQL 예제로 정리합니다.
 created: 2024-08-28
 tags: [SQL|teal, Database|teal, UPDATE|blue, IN|blue]

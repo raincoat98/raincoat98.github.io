@@ -1,6 +1,6 @@
 ---
 categories: [Git]
-title: Git 기초 가이드 — 개념부터 핵심 명령어까지
+title: Git 기초 가이드
 description: Git이 처음이라면 이 글부터. Git이 해결하는 문제, 작업 디렉터리·스테이징·로컬·원격 저장소 4개 공간, add/commit/push 5개 필수 명령어와 커밋 메시지 컨벤션을 정리합니다.
 created: 2026-05-19
 tags: [Git|orange, 버전관리|teal]
@@ -89,7 +89,7 @@ git config --global user.email "my@email.com"
 git config --list
 ```
 
-## 기본 흐름 — 이 5개가 90%입니다
+## 기본 흐름
 
 ### 시작하기: git init / git clone
 

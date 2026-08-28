@@ -20,11 +20,11 @@ readingTime: 7
 ## 목차
 
 1. [개요](#_1-개요)
-2. [useQueryState — 단일 파라미터](#_2-usequerystate)
+2. [useQueryState](#_2-usequerystate)
 3. [파서(parsers) 종류](#_3-파서-종류)
-4. [useQueryStates — 복수 파라미터](#_4-usequerystates)
+4. [useQueryStates](#_4-usequerystates)
 5. [주요 옵션](#_5-주요-옵션)
-6. [예제 — 검색 + 필터 + 페이지네이션](#_6-예제)
+6. [예제](#_6-예제)
 
 ---
 

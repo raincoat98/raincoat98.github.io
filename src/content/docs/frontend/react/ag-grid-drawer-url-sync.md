@@ -1,6 +1,6 @@
 ---
 categories: [React]
-title: AG Grid Drawer + URL 상태 동기화 — 새로고침 복원 패턴
+title: AG Grid Drawer + URL 상태 동기화
 description: AG Grid 목록에서 상세 Drawer를 열고 URL에 상태를 저장해 새로고침해도 복원되는 패턴. getRowId, ensureNodeVisible, useNavigate와 함께 Row 자동 선택·스크롤까지 정리합니다.
 created: 2026-02-13
 tags: [React|blue, AG Grid|blue, Drawer|teal, URL 상태|teal, React Router|teal]
@@ -19,9 +19,9 @@ readingTime: 7
 ## 목차
 
 1. [개요](#_1-개요)
-2. [ProductsApp — URL ↔ 상태 동기화](#_2-productsapp)
-3. [ProductList — Row 자동 선택 + 스크롤](#_3-productlist)
-4. [ProductDetailDrawer — Drawer 구성](#_4-productdetaildrawer)
+2. [ProductsApp](#_2-productsapp)
+3. [ProductList](#_3-productlist)
+4. [ProductDetailDrawer](#_4-productdetaildrawer)
 5. [핵심 포인트 4가지](#_5-핵심-포인트-4가지)
 
 ---

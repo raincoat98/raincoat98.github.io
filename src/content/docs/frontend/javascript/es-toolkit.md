@@ -1,6 +1,6 @@
 ---
 categories: [JavaScript]
-title: es-toolkit 완전 정리 — lodash 대안, 번들 사이즈·성능 비교
+title: es-toolkit 완전 정리
 description: lodash 대안 es-toolkit 주요 기능과 실전 사용법. lodash 대비 번들 사이즈·성능 비교, chunk·cloneDeep·debounce 등 자주 쓰는 함수를 정리합니다.
 created: 2024-09-02
 tags: [JavaScript|orange, es-toolkit|teal, lodash|teal, 유틸리티|orange]

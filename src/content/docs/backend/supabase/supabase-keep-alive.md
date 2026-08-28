@@ -1,6 +1,6 @@
 ---
 categories: [Supabase]
-title: Supabase 무료 플랜 자동 정지 방지 — GitHub Actions keep-alive 완전 가이드
+title: Supabase 무료 플랜 자동 정지 방지
 description: Supabase Free 플랜 7일 비활성 자동 정지를 GitHub Actions cron으로 막는 방법. RPC 호출 + health check 폴백 구조로 안정적인 keep-alive를 구현합니다.
 created: 2026-05-05
 tags: [Supabase|teal, GitHub Actions|orange, DevOps|teal]
@@ -25,7 +25,7 @@ Supabase Free 플랜은 **7일간 요청이 없으면 자동으로 프로젝트�
 
 ---
 
-## 🔧 Supabase SQL — ping 함수 등록
+## 🔧 Supabase SQL
 SQL Editor에서 한 번만 실행한다.
 이 함수가 실제 DB를 "살아있음"으로 인식시키는 핵심이다.
 
@@ -100,11 +100,11 @@ jobs:
 
 ## 💡 왜 이 구조인가
 
-### 1. RPC — 진짜 keep-alive
+### 1. RPC
 실제 DB 함수 호출이다. Supabase가 프로젝트를 "활성"으로 확실히 인식한다.
 이게 핵심이다.
 
-### 2. health — 안전장치 폴백
+### 2. health
 `/auth/v1/health`는 인증이 필요 없다.
 RLS 영향도 없고 401도 없다. RPC가 실패해도 여기서 살린다.
 

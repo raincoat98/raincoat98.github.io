@@ -1,6 +1,6 @@
 ---
 categories: [JavaScript]
-title: JavaScript 소수점 반올림 버그 해결 — Number.EPSILON, toFixed, Decimal 완전 정리
+title: JavaScript 소수점 반올림 버그 해결
 description: JavaScript 부동소수점 오차로 인한 반올림 버그 원인과 해결법. Number.EPSILON 패턴, toFixed 주의사항, decimal.js 활용까지 예제로 정리합니다.
 created: 2026-01-08
 tags: [JavaScript|orange, 반올림|orange, Math.round|teal, Number.EPSILON|teal, 부동소수점|orange, decimal.js|teal]
@@ -30,7 +30,7 @@ Math.round(1.005 * 100) / 100;   // 1 (틀림!)
 
 ---
 
-## 정답 패턴 — Number.EPSILON 보정
+## 정답 패턴
 
 `Number.EPSILON`(약 `2.22e-16`)을 더해서 부동소수점 오차를 보정합니다.
 
@@ -88,7 +88,7 @@ const total = cents + tax;
 const displayPrice = total / 100;
 ```
 
-### 더 정밀하게 — Decimal 라이브러리
+### 더 정밀하게
 
 복잡한 금융 계산이라면 [decimal.js](https://github.com/MikeMcl/decimal.js)를 쓰세요.
 

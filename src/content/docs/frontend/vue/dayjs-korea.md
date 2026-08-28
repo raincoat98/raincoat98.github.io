@@ -1,6 +1,6 @@
 ---
 categories: [Vue]
-title: Vue + dayjs KST 한국 시간 설정 완전 가이드 — timezone, format, locale
+title: Vue + dayjs KST 한국 시간 설정 완전 가이드
 description: Vue 프로젝트에서 dayjs로 한국 시간(KST, UTC+9)을 처리하는 방법. timezone 플러그인 설정, ko locale, format 함수 실전 예제까지 정리합니다.
 created: 2025-05-08
 tags: [Vue|green, dayjs|orange, KST|teal, 한국 시간|teal, 타임존|teal, 날짜 처리|teal]

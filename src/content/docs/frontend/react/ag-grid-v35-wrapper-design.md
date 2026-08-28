@@ -26,7 +26,7 @@ readingTime: 10
 
 ---
 
-## 0. 앱 최상단 — AgGridProvider
+## 0. 앱 최상단
 
 모듈 등록과 라이선스 주입을 `AgGridProvider` 하나로 처리해요.
 
@@ -185,7 +185,7 @@ const gridOptions: GridOptions = {
 - 정렬·필터를 서버에서 처리해야 할 때
 - 페이지네이션이 서버 기반일 때
 
-### 핵심 패턴 — onGridReady에서 datasource 등록
+### 핵심 패턴
 
 공식 예제 방식을 따라요.
 `onGridReady` 콜백 안에서 `params.api.setGridOption("serverSideDatasource", datasource)`로 등록하는 게 권장 패턴이에요.
