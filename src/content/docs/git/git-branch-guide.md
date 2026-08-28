@@ -1,7 +1,7 @@
 ---
 categories: [Git]
-title: Git 브랜치 전략과 GitHub Flow — 실무 협업 완전 가이드
-description: 실무에서 자주 쓰는 master/stage/production 3단계 브랜치 전략, 선택 배포(release)와 긴급 수정(hotfix)부터 GitHub Flow의 PR 병합 방식, 코드 리뷰, CI 자동화까지 정리합니다.
+title: Git 브랜치 전략과 GitHub Flow
+description: 자주 쓰는 master/stage/production 3단계 브랜치 전략, 선택 배포(release)와 긴급 수정(hotfix)부터 GitHub Flow의 PR 병합 방식, 코드 리뷰, CI 자동화까지 정리합니다.
 created: 2026-05-19
 tags: [Git|orange, GitHub|orange, 브랜치전략|teal]
 platform: Git
@@ -23,7 +23,7 @@ readingTime: 16
 
 ## 1. 3단계 브랜치 전략 — master / stage / production
 
-실무에서 자주 쓰는 3단계 브랜치 전략입니다. 핵심은 단순합니다.
+자주 쓰는 3단계 브랜치 전략입니다. 핵심은 단순합니다.
 
 ```text
 feature/* → master → stage → production

@@ -1,7 +1,7 @@
 ---
 categories: [NestJS]
 title: NestJS vs Express — NestJS를 선택한 이유와 장점 정리
-description: Express 대신 NestJS를 선택한 이유. 구조적 아키텍처, 데코레이터 문법, 모듈 기반 확장성, TypeScript 통합의 장점을 실무 관점에서 설명합니다.
+description: Express 대신 NestJS를 선택한 이유. 구조적 아키텍처, 데코레이터 문법, 모듈 기반 확장성, TypeScript 통합의 장점을 실제 개발 관점에서 설명합니다.
 created: 2024-04-05
 tags: [NestJS|red, Node.js|green, Backend|blue]
 platform: NestJS

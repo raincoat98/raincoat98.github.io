@@ -1,7 +1,7 @@
 ---
 categories: [React]
 title: nuqs로 URL 쿼리 파라미터 상태 관리하기
-description: nuqs의 useQueryState·useQueryStates로 URL 쿼리 파라미터를 타입 안전하게 React state처럼 다루는 방법을 정리합니다. 파서 종류, 옵션, 검색·필터·페이지네이션 실무 예제까지 한 번에.
+description: nuqs의 useQueryState·useQueryStates로 URL 쿼리 파라미터를 타입 안전하게 React state처럼 다루는 방법을 정리합니다. 파서 종류, 옵션, 검색·필터·페이지네이션 예제까지 한 번에.
 created: 2026-06-01
 tags: [React|blue, Next.js|blue, nuqs|teal, URL 상태|teal, query string|teal]
 platform: nuqs v2
@@ -24,7 +24,7 @@ readingTime: 7
 3. [파서(parsers) 종류](#_3-파서-종류)
 4. [useQueryStates — 복수 파라미터](#_4-usequerystates)
 5. [주요 옵션](#_5-주요-옵션)
-6. [실무 예제 — 검색 + 필터 + 페이지네이션](#_6-실무-예제)
+6. [예제 — 검색 + 필터 + 페이지네이션](#_6-예제)
 
 ---
 
@@ -196,7 +196,7 @@ const [search, setSearch] = useQueryState('search', {
 
 ---
 
-## 6. 실무 예제
+## 6. 예제
 
 검색어 입력 · 카테고리 필터 · 페이지네이션을 URL로 관리하는 예제입니다.
 
