@@ -84,6 +84,76 @@ const toc = headings.filter((h) => h.depth >= 2 && h.depth <= 3);
   {!isExamples && <Comments />}
 </BaseLayout>
 
+<script>
+  // 코드 복사: 글 본문의 각 <pre> 코드 블록에 복사 버튼을 붙이고,
+  // 클릭 시 코드를 클립보드에 복사한다.
+  const COPIED_LABEL = "복사됨";
+
+  // 중첩된 pre는 제외하고, 각 pre를 .code-block으로 감싼 뒤 복사 버튼을 추가한다.
+  for (const pre of document.querySelectorAll(".prose pre")) {
+    if (pre.parentElement?.closest("pre")) continue;
+    const parent = pre.parentElement;
+    if (!parent) continue;
+
+    const btn = document.createElement("button");
+    btn.type = "button";
+    btn.className = "code-copy";
+    btn.textContent = "복사";
+    btn.dataset.copyCode = "";
+    btn.setAttribute("aria-label", "코드 복사");
+    btn.title = "코드 복사";
+
+    const wrap = document.createElement("div");
+    wrap.className = "code-block";
+    parent.insertBefore(wrap, pre);
+    wrap.appendChild(pre);
+    wrap.appendChild(btn);
+  }
+
+  async function copyText(text: string) {
+    if (navigator.clipboard?.writeText) {
+      try {
+        await navigator.clipboard.writeText(text);
+        return true;
+      } catch {
+        // 권한 거부 등 — 아래 폴백으로
+      }
+    }
+    // 비보안 컨텍스트(HTTP 등) 폴백
+    const ta = document.createElement("textarea");
+    ta.value = text;
+    ta.style.position = "fixed";
+    ta.style.opacity = "0";
+    document.body.appendChild(ta);
+    ta.select();
+    try {
+      return document.execCommand("copy");
+    } catch {
+      return false;
+    } finally {
+      ta.remove();
+    }
+  }
+
+  document.addEventListener("click", async (e) => {
+    const btn =
+      (e.target as Element | null)?.closest<HTMLButtonElement>("[data-copy-code]") ??
+      null;
+    if (!btn) return;
+
+    const text = btn.closest(".code-block")?.querySelector("pre")?.textContent;
+    if (text == null || !(await copyText(text))) return;
+
+    const original = btn.textContent;
+    btn.textContent = COPIED_LABEL;
+    btn.classList.add("copied");
+    setTimeout(() => {
+      btn.textContent = original;
+      btn.classList.remove("copied");
+    }, 1600);
+  });
+</script>
+
 <style>
   .post-layout {
     max-width: var(--max-w);
