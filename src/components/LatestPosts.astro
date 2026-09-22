@@ -27,16 +27,11 @@ const pageHref = (page: number) => page === 1 ? "/#latest-posts" : `/page/${page
   <div class="toolbar">
     <div>
       {headingLevel === "h1" ? (
-        <h1 id="latest-posts" class="section-title">최신 글</h1>
+        <h1 id="latest-posts" class="section-title">포스트</h1>
       ) : (
-        <h2 id="latest-posts" class="section-title">최신 글</h2>
+        <h2 id="latest-posts" class="section-title">포스트</h2>
       )}
       <p class="section-sub">총 {totalCount}개</p>
-    </div>
-    <div class="cat-links" aria-label="카테고리">
-      {categories.map((category) => (
-        <a href={`/category/${category.toLowerCase()}`} class="cat-chip">{category}</a>
-      ))}
     </div>
   </div>
 
@@ -57,8 +52,17 @@ const pageHref = (page: number) => page === 1 ? "/#latest-posts" : `/page/${page
     ))}
   </div>
 
+  <div class="categories">
+    <p class="categories-label">카테고리</p>
+    <div class="cat-links" aria-label="카테고리">
+      {categories.map((category) => (
+        <a href={`/category/${category.toLowerCase()}`} class="cat-chip">{category}</a>
+      ))}
+    </div>
+  </div>
+
   {totalPages > 1 && (
-    <nav class="pagination" aria-label="최신 글 페이지">
+    <nav class="pagination" aria-label="포스트 페이지">
       {currentPage > 1 ? (
         <a class="page-link direction" href={pageHref(currentPage - 1)} rel="prev" aria-label="이전 페이지">
           <svg class="direction-icon" viewBox="0 0 20 20" fill="none" stroke="currentColor" aria-hidden="true">
@@ -106,15 +110,17 @@ const pageHref = (page: number) => page === 1 ? "/#latest-posts" : `/page/${page
   }
   .page-layout { padding-top: 3.5rem; }
   .toolbar {
-    display: flex;
-    align-items: flex-end;
-    justify-content: space-between;
-    gap: 1rem;
-    flex-wrap: wrap;
     margin-bottom: 1.6rem;
   }
   .section-title { margin: 0; font-size: 1.5rem; }
   .section-sub { margin: 0.2rem 0 0; color: var(--text-3); font-size: 0.92rem; }
+  .categories { margin-top: 2rem; }
+  .categories-label {
+    margin: 0 0 0.65rem;
+    color: var(--text-3);
+    font-size: 0.82rem;
+    font-weight: 600;
+  }
   .cat-links { display: flex; flex-wrap: wrap; gap: 0.4rem; }
   .cat-chip {
     padding: 0.3rem 0.8rem;

@@ -42,8 +42,8 @@ export async function getStaticPaths() {
 const { posts, categories, totalCount, currentPage, totalPages } = Astro.props;
 ---
 <BaseLayout
-  title={`최신 글 ${currentPage}페이지`}
-  description={`Raincoat 블로그의 최신 글 ${currentPage}페이지입니다.`}
+  title={`포스트 ${currentPage}페이지`}
+  description={`Raincoat 블로그의 포스트 목록 ${currentPage}페이지입니다.`}
   path={`/page/${currentPage}/`}
 >
   <LatestPosts
