@@ -65,5 +65,101 @@ const {
       <slot />
     </main>
     <Footer />
+    <button
+      type="button"
+      class="scroll-top"
+      data-scroll-top
+      aria-label="페이지 상단으로 이동"
+      aria-hidden="true"
+      title="페이지 상단으로"
+      tabindex="-1"
+    >
+      <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" aria-hidden="true">
+        <path d="m5 12.5 5-5 5 5"></path>
+      </svg>
+    </button>
+    <script>
+      const scrollTopButton = document.querySelector<HTMLButtonElement>("[data-scroll-top]");
+
+      if (scrollTopButton) {
+        let ticking = false;
+
+        const updateScrollTopButton = () => {
+          const visible = window.scrollY > Math.min(600, window.innerHeight * 0.75);
+          scrollTopButton.dataset.visible = String(visible);
+          scrollTopButton.setAttribute("aria-hidden", String(!visible));
+          scrollTopButton.tabIndex = visible ? 0 : -1;
+          ticking = false;
+        };
+
+        window.addEventListener("scroll", () => {
+          if (!ticking) {
+            window.requestAnimationFrame(updateScrollTopButton);
+            ticking = true;
+          }
+        }, { passive: true });
+
+        scrollTopButton.addEventListener("click", () => {
+          const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+          window.scrollTo({ top: 0, behavior: reduceMotion ? "auto" : "smooth" });
+        });
+
+        updateScrollTopButton();
+      }
+    </script>
+    <style>
+      .scroll-top {
+        position: fixed;
+        right: max(1.25rem, env(safe-area-inset-right));
+        bottom: max(1.25rem, env(safe-area-inset-bottom));
+        z-index: 30;
+        display: inline-flex;
+        width: 2.75rem;
+        height: 2.75rem;
+        align-items: center;
+        justify-content: center;
+        padding: 0;
+        border: 1px solid var(--border-strong);
+        border-radius: 999px;
+        background: color-mix(in srgb, var(--surface) 88%, transparent);
+        color: var(--text-2);
+        box-shadow: var(--shadow-md);
+        backdrop-filter: blur(12px);
+        cursor: pointer;
+        opacity: 0;
+        pointer-events: none;
+        transform: translateY(0.65rem);
+        visibility: hidden;
+        transition:
+          opacity 0.18s ease,
+          transform 0.18s ease,
+          visibility 0.18s,
+          border-color 0.15s ease,
+          color 0.15s ease;
+      }
+      .scroll-top[data-visible="true"] {
+        opacity: 1;
+        pointer-events: auto;
+        transform: none;
+        visibility: visible;
+      }
+      .scroll-top:hover {
+        border-color: var(--brand);
+        color: var(--brand);
+      }
+      .scroll-top svg {
+        width: 1.15rem;
+        height: 1.15rem;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+        stroke-width: 1.8;
+      }
+      @media (max-width: 640px) {
+        .scroll-top {
+          right: max(1rem, env(safe-area-inset-right));
+          bottom: max(1rem, env(safe-area-inset-bottom));
+        }
+      }
+    </style>
   </body>
 </html>
