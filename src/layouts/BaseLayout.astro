@@ -65,100 +65,100 @@ const {
       <slot />
     </main>
     <Footer />
-    <button
-      type="button"
-      class="scroll-top"
-      data-scroll-top
-      aria-label="페이지 상단으로 이동"
-      aria-hidden="true"
-      title="페이지 상단으로"
-      tabindex="-1"
-    >
-      <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" aria-hidden="true">
-        <path d="m5 12.5 5-5 5 5"></path>
-      </svg>
-    </button>
+    <div class="page-scroll" data-page-scroll hidden>
+      <button type="button" data-scroll-top aria-label="페이지 상단으로 이동" title="페이지 상단으로">
+        <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" aria-hidden="true">
+          <path d="m5 12.5 5-5 5 5"></path>
+        </svg>
+      </button>
+      <button type="button" data-scroll-bottom aria-label="페이지 하단으로 이동" title="페이지 하단으로">
+        <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" aria-hidden="true">
+          <path d="m5 7.5 5 5 5-5"></path>
+        </svg>
+      </button>
+    </div>
     <script>
-      const scrollTopButton = document.querySelector<HTMLButtonElement>("[data-scroll-top]");
+      const controls = document.querySelector<HTMLElement>("[data-page-scroll]");
+      const topButton = controls?.querySelector<HTMLButtonElement>("[data-scroll-top]");
+      const bottomButton = controls?.querySelector<HTMLButtonElement>("[data-scroll-bottom]");
+      const page = document.scrollingElement;
 
-      if (scrollTopButton) {
-        let ticking = false;
+      if (controls && topButton && bottomButton && page) {
+        const motion = window.matchMedia("(prefers-reduced-motion: reduce)");
+        let frame = 0;
 
-        const updateScrollTopButton = () => {
-          const visible = window.scrollY > Math.min(600, window.innerHeight * 0.75);
-          scrollTopButton.dataset.visible = String(visible);
-          scrollTopButton.setAttribute("aria-hidden", String(!visible));
-          scrollTopButton.tabIndex = visible ? 0 : -1;
-          ticking = false;
+        const update = () => {
+          const max = page.scrollHeight - page.clientHeight;
+          const current = page.scrollTop;
+          controls.hidden = max <= 1;
+          topButton.setAttribute("aria-disabled", String(current <= 1));
+          bottomButton.setAttribute("aria-disabled", String(current >= max - 1));
+          frame = 0;
         };
 
-        window.addEventListener("scroll", () => {
-          if (!ticking) {
-            window.requestAnimationFrame(updateScrollTopButton);
-            ticking = true;
-          }
-        }, { passive: true });
+        const scheduleUpdate = () => {
+          if (!frame) frame = window.requestAnimationFrame(update);
+        };
+        window.addEventListener("scroll", scheduleUpdate, { passive: true });
+        window.addEventListener("resize", scheduleUpdate);
+        new ResizeObserver(scheduleUpdate).observe(document.body);
 
-        scrollTopButton.addEventListener("click", () => {
-          const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-          window.scrollTo({ top: 0, behavior: reduceMotion ? "auto" : "smooth" });
-        });
-
-        updateScrollTopButton();
+        for (const button of [topButton, bottomButton]) {
+          button.addEventListener("click", () => {
+            if (button.getAttribute("aria-disabled") === "true") return;
+            window.scrollTo({
+              top: button === topButton ? 0 : page.scrollHeight - page.clientHeight,
+              behavior: motion.matches ? "instant" : "smooth",
+            });
+          });
+        }
+        update();
       }
     </script>
     <style>
-      .scroll-top {
+      .page-scroll {
         position: fixed;
-        right: max(1.25rem, env(safe-area-inset-right));
-        bottom: max(1.25rem, env(safe-area-inset-bottom));
+        right: max(1rem, env(safe-area-inset-right));
+        bottom: max(1rem, env(safe-area-inset-bottom));
         z-index: 30;
-        display: inline-flex;
-        width: 2.75rem;
-        height: 2.75rem;
-        align-items: center;
-        justify-content: center;
+      }
+      .page-scroll:not([hidden]) {
+        display: grid;
+        gap: 0.5rem;
+      }
+      .page-scroll button {
+        display: grid;
+        place-items: center;
+        inline-size: 2.75rem;
+        block-size: 2.75rem;
         padding: 0;
         border: 1px solid var(--border-strong);
-        border-radius: 999px;
+        border-radius: 0.5rem;
         background: color-mix(in srgb, var(--surface) 88%, transparent);
         color: var(--text-2);
         box-shadow: var(--shadow-md);
         backdrop-filter: blur(12px);
         cursor: pointer;
-        opacity: 0;
-        pointer-events: none;
-        transform: translateY(0.65rem);
-        visibility: hidden;
-        transition:
-          opacity 0.18s ease,
-          transform 0.18s ease,
-          visibility 0.18s,
-          border-color 0.15s ease,
-          color 0.15s ease;
+        touch-action: manipulation;
       }
-      .scroll-top[data-visible="true"] {
-        opacity: 1;
-        pointer-events: auto;
-        transform: none;
-        visibility: visible;
-      }
-      .scroll-top:hover {
+      .page-scroll button:hover:not([aria-disabled="true"]) {
         border-color: var(--brand);
         color: var(--brand);
       }
-      .scroll-top svg {
+      .page-scroll button:focus-visible {
+        outline: 2px solid var(--brand);
+        outline-offset: 2px;
+      }
+      .page-scroll button[aria-disabled="true"] {
+        color: var(--text-3);
+        cursor: default;
+      }
+      .page-scroll svg {
         width: 1.15rem;
         height: 1.15rem;
         stroke-linecap: round;
         stroke-linejoin: round;
         stroke-width: 1.8;
-      }
-      @media (max-width: 640px) {
-        .scroll-top {
-          right: max(1rem, env(safe-area-inset-right));
-          bottom: max(1rem, env(safe-area-inset-bottom));
-        }
       }
     </style>
   </body>
