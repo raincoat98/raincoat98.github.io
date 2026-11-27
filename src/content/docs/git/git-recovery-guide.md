@@ -98,4 +98,4 @@ git restore --source=<복원할-커밋> -- config.js
 
 비밀 키가 원격 저장소에 올라갔다면 먼저 폐기하고 새 키를 발급합니다. 파일을 지우는 커밋만으로는 이전 커밋의 키가 없어지지 않습니다. 이력 삭제가 필요하면 팀과 작업 범위를 정한 뒤 [GitHub의 민감 데이터 제거 절차](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/removing-sensitive-data-from-a-repository)를 따릅니다.
 
-공유 브랜치의 운영 방식은 [Git 브랜치 전략과 GitHub Flow](./git-branch-guide)에서 다룹니다.
+공유 브랜치의 운영 방식은 [Git 브랜치 전략과 GitHub Flow](/git/git-branch-guide/)에서 다룹니다.

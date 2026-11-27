@@ -114,4 +114,4 @@ cd REPOSITORY
 git pull
 ```
 
-명령의 주소와 폴더 이름은 실제 저장소에 맞게 바꿉니다. 팀 프로젝트에서 작업을 나누는 방법은 [Git 브랜치 전략과 GitHub Flow](./git-branch-guide), 잘못 만든 커밋을 되돌리는 방법은 [Git 복구 가이드](./git-recovery-guide)에서 다룹니다.
+명령의 주소와 폴더 이름은 실제 저장소에 맞게 바꿉니다. 팀 프로젝트에서 작업을 나누는 방법은 [Git 브랜치 전략과 GitHub Flow](/git/git-branch-guide/), 잘못 만든 커밋을 되돌리는 방법은 [Git 복구 가이드](/git/git-recovery-guide/)에서 다룹니다.

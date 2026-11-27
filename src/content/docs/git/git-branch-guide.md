@@ -16,7 +16,7 @@ README의 오타 하나를 고칠 때도 `main`에 바로 푸시하는 대신 �
 main에서 작업 브랜치 만들기 → 수정하고 커밋하기 → 푸시하기 → PR 검토 → main에 병합
 ```
 
-이 예제는 GitHub에서 복제한 저장소의 기본 브랜치가 `main`이고, 작업 브랜치를 푸시할 권한이 있다고 가정합니다. 복제와 커밋이 처음이라면 [Git 기초 가이드](./git-basic-guide)를 먼저 참고합니다.
+이 예제는 GitHub에서 복제한 저장소의 기본 브랜치가 `main`이고, 작업 브랜치를 푸시할 권한이 있다고 가정합니다. 복제와 커밋이 처음이라면 [Git 기초 가이드](/git/git-basic-guide/)를 먼저 참고합니다.
 
 ## 1. 최신 main에서 작업 브랜치 만들기
 
@@ -63,6 +63,6 @@ git pull
 
 `main`에 직접 푸시하는 실수를 막고 싶다면 GitHub 브랜치 규칙에서 PR을 필수로 설정할 수 있습니다. PR 병합으로 자동 배포가 시작되는지는 저장소의 배포 설정에 따라 달라집니다.
 
-병합한 변경을 검증 환경과 운영 환경에 나눠 배포하는 흐름은 [Git 배포 전략: staging과 production 나누기](./git-production-deployment)에서 다룹니다.
+병합한 변경을 검증 환경과 운영 환경에 나눠 배포하는 흐름은 [Git 배포 전략: staging과 production 나누기](/git/git-production-deployment/)에서 다룹니다.
 
 공식 문서: [GitHub Flow](https://docs.github.com/en/get-started/using-github/github-flow)
