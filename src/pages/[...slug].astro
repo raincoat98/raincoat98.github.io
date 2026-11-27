@@ -37,6 +37,7 @@ const fmtFull = (d?: Date) =>
     : "";
 
 const toc = headings.filter((h) => h.depth >= 2 && h.depth <= 3);
+const hasToc = !isExamples && toc.length > 0;
 ---
 <BaseLayout
   title={title || category || "Raincoat"}
@@ -50,7 +51,7 @@ const toc = headings.filter((h) => h.depth >= 2 && h.depth <= 3);
   modifiedTime={modIso?.toISOString()}
   breadcrumb={breadcrumb}
 >
-  <div class="post-layout">
+  <div class:list={["post-layout", { "has-toc": hasToc }]}>
     <header class="post-header">
       {category && <span class="category">{category}</span>}
       <h1 data-pagefind-body>{title}</h1>
@@ -64,7 +65,7 @@ const toc = headings.filter((h) => h.depth >= 2 && h.depth <= 3);
       </div>
     </header>
 
-    {!isExamples && toc.length > 0 && <Toc headings={toc} />}
+    {hasToc && <Toc headings={toc} />}
 
     <div class="post-body prose">
       <Content />
@@ -312,8 +313,8 @@ const toc = headings.filter((h) => h.depth >= 2 && h.depth <= 3);
   .prose > :first-child { margin-top: 0; }
   .prose h1, .prose h2, .prose h3, .prose h4 {
     margin-top: 2.2rem;
-    scroll-margin-top: calc(var(--header-h) + 24px);
   }
+  .prose :global(:is(h1, h2, h3, h4)[id]) { scroll-margin-top: 8px; }
   .prose h2 { padding-bottom: 0.45rem; border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 0.5rem; }
   .prose :global(.table-scroll) {
     max-inline-size: 100%;
@@ -352,10 +353,9 @@ const toc = headings.filter((h) => h.depth >= 2 && h.depth <= 3);
   .prose :not(pre) > code { background: var(--brand-soft); }
 
   @media (max-width: 900px) {
-    .post-layout { grid-template-columns: minmax(0, 1fr); grid-template-areas: "toc" "header" "body"; gap: 1rem; }
-    .post-layout:has(> :global(.toc)) { padding-top: 0.5rem; }
-    .post-layout:not(:has(> :global(.toc))) { grid-template-areas: "header" "body"; }
-    .prose :global(:is(h2, h3)[id]) { scroll-margin-top: calc(var(--header-h) + 56px); }
+    .post-layout { grid-template-columns: minmax(0, 1fr); grid-template-areas: "header" "body"; gap: 1rem; }
+    .post-layout.has-toc { grid-template-areas: "toc" "header" "body"; padding-top: 0.5rem; }
+    .post-layout.has-toc .prose :global(:is(h2, h3)[id]) { scroll-margin-top: 44px; }
     .post-header, .post-body { max-width: none; }
   }
   @keyframes post-fade {

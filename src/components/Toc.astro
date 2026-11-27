@@ -13,8 +13,11 @@ const { headings } = Astro.props;
 <aside class="toc" aria-label="목차" data-toc>
   <p class="toc-title">목차</p>
   <button class="toc-toggle" type="button" data-toc-toggle aria-expanded="false" aria-controls="post-toc-list" hidden>
+    <svg class="toc-icon" width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" aria-hidden="true">
+      <path d="M5.5 4h8M5.5 8h8m-8 4h8M2.5 4h.01m-.01 4h.01m-.01 4h.01" stroke-width="1.5" stroke-linecap="round" />
+    </svg>
     목차
-    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" aria-hidden="true">
+    <svg class="toc-chevron" width="12" height="12" viewBox="0 0 16 16" fill="none" stroke="currentColor" aria-hidden="true">
       <path d="m4 6 4 4 4-4" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
     </svg>
   </button>
@@ -34,38 +37,79 @@ const { headings } = Astro.props;
 <script>
   const toc = document.querySelector("[data-toc]");
   const toggle = toc?.querySelector<HTMLButtonElement>("[data-toc-toggle]");
-  const links = [...(toc?.querySelectorAll("a") ?? [])];
-  if (toggle) {
+  const panel = toc?.querySelector("nav");
+
+  if (toc && toggle && panel) {
+    const sections = Array.from(panel.querySelectorAll("a")).flatMap((link) => {
+      const heading = document.getElementById(link.getAttribute("href")!.slice(1));
+      return heading ? [{ link, heading }] : [];
+    });
+    const mobile = window.matchMedia("(max-width: 900px)");
+    let active: HTMLAnchorElement | undefined;
+    let frame = 0;
+
+    const setActive = (link: HTMLAnchorElement | undefined) => {
+      if (link === active) return;
+      active?.removeAttribute("aria-current");
+      link?.setAttribute("aria-current", "location");
+      active = link;
+    };
+
+    const updateActive = () => {
+      const firstHeading = sections[0]?.heading;
+      if (!firstHeading) return;
+      const padding = parseFloat(getComputedStyle(document.documentElement).scrollPaddingTop) || 0;
+      const margin = parseFloat(getComputedStyle(firstHeading).scrollMarginTop) || 0;
+      const readingLine = padding + margin + 2;
+      let index = sections.length - 1;
+      while (index >= 0 && sections[index].heading.getBoundingClientRect().top > readingLine) index--;
+      setActive(sections[index]?.link);
+    };
+    const scheduleUpdate = () => {
+      if (!frame) frame = window.requestAnimationFrame(() => {
+        frame = 0;
+        updateActive();
+      });
+    };
+    const isOpen = () => toggle.getAttribute("aria-expanded") === "true";
+    const close = () => toggle.setAttribute("aria-expanded", "false");
+
     toggle.hidden = false;
     toggle.addEventListener("click", () => {
-      toggle.setAttribute("aria-expanded", String(toggle.getAttribute("aria-expanded") !== "true"));
+      if (isOpen()) {
+        close();
+        return;
+      }
+      updateActive();
+      toggle.setAttribute("aria-expanded", "true");
+      if (active) {
+        const item = active.getBoundingClientRect();
+        const bounds = panel.getBoundingClientRect();
+        if (item.top < bounds.top) panel.scrollTop += item.top - bounds.top;
+        else if (item.bottom > bounds.bottom) panel.scrollTop += item.bottom - bounds.bottom;
+      }
     });
-    for (const link of links) {
-      link.addEventListener("click", () => {
-        toggle.setAttribute("aria-expanded", "false");
+    document.addEventListener("pointerdown", (event) => {
+      if (isOpen() && !event.composedPath().includes(toc)) close();
+    });
+    document.addEventListener("keydown", (event) => {
+      if (event.key !== "Escape" || !isOpen()) return;
+      if (toc.contains(document.activeElement)) toggle.focus();
+      close();
+    });
+    for (const { link, heading } of sections) {
+      link.addEventListener("click", (event) => {
+        if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+        close();
+        if (!heading.hasAttribute("tabindex")) heading.tabIndex = -1;
+        heading.focus({ preventScroll: true });
       });
     }
+    mobile.addEventListener("change", close);
+    window.addEventListener("scroll", scheduleUpdate, { passive: true });
+    window.addEventListener("resize", scheduleUpdate);
+    scheduleUpdate();
   }
-  const map = new Map(links.map((a) => [a.getAttribute("href"), a]));
-  let active = links[0];
-  const setActive = (el: HTMLAnchorElement | undefined) => {
-    if (!el || el === active) return;
-    active?.classList.remove("is-active");
-    el.classList.add("is-active");
-    active = el;
-  };
-  const observer = new IntersectionObserver(
-    (entries) => {
-      for (const e of entries) {
-        if (e.isIntersecting) setActive(map.get(`#${e.target.id}`));
-      }
-    },
-    { rootMargin: "-80px 0px -70% 0px", threshold: 0 }
-  );
-  links.forEach((a) => {
-    const el = document.getElementById((a.getAttribute("href") || "").slice(1));
-    if (el) observer.observe(el);
-  });
 </script>
 
 <style>
@@ -105,10 +149,15 @@ const { headings } = Astro.props;
     transition: color 0.15s ease, border-color 0.15s ease;
   }
   .toc a:hover { color: var(--text); text-decoration: none; }
-  .toc a.is-active {
+  .toc a[aria-current="location"] {
     color: var(--brand);
     border-left-color: var(--brand);
+    background: var(--brand-soft);
     font-weight: 600;
+  }
+  .toc :is(a, button):focus-visible {
+    outline: 2px solid var(--brand);
+    outline-offset: -2px;
   }
 
   @media (max-width: 900px) {
@@ -136,7 +185,12 @@ const { headings } = Astro.props;
       font-weight: 600;
       cursor: pointer;
     }
-    .toc-toggle[aria-expanded="true"] svg { transform: rotate(180deg); }
+    .toc-toggle[aria-expanded="true"] {
+      background: var(--brand-soft);
+      border-color: var(--brand);
+      color: var(--brand-strong);
+    }
+    .toc-toggle[aria-expanded="true"] .toc-chevron { transform: rotate(180deg); }
     .toc-toggle:not([hidden])[aria-expanded="false"] + nav { display: none; }
     .toc-toggle:not([hidden]) + nav {
       position: absolute;
