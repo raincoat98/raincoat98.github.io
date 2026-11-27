@@ -69,7 +69,7 @@ readingTime: 3
 - **인생네컷 스타일 온라인 포토부스**
   - React 기반 웹캠 촬영 서비스, MinIO 기반 이미지 저장 구조 설계 및 촬영 후 QR 다운로드 제공
   - Docker와 Nginx로 배포하고 NAS에 도메인을 연결해 운영 비용 절감. 교회 행사에서 실제 사용
-  - 링크: [https://photo-box.cloudrainit.com/](https://photo-box.cloudrainit.com/)
+  - 서비스: [포토부스](https://photo-box.cloudrainit.com/)
 
 ## Skill Set
 
