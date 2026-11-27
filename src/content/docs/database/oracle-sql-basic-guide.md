@@ -1,7 +1,7 @@
 ---
 categories: [Database]
 title: Oracle SQL 기초 가이드
-description: Oracle SQL의 시작. SQL 4가지 분류, 데이터 타입, 테이블 만들기(DDL)부터 SELECT·WHERE·ORDER BY 기본 조회까지 예제 중심으로 정리했습니다.
+description: Oracle의 데이터 타입과 테이블 생성, SELECT를 이용한 조회와 정렬을 다룬다.
 created: 2026-06-04
 tags: [SQL|teal, Oracle|red, Database|teal]
 platform: Database
@@ -9,8 +9,6 @@ readingTime: 6
 ---
 
 # Oracle SQL 기초 가이드
-
-SQL을 처음 접한다면 이 글부터 읽으세요. 이 글에서는 Oracle SQL의 뼈대인 분류·타입·테이블 생성과 기본 조회를 다룹니다.
 
 예제 테이블은 세 개입니다. 뒤의 모든 글에서 같은 테이블을 씁니다.
 
@@ -22,7 +20,7 @@ SQL을 처음 접한다면 이 글부터 읽으세요. 이 글에서는 Oracle S
 
 ## SQL 4가지 분류
 
-SQL은 "무엇을 원하는지"를 선언하는 언어입니다. 명령의 성격에 따라 4가지로 나뉩니다. 이 분류를 알면 **자동 저장되는지(COMMIT)**, **되돌릴 수 있는지(ROLLBACK)**가 바로 보입니다.
+이 글에서는 조회를 DML에 포함해 SQL 명령을 네 가지로 분류한다.
 
 | 분류 | 풀네임 | 대표 명령 | 역할 |
 |------|--------|-----------|------|
@@ -31,11 +29,9 @@ SQL은 "무엇을 원하는지"를 선언하는 언어입니다. 명령의 성�
 | TCL | Transaction Control | COMMIT, ROLLBACK, SAVEPOINT | 변경 확정/취소 |
 | DCL | Data Control | GRANT, REVOKE | 권한 부여/회수 |
 
-> **중요:** DDL은 실행 즉시 자동 커밋되어 되돌릴 수 없습니다. 반면 DML(INSERT/UPDATE/DELETE)은 COMMIT 전까지 ROLLBACK으로 취소할 수 있습니다.
+Oracle은 유효한 DDL을 실행하기 전에 진행 중인 트랜잭션을 커밋한다. 성공한 DDL은 `ROLLBACK`으로 취소할 수 없다. DML 변경은 커밋 전에 취소할 수 있다.
 
 ## 데이터 타입
-
-컬럼을 만들 때 "어떤 종류의 값이 들어가는지"를 정합니다. Oracle에서 실제로 쓰는 핵심만 추렸습니다.
 
 | 타입 | 설명 | 예 |
 |------|------|----|
@@ -46,7 +42,7 @@ SQL은 "무엇을 원하는지"를 선언하는 언어입니다. 명령의 성�
 | `TIMESTAMP` | 날짜 + 시간(밀리초·타임존) | 정밀 시간 |
 | `CLOB` | 대용량 텍스트 | 게시글 본문 |
 
-> `VARCHAR`가 아니라 **`VARCHAR2`**를 쓰는 게 Oracle 관례입니다. 길이는 보통 바이트 기준이라 한글을 넉넉히 담으려면 여유 있게 잡으세요.
+`VARCHAR2(30 CHAR)`는 길이를 문자 수로, `VARCHAR2(30 BYTE)`는 바이트 수로 제한한다.
 
 ## 테이블 만들기 (DDL)
 
@@ -73,7 +69,7 @@ CREATE TABLE EMPLOYEE (
 
 ### 제약조건 (Constraint)
 
-잘못된 데이터가 애초에 못 들어오게 막는 규칙입니다. 데이터 무결성의 핵심입니다.
+제약조건은 중복 키나 존재하지 않는 부서 번호처럼 허용하지 않는 값을 막는다.
 
 | 제약조건 | 의미 |
 |----------|------|
@@ -95,7 +91,7 @@ DROP TABLE EMPLOYEE;        -- 테이블 통째로 삭제
 TRUNCATE TABLE EMPLOYEE;    -- 데이터만 전부 삭제(구조 유지, 매우 빠름, 롤백 불가)
 ```
 
-> 세 가지 삭제는 꼭 구분하세요. `DELETE`는 행 단위·롤백 가능, `TRUNCATE`는 전체 비우기·빠름·롤백 불가, `DROP`은 테이블 자체 제거입니다.
+`DELETE`는 조건에 맞는 행을 지우며 커밋 전에 취소할 수 있다. `TRUNCATE`는 구조를 남기고 모든 행을 지운다. `DROP`은 테이블 자체를 제거한다.
 
 ## 조회의 기본 (SELECT)
 
@@ -115,16 +111,16 @@ SELECT EMP_NAME || ' (' || DEPT_ID || ')' AS LABEL
 FROM EMPLOYEE;   -- 홍길동 (10)
 ```
 
-### SQL 실행 순서 (꼭 기억)
+### SQL의 논리적 처리 순서
 
-작성 순서와 실제 처리 순서가 다릅니다. 이걸 알면 "왜 WHERE에서는 별칭을 못 쓸까?" 같은 의문이 바로 풀립니다.
+다음은 절의 의미를 이해하기 위한 순서다. 실제 실행 순서는 실행 계획에 따라 달라질 수 있다.
 
 ```text
 작성:  SELECT → FROM → WHERE → GROUP BY → HAVING → ORDER BY
 처리:  FROM → WHERE → GROUP BY → HAVING → SELECT → ORDER BY
 ```
 
-`SELECT`(별칭이 정해지는 시점)가 `WHERE`보다 **나중에** 처리되므로 WHERE에서는 SELECT의 별칭을 쓸 수 없고, ORDER BY는 SELECT 이후라 별칭 사용이 가능합니다.
+같은 쿼리 블록의 `WHERE`에서는 `SELECT` 별칭을 참조할 수 없다. `ORDER BY`에서는 참조할 수 있다.
 
 ## 조건 걸기 (WHERE)
 
@@ -170,7 +166,7 @@ WHERE COMMISSION IS NULL;       -- 맞음
 WHERE COMMISSION = NULL;        -- 틀림. 항상 거짓 → 결과 0건
 ```
 
-> NULL과의 모든 산술·비교는 결과가 `UNKNOWN`이 됩니다. (`NULL + 100` → NULL, `NULL = NULL` → 거짓) 이 성질이 뒤에서 LEFT JOIN, NOT IN 함정의 원인이 됩니다.
+`NULL + 100`은 `NULL`이다. `NULL = NULL`은 `UNKNOWN`이며, `WHERE`는 조건이 참인 행만 남긴다.
 
 ## 정렬 (ORDER BY)
 
@@ -181,9 +177,3 @@ SELECT * FROM EMPLOYEE ORDER BY SALARY DESC NULLS LAST;        -- NULL을 맨 �
 ```
 
 `ASC`(오름차순)가 기본값이라 생략 가능합니다. Oracle은 기본적으로 NULL을 가장 큰 값으로 취급하므로(ASC면 뒤, DESC면 앞), 필요하면 `NULLS FIRST` / `NULLS LAST`로 명시하세요.
-
-## 정리
-
-이 글에서 다룬 것: SQL 4분류, 데이터 타입, CREATE TABLE, SELECT, WHERE, ORDER BY. 다음 단계는 조회에 살을 붙이는 함수입니다.
-
-**다음 글:** [Oracle SQL 함수 가이드](./oracle-sql-function-guide)

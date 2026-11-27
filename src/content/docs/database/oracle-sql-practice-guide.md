@@ -1,7 +1,7 @@
 ---
 categories: [Database]
 title: Oracle SQL 가이드
-description: INSERT·UPDATE·DELETE·MERGE 데이터 변경, 트랜잭션(COMMIT·ROLLBACK), 페이징, 뷰·시퀀스·인덱스와 주의사항 10가지까지. 운영에서 바로 쓰는 Oracle SQL을 정리했습니다.
+description: Oracle SQL의 데이터 변경과 트랜잭션, 페이징, 뷰, 시퀀스, 인덱스 예제를 다룬다.
 created: 2026-06-04
 tags: [SQL|teal, Oracle|red, Database|teal]
 platform: Database
@@ -10,7 +10,7 @@ readingTime: 7
 
 # Oracle SQL 가이드
 
-데이터를 바꾸고, 확정하고, 성능을 관리하는 운영 관점의 SQL입니다. 실제 작업과 사고 예방을 다룹니다.
+데이터를 변경할 때는 대상 행과 커밋 시점을 먼저 확인한다.
 
 **이전 글:** [Oracle SQL 조회 심화 가이드](./oracle-sql-query-guide)
 
@@ -42,7 +42,7 @@ WHERE EMP_NO = 1001;
 DELETE FROM EMPLOYEE WHERE EMP_NO = 1001;
 ```
 
-> **UPDATE·DELETE에서 WHERE를 빼면 전체 행**이 바뀌거나 지워집니다. 실행 전 같은 조건으로 SELECT를 먼저 돌려 영향 범위를 확인하는 습관을 들이세요.
+`UPDATE`와 `DELETE`는 `WHERE`를 생략하면 모든 행에 적용된다. 실행 전에 같은 조건으로 `SELECT`를 실행해 대상 행을 확인한다.
 
 ### MERGE (UPSERT)
 
@@ -56,11 +56,11 @@ WHEN NOT MATCHED THEN
     INSERT (EMP_NO, EMP_NAME) VALUES (S.EMP_NO, S.EMP_NAME);
 ```
 
-대량 동기화(있는 건 갱신, 없는 건 추가)를 한 번에 처리할 때 유용합니다.
+직원 번호가 있으면 이름을 갱신하고, 없으면 새 행을 추가한다.
 
 ## 트랜잭션 (COMMIT / ROLLBACK)
 
-여러 변경을 "전부 성공 or 전부 취소"라는 한 묶음으로 다루는 게 트랜잭션입니다. 계좌 이체를 떠올리면 쉽습니다. 출금과 입금이 함께 성공해야 합니다.
+트랜잭션은 여러 변경을 한 단위로 묶는다. 계좌 이체라면 출금과 입금을 함께 확정하거나 함께 취소한다.
 
 ```sql
 UPDATE ACCOUNT SET BALANCE = BALANCE - 1000 WHERE ID = 'A';
@@ -78,15 +78,11 @@ DELETE FROM ORDERS WHERE STATUS = 'CANCEL';
 ROLLBACK TO SP1;   -- SP1 이후만 취소
 ```
 
-핵심:
-
-- DML(INSERT/UPDATE/DELETE)은 COMMIT 전까지 임시 상태이며 ROLLBACK 가능
-- COMMIT하면 영구 반영되어 되돌릴 수 없음
-- **DDL(CREATE/ALTER/DROP/TRUNCATE)은 자동 COMMIT**되어 ROLLBACK 불가
+`COMMIT` 이후에는 `ROLLBACK`으로 변경을 취소할 수 없다. Oracle은 유효한 DDL을 실행하기 전에 진행 중인 트랜잭션을 커밋한다.
 
 ## 페이징
 
-목록을 10개씩 끊어 보여주는 처리입니다.
+직원 번호순으로 정렬한 뒤 10행을 가져온다. 정렬값이 겹칠 수 있다면 기본 키를 마지막 정렬 기준으로 추가한다.
 
 ```sql
 -- Oracle 12c 이상 (권장)
@@ -106,9 +102,9 @@ FROM (
 WHERE RN BETWEEN 1 AND 10;
 ```
 
-> 구버전 주의: `ROWNUM`은 **정렬되기 전에** 매겨집니다. 정렬된 결과를 페이징하려면 정렬한 서브쿼리(인라인 뷰)를 먼저 만든 뒤 그 바깥에서 ROWNUM을 적용해야 합니다.
+`ROWNUM` 방식에서는 안쪽 쿼리에서 정렬하고 바깥 쿼리에서 행 범위를 제한한다. 같은 쿼리 블록에서 두 작업을 하면 정렬 결과의 첫 페이지를 보장하지 않는다.
 
-## 뷰 · 시퀀스 · 인덱스
+## 뷰, 시퀀스, 인덱스
 
 ### 뷰 (View)
 
@@ -124,7 +120,7 @@ SELECT * FROM V_DEPT_SALARY;   -- 테이블처럼 조회
 
 ### 시퀀스 (Sequence)
 
-PK용 일련번호를 자동 생성합니다.
+`NEXTVAL`로 기본 키에 쓸 번호를 가져온다. 롤백해도 이미 가져온 번호는 되돌아오지 않는다.
 
 ```sql
 CREATE SEQUENCE SEQ_EMP START WITH 1 INCREMENT BY 1;
@@ -135,35 +131,10 @@ VALUES (SEQ_EMP.NEXTVAL, '신입사원');   -- 다음 번호 자동 할당
 
 ### 인덱스 (Index)
 
-책의 색인처럼, 자주 검색·조인하는 컬럼에 만들면 조회가 빨라집니다.
+인덱스는 조건에 맞는 행을 찾는 데 쓸 수 있다. 실제 사용 여부는 실행 계획에서 확인한다.
 
 ```sql
 CREATE INDEX IDX_EMP_DEPT ON EMPLOYEE (DEPT_ID);
 ```
 
-> 인덱스는 조회를 빠르게 하지만 INSERT/UPDATE/DELETE 시 갱신 부담이 생깁니다. 또 컬럼을 함수로 가공(`WHERE UPPER(NAME)=...`)하면 인덱스를 못 타니 주의하세요.
-
-## 주의사항 10가지
-
-이것만 몸에 익혀도 흔한 SQL 사고의 대부분을 막을 수 있습니다.
-
-1. **NULL은 `=`로 비교 안 됩니다** → `IS NULL` 사용. 산술·비교에 NULL이 끼면 결과가 NULL/거짓이 됩니다.
-2. **LEFT JOIN의 오른쪽 조건을 WHERE에 두면 INNER JOIN처럼 동작** → 조건을 `ON` 절로 옮깁니다.
-3. **1:N 조인 후 집계는 부풀려집니다** → 집계를 먼저 하고 JOIN하거나 DISTINCT(단순 목록 한정)를 씁니다.
-4. **NOT IN + NULL = 결과 0건** → `NOT EXISTS`를 기본으로 씁니다.
-5. **UPDATE / DELETE 전 WHERE 확인** → 같은 조건으로 SELECT 먼저 실행해 영향 범위 점검.
-6. **DDL과 TRUNCATE는 롤백 불가** (자동 커밋). 운영 DB에서 특히 신중히.
-7. **컬럼을 함수로 감싸면 인덱스를 못 탑니다** → `WHERE NAME = '홍길동'`은 빠르지만 `WHERE SUBSTR(NAME,1,1)='홍'`은 느릴 수 있습니다.
-8. **`SELECT *`는 운영 코드에서 지양** → 필요한 컬럼만 명시(성능·가독성·변경 안정성).
-9. **ROWNUM은 정렬 전에 매겨집니다** → 정렬 페이징은 서브쿼리로 감쌉니다.
-10. **UNION보다 UNION ALL이 빠릅니다** → 중복 제거가 필요 없으면 ALL.
-
-## 마무리
-
-SQL은 문법 암기가 아니라 **세 가지 흐름을 이해하는 것**이 핵심입니다.
-
-- **행이 줄어드는가?** (WHERE, GROUP BY, INNER JOIN)
-- **행이 늘어나는가?** (1:N JOIN, CROSS JOIN)
-- **NULL이 어디로 흐르는가?** (WHERE vs ON, NOT IN vs NOT EXISTS)
-
-이 세 가지 기준으로 쿼리를 읽으면 처음 보는 복잡한 SQL도 구조가 보입니다.
+데이터를 변경할 때는 인덱스도 갱신해야 한다. `WHERE UPPER(NAME) = ...` 같은 조건을 자주 쓴다면 같은 표현식에 함수 기반 인덱스를 검토한다.

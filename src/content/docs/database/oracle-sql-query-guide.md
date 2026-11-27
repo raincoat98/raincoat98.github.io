@@ -1,7 +1,7 @@
 ---
 categories: [Database]
 title: Oracle SQL 조회 심화 가이드
-description: 집계(GROUP BY·HAVING), JOIN과 함정 2가지, 서브쿼리, 집합 연산, 윈도우 함수, WITH·계층 쿼리까지. Oracle로 복잡한 조회를 다루는 방법을 정리했습니다.
+description: Oracle SQL 집계와 조인, 서브쿼리, 집합 연산, 윈도우 함수, 계층 쿼리를 예제로 다룬다.
 created: 2026-06-04
 tags: [SQL|teal, Oracle|red, Database|teal]
 platform: Database
@@ -10,9 +10,8 @@ readingTime: 8
 
 # Oracle SQL 조회 심화 가이드
 
-기본 조회와 함수를 익혔다면 이제 데이터를 묶고, 이어 붙이고, 가공하는 심화 조회를 배울 차례입니다. 실제 SQL의 핵심입니다.
-
-**이전 글:** [Oracle SQL 함수 가이드](./oracle-sql-function-guide) · **다음 글:** [Oracle SQL 가이드](./oracle-sql-practice-guide)
+이전 글: [Oracle SQL 함수 가이드](./oracle-sql-function-guide)  
+다음 글: [Oracle SQL 가이드](./oracle-sql-practice-guide)
 
 ## 집계와 그룹핑 (GROUP BY / HAVING)
 
@@ -42,16 +41,14 @@ GROUP BY DEPT_ID
 HAVING COUNT(*) >= 10;
 ```
 
-**WHERE vs HAVING:** WHERE는 그룹핑 **전**(개별 행) 필터, HAVING은 그룹핑 **후**(집계 결과) 필터입니다. 집계함수 조건(`COUNT(*) >= 10`)은 HAVING에만 쓸 수 있습니다.
-
-> 규칙: SELECT에 쓴 일반 컬럼은 **전부 GROUP BY에 들어가야** 합니다. (집계함수로 감싼 컬럼은 예외)
+`WHERE`는 집계할 행을 고르고, `HAVING`은 집계한 그룹을 고른다. 부서별 인원으로 결과를 제한하려면 `HAVING COUNT(*) >= 10`을 사용한다.
 
 ### 소계·총계 (ROLLUP)
 
 ```sql
 SELECT DEPT_ID, SUM(SALARY)
 FROM EMPLOYEE
-GROUP BY ROLLUP(DEPT_ID);   -- 부서별 합계 + 맨 아래 전체 총합 한 줄 추가
+GROUP BY ROLLUP(DEPT_ID);   -- 부서별 합계와 전체 합계
 ```
 
 ## JOIN
@@ -90,7 +87,7 @@ LEFT JOIN EMPLOYEE M ON E.MANAGER_ID = M.EMP_NO;
 
 `INNER`, `OUTER` 키워드는 생략 가능합니다. (`JOIN` = INNER, `LEFT JOIN` = LEFT OUTER JOIN)
 
-### 함정 1
+### LEFT JOIN에서 왼쪽 행 유지하기
 
 ```sql
 -- 의도: 모든 직원 + (서울 부서면) 부서명
@@ -100,9 +97,7 @@ LEFT JOIN DEPARTMENT D ON E.DEPT_ID = D.DEPT_ID
 WHERE D.LOCATION = 'SEOUL';   -- 틀림. 부서 없는 직원이 사라짐
 ```
 
-부서 없는 직원은 JOIN 후 `D.LOCATION`이 NULL → `NULL = 'SEOUL'`이 거짓 → WHERE에서 제거되면서 LEFT JOIN이 무력화됩니다.
-
-**해결: 오른쪽 테이블 조건은 `ON` 절로 옮깁니다.**
+부서가 없는 직원의 `D.LOCATION`은 `NULL`이다. `WHERE D.LOCATION = 'SEOUL'`은 이 행을 제외한다. 직원을 모두 남기고 서울 부서만 연결하려면 위치 조건을 `ON`에 둔다.
 
 ```sql
 SELECT E.EMP_NAME, D.DEPT_NAME
@@ -112,11 +107,9 @@ LEFT JOIN DEPARTMENT D
       AND D.LOCATION = 'SEOUL';   -- 맞음
 ```
 
-핵심 원리: **`ON`은 JOIN 도중**(안 맞아도 왼쪽 생존), **`WHERE`는 JOIN 끝난 뒤**(NULL 행 제거)에 적용됩니다.
+### 일대다 조인 전에 집계하기
 
-### 함정 2
-
-사용자 1명이 주문 3건이면 결과에 그 사용자가 3줄 나옵니다. 여기서 `COUNT(*)`나 `SUM`을 하면 값이 부풀려집니다.
+한 사용자의 주문이 세 건이면 조인 결과에서 사용자 행이 세 번 반복된다. 아래 예제는 사용자마다 한 행을 남기도록 주문을 먼저 집계한다.
 
 ```sql
 -- 해결: 집계를 먼저 한 뒤 붙인다
@@ -177,11 +170,11 @@ SELECT * FROM USERS U
 WHERE NOT EXISTS (SELECT 1 FROM ORDERS O WHERE O.USER_ID = U.USER_ID);
 ```
 
-> **NOT IN의 NULL 함정:** `NOT IN` 서브쿼리 결과에 NULL이 하나라도 섞이면 전체 결과가 **0건**이 됩니다. "~가 없는" 조건은 **NOT EXISTS**가 안전합니다.
+`NOT IN`의 비교 목록에 `NULL`이 있으면 일치하지 않는 값도 결과에서 빠진다. 연결된 행이 없는지 검사하려면 `NOT EXISTS`를 사용한다.
 
 ## 집합 연산 (UNION 등)
 
-두 SELECT 결과를 위아래로 합치거나 비교합니다. 컬럼 개수와 타입이 같아야 합니다.
+두 `SELECT` 결과를 합치거나 비교한다. 열 개수가 같아야 하고, 같은 위치의 열은 호환되는 데이터 타입 그룹에 속해야 한다.
 
 | 연산자 | 의미 |
 |--------|------|
@@ -196,11 +189,11 @@ UNION
 SELECT EMP_NAME FROM EMPLOYEE_2026;
 ```
 
-> 중복 제거가 필요 없다면 `UNION ALL`이 정렬·중복제거 과정을 건너뛰어 훨씬 빠릅니다.
+중복을 유지하려면 `UNION ALL`을 사용한다. `UNION`과 달리 중복을 제거하지 않는다.
 
 ## 윈도우(분석) 함수
 
-GROUP BY는 행을 합쳐 줄이지만, 윈도우 함수는 **행을 유지한 채** 각 행 옆에 순위·누계·이전값 등을 계산해 붙입니다.
+`GROUP BY`는 그룹마다 한 행을 반환한다. 윈도우 함수는 행을 유지하면서 각 행에 순위나 누계를 붙인다.
 
 ```sql
 -- 급여 순 순번 / 순위
@@ -250,7 +243,7 @@ JOIN DEPT_AVG D ON E.DEPT_ID = D.DEPT_ID
 WHERE E.SALARY > D.AVG_SAL;   -- 부서 평균보다 많이 받는 직원
 ```
 
-서브쿼리를 미리 이름 붙여 빼두면 본문이 훨씬 읽기 편해집니다. 같은 블록을 여러 번 참조할 때도 유용합니다.
+`WITH`로 부서별 평균을 계산하는 쿼리에 이름을 붙이면 본문에서 그 결과를 테이블처럼 참조할 수 있다.
 
 ### 계층 쿼리 (CONNECT BY)
 
@@ -262,9 +255,3 @@ CONNECT BY PRIOR EMP_NO = MANAGER_ID;  -- 부모(PRIOR)-자식 연결
 ```
 
 `LEVEL`은 깊이(1=최상위)입니다. `LPAD`로 들여쓰기를 주면 트리 모양으로 보입니다.
-
-## 정리
-
-조회 쪽에서 만나는 대부분의 문제는 이 글의 5가지 도구(집계·JOIN·서브쿼리·윈도우·WITH)로 해결됩니다. 다음은 데이터를 바꾸는 DML과 운영 이야기입니다.
-
-**다음 글:** [Oracle SQL 가이드](./oracle-sql-practice-guide)

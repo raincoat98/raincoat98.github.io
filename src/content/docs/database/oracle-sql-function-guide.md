@@ -1,7 +1,7 @@
 ---
 categories: [Database]
 title: Oracle SQL 함수 가이드
-description: Oracle SQL 함수 총정리. 문자·숫자·날짜·변환·NULL 처리 함수와 CASE/DECODE 조건 분기를 예시와 함께 정리했습니다. 자주 찾는 레퍼런스로 쓰세요.
+description: Oracle SQL에서 문자, 숫자, 날짜, 타입 변환, NULL 처리, 조건 분기에 쓰는 함수와 예제.
 created: 2026-06-04
 tags: [SQL|teal, Oracle|red, Database|teal]
 platform: Database
@@ -10,9 +10,8 @@ readingTime: 6
 
 # Oracle SQL 함수 가이드
 
-이 글은 Oracle SQL 함수의 레퍼런스입니다. 자주 찾는 함수를 표와 예시로 정리했습니다. 필요할 때 열어보는 매뉴얼로 쓰세요.
-
-**이전 글:** [Oracle SQL 기초 가이드](./oracle-sql-basic-guide) · **다음 글:** [Oracle SQL 조회 심화 가이드](./oracle-sql-query-guide)
+이전 글: [Oracle SQL 기초 가이드](./oracle-sql-basic-guide)  
+다음 글: [Oracle SQL 조회 심화 가이드](./oracle-sql-query-guide)
 
 ## 문자 함수
 
@@ -55,7 +54,7 @@ SELECT LAST_DAY(SYSDATE)                     FROM DUAL;      -- 그 달의 마�
 SELECT TRUNC(SYSDATE)                        FROM DUAL;      -- 시간 떼고 자정으로
 ```
 
-> Oracle의 `DATE`는 날짜에 정수를 더하면 "일", `1/24`를 더하면 "시간" 단위로 계산됩니다.
+Oracle `DATE`에 숫자를 더하면 일 단위로 계산한다. `1`은 하루, `1/24`는 한 시간이다.
 
 ## 변환 함수 (형 변환)
 
@@ -74,7 +73,7 @@ SELECT TO_DATE('2026-06-01', 'YYYY-MM-DD') FROM DUAL;
 SELECT TO_NUMBER('1500') FROM DUAL;
 ```
 
-**자주 쓰는 날짜 포맷:** `YYYY`(연), `MM`(월), `DD`(일), `HH24`(24시간제), `MI`(분), `SS`(초), `DAY`(요일 전체), `DY`(요일 약자)
+날짜 형식에서 `YYYY`, `MM`, `DD`는 연월일을 뜻한다. `HH24`, `MI`, `SS`는 시분초, `DAY`와 `DY`는 요일 이름과 약자다.
 
 ## NULL 처리 함수
 
@@ -124,10 +123,4 @@ SELECT EMP_NAME,
 FROM EMPLOYEE;
 ```
 
-`DECODE(컬럼, 값1, 결과1, 값2, 결과2, …, 기본값)`. **등호(=) 비교만** 됩니다. 범위(`>=`)가 필요하면 CASE를 써야 합니다.
-
-## 정리
-
-함수는 외우기보다 필요할 때 찾는 게 효율적입니다. 흐름상 다음은 조회를 확장하는 집계·조인·서브쿼리입니다.
-
-**다음 글:** [Oracle SQL 조회 심화 가이드](./oracle-sql-query-guide)
+`DECODE`는 일치하는 값이 없으면 기본값을 반환한다. 범위 조건에는 `CASE WHEN`을 사용한다.
