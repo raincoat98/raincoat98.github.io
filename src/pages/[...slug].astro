@@ -85,6 +85,43 @@ const toc = headings.filter((h) => h.depth >= 2 && h.depth <= 3);
 </BaseLayout>
 
 <script>
+  const tableObserver = new ResizeObserver((entries) => {
+    const scrollAreas = new Set<HTMLElement>();
+    for (const { target } of entries) {
+      const area = target.closest<HTMLElement>(".table-scroll");
+      if (area) scrollAreas.add(area);
+    }
+    const sizes = Array.from(scrollAreas, (area) => ({
+      area,
+      overflow: area.scrollWidth > area.clientWidth,
+    }));
+    for (const { area, overflow } of sizes) {
+      area.toggleAttribute("data-overflow", overflow);
+      if (overflow) {
+        area.tabIndex = 0;
+        area.setAttribute("role", "region");
+        area.setAttribute("aria-label", "가로 스크롤 표");
+      } else {
+        area.removeAttribute("tabindex");
+        area.removeAttribute("role");
+        area.removeAttribute("aria-label");
+      }
+    }
+  });
+
+  for (const table of document.querySelectorAll(".prose table")) {
+    const scroll = document.createElement("div");
+    scroll.className = "table-scroll";
+    const hint = document.createElement("p");
+    hint.className = "table-scroll-hint";
+    hint.setAttribute("aria-hidden", "true");
+    hint.textContent = "표를 좌우로 스크롤할 수 있습니다";
+    table.before(hint, scroll);
+    scroll.append(table);
+    tableObserver.observe(scroll);
+    tableObserver.observe(table);
+  }
+
   // 코드 복사: 글 본문의 각 <pre> 코드 블록에 복사 버튼을 붙이고,
   // 클릭 시 코드를 클립보드에 복사한다.
   const COPIED_LABEL = "복사됨";
@@ -270,7 +307,30 @@ const toc = headings.filter((h) => h.depth >= 2 && h.depth <= 3);
     scroll-margin-top: calc(var(--header-h) + 24px);
   }
   .prose h2 { padding-bottom: 0.45rem; border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 0.5rem; }
-  .prose table { display: block; overflow-x: auto; }
+  .prose :global(.table-scroll) {
+    max-inline-size: 100%;
+    overflow-x: auto;
+    margin-block: 1rem;
+  }
+  .prose :global(.table-scroll > table) {
+    display: table;
+    max-inline-size: none;
+    margin: 0;
+  }
+  .prose :global(.table-scroll:focus-visible) {
+    outline: 2px solid var(--brand);
+    outline-offset: -2px;
+  }
+  .prose :global(.table-scroll-hint) {
+    display: none;
+    margin: 1rem 0 0.25rem;
+    color: var(--text-2);
+    font-size: 0.8rem;
+  }
+  .prose :global(.table-scroll-hint:has(+ .table-scroll[data-overflow])) {
+    display: block;
+  }
+  .prose :global(.table-scroll[data-overflow]) { margin-block-start: 0; }
   .prose :not(pre) > code { background: var(--brand-soft); }
 
   @media (max-width: 900px) {
@@ -289,8 +349,9 @@ const toc = headings.filter((h) => h.depth >= 2 && h.depth <= 3);
 
   @media (max-width: 640px) {
     .post-layout { padding-top: 1.8rem; }
+    .prose :global(.table-scroll > table) { inline-size: max-content; }
     .prose :global(table :is(th, td)) {
-      min-inline-size: 9rem;
+      max-inline-size: 18rem;
       word-break: keep-all;
       overflow-wrap: anywhere;
     }
