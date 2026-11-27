@@ -20,6 +20,18 @@ nuqs는 URL의 쿼리 파라미터를 React 상태처럼 읽고 쓰는 라이브
 
 예제는 Vite, React 18.3, Ant Design 5를 사용합니다. Next.js에 연결하는 방법은 글 마지막에 다룹니다. nuqs v2는 React SPA에서 React 18.3 이상인 18.x와 React 19를 지원합니다.
 
+## 브라우저 기본 API와 비교
+
+검색 조건을 URL에 저장하는 데 nuqs가 꼭 필요한 것은 아닙니다. 브라우저의 `URLSearchParams`로 값을 읽고, `history.replaceState()`나 `history.pushState()`로 주소를 바꿀 수 있습니다.
+
+| 작업 | 브라우저 기본 API | nuqs |
+| --- | --- | --- |
+| 페이지 번호 읽기 | 문자열을 읽은 뒤 숫자로 변환하고 기본값을 정합니다. | `parseAsInteger.withDefault(1)`로 변환과 기본값을 선언합니다. |
+| 검색어 변경과 페이지 초기화 | 두 키를 수정하고 주소와 화면 상태를 함께 갱신합니다. | `setFilters({ q: 검색어, page: 1 })` 한 번으로 두 값을 바꿉니다. |
+| 뒤로 가기 후 화면 복원 | `popstate`에서 주소를 다시 읽어 화면 상태를 갱신합니다. | 훅으로 읽는 상태가 주소 변경을 따라갑니다. |
+
+파라미터 하나를 읽기만 한다면 `URLSearchParams`로 충분합니다. 검색어와 필터를 바꿀 때 페이지도 초기화하고 뒤로 가기까지 지원해야 한다면, nuqs를 사용해 URL과 화면을 맞추는 코드를 줄일 수 있습니다.
+
 ## React 18.3에서 어댑터 설정
 
 ```bash
