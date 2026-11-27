@@ -1,283 +1,86 @@
 ---
 categories: [React]
-title: React useMemo · useCallback · memo 차이
-description: React.memo, useMemo, useCallback의 차이점과 올바른 사용 시점. 불필요한 리렌더링을 막는 최적화 패턴을 실전 예제와 함께 정리합니다.
+title: "React useMemo, useCallback, memo 차이와 사용법"
+description: React의 useMemo, useCallback, memo 차이를 상품 목록 예제로 비교합니다. 계산 결과를 재사용할 때와 자식 리렌더링을 줄일 때 어떤 API를 쓰는지 설명합니다.
 created: 2026-05-05
 tags: [React|blue, 성능 최적화|orange, useMemo|teal, useCallback|teal]
 platform: React
-readingTime: 6
+readingTime: 4
 ---
 
-# React useMemo · useCallback · memo 차이
+# React useMemo, useCallback, memo 차이와 사용법
 
-React를 쓰다 보면 한 번쯤 의문이 생긴다. "왜 내 앱이 느려지지?"
+`useMemo`는 계산 결과를, `useCallback`은 함수 참조를 재사용합니다. `memo`는 부모가 리렌더링될 때 props가 같은 자식의 렌더링을 건너뛸 수 있게 합니다. 상품 목록과 장바구니 예제로 세 API가 어떤 일을 하는지 비교합니다.
 
-오늘은 그 답이 되는 세 가지 도구를 정리한다. `useMemo`, `useCallback`, `React.memo`. 어렵지 않다.
+## useMemo, useCallback, memo 비교
 
----
+| 도구 | 동작 | 사용할 때 |
+| --- | --- | --- |
+| `useMemo` | 의존성이 같으면 이전 계산 결과를 반환합니다. | 비용이 큰 계산을 반복하거나 자식에게 전달할 배열이나 객체의 참조를 유지할 때 사용합니다. |
+| `useCallback` | 의존성이 같으면 이전 함수 참조를 반환합니다. | `memo`로 감싼 자식에게 전달하는 함수가 매번 달라지는 문제를 막을 때 사용합니다. |
+| `memo` | 부모가 다시 렌더링돼도 props가 같으면 자식 렌더링을 건너뛸 수 있습니다. | 동일한 props로 자주 렌더링되는 자식의 비용이 클 때 사용합니다. |
 
-## 시작 전에: React는 어떻게 동작하나
+`useMemo`와 `useCallback`은 컴포넌트 자체의 렌더링을 막지 않습니다. `memo`도 자식 자신의 상태나 자식이 읽는 Context가 바뀌면 렌더링을 건너뛰지 않습니다.
 
-버튼을 누르면 컴포넌트 함수 전체가 다시 실행된다. 이게 React의 기본 동작이다.
+## React 리렌더링 최적화 예제: 상품 목록
 
-```javascript
-function Counter() {
-  const [count, setCount] = useState(0);
+이 예제는 검색어가 바뀌면 목록을 다시 계산하고, 장바구니 개수만 바뀌면 기존 목록과 함수 참조를 재사용합니다.
 
-  // 버튼을 클릭할 때마다 이 함수 전체가 다시 실행된다
-  return (
-    <div>
-      <p>카운트: {count}</p>
-      <button onClick={() => setCount(count + 1)}>증가</button>
-    </div>
-  );
-}
-```
+```jsx
+import { memo, useCallback, useMemo, useState } from 'react';
 
-대부분은 문제없다. 하지만 때로는 안 해도 될 계산을 반복하거나, 안 바뀐 컴포넌트를 다시 그린다. 그걸 막는 게 성능 최적화다.
+const products = [
+  { id: 1, name: '노트북' },
+  { id: 2, name: '마우스' },
+  { id: 3, name: '키보드' },
+];
 
----
-
-## 1. useMemo
-
-### 문제
-
-```javascript
-function ShoppingList() {
-  const [items, setItems] = useState([/* ... */]);
-  const [count, setCount] = useState(0);
-
-  // count가 바뀔 때마다 이것도 다시 계산된다
-  const total = items.reduce((sum, item) => sum + item.price, 0);
-
-  return (
-    <div>
-      <p>총 가격: {total}원</p>
-      <p>클릭 횟수: {count}</p>
-      <button onClick={() => setCount(count + 1)}>클릭</button>
-    </div>
-  );
-}
-```
-
-`count`만 바뀌는데 `total`도 매번 다시 계산된다. 장바구니는 그대로인데도.
-
-### 해결
-
-```javascript
-import { useState, useMemo } from 'react';
-
-function ShoppingList() {
-  const [items, setItems] = useState([/* ... */]);
-  const [count, setCount] = useState(0);
-
-  // items가 바뀔 때만 다시 계산한다
-  const total = useMemo(() => {
-    return items.reduce((sum, item) => sum + item.price, 0);
-  }, [items]);
-
-  return (
-    <div>
-      <p>총 가격: {total}원</p>
-      <p>클릭 횟수: {count}</p>
-      <button onClick={() => setCount(count + 1)}>클릭</button>
-    </div>
-  );
-}
-```
-
-`[]` 안에 있는 값이 바뀔 때만 다시 계산하고, 그 외에는 저장된 결과를 재사용한다.
-
-> **핵심:** `useMemo`는 계산 결과를 기억한다.
-
----
-
-## 2. useCallback
-
-### 문제
-
-```javascript
-function TodoApp() {
-  const [todos, setTodos] = useState([]);
-  const [count, setCount] = useState(0);
-
-  // count가 바뀔 때마다 새로운 함수가 만들어진다
-  const addTodo = (text) => {
-    setTodos([...todos, text]);
-  };
-
-  return (
-    <div>
-      <button onClick={() => setCount(count + 1)}>클릭</button>
-      <TodoInput onAdd={addTodo} />
-    </div>
-  );
-}
-```
-
-클릭할 때마다 `addTodo` 함수가 새로 만들어진다. 내용은 똑같은데도.
-
-### 해결
-
-```javascript
-import { useState, useCallback } from 'react';
-
-function TodoApp() {
-  const [todos, setTodos] = useState([]);
-  const [count, setCount] = useState(0);
-
-  // 함수를 저장해둔다
-  const addTodo = useCallback((text) => {
-    setTodos((prev) => [...prev, text]);
-  }, []); // 의존성이 없으면 한 번만 만들어진다
-
-  return (
-    <div>
-      <button onClick={() => setCount(count + 1)}>클릭</button>
-      <TodoInput onAdd={addTodo} />
-    </div>
-  );
-}
-```
-
-> **핵심:** `useCallback`은 함수 자체를 기억한다.
-
-### useMemo vs useCallback 한 줄 정리
-
-```javascript
-const value = useMemo(() => number * 2, [number]);   // 값을 기억
-const fn    = useCallback(() => doSomething(), []);  // 함수를 기억
-```
-
----
-
-## 3. React.memo
-
-### 문제
-
-```javascript
-function Parent() {
-  const [count, setCount] = useState(0);
-
-  return (
-    <div>
-      <p>카운트: {count}</p>
-      <button onClick={() => setCount(count + 1)}>증가</button>
-      <ExpensiveChild name="철수" />
-    </div>
-  );
-}
-
-function ExpensiveChild({ name }) {
-  // count가 바뀔 때마다 여기도 다시 실행된다
-  return <div>안녕 {name}!</div>;
-}
-```
-
-부모의 `count`가 바뀔 때마다 `ExpensiveChild`도 다시 그려진다. `name`은 전혀 안 바뀌었는데도.
-
-### 해결
-
-```javascript
-import { memo } from 'react';
-
-// memo로 감싸면 props가 바뀔 때만 다시 그린다
-const ExpensiveChild = memo(function ExpensiveChild({ name }) {
-  return <div>안녕 {name}!</div>;
-});
-```
-
-> **핵심:** `React.memo`는 props가 바뀌지 않으면 컴포넌트를 다시 그리지 않는다.
-
----
-
-## 실전: 세 가지 모두 함께 쓰기
-
-검색 기능이 있는 상품 목록이다.
-
-```javascript
-import { useState, useMemo, useCallback, memo } from 'react';
-
-function ProductPage() {
-  const [products] = useState([
-    { id: 1, name: '노트북', price: 1000000 },
-    { id: 2, name: '마우스', price: 30000 },
-    { id: 3, name: '키보드', price: 80000 },
-  ]);
-  const [search, setSearch] = useState('');
-  const [cartCount, setCartCount] = useState(0);
-
-  // 1. useMemo: 검색 결과를 기억
-  const filteredProducts = useMemo(() => {
-    return products.filter((p) => p.name.includes(search));
-  }, [products, search]);
-
-  // 2. useCallback: 함수를 기억
-  const addToCart = useCallback(() => {
-    setCartCount((prev) => prev + 1);
-  }, []);
-
-  return (
-    <div>
-      <input
-        value={search}
-        onChange={(e) => setSearch(e.target.value)}
-        placeholder="상품 검색"
-      />
-      <p>장바구니: {cartCount}개</p>
-
-      {/* 3. memo: 컴포넌트를 기억 */}
-      <ProductList products={filteredProducts} onAddToCart={addToCart} />
-    </div>
-  );
-}
-
-const ProductList = memo(function ProductList({ products, onAddToCart }) {
+const ProductList = memo(function ProductList({ items, onAdd }) {
   return (
     <ul>
-      {products.map((product) => (
-        <li key={product.id}>
-          {product.name} - {product.price.toLocaleString()}원
-          <button onClick={onAddToCart}>담기</button>
+      {items.map(({ id, name }) => (
+        <li key={id}>
+          {name} <button onClick={onAdd}>담기</button>
         </li>
       ))}
     </ul>
   );
 });
+
+export default function ProductPage() {
+  const [query, setQuery] = useState('');
+  const [cartCount, setCartCount] = useState(0);
+
+  const filtered = useMemo(
+    () => products.filter(({ name }) => name.includes(query)),
+    [query],
+  );
+
+  const addToCart = useCallback(() => {
+    setCartCount((count) => count + 1);
+  }, []);
+
+  return (
+    <>
+      <label>
+        상품 검색
+        <input value={query} onChange={(event) => setQuery(event.target.value)} />
+      </label>
+      <p>장바구니: {cartCount}개</p>
+      <ProductList items={filtered} onAdd={addToCart} />
+    </>
+  );
+}
 ```
 
-검색창에 입력하면 `filteredProducts`가 다시 계산되고 `ProductList`도 다시 그린다. 하지만 장바구니 버튼을 눌러도 `ProductList`는 다시 그리지 않는다. props가 안 바뀌었으니까.
+`담기`를 누르면 `ProductPage`의 `cartCount`가 바뀝니다. `query`는 그대로이므로 `useMemo`는 이전 배열을 반환합니다. `addToCart`는 현재 개수를 직접 읽는 대신 상태 업데이트 함수가 받은 값을 사용하므로 `cartCount`를 의존성에 넣을 필요가 없습니다. 두 props의 참조가 같으면 `memo`는 `ProductList`의 렌더링을 건너뛸 수 있습니다.
 
----
+`memo`는 기본적으로 각 prop을 `Object.is`로 비교합니다. 배열 내용이 같아도 렌더링마다 `filter()`를 호출하면 새 배열이 생깁니다. `onAdd`에 인라인 함수를 넘겨도 새 함수가 생깁니다. 둘 중 하나만 달라져도 이 예제에서는 목록을 건너뛸 수 없습니다.
 
-## 언제 써야 하나
+## 메모이제이션이 필요한지 확인하기
 
-| 도구 | 언제 쓰나 |
-|---|---|
-| `useMemo` | 배열 필터링, 정렬, 복잡한 계산 |
-| `useCallback` | 자식 컴포넌트에 함수를 전달할 때 |
-| `React.memo` | 부모가 자주 렌더링되는데 자식은 잘 안 바뀔 때 |
+예제처럼 상품이 세 개뿐이라면 보통 `filter()`를 그대로 사용해도 충분합니다. 실제 화면이 느리다면 React DevTools의 Profiler로 어느 컴포넌트가 자주 렌더링되고 시간이 얼마나 드는지 확인합니다. 비용이 큰 부분에만 적용하고 같은 동작을 다시 측정합니다.
 
-### 쓰지 말아야 할 때
+메모이제이션은 동작을 보장하는 장치가 아니라 성능 최적화입니다. 의존성에서 값을 의도적으로 빼면 이전 값을 읽을 수 있으므로, 계산이나 함수가 사용하는 반응형 값은 의존성에 포함합니다.
 
-```javascript
-// 과한 최적화 — 하지 마세요
-const sum = useMemo(() => 2 + 2, []);
-const Simple = memo(function Simple({ text }) { return <p>{text}</p>; });
-
-// 그냥 이렇게
-const sum = 2 + 2;
-function Simple({ text }) { return <p>{text}</p>; }
-```
-
-계산이 간단하거나 컴포넌트가 가벼우면 최적화 비용이 오히려 더 크다.
-
----
-
-## 요약
-
-- `useMemo` — 계산 결과를 기억한다
-- `useCallback` — 함수를 기억한다
-- `React.memo` — 컴포넌트를 기억한다
-
-처음 React를 배울 때는 이걸 신경 쓰지 않아도 된다. 먼저 동작하는 코드를 만들자. 앱이 느려지는 걸 느낄 때 그때 꺼내 쓰면 충분하다.
+공식 문서: [useMemo](https://react.dev/reference/react/useMemo), [useCallback](https://react.dev/reference/react/useCallback), [memo](https://react.dev/reference/react/memo)
