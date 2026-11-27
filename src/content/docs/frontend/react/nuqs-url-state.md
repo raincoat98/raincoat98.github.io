@@ -1,7 +1,7 @@
 ---
 categories: [React]
 title: nuqs로 URL 쿼리 파라미터 상태 관리하기
-description: React 18.3과 Ant Design에서 검색어, 카테고리, 페이지 번호를 URL에 저장하고 같은 예제를 Next.js App Router에서도 사용한다.
+description: React 18.3과 Ant Design에서 nuqs로 검색어, 카테고리, 페이지 번호를 URL에 저장하는 방법.
 created: 2026-06-01
 tags: [React|blue, Next.js|blue, nuqs|teal, URL 상태|teal, query string|teal]
 platform: nuqs v2
@@ -10,9 +10,9 @@ readingTime: 4
 
 # nuqs로 URL 쿼리 파라미터 상태 관리하기
 
-상품 목록의 URL이 `/?q=keyboard&category=peripherals&page=2`라면 새로고침하거나 링크를 공유해도 같은 검색 결과의 2페이지를 열 수 있다. 검색 조건을 `useState`에만 저장하면 링크에 이 정보가 남지 않는다.
+상품 목록에서 검색한 뒤 2페이지로 이동했다고 해볼게요. 주소가 `/?q=keyboard&category=peripherals&page=2`라면 새로고침하거나 링크를 공유해도 같은 화면을 열 수 있어요. 검색 조건을 `useState`에만 넣으면 주소에는 아무것도 남지 않죠.
 
-nuqs는 URL의 쿼리 파라미터를 React 상태처럼 읽고 쓰는 라이브러리다. 기본 예제는 Vite, React 18.3, Ant Design 5로 구성한다. nuqs v2는 React SPA에서 React 18.3 이상인 18.x와 React 19를 지원한다. Next.js는 별도 어댑터로 연결한다.
+nuqs를 쓰면 URL의 쿼리 파라미터를 React 상태처럼 읽고 바꿀 수 있어요. 먼저 Vite, React 18.3, Ant Design 5로 목록을 만들고, 같은 컴포넌트를 Next.js에도 연결해 볼게요. nuqs v2는 React SPA에서 React 18.3 이상인 18.x와 React 19를 지원해요.
 
 ## React 18.3에서 어댑터 설정
 
@@ -21,7 +21,7 @@ npm install react@18.3 react-dom@18.3 nuqs@2 antd@5
 npm install -D @types/react@18 @types/react-dom@18
 ```
 
-Vite의 React TypeScript 프로젝트를 기준으로 `src/main.tsx`에서 `NuqsAdapter`로 상품 목록을 감싼다.
+Vite의 React TypeScript 프로젝트라면 `src/main.tsx`에서 목록을 `NuqsAdapter`로 감싸면 돼요.
 
 ```tsx
 import { createRoot } from 'react-dom/client';
@@ -37,9 +37,9 @@ createRoot(document.getElementById('root')!).render(
 
 ## 검색어, 카테고리, 페이지 번호 묶기
 
-파라미터 하나만 읽고 쓰려면 `useQueryState`를 사용한다. 검색어와 카테고리가 바뀔 때 페이지도 함께 초기화해야 하므로 여기서는 `useQueryStates`로 세 값을 묶는다. 3페이지에서 결과가 한 페이지뿐인 조건으로 바꿔도 빈 페이지에 남지 않는다.
+URL에서 값 하나만 관리한다면 `useQueryState`면 충분해요. 이 목록에서는 2페이지에서 검색 조건을 바꿨을 때 1페이지부터 보여줘야 해요. 그래서 `useQueryStates`로 조건과 페이지 번호를 한 번에 바꿔요.
 
-파서는 URL 문자열을 화면에서 사용할 값으로 바꾼다. `page`는 숫자로 읽고, `category`는 목록에 있는 값만 받는다. 값이 없거나 파서가 읽지 못하면 `.withDefault()`에 지정한 값을 사용한다. 예제의 상품 목록은 코드 안에 두므로 별도 API가 필요 없다.
+URL의 값은 문자열이에요. 파서는 이 값을 화면에서 쓸 형태로 바꿔 줘요. 예를 들어 `page=2`는 숫자 `2`로 읽고, `category`는 목록에 있는 값만 받아요. 값이 없거나 파서가 읽지 못하면 `.withDefault()`에 넣은 값을 써요. 상품 목록은 예제 코드에 들어 있으니 별도 API는 필요 없어요.
 
 `src/ProductList.tsx`:
 
@@ -119,20 +119,20 @@ export default function ProductList() {
 }
 ```
 
-Ant Design의 `Table`에는 필터링한 전체 배열을 넘긴다. 현재 페이지는 URL에서 읽고, 어느 행을 보여줄지는 `Table`의 페이지네이션에 맡긴다. `/?page=999`를 열면 마지막 페이지를 보여주되 URL의 숫자는 다시 쓰지 않는다.
+Ant Design의 `Table`에는 필터링한 배열 전체를 넘겨요. URL에서 현재 페이지를 읽고, 실제로 보여줄 행은 `Table`이 골라요. `/?page=999`처럼 범위를 벗어난 주소로 들어오면 마지막 페이지를 보여줘요. 주소의 숫자까지 바꾸지는 않아요.
 
 ## URL과 뒤로 가기 동작 확인
 
-1. `/?q=keyboard&category=peripherals&page=2`를 열면 2페이지의 `Keyboard Mini`가 나온다.
-2. 검색어를 `pro`로 바꾸면 1페이지의 `Keyboard Pro`가 나온다. `page`는 기본값인 `1`과 같으므로 URL에서 빠진다.
-3. 카테고리를 바꾸면 검색어는 유지된다. `setFilters`는 넘긴 키만 바꾼다. 초기화 버튼의 `setFilters(null)`은 이 훅이 관리하는 세 키만 제거한다.
-4. 초기화한 뒤 테이블 아래에서 2페이지를 누른다. 브라우저에서 뒤로 가기를 하면 1페이지로 돌아간다.
+1. `/?q=keyboard&category=peripherals&page=2`를 열어 보세요. 2페이지에 `Keyboard Mini`가 나와요.
+2. 검색어를 `pro`로 바꾸면 `Keyboard Pro`가 있는 1페이지로 돌아가요. `1`은 기본값이라 주소에서 `page`가 빠져요.
+3. 카테고리만 바꾸면 검색어는 그대로 남아요. `setFilters`는 넘긴 키만 바꾸기 때문이에요. 초기화 버튼은 `setFilters(null)`로 이 훅이 관리하는 세 키를 지워요.
+4. 초기화한 뒤 테이블 아래에서 2페이지를 눌러 보세요. 브라우저에서 뒤로 가기를 하면 1페이지로 돌아와요.
 
-검색어와 카테고리 변경은 기본값인 `history: 'replace'`를 사용한다. 검색어 한 글자마다 방문 기록을 남기지 않기 위해서다. 페이지 이동은 `history: 'push'`로 새 기록을 추가한다.
+검색어를 한 글자 입력할 때마다 뒤로 가기 기록이 쌓이면 불편해요. 그래서 검색어와 카테고리는 기본값인 `history: 'replace'`로 현재 기록을 바꾸고, 페이지를 이동할 때만 `history: 'push'`로 새 기록을 남겨요.
 
 ## Next.js App Router에서 같은 목록 사용하기
 
-Next.js 14.2 이상에서는 루트 레이아웃에 `nuqs/adapters/next/app`의 어댑터를 쓴다.
+Next.js 14.2 이상에서도 목록 컴포넌트는 그대로 쓸 수 있어요. 루트 레이아웃에는 `nuqs/adapters/next/app`에서 가져온 어댑터를 넣어요.
 
 ```tsx
 // app/layout.tsx
@@ -148,7 +148,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
 }
 ```
 
-위 목록을 `app/products/ProductList.tsx`에 두고 `app/products/page.tsx`에서 렌더링한다. 정적 빌드에서는 검색 파라미터를 읽는 컴포넌트를 `Suspense`로 감싼다.
+목록 컴포넌트를 `app/products/ProductList.tsx`에 옮기고 `app/products/page.tsx`에서 불러와요. 정적 빌드에서는 검색 파라미터를 읽는 컴포넌트를 `Suspense`로 감싸야 해요.
 
 ```tsx
 import { Suspense } from 'react';
@@ -163,6 +163,6 @@ export default function ProductsPage() {
 }
 ```
 
-목록을 브라우저에서 필터링하므로 기본값인 `shallow: true`를 유지한다. Next.js의 서버 컴포넌트에서 결과를 다시 조회하려면 해당 업데이트에 `shallow: false`를 지정한다.
+이 예제는 브라우저에서 목록을 거르므로 기본값인 `shallow: true`면 충분해요. Next.js의 서버 컴포넌트에서 결과를 다시 조회해야 할 때는 해당 업데이트에 `shallow: false`를 지정해요.
 
 공식 문서: [nuqs 지원 버전](https://nuqs.dev/docs/installation), [어댑터](https://nuqs.dev/docs/adapters), [Ant Design Table](https://ant.design/components/table/)
