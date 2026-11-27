@@ -162,12 +162,13 @@ const { headings } = Astro.props;
 
   @media (max-width: 900px) {
     .toc {
-      top: calc(var(--header-h) + 1px);
+      top: calc(var(--header-h) + 0.5rem);
       align-self: start;
       z-index: 35;
       max-height: none;
       padding: 0;
       justify-self: end;
+      margin-inline-end: -0.75rem;
       overflow: visible;
     }
     .toc-title { display: none; }
