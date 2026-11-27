@@ -53,22 +53,23 @@ readingTime: 3
 
 - **잎이(ippy) (식물 관리 PWA)**
   - 식물 정보, 물주기 일정, 사진과 메모를 담은 성장 일지를 관리하는 웹앱 개발. 휴대폰 홈 화면에 설치해 사용 가능
-  - 4~9월과 10~3월의 물주기 기록을 나눠 각 기간의 간격 중앙값으로 다음 일정을 계산. 기록이 부족하면 식물별 기본 주기 적용
+  - 4월부터 9월까지와 10월부터 이듬해 3월까지의 물주기 기록을 나눠, 각 기간의 물주기 간격 중앙값으로 다음 일정을 계산. 기록이 부족하면 식물별 기본 주기 적용
   - 물주기와 식물별 푸시 알림, 식물 상세 화면으로 연결되는 QR 네임택 인쇄 및 이미지 저장 구현
   - React 18, TypeScript, Vite, Tailwind CSS 사용. 화면, 물주기 계산, PocketBase 데이터 접근 로직을 분리하고 알림은 별도 워커로 처리
-  - Docker Compose와 Caddy로 웹앱 제공, HTTPS, API 라우팅 구성. Vitest와 Testing Library로 테스트 구성
+  - Docker Compose와 Caddy로 웹앱 제공, HTTPS, API 라우팅 구성
+  - 링크: [잎이(ippy)](https://ippy.cloudrainit.com)
 
 - **북마클 (Chrome 확장 프로그램)**
   - React + Vite 기반 Chrome 확장 프로그램 개발
   - Firebase Authentication과 Firestore로 로그인 및 북마크 동기화 기능을 구현하고 Zustand로 전역 상태 관리
   - Firebase Hosting 대시보드 배포, Manifest V3 기준으로 Chrome 웹스토어 정식 등록
   - 웹스토어: [북마클](https://chromewebstore.google.com/detail/%EB%B6%81%EB%A7%88%ED%81%B4/lkkbdejelaagaipenlheijafnjggkdcm?hl=ko)
-  - 대시보드: [https://bookmarkhub-5ea6c.web.app/dashboard](https://bookmarkhub-5ea6c.web.app/dashboard)
+  - 서비스: [북마클](https://www.bookmarkle.app/)
 
 - **인생네컷 스타일 온라인 포토부스**
   - React 기반 웹캠 촬영 서비스, MinIO 기반 이미지 저장 구조 설계 및 촬영 후 QR 다운로드 제공
   - Docker와 Nginx로 배포하고 NAS에 도메인을 연결해 운영 비용 절감. 교회 행사에서 실제 사용
-  - 링크: [https://photo-box.kingwook.com/](https://photo-box.kingwook.com/)
+  - 링크: [https://photo-box.cloudrainit.com/](https://photo-box.cloudrainit.com/)
 
 ## Skill Set
 
