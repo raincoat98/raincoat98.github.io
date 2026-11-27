@@ -1,6 +1,6 @@
 ---
 categories: [React]
-title: "React와 Supabase 데이터 접근 설계: 쿼리와 UI 분리하기"
+title: React Supabase 데이터 조회와 수정
 description: React에서 Supabase 쿼리를 어디에 둘지 정하고, TanStack Query로 조회와 캐시를 관리하며 RLS로 데이터 접근을 제한하는 방법입니다.
 created: 2026-11-27
 tags: [React|blue, Supabase|teal, TanStack Query|orange, TypeScript|blue]
