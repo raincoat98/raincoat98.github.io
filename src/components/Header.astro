@@ -3,7 +3,14 @@ import ThemeToggle from "./ThemeToggle.astro";
 import SearchOverlay from "./SearchOverlay.astro";
 import { getPublishedPosts } from "../lib/posts";
 
-const posts = await getPublishedPosts();
+const postsByCategory = new Map<string, Awaited<ReturnType<typeof getPublishedPosts>>>();
+for (const post of await getPublishedPosts()) {
+  const category = post.data.categories[0] || "기타";
+  const group = postsByCategory.get(category);
+  if (group) group.push(post);
+  else postsByCategory.set(category, [post]);
+}
+const categories = [...postsByCategory].sort(([a], [b]) => a.localeCompare(b, "ko"));
 const nav = [
   { text: "홈", href: "/" },
   { text: "소개", href: "/introduce/my-develop" },
@@ -72,7 +79,7 @@ const isActive = (item: { href: string }) =>
   <nav aria-label="모바일 주요 탐색">
     <ul>
       {
-        nav.map((item) => (
+        nav.filter((item) => !item.href.startsWith("/category/")).map((item) => (
           <li>
             <a href={item.href} class:list={{ active: isActive(item) }}>
               {item.text}
@@ -82,20 +89,28 @@ const isActive = (item: { href: string }) =>
       }
     </ul>
   </nav>
-  <nav class="drawer-posts" aria-label="전체 글">
-    <h2>전체 글 <span>{posts.length}</span></h2>
+  <nav class="drawer-posts" aria-label="카테고리별 글">
     <ul>
-      {posts.map((post) => {
-        const href = `/${post.id}/`;
-        const active = current.pathname.replace(/\/$/, "") === href.slice(0, -1);
-        return (
-          <li>
-            <a href={href} class:list={{ active }} aria-current={active ? "page" : undefined}>
-              {post.data.title}
-            </a>
-          </li>
-        );
-      })}
+      {categories.map(([category, posts]) => (
+        <li>
+          <details>
+            <summary>{category === "Database" ? "데이터베이스" : category} <small>{posts.length}</small></summary>
+            <ul>
+              {posts.map((post) => {
+                const href = `/${post.id}/`;
+                const active = current.pathname.replace(/\/$/, "") === href.slice(0, -1);
+                return (
+                  <li>
+                    <a href={href} class:list={{ active }} aria-current={active ? "page" : undefined}>
+                      {post.data.title}
+                    </a>
+                  </li>
+                );
+              })}
+            </ul>
+          </details>
+        </li>
+      ))}
     </ul>
   </nav>
 </aside>
@@ -328,17 +343,24 @@ const isActive = (item: { href: string }) =>
     border-top: 1px solid var(--border);
     padding-bottom: env(safe-area-inset-bottom);
   }
-  .drawer-posts h2 {
-    margin: 0;
-    padding: 0.9rem 1.65rem 0;
-    font-size: 0.85rem;
-    color: var(--text-2);
+  .drawer-posts summary {
+    min-height: 44px;
+    padding: 0.65rem 0.9rem;
+    color: var(--text);
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
   }
-  .drawer-posts h2 span { color: var(--text-3); }
+  .drawer-posts small { color: var(--text-3); }
+  .drawer .drawer-posts ul ul {
+    margin-inline-start: 0.9rem;
+    padding: 0 0 0 0.4rem;
+    border-inline-start: 1px solid var(--border);
+  }
   .drawer-posts a {
     min-height: 44px;
-    padding-block: 0.55rem;
-    font-size: 0.9rem;
+    padding-block: 0.45rem;
+    font-size: 0.82rem;
     overflow-wrap: anywhere;
   }
 
