@@ -289,5 +289,10 @@ const toc = headings.filter((h) => h.depth >= 2 && h.depth <= 3);
 
   @media (max-width: 640px) {
     .post-layout { padding-top: 1.8rem; }
+    .prose :global(table :is(th, td)) {
+      min-inline-size: 9rem;
+      word-break: keep-all;
+      overflow-wrap: anywhere;
+    }
   }
 </style>
