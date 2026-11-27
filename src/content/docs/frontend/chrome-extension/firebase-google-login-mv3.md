@@ -1,492 +1,155 @@
 ---
 categories: [Chrome Extension]
-title: Chrome Extension(MV3)에서 Firebase Google 로그인 구현하기
-description: MV3에서 Firebase Google 로그인이 막히는 이유와 chrome.identity / Offscreen Document 두 가지 구현 방법을 React 환경 기준으로 정리합니다.
+title: Chrome 확장 프로그램에 Google 로그인 추가하기
+description: Manifest V3에서 Chrome Identity로 Google 토큰을 받고 Firebase Auth에 로그인하는 최소 예제입니다.
 created: 2025-11-21
-tags: [Chrome Extension|blue, Firebase|orange, Google 로그인|blue, MV3|teal, React|cyan]
+tags: [Chrome Extension|blue, Firebase|orange, Google 로그인|blue, MV3|teal]
 platform: Chrome Extension MV3
-readingTime: 10
+readingTime: 5
 ---
 
-# Chrome Extension(MV3)에서 Firebase Google 로그인 구현하기
+Chrome 확장 프로그램에서 Google 로그인만 필요하다면 `chrome.identity.getAuthToken()`으로 Google 액세스 토큰을 받을 수 있습니다. 이 토큰을 Firebase의 `signInWithCredential()`에 넘기면 확장 프로그램에 Firebase 로그인 상태가 만들어집니다.
 
-크롬 확장 프로그램에 "구글로 로그인" 버튼 하나 붙이는 건 웹앱에선 5분이면 끝나는 일이다. `signInWithPopup` 한 줄이면 되니까. 그런데 Manifest V3(MV3) 확장 프로그램에서 똑같이 하면 콘솔에 빨간 에러만 잔뜩 뜨고 팝업은 열리지 않는다.
+예제는 Google Chrome 105 이상을 기준으로 합니다. 확장 아이콘을 누르면 로그인 페이지가 새 탭에서 열립니다. 툴바 팝업 대신 탭을 사용하므로 인증 창으로 포커스가 이동해도 로그인 페이지가 닫히지 않습니다.
 
-이 글에서는 MV3에서 왜 기존 방식이 막히는지, 그리고 실제로 동작하는 두 가지 구현 방법을 React 환경 기준으로 정리한다.
+## 1. 프로젝트와 매니페스트 준비
 
----
-
-## 왜 MV3에서는 기존 방식이 안 되는가
-
-MV3는 보안 모델이 크게 바뀌면서 세 가지 제약이 생겼다.
-
-1. **백그라운드가 서비스 워커다.** MV2의 백그라운드 페이지와 달리 서비스 워커에는 `window`, `document`, DOM이 없다. 팝업을 띄우거나 iframe을 만드는 동작 자체가 불가능하다.
-2. **원격 코드 실행이 금지된다.** `signInWithPopup`은 구글 로그인 페이지를 외부에서 불러와 실행한다. MV3의 CSP(Content Security Policy)는 확장 패키지 외부에서 코드를 로드하는 것을 차단한다.
-3. **팝업 UI(action popup)는 수명이 짧다.** 사용자가 다른 곳을 클릭하면 팝업이 닫히면서 그 안의 로그인 흐름도 같이 사라진다.
-
-결론적으로 웹앱용 `firebase/auth`를 그대로 쓰면 안 되고, **확장 환경 전용 진입점과 우회 전략**이 필요하다.
-
----
-
-## 두 가지 구현 방법
-
-MV3에서 Firebase Google 로그인을 붙이는 현실적인 방법은 크게 두 가지다.
-
-| 구분 | 방법 1: `chrome.identity` | 방법 2: Offscreen Document |
-| --- | --- | --- |
-| 핵심 API | `chrome.identity.getAuthToken` / `launchWebAuthFlow` | `chrome.offscreen` + 호스팅된 iframe |
-| 외부 호스팅 페이지 | 불필요 | **필요** (별도 웹페이지 배포) |
-| 구현 난이도 | 낮음 | 높음 |
-| 브라우저 호환 | `getAuthToken`은 크롬 전용 / `launchWebAuthFlow`는 크로미엄 계열 | 크로미엄 계열 전반 |
-| 얻는 결과 | 토큰 → `signInWithCredential` | 완전한 Firebase 인증 상태 |
-| 공식 권장 여부 | 간편하지만 일부 비공식 | Firebase 공식 문서 방식 |
-
-처음 붙이는 거라면 **방법 1**로 시작하길 권한다. 더 풍부한 Firebase 기능(다양한 프로바이더, 리다이렉트 등)이 필요해지면 **방법 2**로 확장하면 된다.
-
-> **핵심 전제:** 확장 프로그램 쪽 코드(서비스 워커, 팝업, 콘텐츠 스크립트)에서는 반드시 `firebase/auth/web-extension` 진입점을 사용한다. 이 진입점은 Web SDK **v10.8.0 이상**에서 지원되며, 확장 환경에 맞게 인증 상태 저장(persistence)을 처리해 준다.
-
----
-
-## 사전 준비
-
-### 1. Firebase 프로젝트 설정
-
-Firebase 콘솔에서 프로젝트를 만들고 **Authentication → Sign-in method → Google**을 활성화한다.
-
-### 2. 승인된 도메인에 확장 ID 추가
-
-Google 같은 페더레이션 로그인을 쓰려면 확장 프로그램 ID를 승인된 도메인 목록에 넣어야 한다.
-
-- Firebase 콘솔 → **Authentication → Settings → Authorized domains**
-- 다음 형식으로 추가:
-
-```
-chrome-extension://여러분의_확장_ID
-```
-
-### 3. 패키지 설치
+Node.js와 npm을 설치한 환경에서 실행합니다. Firebase SDK는 Chrome이 확장 패키지 안에서 읽을 수 있도록 esbuild로 번들링합니다.
 
 ```bash
-npm install firebase
+mkdir mv3-firebase-login
+cd mv3-firebase-login
+npm init -y
+npm install firebase@12
+npm install -D esbuild
+mkdir extension
 ```
 
-### 4. manifest.json 기본 골격
+`extension/manifest.json`에 아래 내용을 넣습니다. `oauth2.client_id`는 확장 ID를 확인한 뒤 실제 값으로 바꿉니다.
 
 ```json
 {
   "manifest_version": 3,
-  "name": "My Extension",
+  "name": "Firebase Google 로그인 예제",
   "version": "1.0.0",
-  "background": {
-    "service_worker": "background.js",
-    "type": "module"
-  },
-  "action": {
-    "default_popup": "popup.html"
-  },
-  "permissions": ["identity", "storage"],
-  "content_security_policy": {
-    "extension_pages": "script-src 'self'; object-src 'self'"
-  }
-}
-```
-
-페더레이션 로그인을 위해 CSP 허용 목록에 다음 도메인을 추가해야 하는 경우가 있다(특히 Offscreen 방식).
-
-```
-https://apis.google.com
-https://www.gstatic.com
-https://www.googleapis.com
-https://securetoken.googleapis.com
-```
-
----
-
-## Firebase 초기화 (공통)
-
-확장 코드 전역에서 쓸 Firebase 인스턴스를 만든다. 진입점이 `firebase/auth/web-extension`이라는 점이 핵심이다.
-
-```js
-// src/firebase.js
-import { initializeApp } from "firebase/app";
-import { getAuth } from "firebase/auth/web-extension"; // ← 일반 firebase/auth 아님!
-
-const firebaseConfig = {
-  apiKey: "...",
-  authDomain: "your-project.firebaseapp.com",
-  projectId: "your-project",
-  appId: "...",
-};
-
-export const app = initializeApp(firebaseConfig);
-export const auth = getAuth(app);
-```
-
----
-
-## 방법 1: chrome.identity 방식 (간단·추천)
-
-`chrome.identity` API로 구글 토큰을 직접 받아서 Firebase에 `signInWithCredential`로 전달하는 방식이다. 외부 페이지 호스팅이 필요 없어 가장 간단하다.
-
-### 1-A. getAuthToken (크롬 전용, 가장 간단)
-
-manifest에 OAuth 클라이언트를 명시한다. 이때 클라이언트 ID는 Google Cloud 콘솔에서 **Chrome 확장 프로그램용** OAuth 클라이언트로 발급받은 것이어야 한다.
-
-```json
-{
+  "minimum_chrome_version": "105",
+  "permissions": ["identity"],
   "oauth2": {
-    "client_id": "여러분의ID.apps.googleusercontent.com",
-    "scopes": ["openid", "email", "profile"]
+    "client_id": "YOUR_CLIENT_ID.apps.googleusercontent.com",
+    "scopes": [
+      "https://www.googleapis.com/auth/userinfo.email",
+      "https://www.googleapis.com/auth/userinfo.profile"
+    ]
   },
-  "key": "확장_고정ID용_공개키"
+  "action": { "default_title": "로그인 페이지 열기" },
+  "background": { "service_worker": "background.js" }
 }
 ```
 
-로그인 로직:
+`extension/background.js`는 탭만 엽니다. 로그인 로직은 열린 탭에서 실행합니다.
 
 ```js
-// src/auth/signInWithChromeIdentity.js
-import { GoogleAuthProvider, signInWithCredential } from "firebase/auth/web-extension";
-import { auth } from "../firebase";
-
-export function signInWithGoogle() {
-  return new Promise((resolve, reject) => {
-    chrome.identity.getAuthToken({ interactive: true }, async (token) => {
-      if (chrome.runtime.lastError || !token) {
-        reject(chrome.runtime.lastError ?? new Error("토큰을 받지 못했습니다"));
-        return;
-      }
-      try {
-        // 두 번째 인자가 access token
-        const credential = GoogleAuthProvider.credential(null, token);
-        const result = await signInWithCredential(auth, credential);
-        resolve(result.user);
-      } catch (e) {
-        reject(e);
-      }
-    });
-  });
-}
+chrome.action.onClicked.addListener(() => {
+  chrome.tabs.create({ url: chrome.runtime.getURL("login.html") });
+});
 ```
 
-`getAuthToken`은 구현이 가장 깔끔하지만 **크롬에서만** 동작한다. Edge 등 다른 크로미엄 브라우저까지 지원하려면 아래 방식을 쓴다.
+## 2. Firebase와 Google OAuth 설정
 
-### 1-B. launchWebAuthFlow (크로미엄 계열 호환)
+1. [Firebase 콘솔](https://console.firebase.google.com/)에서 웹 앱을 등록하고 SDK 구성 값을 복사합니다. Authentication의 로그인 제공업체에서 Google을 활성화합니다.
+2. `chrome://extensions`에서 개발자 모드를 켜고 **압축해제된 확장 프로그램을 로드합니다**를 눌러 `extension` 폴더를 선택합니다. 목록에 표시되는 확장 ID를 복사합니다. 아직 로그인 페이지는 열지 않습니다.
+3. 같은 프로젝트의 [Google Auth Platform → Clients](https://console.cloud.google.com/auth/clients)에서 유형이 **Chrome Extension**인 OAuth 클라이언트를 만들고, 복사한 ID를 Item ID에 입력합니다. 발급된 클라이언트 ID로 매니페스트의 `oauth2.client_id`를 교체합니다.
 
-`launchWebAuthFlow`는 OAuth 흐름을 직접 구성한다. 리다이렉트 URI는 `https://<확장ID>.chromiumapp.org/` 형태를 사용한다. 이 방식에선 ID 토큰을 받아서 넘긴다.
+OAuth 앱을 외부 사용자용 테스트 상태로 운영 중이라면, 테스트에 사용할 Google 계정을 Audience의 테스트 사용자로 등록합니다. 개발 폴더를 옮기거나 스토어에 등록한 뒤 확장 ID가 달라지면 기존 OAuth 설정과 맞지 않을 수 있습니다. 스토어에서 할당한 ID를 개발 중에도 쓰려면 [Chrome의 확장 ID 고정 방법](https://developer.chrome.com/docs/extensions/how-to/integrate/oauth#keep-consistent-id)을 참고합니다.
 
-```js
-// src/auth/signInWithWebAuthFlow.js
-import { GoogleAuthProvider, signInWithCredential } from "firebase/auth/web-extension";
-import { auth } from "../firebase";
+## 3. 로그인 페이지 만들기
 
-const CLIENT_ID = "여러분의ID.apps.googleusercontent.com";
-
-export function signInWithGoogle() {
-  return new Promise((resolve, reject) => {
-    const redirectUri = `https://${chrome.runtime.id}.chromiumapp.org/`;
-    const nonce = crypto.randomUUID();
-
-    const authUrl = new URL("https://accounts.google.com/o/oauth2/v2/auth");
-    authUrl.searchParams.set("client_id", CLIENT_ID);
-    authUrl.searchParams.set("response_type", "id_token");
-    authUrl.searchParams.set("redirect_uri", redirectUri);
-    authUrl.searchParams.set("scope", "openid email profile");
-    authUrl.searchParams.set("nonce", nonce);
-
-    chrome.identity.launchWebAuthFlow(
-      { url: authUrl.href, interactive: true },
-      async (redirectUrl) => {
-        if (chrome.runtime.lastError || !redirectUrl) {
-          reject(chrome.runtime.lastError ?? new Error("인증 취소됨"));
-          return;
-        }
-        // 응답은 URL 해시(#)에 담겨 돌아온다
-        const params = new URLSearchParams(new URL(redirectUrl).hash.substring(1));
-        const idToken = params.get("id_token");
-
-        try {
-          const credential = GoogleAuthProvider.credential(idToken);
-          const result = await signInWithCredential(auth, credential);
-          resolve(result.user);
-        } catch (e) {
-          reject(e);
-        }
-      }
-    );
-  });
-}
-```
-
-> Google Cloud 콘솔에서 **웹 애플리케이션** 유형 OAuth 클라이언트를 만들고, 승인된 리디렉션 URI에 `https://<확장ID>.chromiumapp.org/`를 등록해야 한다.
-
----
-
-## 방법 2: Offscreen Document 방식 (공식 권장)
-
-Firebase 공식 문서가 안내하는 방식이다. 서비스 워커에 DOM이 없으니, **오프스크린 문서** 안에 iframe을 띄우고 그 iframe에서 일반 웹앱처럼 `signInWithPopup`을 실행한 뒤 결과를 `postMessage`로 다시 확장 쪽에 전달한다.
-
-구조는 다음과 같다.
-
-```
-서비스 워커 → offscreen.html(프록시) → iframe(호스팅된 웹페이지에서 signInWithPopup)
-            ←──────── 결과를 postMessage로 역방향 전달 ────────
-```
-
-### 1단계: 호스팅용 웹페이지 만들기
-
-웹에 공개적으로 접근 가능한 페이지가 필요하다(Firebase Hosting 등 아무 호스트나 가능).
+`extension/login.html`을 작성합니다. 로그인 중에는 버튼을 비활성화하고, 결과나 오류는 페이지에 표시합니다.
 
 ```html
-<!-- 호스팅 페이지: signInWithPopup.html -->
-<!DOCTYPE html>
-<html>
+<!doctype html>
+<html lang="ko">
   <head>
-    <title>signInWithPopup</title>
-    <script type="module" src="signInWithPopup.js"></script>
+    <meta charset="utf-8">
+    <title>Google 로그인</title>
   </head>
-  <body><h1>signInWithPopup</h1></body>
+  <body>
+    <h1>Google 로그인</h1>
+    <button id="auth-button" type="button" disabled>Google로 로그인</button>
+    <p id="status" role="status">로그인 상태를 확인하는 중입니다.</p>
+    <script src="login.bundle.js" defer></script>
+  </body>
 </html>
 ```
 
+프로젝트 루트에 `login.js`를 만듭니다. `firebaseConfig`는 Firebase 콘솔에서 복사한 웹 앱 구성으로 교체합니다. 확장 프로그램에서는 `firebase/auth/web-extension`을 사용합니다.
+
 ```js
-// 호스팅 페이지: signInWithPopup.js
-// ⚠️ 이 코드는 일반 웹페이지 컨텍스트라서 firebase/auth 를 쓴다 (web-extension 아님)
 import { initializeApp } from "firebase/app";
-import { getAuth, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
-import firebaseConfig from "./firebaseConfig.js";
+import {
+  getAuth,
+  GoogleAuthProvider,
+  onAuthStateChanged,
+  signInWithCredential,
+  signOut,
+} from "firebase/auth/web-extension";
 
-initializeApp(firebaseConfig);
-const auth = getAuth();
-const PROVIDER = new GoogleAuthProvider();
+const firebaseConfig = {
+  apiKey: "YOUR_API_KEY",
+  authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
+  projectId: "YOUR_PROJECT_ID",
+  appId: "YOUR_APP_ID",
+};
 
-// 부모 프레임(오프스크린 문서) 참조 → postMessage targetOrigin 으로 사용
-const PARENT_FRAME = document.location.ancestorOrigins[0];
+const auth = getAuth(initializeApp(firebaseConfig));
+const button = document.querySelector("#auth-button");
+const status = document.querySelector("#status");
 
-function sendResponse(result) {
-  globalThis.parent.self.postMessage(JSON.stringify(result), PARENT_FRAME);
-}
+onAuthStateChanged(auth, (user) => {
+  button.disabled = false;
+  button.textContent = user ? "로그아웃" : "Google로 로그인";
+  status.textContent = user
+    ? `로그인됨: ${user.displayName || user.email || user.uid}`
+    : "로그인되지 않았습니다.";
+});
 
-globalThis.addEventListener("message", function ({ data }) {
-  if (data.initAuth) {
-    signInWithPopup(auth, PROVIDER).then(sendResponse).catch(sendResponse);
+button.addEventListener("click", async () => {
+  button.disabled = true;
+  try {
+    if (auth.currentUser) {
+      await signOut(auth);
+      return;
+    }
+
+    const { token } = await chrome.identity.getAuthToken({ interactive: true });
+    if (!token) throw new Error("Google 액세스 토큰을 받지 못했습니다.");
+
+    const credential = GoogleAuthProvider.credential(null, token);
+    await signInWithCredential(auth, credential);
+  } catch (error) {
+    status.textContent = error instanceof Error ? error.message : String(error);
+  } finally {
+    button.disabled = false;
   }
 });
 ```
 
-### 2단계: 확장 매니페스트에 offscreen 권한 추가
+`getAuthToken()`은 Chrome 프로필의 Google 계정으로 토큰을 요청합니다. Firebase의 `credential()`에는 첫 번째 인자로 ID 토큰, 두 번째 인자로 액세스 토큰을 전달합니다. 이 예제에서 받은 값은 액세스 토큰이므로 첫 번째 인자는 `null`입니다.
 
-```json
-{
-  "permissions": ["offscreen", "storage"]
-}
+## 4. 빌드하고 로그인 확인하기
+
+프로젝트 루트에서 실행합니다.
+
+```bash
+npx esbuild login.js --bundle --platform=browser --outfile=extension/login.bundle.js
 ```
 
-### 3단계: 확장 내 오프스크린 문서
+1. `chrome://extensions`에서 확장 프로그램을 새로고침한 뒤 툴바의 확장 아이콘을 클릭합니다.
+2. **Google로 로그인**을 누릅니다. 로그인이 끝나면 페이지에 사용자 이름이나 이메일이 표시되고, Firebase 콘솔의 Authentication 사용자 목록에서도 확인할 수 있습니다.
+3. 페이지를 새로고침해도 로그인 상태가 유지되는지 확인합니다. **로그아웃**을 누르면 Firebase 세션이 종료됩니다. Chrome 자체의 Google 로그인이나 토큰 캐시는 지우지 않으므로 다시 로그인할 때 동의 화면이 생략될 수 있습니다.
 
-```html
-<!-- offscreen.html -->
-<!DOCTYPE html>
-<script src="./offscreen.js"></script>
-```
+토큰을 받는 단계에서 실패하면 Chrome 프로필의 로그인 상태, OAuth 클라이언트 유형, 등록된 확장 ID부터 확인합니다. 토큰을 받았는데 Firebase 로그인에서 실패하면 웹 앱 구성과 Google 제공업체 설정을 확인합니다.
 
-```js
-// offscreen.js — 호스팅 페이지와 확장 사이의 프록시
-const _URL = "https://your-site.web.app/signInWithPopup.html"; // 1단계에서 배포한 주소
-const iframe = document.createElement("iframe");
-iframe.src = _URL;
-document.documentElement.appendChild(iframe);
+이 방식에는 별도 호스팅 페이지가 필요하지 않습니다. 웹앱의 `signInWithPopup()`을 그대로 사용해야 한다면 [Firebase의 Offscreen Document 안내](https://firebase.google.com/docs/auth/web/chrome-extension#use_offscreen_documents)를 참고합니다.
 
-chrome.runtime.onMessage.addListener(handleChromeMessages);
-
-function handleChromeMessages(message, sender, sendResponse) {
-  if (message.target !== "offscreen") return false;
-
-  function handleIframeMessage({ data }) {
-    try {
-      if (typeof data === "string" && data.startsWith("!_{")) {
-        // Firebase 내부 메시지는 무시
-        return;
-      }
-      const parsed = JSON.parse(data);
-      globalThis.removeEventListener("message", handleIframeMessage);
-      sendResponse(parsed);
-    } catch (e) {
-      console.error(`JSON parse 실패 - ${e.message}`);
-    }
-  }
-
-  globalThis.addEventListener("message", handleIframeMessage, false);
-  iframe.contentWindow.postMessage({ initAuth: true }, new URL(_URL).origin);
-  return true; // 비동기 응답을 위해 필수
-}
-```
-
-### 4단계: 서비스 워커에서 오프스크린 문서 생성·호출
-
-```js
-// background.js
-import { GoogleAuthProvider, signInWithCredential } from "firebase/auth/web-extension";
-import { auth } from "./firebase";
-
-const OFFSCREEN_DOCUMENT_PATH = "/offscreen.html";
-let creating; // 동시 생성 방지용 프로미스
-
-async function hasDocument() {
-  const matchedClients = await clients.matchAll();
-  return matchedClients.some(
-    (c) => c.url === chrome.runtime.getURL(OFFSCREEN_DOCUMENT_PATH)
-  );
-}
-
-async function setupOffscreenDocument(path) {
-  if (await hasDocument()) return;
-  if (creating) {
-    await creating;
-  } else {
-    creating = chrome.offscreen.createDocument({
-      url: path,
-      reasons: [chrome.offscreen.Reason.DOM_SCRAPING],
-      justification: "Firebase 인증",
-    });
-    await creating;
-    creating = null;
-  }
-}
-
-async function closeOffscreenDocument() {
-  if (await hasDocument()) await chrome.offscreen.closeDocument();
-}
-
-export async function firebaseAuth() {
-  await setupOffscreenDocument(OFFSCREEN_DOCUMENT_PATH);
-
-  const response = await chrome.runtime.sendMessage({
-    type: "firebase-auth",
-    target: "offscreen",
-  });
-
-  await closeOffscreenDocument();
-
-  if (response?.user) {
-    // 오프스크린에서 받은 credential 로 서비스 워커 컨텍스트에서도 로그인 상태 동기화
-    const credential = GoogleAuthProvider.credentialFromResult(response);
-    if (credential) await signInWithCredential(auth, credential);
-  }
-  return response;
-}
-```
-
-이 방식은 설정이 번거롭지만, Firebase 인증 상태를 온전히 활용할 수 있고 크로미엄 계열 브라우저에서 폭넓게 동작한다.
-
----
-
-## React 연동: AuthContext + useAuth 훅
-
-어떤 방식으로 로그인하든, React 쪽에서는 인증 상태를 전역에서 공유하는 패턴이 깔끔하다. `onAuthStateChanged`로 상태를 구독하고 Context로 내려준다.
-
-```jsx
-// src/auth/AuthContext.jsx
-import { createContext, useContext, useEffect, useState } from "react";
-import { onAuthStateChanged, signOut } from "firebase/auth/web-extension";
-import { auth } from "../firebase";
-import { signInWithGoogle } from "./signInWithChromeIdentity"; // 방법 1 기준
-
-const AuthContext = createContext(null);
-
-export function AuthProvider({ children }) {
-  const [user, setUser] = useState(undefined); // undefined = 로딩, null = 미로그인
-
-  useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (u) => {
-      setUser(u && u.uid ? u : null);
-    });
-    return unsubscribe;
-  }, []);
-
-  const login = async () => {
-    try {
-      await signInWithGoogle();
-    } catch (e) {
-      console.error("로그인 실패:", e);
-      throw e;
-    }
-  };
-
-  const logout = () => signOut(auth);
-
-  return (
-    <AuthContext.Provider value={{ user, login, logout }}>
-      {children}
-    </AuthContext.Provider>
-  );
-}
-
-export const useAuth = () => useContext(AuthContext);
-```
-
-팝업 UI 컴포넌트:
-
-```jsx
-// src/popup/App.jsx
-import { useAuth } from "../auth/AuthContext";
-
-export default function App() {
-  const { user, login, logout } = useAuth();
-
-  if (user === undefined) return <p>로딩 중…</p>;
-
-  if (user) {
-    return (
-      <div>
-        <p>{user.displayName}님 환영합니다 👋</p>
-        <button onClick={logout}>로그아웃</button>
-      </div>
-    );
-  }
-
-  return <button onClick={login}>Google로 로그인</button>;
-}
-```
-
-엔트리에서 Provider로 감싸 준다.
-
-```jsx
-// src/popup/main.jsx
-import { createRoot } from "react-dom/client";
-import { AuthProvider } from "../auth/AuthContext";
-import App from "./App";
-
-createRoot(document.getElementById("root")).render(
-  <AuthProvider>
-    <App />
-  </AuthProvider>
-);
-```
-
----
-
-## 자주 만나는 에러와 해결법
-
-**`auth/operation-not-supported-in-this-environment`**
-일반 `firebase/auth`를 확장 코드에서 import했을 때 발생한다. 확장 쪽 코드는 반드시 `firebase/auth/web-extension`을 쓴다.
-
-**`auth/unauthorized-domain`**
-Firebase 콘솔의 승인된 도메인에 `chrome-extension://<확장ID>`를 추가하지 않은 경우다.
-
-**`getAuthToken`이 토큰을 반환하지 않음**
-manifest의 `oauth2.client_id`가 Chrome 확장 전용 OAuth 클라이언트가 아니거나, 확장 ID가 등록된 ID와 다를 때 발생한다. 개발 중 ID가 바뀌지 않도록 manifest에 `key`를 넣어 ID를 고정하자.
-
-**팝업이 닫히면서 로그인이 끊김**
-action popup은 수명이 짧다. 인증 흐름은 서비스 워커 또는 오프스크린 문서에서 처리하고, 팝업은 결과만 받아 표시하도록 분리한다.
-
-**서비스 워커에서 `window is not defined`**
-서비스 워커에는 DOM이 없다. 팝업/iframe이 필요한 동작은 오프스크린 문서로 옮긴다.
-
----
-
-## 마무리
-
-정리하면 선택 기준은 단순하다. 빠르게 붙이고 싶고 크롬만 지원해도 된다면 `chrome.identity.getAuthToken` 방식이 가장 간단하다. 크로미엄 계열 전반을 지원하면서도 외부 호스팅을 피하고 싶다면 `launchWebAuthFlow`가 좋은 절충안이다. Firebase의 다양한 프로바이더와 완전한 인증 상태가 필요하다면 공식 권장인 Offscreen Document 방식으로 간다.
-
-어느 쪽이든 두 가지만 기억하면 된다. 확장 코드에서는 `firebase/auth/web-extension`을 쓰고, DOM이 필요한 작업은 서비스 워커 밖(오프스크린·팝업)으로 빼는 것. 이 두 원칙이 MV3 인증 구현의 핵심이다.
+공식 문서: [Chrome Identity API](https://developer.chrome.com/docs/extensions/reference/api/identity#method-getAuthToken), [Chrome 확장 프로그램의 OAuth 설정](https://developer.chrome.com/docs/extensions/how-to/integrate/oauth), [Firebase 확장 프로그램 인증](https://firebase.google.com/docs/auth/web/chrome-extension)
