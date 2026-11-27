@@ -1,137 +1,117 @@
 ---
 categories: [Git]
-title: Git 기초 가이드
-description: 작업 파일과 스테이징의 차이를 확인하고, 연습 저장소에서 변경을 커밋한 뒤 GitHub의 작업 브랜치로 올리는 흐름을 익힙니다.
+title: "Git 기초 가이드: 설치부터 첫 커밋까지"
+description: Windows, macOS, Ubuntu에서 Git을 설치하고 git add와 git commit으로 첫 변경을 기록합니다. GitHub에 올리는 방법도 설명합니다.
 created: 2026-05-19
 tags: [Git|orange, 버전관리|teal]
 platform: Git
-readingTime: 12
+readingTime: 5
 ---
 
-로그인 버튼을 고치다가 README의 오타도 발견했다고 가정합니다. 두 변경을 따로 기록하면 나중에 버튼 수정만 찾아보거나 되돌리기 쉽습니다. Git에서는 `git add`로 이번에 기록할 변경을 고르고, `git commit`으로 그 상태를 남깁니다.
+Git은 파일의 변경 이력을 남기는 도구입니다. 처음에는 Git을 설치하고, `README.md` 한 파일을 만들어 변경을 기록하는 것부터 시작합니다. 내 컴퓨터에서 기록만 남길 때는 GitHub 계정이 필요하지 않습니다.
 
-Git은 파일 변경 이력을 관리하는 도구입니다. 인터넷에 연결하지 않아도 로컬에서 기록을 남길 수 있습니다. GitHub는 Git 저장소를 호스팅하고 코드 리뷰와 협업 기능을 제공하는 서비스입니다.
+## Git 설치하기
 
-## 변경이 이동하는 네 곳
-
-```text
-작업 디렉터리 → git add → 스테이징 영역 → git commit → 로컬 저장소 → git push → 원격 저장소
-```
-
-| 위치 | 역할 |
-| --- | --- |
-| 작업 디렉터리 | 파일을 열고 수정하는 폴더입니다. |
-| 스테이징 영역 | 다음 커밋에 넣을 파일 상태를 모아 둡니다. |
-| 로컬 저장소 | 내 컴퓨터에 커밋 이력을 저장합니다. |
-| 원격 저장소 | GitHub처럼 다른 곳에서 접근하는 저장소입니다. |
-
-`git add`는 실행한 시점의 파일 상태를 스테이징합니다. 같은 파일을 다시 고쳤다면 새 변경까지 포함할지 확인한 뒤 `git add`를 다시 실행합니다.
-
-## 연습 저장소에서 첫 커밋 만들기
-
-### 빈 폴더 준비하기
-
-터미널에서 새 임시 폴더를 만들고 `git init`으로 저장소를 초기화합니다. 아래 예시는 Git 2.28 이상이 필요합니다.
+먼저 Windows에서는 PowerShell, macOS와 Ubuntu에서는 터미널을 열고 아래 명령을 실행합니다. Git 버전이 표시되면 설치를 건너뜁니다.
 
 ```bash
-practice_dir="$(mktemp -d "${TMPDIR:-/tmp}/git-guide.XXXXXX")" &&
-  cd "$practice_dir" &&
-  git init -b main
+git --version
 ```
 
-다음 이름과 이메일은 연습용입니다. 초기화에 성공한 폴더에서 실행하면 이 저장소에만 적용됩니다. 실제 프로젝트에서는 커밋에 남길 이름과 이메일을 사용합니다. 여러 저장소에 같은 값을 기본으로 쓰려면 `git config --global`로 설정합니다.
+### Windows
+
+[Git for Windows 공식 설치 페이지](https://git-scm.com/install/windows)에서 설치 파일을 내려받아 실행합니다. 설치가 끝나면 시작 메뉴에서 Git Bash를 열고 `git --version`을 실행합니다. 아래 실습 명령도 Git Bash에 입력합니다.
+
+### macOS
+
+터미널에서 다음 명령을 실행하고 화면에 표시되는 설치 안내를 따릅니다. Xcode 전체를 설치할 필요는 없습니다.
 
 ```bash
-git config user.name "Git Practice"
-git config user.email "git-practice@example.com"
+xcode-select --install
 ```
 
-### 필요한 파일만 골라 커밋하기
+### Ubuntu
 
-아래의 `>`는 같은 이름의 파일이 있으면 덮어씁니다. 방금 만든 빈 연습 폴더에서만 실행합니다.
+터미널에서 패키지 목록을 갱신한 뒤 Git을 설치합니다.
 
 ```bash
-printf '# Git 연습\n' > README.md
-printf '스테이징 연습 메모\n' > notes.txt
+sudo apt update
+sudo apt install git
+```
+
+macOS와 Ubuntu에서도 설치 후 `git --version`을 실행해 버전이 나오는지 확인합니다. 다른 Linux 배포판은 [Git 공식 설치 문서](https://git-scm.com/install/linux)를 참고합니다.
+
+## 이름과 이메일 설정하기
+
+Git은 커밋마다 작성자의 이름과 이메일을 기록합니다. 다음 예시를 본인의 이름과 이메일로 바꿔 입력합니다. `--global`로 설정하면 같은 컴퓨터 계정에서 만든 저장소에 기본값으로 적용됩니다. 이 설정으로 GitHub에 로그인하는 것은 아닙니다.
+
+```bash
+git config --global user.name "홍길동"
+git config --global user.email "you@example.com"
+```
+
+GitHub에 커밋을 올릴 때 개인 이메일을 공개하고 싶지 않다면 [GitHub의 `noreply` 주소](https://docs.github.com/en/account-and-profile/how-tos/email-preferences/setting-your-commit-email-address)를 사용할 수 있습니다.
+
+## 첫 커밋 만들기
+
+### 1. 연습 폴더를 Git 저장소로 만들기
+
+터미널에서 기존 프로젝트 밖으로 이동한 뒤 새 폴더를 만듭니다. `git init`은 이 폴더의 변경 이력을 기록할 저장소를 준비합니다. `main`은 실습에 사용할 첫 브랜치 이름입니다.
+
+```bash
+mkdir git-practice
+cd git-practice
+git init -b main
+```
+
+`git-practice` 폴더가 이미 있다면 다른 이름으로 새 폴더를 만듭니다.
+
+### 2. 기록할 파일 고르기
+
+연습 폴더에 `README.md`를 만듭니다. `git status`를 실행하면 Git이 아직 추적하지 않는 새 파일로 표시됩니다.
+
+```bash
+echo "# Git 연습" > README.md
 git status
 ```
 
-두 파일이 아직 Git이 추적하지 않는 파일로 표시됩니다. `README.md`만 스테이징한 뒤 이번 커밋에 들어갈 내용을 확인합니다.
+`git add`로 다음 커밋에 넣을 파일을 고릅니다. 이 단계를 스테이징이라고 합니다. 파일을 다시 수정했다면 새 내용도 커밋에 넣도록 `git add`를 다시 실행합니다.
 
 ```bash
 git add README.md
-git diff --staged
-git commit -m "docs: 연습 저장소 README 추가"
+git status
 ```
 
-`git diff --staged`는 커밋에 들어갈 변경을 보여 줍니다. `git diff`는 Git이 추적하는 파일에서 아직 스테이징하지 않은 변경을 보여 줍니다. 추적하지 않는 새 파일은 `git status`에서 확인합니다.
+### 3. 변경 기록 남기기
 
-메모는 별도 커밋으로 남깁니다. `git log --oneline`을 실행하면 두 커밋을 한 줄씩 볼 수 있습니다.
+`git commit`은 선택한 파일의 상태를 내 컴퓨터에 기록합니다. `-m` 뒤에는 무엇을 바꿨는지 짧게 적습니다. `git log --oneline`에서 방금 만든 커밋을 확인합니다.
 
 ```bash
-git add notes.txt
-git diff --staged
-git commit -m "docs: 스테이징 연습 메모 추가"
+git commit -m "README 추가"
 git log --oneline
 ```
 
-`git add .`은 현재 폴더와 그 하위 폴더의 변경을 한꺼번에 스테이징합니다. 커밋할 파일이 정해져 있다면 파일 이름을 지정합니다. 특히 `.env`처럼 비밀값이 들어가는 파일은 커밋하지 않습니다.
+## GitHub에 올리기
 
-## 기존 저장소 복제하기
+GitHub는 Git 저장소를 온라인에 보관하고 공유하는 서비스입니다. 첫 커밋을 올리려면 GitHub에서 새 저장소를 만듭니다. 이미 로컬에 `README.md`가 있으므로 GitHub의 새 저장소에는 README, `.gitignore`, 라이선스를 추가하지 않습니다.
 
-이미 원격 저장소가 있다면 `git init` 대신 `git clone`을 사용합니다. 아래는 읽어 보기 위한 공개 저장소입니다. 현재 폴더 아래에 `Hello-World` 폴더가 생기며, 복제본에는 원격 저장소 주소가 `origin`이라는 이름으로 등록됩니다.
-
-```bash
-git clone https://github.com/octocat/Hello-World.git &&
-  cd Hello-World &&
-  git remote -v
-```
-
-내 프로젝트를 복제할 때는 GitHub 저장소의 `Code` 메뉴에서 HTTPS 주소를 복사합니다.
-
-## GitHub에서 최신 변경을 받고 내 변경 올리기
-
-이 단계는 앞의 연습 저장소나 공개 예제 복제본이 아닌, 쓰기 권한이 있는 프로젝트의 복제본에서 진행합니다. 예시는 원격 이름이 `origin`이고 기본 브랜치가 `main`인 경우입니다. `git remote -v`로 주소를, `git branch -a`로 알려진 로컬과 원격 브랜치 이름을 확인합니다.
-
-`git status`에서 남은 변경이 없는지 확인합니다. 브랜치는 특정 커밋을 가리키는 이름으로, 작업을 나누는 데 씁니다. 먼저 `main`으로 이동해 원격의 변경을 반영한 다음, 새 작업 브랜치를 만듭니다. `docs/readme`가 이미 쓰이는 이름이라면 다른 작업 브랜치 이름을 고릅니다.
+새 저장소 화면에서 HTTPS 주소를 복사합니다. 아래 예시 주소를 복사한 주소로 바꾼 뒤 연습 폴더에서 실행합니다. `origin`은 GitHub 저장소 주소에 붙이는 이름입니다. 첫 푸시에 `-u`를 붙이면 다음부터는 같은 브랜치에서 `git push`만 실행해도 됩니다.
 
 ```bash
-git switch main &&
-  git pull --ff-only origin main &&
-  git switch -c docs/readme
+git remote add origin https://github.com/USERNAME/git-practice.git
+git push -u origin main
 ```
 
-`git pull`은 원격 변경을 가져와 현재 브랜치에 반영합니다. `--ff-only`는 로컬과 원격에 서로 다른 커밋이 있어 브랜치 끝을 앞으로 옮기는 것만으로 합칠 수 없으면 중단합니다.
+인증을 요청하면 브라우저 로그인 안내를 따릅니다. 터미널이 비밀번호를 묻는다면 GitHub 계정 비밀번호 대신 [개인 액세스 토큰](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens)을 사용합니다. 푸시가 끝나면 GitHub 저장소에서 `README.md`가 보이는지 확인합니다.
 
-새 브랜치에서 `README.md`의 오타를 고친 뒤 다음 명령을 실행합니다. 스테이징한 변경을 검토하고 커밋에 성공한 뒤에만 푸시합니다.
+## 기존 프로젝트 가져오기
+
+이미 GitHub에 저장소가 있다면 새로 `git init`을 할 필요가 없습니다. 저장소의 `Code` 메뉴에서 주소를 복사해 `git clone`으로 내려받습니다. 복제한 폴더 안에서 `git pull`을 실행하면 원격 브랜치의 새 변경을 가져와 현재 브랜치에 반영합니다.
 
 ```bash
-git add README.md
-git diff --staged
+git clone https://github.com/USERNAME/REPOSITORY.git
+cd REPOSITORY
+git pull
 ```
 
-의도한 변경만 들어 있다면 커밋합니다.
-
-```bash
-git commit -m "docs: README 오타 수정"
-```
-
-```bash
-git push -u origin HEAD
-```
-
-여기서 `HEAD`는 현재 작업 브랜치를 가리킵니다. `git push -u origin HEAD`는 같은 이름으로 브랜치를 올리고 로컬 브랜치와 연결합니다. 이후 이 브랜치에 커밋을 추가했다면 `git push`로 올릴 수 있습니다. 코드를 검토받고 합치는 방법은 [Git 브랜치 전략과 GitHub Flow](./git-branch-guide)에서, 잘못 기록한 변경을 되돌리는 방법은 [Git 복구 가이드](./git-recovery-guide)에서 다룹니다.
-
-## 커밋 메시지 쓰기
-
-팀에서 정한 규칙이 있다면 그 규칙을 따릅니다. `종류: 변경 내용` 형식을 사용한다면 `fix: 결제 금액 오류 수정`처럼 무엇이 달라졌는지 제목에 적습니다.
-
-| 접두사 | 의미 | 예시 |
-| --- | --- | --- |
-| `feat` | 새 기능 | `feat: 로그인 페이지 추가` |
-| `fix` | 버그 수정 | `fix: 결제 금액 오류 수정` |
-| `docs` | 문서 변경 | `docs: README에 설치 방법 추가` |
-| `style` | 동작에 영향이 없는 코드 서식 변경 | `style: 들여쓰기 정리` |
-| `refactor` | 기능을 바꾸지 않는 코드 구조 개선 | `refactor: 중복 코드를 함수로 추출` |
-| `test` | 테스트 추가 또는 수정 | `test: 로그인 입력 검증 테스트 추가` |
-| `chore` | 설정이나 도구 관리 | `chore: 린트 설정 추가` |
+명령의 주소와 폴더 이름은 실제 저장소에 맞게 바꿉니다. 팀 프로젝트에서 작업을 나누는 방법은 [Git 브랜치 전략과 GitHub Flow](./git-branch-guide), 잘못 만든 커밋을 되돌리는 방법은 [Git 복구 가이드](./git-recovery-guide)에서 다룹니다.
