@@ -51,6 +51,13 @@ readingTime: 3
 
 ## Side Projects
 
+- **잎이(ippy) (식물 관리 PWA)**
+  - 식물 정보, 물주기 일정, 사진과 메모를 담은 성장 일지를 관리하는 웹앱 개발. 휴대폰 홈 화면에 설치해 사용 가능
+  - 4~9월과 10~3월의 물주기 기록을 나눠 각 기간의 간격 중앙값으로 다음 일정을 계산. 기록이 부족하면 식물별 기본 주기 적용
+  - 물주기와 식물별 푸시 알림, 식물 상세 화면으로 연결되는 QR 네임택 인쇄 및 이미지 저장 구현
+  - React 18, TypeScript, Vite, Tailwind CSS 사용. 화면, 물주기 계산, PocketBase 데이터 접근 로직을 분리하고 알림은 별도 워커로 처리
+  - Docker Compose와 Caddy로 웹앱 제공, HTTPS, API 라우팅 구성. Vitest와 Testing Library로 테스트 구성
+
 - **북마클 (Chrome 확장 프로그램)**
   - React + Vite 기반 Chrome 확장 프로그램 개발
   - Firebase Authentication과 Firestore로 로그인 및 북마크 동기화 기능을 구현하고 Zustand로 전역 상태 관리
@@ -62,12 +69,6 @@ readingTime: 3
   - React 기반 웹캠 촬영 서비스, MinIO 기반 이미지 저장 구조 설계 및 촬영 후 QR 다운로드 제공
   - Docker와 Nginx로 배포하고 NAS에 도메인을 연결해 운영 비용 절감. 교회 행사에서 실제 사용
   - 링크: [https://photo-box.kingwook.com/](https://photo-box.kingwook.com/)
-
-- **이커머스 쇼핑몰 템플릿**
-  - React, GSAP, Zustand로 UI와 인터랙션을 설계하고 구현해 5일 만에 MVP 완성
-  - 기능을 추가하기 쉽도록 컴포넌트 구조, 상태 관리, 애니메이션 흐름 설계
-  - Nest.js, PostgreSQL, Supabase를 기반으로 인증, 결제, 상품 관리 구조 설계 중
-  - 링크: [https://fashion-e-commerce-yarw.vercel.app/](https://fashion-e-commerce-yarw.vercel.app/)
 
 ## Skill Set
 
