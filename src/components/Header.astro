@@ -93,7 +93,7 @@ const isActive = (item: { href: string }) =>
     <ul>
       {categories.map(([category, posts]) => (
         <li>
-          <details>
+          <details open>
             <summary>{category === "Database" ? "데이터베이스" : category} <small>{posts.length}</small></summary>
             <ul>
               {posts.map((post) => {
@@ -357,10 +357,10 @@ const isActive = (item: { href: string }) =>
     padding: 0 0 0 0.4rem;
     border-inline-start: 1px solid var(--border);
   }
-  .drawer-posts a {
+  .drawer .drawer-posts a {
     min-height: 44px;
     padding-block: 0.45rem;
-    font-size: 0.82rem;
+    font-size: 0.75rem;
     overflow-wrap: anywhere;
   }
 
