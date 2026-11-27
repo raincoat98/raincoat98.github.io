@@ -1,6 +1,9 @@
 ---
 import ThemeToggle from "./ThemeToggle.astro";
 import SearchOverlay from "./SearchOverlay.astro";
+import { getPublishedPosts } from "../lib/posts";
+
+const posts = await getPublishedPosts();
 const nav = [
   { text: "홈", href: "/" },
   { text: "소개", href: "/introduce/my-develop" },
@@ -77,6 +80,22 @@ const isActive = (item: { href: string }) =>
           </li>
         ))
       }
+    </ul>
+  </nav>
+  <nav class="drawer-posts" aria-label="전체 글">
+    <h2>전체 글 <span>{posts.length}</span></h2>
+    <ul>
+      {posts.map((post) => {
+        const href = `/${post.id}/`;
+        const active = current.pathname.replace(/\/$/, "") === href.slice(0, -1);
+        return (
+          <li>
+            <a href={href} class:list={{ active }} aria-current={active ? "page" : undefined}>
+              {post.data.title}
+            </a>
+          </li>
+        );
+      })}
     </ul>
   </nav>
 </aside>
@@ -244,6 +263,7 @@ const isActive = (item: { href: string }) =>
     width: min(78vw, 300px);
     height: 100dvh;
     overflow-y: auto;
+    overscroll-behavior-y: contain;
     background: var(--bg);
     border-right: 1px solid var(--border);
     box-shadow: 8px 0 32px -12px rgba(0, 0, 0, 0.35);
@@ -252,6 +272,10 @@ const isActive = (item: { href: string }) =>
   }
   .drawer.open { transform: translateX(0); }
   .drawer-header {
+    position: sticky;
+    top: 0;
+    z-index: 1;
+    background: var(--bg);
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -299,6 +323,23 @@ const isActive = (item: { href: string }) =>
     color: var(--brand);
     background: var(--brand-soft);
     font-weight: 600;
+  }
+  .drawer-posts {
+    border-top: 1px solid var(--border);
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+  .drawer-posts h2 {
+    margin: 0;
+    padding: 0.9rem 1.65rem 0;
+    font-size: 0.85rem;
+    color: var(--text-2);
+  }
+  .drawer-posts h2 span { color: var(--text-3); }
+  .drawer-posts a {
+    min-height: 44px;
+    padding-block: 0.55rem;
+    font-size: 0.9rem;
+    overflow-wrap: anywhere;
   }
 
   @media (max-width: 720px) {

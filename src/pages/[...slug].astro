@@ -352,7 +352,10 @@ const toc = headings.filter((h) => h.depth >= 2 && h.depth <= 3);
   .prose :not(pre) > code { background: var(--brand-soft); }
 
   @media (max-width: 900px) {
-    .post-layout { grid-template-columns: 1fr; grid-template-areas: "header" "toc" "body"; gap: 1rem; }
+    .post-layout { grid-template-columns: minmax(0, 1fr); grid-template-areas: "toc" "header" "body"; gap: 1rem; }
+    .post-layout:has(> :global(.toc)) { padding-top: 0.5rem; }
+    .post-layout:not(:has(> :global(.toc))) { grid-template-areas: "header" "body"; }
+    .prose :global(:is(h2, h3)[id]) { scroll-margin-top: calc(var(--header-h) + 56px); }
     .post-header, .post-body { max-width: none; }
   }
   @keyframes post-fade {

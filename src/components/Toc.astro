@@ -10,9 +10,15 @@ interface Props {
 }
 const { headings } = Astro.props;
 ---
-<aside class="toc" aria-label="목차">
+<aside class="toc" aria-label="목차" data-toc>
   <p class="toc-title">목차</p>
-  <nav>
+  <button class="toc-toggle" type="button" data-toc-toggle aria-expanded="false" aria-controls="post-toc-list" hidden>
+    목차
+    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" aria-hidden="true">
+      <path d="m4 6 4 4 4-4" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+    </svg>
+  </button>
+  <nav id="post-toc-list" aria-label="글의 목차">
     <ol>
       {
         headings.map((h) => (
@@ -26,10 +32,23 @@ const { headings } = Astro.props;
 </aside>
 
 <script>
-  const links = [...document.querySelectorAll(".toc a")];
+  const toc = document.querySelector("[data-toc]");
+  const toggle = toc?.querySelector<HTMLButtonElement>("[data-toc-toggle]");
+  const links = [...(toc?.querySelectorAll("a") ?? [])];
+  if (toggle) {
+    toggle.hidden = false;
+    toggle.addEventListener("click", () => {
+      toggle.setAttribute("aria-expanded", String(toggle.getAttribute("aria-expanded") !== "true"));
+    });
+    for (const link of links) {
+      link.addEventListener("click", () => {
+        toggle.setAttribute("aria-expanded", "false");
+      });
+    }
+  }
   const map = new Map(links.map((a) => [a.getAttribute("href"), a]));
   let active = links[0];
-  const setActive = (el: Element | undefined) => {
+  const setActive = (el: HTMLAnchorElement | undefined) => {
     if (!el || el === active) return;
     active?.classList.remove("is-active");
     el.classList.add("is-active");
@@ -67,6 +86,7 @@ const { headings } = Astro.props;
     text-transform: uppercase;
     color: var(--text-3);
   }
+  .toc-toggle { display: none; }
   .toc nav ol {
     list-style: none;
     margin: 0;
@@ -92,6 +112,43 @@ const { headings } = Astro.props;
   }
 
   @media (max-width: 900px) {
-    .toc { position: static; max-height: none; margin-bottom: 1.5rem; padding: 0; }
+    .toc {
+      top: calc(var(--header-h) + 1px);
+      align-self: start;
+      z-index: 35;
+      max-height: none;
+      padding: 0;
+      background: var(--bg);
+    }
+    .toc-title { display: none; }
+    .toc-toggle:not([hidden]) {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+      min-height: 44px;
+      padding: 0 0.85rem;
+      border: 1px solid var(--border);
+      border-radius: 0.5rem;
+      background: var(--surface);
+      color: var(--text);
+      font: inherit;
+      font-weight: 600;
+      cursor: pointer;
+    }
+    .toc-toggle[aria-expanded="true"] svg { transform: rotate(180deg); }
+    .toc-toggle:not([hidden])[aria-expanded="false"] + nav { display: none; }
+    .toc nav {
+      max-height: min(55dvh, 24rem);
+      overflow-y: auto;
+      overscroll-behavior-y: contain;
+      padding-block: 0.25rem;
+    }
+    .toc a {
+      display: flex;
+      align-items: center;
+      min-height: 44px;
+    }
+    .toc .is-h3 a { padding-inline-start: 1.25rem; }
   }
 </style>
