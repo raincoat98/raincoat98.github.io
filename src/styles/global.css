@@ -101,6 +101,8 @@ body {
     "Apple SD Gothic Neo", "Segoe UI", Roboto, "Helvetica Neue", sans-serif;
   font-size: 16px;
   line-height: 1.75;
+  word-break: keep-all;
+  overflow-wrap: break-word;
   color: var(--text);
   background: var(--bg);
   -webkit-font-smoothing: antialiased;
@@ -158,8 +160,6 @@ pre {
   padding: 0.15em 0.4em;
   border-radius: 6px;
   font-weight: 500;
-  overflow-wrap: break-word;
-  word-break: break-word;
 }
 pre {
   overflow-x: auto;
