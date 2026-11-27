@@ -1,79 +1,57 @@
 ---
 categories: [Git]
 title: GitHub README 잘 쓰는 법
-description: 오픈소스·개인 프로젝트 GitHub README 작성 완전 가이드. 프로젝트 소개·설치·사용법·커밋 컨벤션 등 필수 항목을 마크다운 템플릿과 함께 정리합니다.
+description: 처음 저장소를 열어 본 사람이 프로젝트의 용도를 이해하고 실행할 수 있도록 GitHub README에 적을 내용과 실제 명령 예시를 정리합니다.
 created: 2024-04-12
 tags: [Git|orange, GitHub|orange, README|teal, 문서화|teal]
 platform: GitHub
 readingTime: 3
 ---
 
-# GitHub README 잘 쓰는 법
+저장소를 내려받았는데 어떤 버전이 필요한지, 어느 폴더에서 명령을 실행해야 하는지 적혀 있지 않으면 첫 실행부터 막힙니다. README 첫 부분에는 프로젝트가 하는 일과 직접 써 볼 방법을 적습니다.
 
----
+## 프로젝트 소개와 사용 예시
 
-# 프로젝트 명
+첫 문장에는 프로젝트가 무엇을 하는지 적습니다. 예를 들어 파일 변환 도구라면 사용한 언어보다 어떤 파일을 받아 무엇으로 바꾸는지 먼저 설명합니다. 대표 입력과 실행 결과를 하나씩 보여 주면 독자가 자기 용도에 맞는지 판단할 수 있습니다. 화면이 중요한 프로젝트라면 실행 화면이나 데모 링크를 덧붙입니다.
 
-## 프로젝트 개요
+## 설치와 첫 실행
 
-여기에 프로젝트의 간단한 설명을 추가하세요. 프로젝트의 목적, 사용된 기술, 개발 배경 등의 정보를 포함할 수 있습니다.
+필요한 도구와 버전을 명령보다 먼저 적습니다. 명령을 실행할 폴더와 성공했을 때 확인할 결과도 명시합니다. 환경 변수가 필요하다면 변수 이름과 설정 위치를 적고, 예제에는 실제 비밀값을 넣지 않습니다.
 
-## 설치 방법
+아래는 이 블로그의 npm 스크립트를 사용한 `README.md` 예시입니다. 다른 프로젝트에 적용할 때는 실제로 정의된 명령을 사용합니다. `npm ci`는 `package-lock.json`이 있는 프로젝트에서 사용합니다. 기존 `node_modules`가 있으면 지우고 잠금 파일에 맞춰 다시 설치합니다.
 
-프로젝트를 로컬에서 실행하기 위한 설치 방법을 기술합니다.
+````markdown
+# 개발 블로그
 
-```
-git clone [repository URL]
-cd [repository name]
-npm install
-npm start
-```
+Astro로 만든 기술 블로그입니다. 로컬 개발 서버에서 글을 미리 볼 수 있습니다.
 
-## 기능 설명
+## 로컬에서 실행
 
-프로젝트에서 제공하는 주요 기능들에 대해 설명합니다. 이 부분은 프로젝트의 핵심 가치와 사용자에게 제공하는 이점을 강조하는 데 도움이 됩니다.
+Node.js 24와 npm을 사용합니다. 저장소를 내려받은 뒤 `package.json`이 있는 폴더에서 실행합니다.
 
-## 커밋 컨벤션
-
-프로젝트에서 사용하는 커밋 메시지의 규칙을 설명합니다. 아래는 각 커밋 유형에 따른 예시입니다.
-
-- `Feat`: 새로운 기능이 추가될 때 사용합니다.
-  - 예: `Feat: 사용자 프로필 기능 추가`
-- `Fix`: 기존 서비스의 버그를 수정할 때 사용합니다.
-  - 예: `Fix: 로그인 버그 수정`
-- `Add`: 새로운 문서가 추가될 때 사용합니다.
-  - 예: `Add: API 사용 가이드 문서 추가`
-- `Update`: 기존 문서의 내용을 수정할 때 사용합니다.
-  - 예: `Update: 설치 가이드 업데이트`
-- `Remove`: 더 이상 필요 없는 문서를 삭제할 때 사용합니다.
-  - 예: `Remove: 구버전 사용자 메뉴얼 삭제`
-
-## 개발자 가이드
-
-프로젝트에 기여하고 싶은 개발자들을 위한 세부 가이드입니다. 기여 방법, 개발 환경 설정, 테스트 실행 방법 등을 포함할 수 있습니다.
-
-## 라이선스
-
-프로젝트의 라이선스 정보를 명시합니다. 일반적으로 오픈 소스 프로젝트에서는 MIT, Apache 등의 라이선스를 사용합니다.
-
-```
-MIT License
-
-Copyright (c) [year] [owner name]
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
+```bash
+npm ci && npm run dev
 ```
 
-## 연락처
+터미널에 표시된 로컬 주소를 브라우저에서 열면 블로그가 표시됩니다. 서버를 종료하려면 `Ctrl+C`를 누릅니다.
 
-프로젝트 관련 문의사항은 다음 연락처로 문의하세요.
+## 변경 검사
 
-- 이메일: [email address]
-- GitHub: [GitHub profile link]
+개발 서버를 종료하거나 새 터미널을 열고, 같은 폴더에서 검사 명령을 실행합니다.
 
----
+```bash
+npm run check
+```
+````
+
+## 기여 방법과 커밋 규칙
+
+외부 기여를 받는 저장소라면 버그를 제보할 곳과 풀 리퀘스트를 보내기 전에 실행할 검사를 적습니다. 절차가 길다면 `CONTRIBUTING.md`로 옮기고 README에서 링크합니다.
+
+프로젝트에 커밋 메시지 규칙이 있다면 예시를 함께 적습니다. `종류: 변경 내용` 형식이라면 `fix: 로그인 오류 수정`, `docs: 설치 요구사항 추가`처럼 작성합니다. 다른 접두사 예시는 [Git 기초 가이드](./git-basic-guide)에서 확인할 수 있습니다.
+
+## 라이선스와 문의
+
+라이선스가 있다면 이름을 적고 저장소의 `LICENSE` 파일에 링크합니다. 라이선스 본문은 `LICENSE`에 둡니다. 저장소가 공개되어 있어도 공개 여부만으로 재사용이나 배포가 허용되는 것은 아닙니다.
+
+문의는 실제로 확인하는 경로를 안내합니다. GitHub Issues를 사용한다면 버그를 제보할 때 재현 단계와 실행 환경을 적도록 안내합니다.
