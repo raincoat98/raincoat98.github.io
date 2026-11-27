@@ -13,7 +13,7 @@ for (const post of await getPublishedPosts()) {
 const categories = [...postsByCategory].sort(([a], [b]) => a.localeCompare(b, "ko"));
 const nav = [
   { text: "홈", href: "/" },
-  { text: "소개", href: "/introduce/my-develop" },
+  { text: "소개", href: "/introduce/about-me/" },
   { text: "Git", href: "/category/git" },
   { text: "프론트엔드", href: "/category/react" },
   { text: "데이터베이스", href: "/category/database" },
