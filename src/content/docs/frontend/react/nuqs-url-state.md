@@ -1,66 +1,34 @@
 ---
 categories: [React]
 title: nuqs로 URL 쿼리 파라미터 상태 관리하기
-description: nuqs의 useQueryState·useQueryStates로 URL 쿼리 파라미터를 타입 안전하게 React state처럼 다루는 방법을 정리합니다. 파서 종류, 옵션, 검색·필터·페이지네이션 예제까지 한 번에.
+description: Next.js App Router에서 nuqs로 검색어, 카테고리, 페이지 번호를 URL에 저장하고 뒤로 가기 동작을 설정한다.
 created: 2026-06-01
 tags: [React|blue, Next.js|blue, nuqs|teal, URL 상태|teal, query string|teal]
 platform: nuqs v2
-readingTime: 7
+readingTime: 4
 ---
 
 # nuqs로 URL 쿼리 파라미터 상태 관리하기
 
-> `useQueryState` · `useQueryStates` · parsers · history 옵션 한 번에 정리
+검색 결과의 URL이 `/products?q=grid&category=react&page=2`라면 새로고침하거나 링크를 공유해도 같은 검색 조건으로 목록을 열 수 있다. 검색 조건을 `useState`에만 저장하면 URL에 이 정보가 남지 않는다.
 
-`useState`처럼 URL 쿼리 파라미터를 읽고 쓰는 라이브러리입니다.  
-`URLSearchParams`를 직접 다루지 않아도 되고, **타입 변환·기본값·히스토리 제어**까지 한 번에 해결합니다.
+nuqs는 URL의 쿼리 파라미터를 React 상태처럼 읽고 쓰는 라이브러리다. 이 글에서는 nuqs v2와 Next.js App Router를 기준으로 설명한다.
 
----
-
-## 목차
-
-1. [개요](#_1-개요)
-2. [useQueryState](#_2-usequerystate)
-3. [파서(parsers) 종류](#_3-파서-종류)
-4. [useQueryStates](#_4-usequerystates)
-5. [주요 옵션](#_5-주요-옵션)
-6. [예제](#_6-예제)
-
----
-
-## 1. 개요
-
-URL: `?search=AG+Grid&page=2&category=react`
-
-```tsx
-// URLSearchParams 직접 사용 (기존 방식)
-const params = new URLSearchParams(location.search);
-const search = params.get('search') ?? '';
-const page = parseInt(params.get('page') ?? '1');
-
-// nuqs
-const [search, setSearch] = useQueryState('search', parseAsString.withDefault(''));
-const [page, setPage] = useQueryState('page', parseAsInteger.withDefault(1));
-```
-
-`setSearch('AG Grid')`를 호출하면 URL이 `?search=AG+Grid`로 자동 업데이트됩니다.  
-새로고침해도 URL에서 값을 복원하므로 **링크 공유·북마크**가 자연스럽게 동작합니다.
-
-### 설치
+## 어댑터 설정
 
 ```bash
-npm install nuqs
+npm install nuqs@2
 ```
 
-Next.js App Router는 루트 레이아웃에 `NuqsAdapter`를 추가합니다.
+`app/layout.tsx`에서 `NuqsAdapter`로 페이지를 감싼다. 이 어댑터가 URL 상태 변경을 App Router에 연결한다.
 
 ```tsx
-// app/layout.tsx
+import type { ReactNode } from 'react';
 import { NuqsAdapter } from 'nuqs/adapters/next/app';
 
-export default function RootLayout({ children }) {
+export default function RootLayout({ children }: { children: ReactNode }) {
   return (
-    <html>
+    <html lang="ko">
       <body>
         <NuqsAdapter>{children}</NuqsAdapter>
       </body>
@@ -69,189 +37,121 @@ export default function RootLayout({ children }) {
 }
 ```
 
-> **React SPA (Vite 등):** `nuqs/adapters/react` 어댑터를 루트에 적용합니다.
->
-> ```tsx
-> import { NuqsAdapter } from 'nuqs/adapters/react';
-> ```
+## 검색어, 카테고리, 페이지 번호 묶기
 
----
+파라미터 하나만 읽고 쓰려면 `useQueryState`를 사용한다. 검색어와 카테고리가 바뀔 때 페이지도 함께 초기화해야 하므로 여기서는 `useQueryStates`로 세 값을 묶는다. 3페이지에서 결과가 한 페이지뿐인 조건으로 바꿔도 빈 페이지에 남지 않는다.
 
-## 2. useQueryState
+파서는 URL 문자열을 화면에서 사용할 값으로 바꾼다. `page`는 숫자로 읽고, `category`는 목록에 있는 값만 받는다. 값이 없거나 파서가 읽지 못하면 `.withDefault()`에 지정한 값을 사용한다. 예제의 상품 목록은 코드 안에 두므로 별도 API가 필요 없다.
 
-`useState`와 동일한 인터페이스로 단일 파라미터를 읽고 씁니다.
+`app/products/page.tsx`:
 
 ```tsx
-import { useQueryState, parseAsString, parseAsInteger } from 'nuqs';
+'use client';
 
-function SearchBar() {
-  const [search, setSearch] = useQueryState('q', parseAsString.withDefault(''));
+import { Suspense } from 'react';
+import {
+  parseAsInteger,
+  parseAsString,
+  parseAsStringLiteral,
+  useQueryStates,
+} from 'nuqs';
 
-  return (
-    <input
-      value={search}
-      onChange={(e) => setSearch(e.target.value)}
-      placeholder="검색어 입력"
-    />
-  );
-}
-```
-
-`setSearch('')`를 호출하면 기본값과 같으므로 URL에서 `q` 파라미터가 **자동 제거**됩니다.
-
-### 값 초기화
-
-```tsx
-await setSearch(null); // URL에서 파라미터 제거
-```
-
----
-
-## 3. 파서 종류
-
-| 파서 | URL 값 | JS 타입 |
-|------|--------|---------|
-| `parseAsString` | `'hello'` | `string` |
-| `parseAsInteger` | `'42'` | `number` |
-| `parseAsFloat` | `'3.14'` | `number` |
-| `parseAsBoolean` | `'true'` | `boolean` |
-| `parseAsIsoDateTime` | `'2026-06-01T00:00:00.000Z'` | `Date` |
-| `parseAsArrayOf(parseAsString)` | `'a,b,c'` | `string[]` |
-| `parseAsJson<T>()` | JSON 문자열 | `T` |
-
-```tsx
-// 배열 파라미터: ?tags=react,typescript,nextjs
-const [tags, setTags] = useQueryState('tags', parseAsArrayOf(parseAsString).withDefault([]));
-
-// 커스텀 파서
-const parseAsSort = parseAsStringLiteral(['asc', 'desc'] as const);
-const [sort, setSort] = useQueryState('sort', parseAsSort.withDefault('asc'));
-```
-
----
-
-## 4. useQueryStates
-
-여러 파라미터를 하나의 훅으로 묶어 관리합니다.
-
-```tsx
-import { useQueryStates, parseAsString, parseAsInteger } from 'nuqs';
-
-const filterParsers = {
-  search: parseAsString.withDefault(''),
-  page: parseAsInteger.withDefault(1),
-  category: parseAsString,
-  sort: parseAsString.withDefault('name'),
-};
-
-function ProductFilter() {
-  const [filters, setFilters] = useQueryStates(filterParsers);
-
-  const handleReset = () =>
-    setFilters({ search: null, page: null, category: null, sort: null });
-
-  return (
-    <div>
-      <input
-        value={filters.search}
-        onChange={(e) => setFilters({ search: e.target.value, page: 1 })}
-      />
-      <select
-        value={filters.category ?? ''}
-        onChange={(e) => setFilters({ category: e.target.value || null, page: 1 })}
-      >
-        <option value="">전체</option>
-        <option value="react">React</option>
-        <option value="vue">Vue</option>
-      </select>
-      <button onClick={handleReset}>초기화</button>
-    </div>
-  );
-}
-```
-
-> **팁:** `setFilters`는 부분 업데이트를 지원합니다. 지정하지 않은 파라미터는 유지됩니다.
-
----
-
-## 5. 주요 옵션
-
-```tsx
-const [search, setSearch] = useQueryState('search', {
-  ...parseAsString,
-  defaultValue: '',
-  history: 'replace',  // 'push' | 'replace' (기본: 'replace')
-  shallow: true,       // false면 서버 재요청 (Next.js App Router)
-  scroll: false,       // 파라미터 변경 시 스크롤 맨 위로 이동 여부
-  throttleMs: 300,     // URL 업데이트 쓰로틀 (ms)
-});
-```
-
-| 옵션 | 기본값 | 설명 |
-|------|--------|------|
-| `history` | `'replace'` | `'push'`면 뒤로 가기로 이전 필터 복원 가능 |
-| `shallow` | `true` | `false`면 Next.js 서버 컴포넌트 재실행 |
-| `scroll` | `false` | `true`면 파라미터 변경 시 페이지 최상단으로 이동 |
-| `throttleMs` | `0` | 타이핑 중 URL 업데이트 횟수 제한 |
-
----
-
-## 6. 예제
-
-검색어 입력 · 카테고리 필터 · 페이지네이션을 URL로 관리하는 예제입니다.
-
-```tsx
-import { useQueryStates, parseAsString, parseAsInteger } from 'nuqs';
-
-const searchParsers = {
+const parsers = {
   q: parseAsString.withDefault(''),
-  category: parseAsString.withDefault('all'),
+  category: parseAsStringLiteral(['all', 'react', 'vue']).withDefault('all'),
   page: parseAsInteger.withDefault(1),
 };
 
-export default function ProductPage() {
-  const [{ q, category, page }, setSearch] = useQueryStates(searchParsers, {
-    history: 'push',    // 뒤로 가기로 이전 검색 상태 복원
-    throttleMs: 300,    // 검색어 타이핑 최적화
-  });
+const products = [
+  { name: 'React Grid Basic', category: 'react' },
+  { name: 'React Grid Pro', category: 'react' },
+  { name: 'React Grid Kit', category: 'react' },
+  { name: 'Vue Grid', category: 'vue' },
+];
+const pageSize = 2;
 
-  // q, category, page가 바뀌면 데이터 재조회
-  const { data } = useProducts({ q, category, page });
+export default function ProductsPage() {
+  return (
+    <Suspense fallback={<p>목록을 불러오는 중</p>}>
+      <ProductList />
+    </Suspense>
+  );
+}
+
+function ProductList() {
+  const [{ q, category, page }, setFilters] = useQueryStates(parsers);
+  const term = q.trim().toLowerCase();
+  const matches = products.filter(
+    (product) =>
+      (category === 'all' || category === product.category) &&
+      product.name.toLowerCase().includes(term),
+  );
+  const lastPage = Math.max(1, Math.ceil(matches.length / pageSize));
+  const currentPage = Math.min(Math.max(1, page), lastPage);
+  const start = (currentPage - 1) * pageSize;
 
   return (
-    <div>
-      <input
-        value={q}
-        onChange={(e) => setSearch({ q: e.target.value, page: 1 })}
-        placeholder="검색어"
-      />
-      <select
-        value={category}
-        onChange={(e) => setSearch({ category: e.target.value, page: 1 })}
+    <main>
+      <label>
+        검색어
+        <input
+          value={q}
+          onChange={(event) => setFilters({ q: event.target.value, page: 1 })}
+        />
+      </label>
+      <label>
+        카테고리
+        <select
+          value={category}
+          onChange={(event) => {
+            const value = parsers.category.parse(event.target.value);
+            void setFilters({ category: value, page: 1 });
+          }}
+        >
+          <option value="all">전체</option>
+          <option value="react">React</option>
+          <option value="vue">Vue</option>
+        </select>
+      </label>
+      <button onClick={() => setFilters(null)}>초기화</button>
+      {matches.length === 0 ? (
+        <p>검색 결과가 없다.</p>
+      ) : (
+        <ul>
+          {matches.slice(start, start + pageSize).map((product) => (
+            <li key={product.name}>{product.name}</li>
+          ))}
+        </ul>
+      )}
+      <button
+        disabled={currentPage <= 1}
+        onClick={() => setFilters({ page: currentPage - 1 }, { history: 'push' })}
       >
-        <option value="all">전체</option>
-        <option value="react">React</option>
-        <option value="vue">Vue</option>
-      </select>
-      <ProductList data={data} />
-      <Pagination
-        current={page}
-        onChange={(p) => setSearch({ page: p })}
-      />
-    </div>
+        이전
+      </button>
+      <span>{currentPage} / {lastPage}</span>
+      <button
+        disabled={currentPage >= lastPage}
+        onClick={() => setFilters({ page: currentPage + 1 }, { history: 'push' })}
+      >
+        다음
+      </button>
+    </main>
   );
 }
 ```
 
-URL: `?q=grid&category=react&page=2`  
-새로고침해도 필터 상태가 그대로 복원되고, 뒤로 가기로 이전 검색 조건으로 돌아갈 수 있습니다.
+`ProductList`는 URL을 읽는 클라이언트 컴포넌트라서 정적 빌드에서도 사용할 수 있도록 `Suspense`로 감쌌다. 페이지 번호는 화면에 표시할 때 범위를 제한한다. `/products?page=999`를 열면 마지막 페이지를 보여주지만 URL의 숫자를 다시 쓰지는 않는다.
 
----
+## URL과 뒤로 가기 동작 확인
 
-## 핵심 요약
+1. `/products?q=grid&category=react&page=2`를 열면 두 번째 페이지의 `React Grid Kit`가 나온다.
+2. 검색어를 `pro`로 바꾸면 첫 페이지의 `React Grid Pro`가 나온다. `page`는 기본값인 `1`과 같으므로 URL에서 빠진다.
+3. 카테고리를 바꾸면 검색어는 유지된다. `setFilters`는 넘긴 키만 바꾼다. 초기화 버튼의 `setFilters(null)`은 이 훅이 관리하는 세 키만 제거한다.
+4. 검색 조건을 초기화한 뒤 `다음`을 눌러 2페이지로 이동한다. 브라우저에서 뒤로 가기를 하면 1페이지로 돌아간다.
 
-- **`useQueryState`** — `useState`처럼 단일 파라미터 읽기·쓰기.
-- **`useQueryStates`** — 여러 파라미터 묶음 관리. 부분 업데이트 지원.
-- **parsers** — `parseAsInteger`, `parseAsBoolean`, `parseAsArrayOf` 등으로 타입 변환 자동 처리.
-- **`null` 설정** — 기본값과 같거나 `null`이면 URL에서 파라미터 자동 제거.
-- **`history: 'push'`** — 뒤로 가기로 이전 필터 상태 복원이 필요할 때 사용.
+검색어와 카테고리 변경은 기본값인 `history: 'replace'`를 사용한다. 검색어 한 글자마다 방문 기록을 남기지 않기 위해서다. 페이지 이동은 `history: 'push'`로 새 기록을 추가한다.
+
+이 예제는 브라우저에서 목록을 필터링하므로 기본값인 `shallow: true`를 그대로 쓴다. 서버 컴포넌트에서 검색 결과를 다시 조회해야 한다면 해당 업데이트에 `shallow: false`를 지정한다.
+
+공식 문서: [어댑터](https://nuqs.dev/docs/adapters), [useQueryStates](https://nuqs.dev/docs/batching), [히스토리와 서버 갱신 옵션](https://nuqs.dev/docs/options)
