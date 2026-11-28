@@ -17,9 +17,9 @@ readingTime: 3
 
 ## Experience
 
-**프리랜서 (Frontend Engineer)** 2026.01 \~ 현재
+**프리랜서 (Frontend Engineer)** <span class="career-period">2026.01 \~ 현재</span>
 
-**메타에스앤씨 (Frontend Engineer)** 2023.01 \~ 2026.01
+**메타에스앤씨 (Frontend Engineer)** <span class="career-period">2023.01 \~ 2026.01</span>
 
 - **펜차트 (한의원 수술 동의서 시스템)**
   - React와 Excalidraw 기반 시스템을 유지보수하고 기능 개선
@@ -30,7 +30,7 @@ readingTime: 3
   - NICE 결제 단말기 연동
   - 2년간 지속적인 기능 고도화 및 운영
 
-**(주)샘터 (Frontend Engineer)** 2017.01 \~ 2022.04
+**(주)샘터 (Frontend Engineer)** <span class="career-period">2017.01 \~ 2022.04</span>
 
 - **SIMS (재고 관리 시스템)**
   - React 기반 웹 시스템으로 전환하고 작업을 실시간으로 공유하고 조회하는 기능 개발
