@@ -12,13 +12,9 @@ const { headings } = Astro.props;
 ---
 <aside class="toc" aria-label="목차" data-toc>
   <p class="toc-title">목차</p>
-  <button class="toc-toggle" type="button" data-toc-toggle aria-expanded="false" aria-controls="post-toc-list" hidden>
+  <button class="toc-toggle" type="button" data-toc-toggle aria-label="목차" aria-expanded="false" aria-controls="post-toc-list" hidden>
     <svg class="toc-icon" width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" aria-hidden="true">
       <path d="M5.5 4h8M5.5 8h8m-8 4h8M2.5 4h.01m-.01 4h.01m-.01 4h.01" stroke-width="1.5" stroke-linecap="round" />
-    </svg>
-    목차
-    <svg class="toc-chevron" width="12" height="12" viewBox="0 0 16 16" fill="none" stroke="currentColor" aria-hidden="true">
-      <path d="m4 6 4 4 4-4" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
     </svg>
   </button>
   <nav id="post-toc-list" aria-label="글의 목차">
@@ -175,15 +171,14 @@ const { headings } = Astro.props;
     .toc-toggle:not([hidden]) {
       display: flex;
       align-items: center;
-      gap: 0.5rem;
-      min-height: 44px;
-      padding: 0 0.85rem;
+      justify-content: center;
+      inline-size: 44px;
+      block-size: 44px;
+      padding: 0;
       border: 1px solid var(--border);
       border-radius: 0.5rem;
       background: var(--surface);
       color: var(--text);
-      font-size: 0.85rem;
-      font-weight: 600;
       cursor: pointer;
     }
     .toc-toggle[aria-expanded="true"] {
@@ -191,7 +186,6 @@ const { headings } = Astro.props;
       border-color: var(--brand);
       color: var(--brand-strong);
     }
-    .toc-toggle[aria-expanded="true"] .toc-chevron { transform: rotate(180deg); }
     .toc-toggle:not([hidden])[aria-expanded="false"] + nav { display: none; }
     .toc-toggle:not([hidden]) + nav {
       position: absolute;
