@@ -197,12 +197,11 @@ const hasToc = !isExamples && toc.length > 0;
     display: grid;
     grid-template-columns: minmax(0, 1fr) 220px;
     grid-template-areas: "header toc" "body toc";
-    gap: 3rem;
+    gap: 1.25rem 3rem;
   }
   .post-header {
     grid-area: header;
     max-width: var(--content-w);
-    margin: 0 0 2.6rem;
     text-align: left;
   }
   .post-body { grid-area: body; max-width: var(--content-w); min-width: 0; }
@@ -218,7 +217,7 @@ const hasToc = !isExamples && toc.length > 0;
     margin-bottom: 1.1rem;
   }
   .post-header h1 {
-    margin: 0 0 0.9rem;
+    margin: 0 0 0.65rem;
     font-size: clamp(1.9rem, 4vw, 2.6rem);
     line-height: 1.3;
     letter-spacing: -0.02em;
@@ -227,7 +226,7 @@ const hasToc = !isExamples && toc.length > 0;
   }
   .post-header .lead {
     color: var(--text-2);
-    margin: 0 0 1.5rem;
+    margin: 0 0 0.85rem;
     max-width: 60ch;
     font-size: 1.05rem;
     line-height: 1.7;
@@ -240,19 +239,6 @@ const hasToc = !isExamples && toc.length > 0;
     gap: 0.3rem 1.1rem;
     color: var(--text-3);
     font-size: 0.86rem;
-    padding-bottom: 1.4rem;
-    position: relative;
-  }
-  .post-meta::after {
-    content: "";
-    position: absolute;
-    inset-inline-start: 0;
-    bottom: 0;
-    width: 56px;
-    height: 3px;
-    border-radius: 999px;
-    background: linear-gradient(90deg, var(--brand), var(--brand-strong));
-    opacity: 0.75;
   }
 
   /* 글 하단 태그 섹션 */
